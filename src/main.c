@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/22 18:13:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:58:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,13 @@ int main(int argc, char **argv, char **envp)
 	loop_prompt(line);
 	return(0);
 }
+/*
+int main() {
+    FILE *file = fopen("nonexistentfile.txt", "r");
+
+    if (file == NULL) {
+        handle_error("Failed to open file");
+    }
+
+    // Rest of your code
+    return 0;}*/

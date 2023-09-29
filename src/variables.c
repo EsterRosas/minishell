@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/28 11:44:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:41:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*var_name(char	*p, int aft_dl)
 	return (ft_substr(p, aft_dl, i - aft_dl));
 }
 
-static char	*init_dlr(char *s)
+char	*init_dlr(char *s)
 {
 	char	*one;
 	char	*two;
@@ -36,22 +36,18 @@ static char	*init_dlr(char *s)
 	two = NULL;
 	vname_l = ft_strlen(var_name(s, 1));
 	if (ft_strlen(s) == vname_l + 1)
-	{
-		free(s);
 		return (one);
-	}
 	else
 	{
 		two = malloc(sizeof(char) * ft_strlen(s));
 		if (!two)
 			return (NULL);
 		two = ft_substr(s, vname_l + 1, ft_strlen(s) - vname_l);
-		free(s);
 		return (ft_strjoin(one, two));
 	}
 }
 
-static char	*put_val(char *dl, int j, char **val)
+char	*put_val(char *dl, int j, char **val)
 {
 	int		i;
 
@@ -63,7 +59,7 @@ static char	*put_val(char *dl, int j, char **val)
 	return (val[j]);
 }
 
-static char	**nametoval(char **dlr, char **val)
+char	**nametoval(char **dlr, char **val)
 {
 	int		i;
 	int		j;
@@ -84,6 +80,7 @@ static char	**nametoval(char **dlr, char **val)
 			val[j] = put_val(dlr[i], j, val);
 			j++;
 		}
+		printf("val[%i]: %s\n", j - 1, val[j - 1]);
 		i++;
 	}
 	val[j] = NULL;
@@ -95,6 +92,7 @@ char	**repl_var(char **s, int len)
 	char	**res;
 	int		i;
 
+	printf("len: %i\n", len);
 	res = NULL;
 	i = 0;
 	if (!need_var(s))
@@ -105,13 +103,8 @@ char	**repl_var(char **s, int len)
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res);
-		while (res[i])
-			i++;
 		if (need_var(res))
 			res = repl_var(res, i);
-		i = 0;
-		while (s[i])
-			i++;
 		free_all(s, i);
 		return (res);
 	}

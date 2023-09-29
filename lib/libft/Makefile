@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 16:55:19 by ecabanas          #+#    #+#              #
-#    Updated: 2022/03/01 19:55:45 by ecabanas         ###   ########.fr        #
+#    Updated: 2023/09/29 20:37:56 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ OBJBONUS = $(SRCBONUS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize='address,undefined'
 
 RM = rm -f
 
