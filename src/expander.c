@@ -37,10 +37,8 @@ static char	*init_virg(char *s)
 static char	*virgtohome(char *spl, int j, char **exp)
 {
 	size_t	len;
-	int		i;
 
 	len = ft_strlen(spl);
-	i = 0;
 	if (len == 1)
 		return ("$HOME");
 	else

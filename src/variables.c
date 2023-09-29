@@ -17,9 +17,7 @@
 char	*var_name(char	*p, int aft_dl)
 {
 	int		i;
-	char	*res;
 
-	res = NULL;
 	i = aft_dl;
 	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
 		i++;
@@ -31,7 +29,8 @@ char	*init_dlr(char *s)
 	char	*one;
 	char	*two;
 	size_t	vname_l;
-
+// crec que aqui no hem calculat quant déspai necessitem per posar el valor de la variable,
+// cal que fem un strlen i reservem l'espai, no?
 	one = getenv(var_name(s, 1));
 	two = NULL;
 	vname_l = ft_strlen(var_name(s, 1));
@@ -49,9 +48,6 @@ char	*init_dlr(char *s)
 
 char	*put_val(char *dl, int j, char **val)
 {
-	int		i;
-
-	i = 0;
 	if (dl[0] == '$')
 		val[j] = init_dlr(dl);
 	else
@@ -80,7 +76,6 @@ char	**nametoval(char **dlr, char **val)
 			val[j] = put_val(dlr[i], j, val);
 			j++;
 		}
-		printf("val[%i]: %s\n", j - 1, val[j - 1]);
 		i++;
 	}
 	val[j] = NULL;
@@ -92,7 +87,6 @@ char	**repl_var(char **s, int len)
 	char	**res;
 	int		i;
 
-	printf("len: %i\n", len);
 	res = NULL;
 	i = 0;
 	if (!need_var(s))
