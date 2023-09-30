@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2023/09/30 11:20:58 by erosas-c         ###   ########.fr        #
+#    Updated: 2023/09/30 11:38:02 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,14 @@ libft:
 
 $(NAME):  libft $(OBJS)
 	$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT) $(IREADLINE) -lreadline $(OBJS) -fsanitize='address,undefined' -o $@
+# DAVANT -o: -fsanitize='address,undefined'
 
 linux: libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 
 $(OBJ)/%.o: $(SRC)/%.c $(OBJ)
-	$(CC) $(CFLAGS) -g -fsanitize='address,undefined' -c $< -o $@
+	$(CC) $(CFLAGS) -g -c $< -o $@
+# DAVANT LA -c: -fsanitize='address,undefined'
 
 $(OBJ):
 	mkdir $@
