@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/29 17:23:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:43:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	**cmdsubsplit(char **s, int len)
 		i = 0;
 		while (s[i])
 			i++;
-		free_all(s, i);
+		//free_all(s, i);
 		return (res);
 	}
 }

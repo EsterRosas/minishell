@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2023/09/30 11:38:02 by erosas-c         ###   ########.fr        #
+#    Updated: 2023/09/30 19:15:55 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ libft:
 	make -C lib/libft
 
 $(NAME):  libft $(OBJS)
-	$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT) $(IREADLINE) -lreadline $(OBJS) -fsanitize='address,undefined' -o $@
+	$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT) $(IREADLINE) -lreadline $(OBJS) -o $@
 # DAVANT -o: -fsanitize='address,undefined'
 
 linux: libft $(OBJS)

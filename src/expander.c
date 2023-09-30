@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/30 10:39:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:54:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,22 @@ static char	*init_virg(char *s)
 
 	one = NULL;
 	two = NULL;
-	if (ft_strlen(s) == 1)
+/*	if (ft_strlen(s) == 1)
 		return (s);
 	else
-	{
+	{*/
 		one = malloc(sizeof(char) * 6);
 		if (!one)
 			return (NULL);
-		one = "$HOME";
+//		one = "$HOME";
+		ft_strlcpy(one, "$HOME", 6);
 		two = malloc(sizeof(char) * ft_strlen(s));
 		if (!two)
 			return (NULL);
 		two = ft_substr(s, 1, ft_strlen(s) - 1);
+		//free(s);
 		return (ft_strjoin(one, two));
-	}
+	//}
 }
 
 static char	*virgtohome(char *spl)
@@ -50,9 +52,11 @@ static char	*virgtohome(char *spl)
 		if (!res)
 			return (NULL);
 		res = "$HOME";
+//		ft_strlcpy(res, "$HOME", 6);
 	}
 	else
 		res = init_virg(spl);
+	free (spl);
 	return (res);
 }
 
@@ -109,7 +113,7 @@ char	**cmdexpand(char **s, int len)
 		i = 0;
 		while (s[i])
 			i++;
-		free_all(s, i);
+	//	free_all(s, i);
 		return (res);
 	}
 }

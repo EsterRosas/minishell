@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/30 11:24:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:08:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ void	test(char *line)
 		printf("home_expanded[%i]: %s\n", i, cmd[i]);
 		i++;
 	}
+	free_all(cmd, i);
 	/*while (cmd[i])
-		i++;*/
+		i++;
 	cmd = repl_var(cmd, i);
 	i = 0;
 	while (cmd[i])
 	{
 		printf("var_replcd[%i]: %s\n", i, cmd[i]);
 		i++;
-	}
+	}*/
 }
 
 /*
