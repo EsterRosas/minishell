@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/29 17:37:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:09:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	loop_prompt(char *line)
 	if (line == NULL)
 	{
 		line = rl_gets(line);
-		ft_echo(line);
-		test(line);			// Change test function
+		//ft_echo(line);
+		test(line);
 	}
 	while (ft_strcmp(line, "exit") != 0)
 	{
 		line = rl_gets(line);
-		ft_echo(line);
-		test(line);			// Change test function
+	//	ft_echo(line);
+		test(line);
 	}
 	free(line);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/29 19:35:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 10:39:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static char	*init_virg(char *s)
 		return (s);
 	else
 	{
+		one = malloc(sizeof(char) * 6);
+		if (!one)
+			return (NULL);
 		one = "$HOME";
 		two = malloc(sizeof(char) * ft_strlen(s));
 		if (!two)
@@ -34,16 +37,23 @@ static char	*init_virg(char *s)
 	}
 }
 
-static char	*virgtohome(char *spl, int j, char **exp)
+static char	*virgtohome(char *spl)
 {
 	size_t	len;
+	char	*res;
 
+	res = NULL;
 	len = ft_strlen(spl);
 	if (len == 1)
-		return ("$HOME");
+	{
+		res = malloc(sizeof(char) * 6);
+		if (!res)
+			return (NULL);
+		res = "$HOME";
+	}
 	else
-		exp[j] = init_virg(spl);
-	return (exp[j]);
+		res = init_virg(spl);
+	return (res);
 }
 
 static char	**spltoexp(char **spl, char **exp)
@@ -64,7 +74,7 @@ static char	**spltoexp(char **spl, char **exp)
 		}
 		else
 		{
-			exp[j] = virgtohome(spl[i], j, exp);
+			exp[j] = virgtohome(spl[i]);
 			j++;
 		}
 		i++;
@@ -95,9 +105,7 @@ char	**cmdexpand(char **s, int len)
 		while (res[i])
 			i++;
 		if (need_expand(res))
-		{
 			res = cmdexpand(res, i);
-		}
 		i = 0;
 		while (s[i])
 			i++;

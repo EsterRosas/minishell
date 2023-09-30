@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/29 20:41:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:30:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ char	*init_dlr(char *s)
 	char	*one;
 	char	*two;
 	size_t	vname_l;
-// crec que aqui no hem calculat quant déspai necessitem per posar el valor de la variable,
-// cal que fem un strlen i reservem l'espai, no?
+
+	one = malloc(sizeof(char) * ft_strlen(getenv(var_name(s, 1))) + 1);
+	if (!one)
+		return (NULL);
 	one = getenv(var_name(s, 1));
 	two = NULL;
 	vname_l = ft_strlen(var_name(s, 1));
@@ -99,7 +101,10 @@ char	**repl_var(char **s, int len)
 		res = nametoval(s, res);
 		if (need_var(res))
 			res = repl_var(res, i);
-		free_all(s, i);
+		i = 0;
+		while (s[i])
+			i++;
+	//	free_all(s, i);
 		return (res);
 	}
 }
