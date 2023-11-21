@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/09/29 19:35:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:30:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <errno.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
