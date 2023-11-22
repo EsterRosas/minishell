@@ -45,13 +45,15 @@ void	loop_prompt(char *line)
 		line = rl_gets(line);
 		//ft_echo(line);
 		test(line);
+		free(line);
 	}
 	while (ft_strcmp(line, "exit") != 0)
 	{
 		line = rl_gets(line);
 	//	ft_echo(line);
 		test(line);
+		free(line);
 	}
-	free(line);
+//	free(line);
 	return ;
 }

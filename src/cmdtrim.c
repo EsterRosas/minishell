@@ -113,6 +113,7 @@ char	**cmdtrim(char *s)
 	if (!s)
 		return (NULL);
 	str_count = ft_str_count(s);
+	printf("str_count: %d\n", str_count);
 	res = malloc (sizeof(char *) * (str_count + 1));
 	if (!res)
 		return (NULL);

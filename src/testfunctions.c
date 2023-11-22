@@ -20,20 +20,21 @@ void	test(char *line)
 	char **cmd;
 
 	cmd = cmdtrim(line);
-	/*while (cmd[i])
+	while (cmd[i])
 	{
 		printf("trimmed[%i]: %s\n", i, cmd[i]);
 		i++;
-	}*/
-	while (cmd[i])
+	}
+//	free_all(cmd, i);
+	/*while (cmd[i])
 		i++;
 	cmd = cmdsubsplit(cmd, i);
-	/*i = 0;
+	i = 0;
 	while (cmd[i])
 	{
 		printf("splitted[%i]: %s\n", i, cmd[i]);
 		i++;
-	}*/
+	}
 	cmd = cmdexpand(cmd, i);
 	i = 0;
 	while (cmd[i])
@@ -42,7 +43,7 @@ void	test(char *line)
 		i++;
 	}
 	free_all(cmd, i);
-	/*while (cmd[i])
+	while (cmd[i])
 		i++;
 	cmd = repl_var(cmd, i);
 	i = 0;
