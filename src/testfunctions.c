@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/30 20:08:47 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:18:14 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	test(char *line)
 		printf("trimmed[%i]: %s\n", i, cmd[i]);
 		i++;
 	}
-//	free_all(cmd, i);
+	free_all(cmd, i);
 	/*while (cmd[i])
 		i++;
 	cmd = cmdsubsplit(cmd, i);
