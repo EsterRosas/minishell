@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:10:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/26 12:23:15 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:10:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ int	splitable(char *s)
 
 /*checks if the ** rec'd needs to be splitted by checking:
  * 1. If some of the strings included has some separator: <, > OR |
- * 2. If seps are alone in all strings in the **, so would need no split, as they are already splitted
- * 3. If separators are present and not alone we get to the las IF, where we check if the separators are between or outside quotes
- * (only in the 2nd case would need split)
+ * 2. If seps are alone in all strings in the **, so would need no split, as
+ * they are already splitted.
+ * 3. If separators are present and not alone we get to the las IF, where we
+ * check if the separators are between or outside quotes (only in the 2nd case
+ * would need split)
  */
 int	need_split(char **s)
 {

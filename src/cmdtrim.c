@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/23 15:14:10 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:14:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ int	ft_str_count(char *s)
 	return (str_count);
 }
 
+/* Takes the line read from command line (user input) and splits it into
+ * several char* (based on spaces not between single or double quotation
+ * marks). Altogether form a **char which is the value returned.
+ */
 char	**cmdtrim(char *s)
 {
 	int		str_count;
@@ -126,5 +130,6 @@ char	**cmdtrim(char *s)
 		s = s + (p - s) + ft_ptr_len(p);
 	}
 	res[n] = NULL;
+//	free(s);
 	return (res);
 }

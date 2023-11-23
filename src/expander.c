@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/21 20:51:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:07:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ static char	*init_virg(char *s)
 		return (s);
 	else
 	{*/
-		one = malloc(sizeof(char) * 6);
-		if (!one)
-			return (NULL);
-//		one = "$HOME";
-		ft_strlcpy(one, "$HOME", 6);
-		two = malloc(sizeof(char) * ft_strlen(s));
-		if (!two)
-			return (NULL);
-		two = ft_substr(s, 1, ft_strlen(s) - 1);
-		//free(s);
-		return (ft_strjoin(one, two));
+	one = malloc(sizeof(char) * 6);
+	if (!one)
+		return (NULL);
+//	one = "$HOME";
+	ft_strlcpy(one, "$HOME", 6);
+	two = malloc(sizeof(char) * ft_strlen(s));
+	if (!two)
+		return (NULL);
+	two = ft_substr(s, 1, ft_strlen(s) - 1);
+	//free(s);
+	return (ft_strjoin(one, two));
 	//}
 }
 

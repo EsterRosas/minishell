@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/23 15:17:00 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:15:15 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"
 
-static int ft_strcmp(char *s1, char *s2) {
-    while (*s1 && (*s1 == *s2))
+static int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && (*s1 == *s2))
 	{
-        s1++;
-        s2++;
-    }
-
-    return *(unsigned char *)s1 - *(unsigned char *)s2;
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 char	*rl_gets(char *line)
@@ -36,7 +36,6 @@ char	*rl_gets(char *line)
 		add_history(line);
 	return (line);
 }
-
 
 void	loop_prompt(char *line)
 {
