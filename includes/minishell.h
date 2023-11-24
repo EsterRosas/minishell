@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/11/21 20:30:04 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:54:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize);
 int		readl_test(void);
 
 /*		subsplit functions	*/
-char	**cmdsubsplit(char **s, int len);
+char	**cmdsubsplit(char **s);
 int		need_split(char **s);
 int		only_sep(char *s);
 int		is_sep(char c);
@@ -63,9 +63,8 @@ void     ft_pwd();
 /*      errors.c            */
 void    handle_error(const char *message);
 
-
-
-
+/*		utils.c				*/
+int		dbl_len(char **s);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/23 19:21:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:19:34 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,20 @@ void	test(char *line)
 
 	i = 0;
 	cmd_trm = cmdtrim(line);
-/*	while (cmd_trm[i])
+	/*while (cmd_trm[i])
 	{
 		printf("trimmed[%i]: %s\n", i, cmd_trm[i]);
 		i++;
-	}
-	free_all(cmd_trm, i);*/
-	while (cmd_trm[i])
-		i++;
-	cmd_spl = cmdsubsplit(cmd_trm, i);
-	i = 0;
+	}*/
+//	free_all(cmd_trm, dbl_len(cmd_trm));
+	cmd_spl = cmdsubsplit(cmd_trm);
 	while (cmd_spl[i])
 	{
 		printf("splitted[%i]: %s\n", i, cmd_spl[i]);
 		i++;
 	}
-	free_all(cmd_spl, i);
-/*	cmd = cmdexpand(cmd, i);
+	free_all(cmd_spl, dbl_len(cmd_spl));
+	/*cmd = cmdexpand(cmd, i);
 	i = 0;
 	while (cmd[i])
 	{

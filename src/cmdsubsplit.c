@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/23 19:05:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:56:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,28 +90,31 @@ static char	**trimtosplit(char **trm, char **spl)
  * leaves them alone as a separated char * in the char ** returned.
  * FIRST IF: In case the received char** doesn't need splitting, it returns the
  * same ** rec'd*/
-char	**cmdsubsplit(char **s, int len)
+char	**cmdsubsplit(char **s)
 {
 	char	**res;
 	int		i;
+	int		len;
 
 	res = NULL;
 	i = 0;
+	len = dbl_len(s);
 	if (!need_split(s))
 		return (s);
 	else
 	{
-		res = malloc (sizeof(char *) * (count_new_ptrs(s) + len + 1));
+		res = malloc (sizeof(char *) * (count_new_ptrs(s) + len) + 1);
 		if (!res)
 			return (NULL);
-			res = trimtosplit(s, res);
+		res = trimtosplit(s, res);
 		while (res[i])
+		{
+			printf("res[%i]: %s, len: %i\n", i, res[i], dbl_len(res));
 			i++;
-		res = cmdsubsplit(res, i);
-		i = 0;
-		while (s[i])
-			i++;
-		free_all(s, i);
+		}
+		if (need_split(res))
+			res = cmdsubsplit(res);
+		free_all(s, dbl_len(s));
 		return (res);
 	}
 }
