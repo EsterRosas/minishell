@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/24 19:19:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:06:55 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	test(char *line)
 	int		i;
 	char	**cmd_trm;
 	char	**cmd_spl;
+	char	**cmd_exp;
+//	char	**cmd_var;
 
 	i = 0;
 	cmd_trm = cmdtrim(line);
@@ -29,27 +31,25 @@ void	test(char *line)
 	}*/
 //	free_all(cmd_trm, dbl_len(cmd_trm));
 	cmd_spl = cmdsubsplit(cmd_trm);
-	while (cmd_spl[i])
+/*	while (cmd_spl[i])
 	{
 		printf("splitted[%i]: %s\n", i, cmd_spl[i]);
 		i++;
-	}
-	free_all(cmd_spl, dbl_len(cmd_spl));
-	/*cmd = cmdexpand(cmd, i);
+	}*/
+//	free_all(cmd_spl, dbl_len(cmd_spl));
+	cmd_exp = cmdexpand(cmd_spl);
 	i = 0;
-	while (cmd[i])
+	while (cmd_exp[i])
 	{
-		printf("home_expanded[%i]: %s\n", i, cmd[i]);
+		printf("home_expanded[%i]: %s\n", i, cmd_exp[i]);
 		i++;
 	}
-	free_all(cmd, i);
-	while (cmd[i])
-		i++;
-	cmd = repl_var(cmd, i);
+	free_all(cmd_exp, dbl_len(cmd_spl));
+/*	cmd_var = repl_var(cmd_exp);
 	i = 0;
-	while (cmd[i])
+	while (cmd_var[i])
 	{
-		printf("var_replcd[%i]: %s\n", i, cmd[i]);
+		printf("var_replcd[%i]: %s\n", i, cmd_var[i]);
 		i++;
 	}*/
 }

@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/11/24 18:54:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:53:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ int		splitable(char *s);
 int		count_new_ptrs(char **s);
 char	*first_spl(char *tr);
 char	*last_spl(char *tr, int l);
-char	*mid_spl(char *tr);
 int		next_quote(char *p, int i, char c);
 
 /*		expander functions	*/
 int		need_expand(char **s);
 int		expandable(char *s);
-char	**cmdexpand(char **s, int len);
-char	*mid_virg(char *sp);
+char	**cmdexpand(char **s);
+
 int		need_var(char **s);
 int		has_var(char *s);
-char	**repl_var(char **s, int len);
+char	**repl_var(char **s);
 char	*mid_dlr(char *s);
 char	*var_name(char	*p, int aft_dl);
 
@@ -58,7 +57,7 @@ void	test(char *line);
 
 /*      builtins.c            */
 void    ft_echo(const char *message);
-void     ft_pwd();
+void    ft_pwd();
 
 /*      errors.c            */
 void    handle_error(const char *message);

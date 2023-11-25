@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/30 19:36:08 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:59:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*init_dlr(char *s)
 	char	*one;
 	char	*two;
 	size_t	vname_l;
+	char	*res;
 
 	one = malloc(sizeof(char) * ft_strlen(getenv(var_name(s, 1))) + 1);
 	if (!one)
@@ -40,11 +41,14 @@ char	*init_dlr(char *s)
 		return (one);
 	else
 	{
-		two = malloc(sizeof(char) * ft_strlen(s));
+		/*two = malloc(sizeof(char) * ft_strlen(s));
 		if (!two)
-			return (NULL);
+			return (NULL);*/
 		two = ft_substr(s, vname_l + 1, ft_strlen(s) - vname_l);
-		return (ft_strjoin(one, two));
+		res = ft_strjoin(one, two);
+		free(one);
+		free(two);
+		return (res);
 	}
 }
 
@@ -84,27 +88,21 @@ char	**nametoval(char **dlr, char **val)
 	return (val);
 }
 
-char	**repl_var(char **s, int len)
+char	**repl_var(char **s)
 {
 	char	**res;
-	int		i;
 
-	res = NULL;
-	i = 0;
 	if (!need_var(s))
 		return (s);
 	else
 	{
-		res = malloc (sizeof(char *) * (len + 1));
+		res = malloc (sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res);
 		if (need_var(res))
-			res = repl_var(res, i);
-		i = 0;
-		while (s[i])
-			i++;
-		//free_all(s, i);
+			res = repl_var(res);
+		free_all(s, dbl_len(s));
 		return (res);
 	}
 }

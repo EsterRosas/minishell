@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/24 19:56:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:52:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@
 static void	fill_mid_two(char *t, int j, char **spl, size_t len)
 {
 	size_t	k;
+	int		i;
 
 	k = 0;
-	spl[j++] = mid_spl(t);
+	i = 0;
+	while (t[i] && !is_sep(t[i]))
+		i++;
+	spl[j++] = ft_substr(t, 0, i);
 	k = ft_strlen(spl[j - 1]);
 	spl[j++] = ft_substr(t, k, len - k + 1);
 	return ;
@@ -93,11 +97,9 @@ static char	**trimtosplit(char **trm, char **spl)
 char	**cmdsubsplit(char **s)
 {
 	char	**res;
-	int		i;
 	int		len;
 
 	res = NULL;
-	i = 0;
 	len = dbl_len(s);
 	if (!need_split(s))
 		return (s);
@@ -107,11 +109,6 @@ char	**cmdsubsplit(char **s)
 		if (!res)
 			return (NULL);
 		res = trimtosplit(s, res);
-		while (res[i])
-		{
-			printf("res[%i]: %s, len: %i\n", i, res[i], dbl_len(res));
-			i++;
-		}
 		if (need_split(res))
 			res = cmdsubsplit(res);
 		free_all(s, dbl_len(s));

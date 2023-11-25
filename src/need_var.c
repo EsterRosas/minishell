@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/09/27 18:57:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:04:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*mid_dlr(char *s)
 	int		i;
 
 	i = 0;
-	one = NULL;
-	two = NULL;
+//	one = NULL;
+//	two = NULL;
 	vname_l = 0;
 	while (s[i] && s[i] != '$')
 		i++;
