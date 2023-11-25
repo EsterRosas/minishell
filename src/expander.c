@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/25 14:01:53 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:59:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static char	*init_virg(char *s)
 	char	*two;
 	char	*res;
 
-	one = NULL;
-	two = NULL;
 	one = malloc(sizeof(char) * 6);
 	if (!one)
 		return (NULL);
@@ -38,7 +36,6 @@ static char	*virgtohome(char *spl)
 	size_t	len;
 	char	*res;
 
-//	res = NULL;
 	len = ft_strlen(spl);
 	if (len == 1)
 	{
@@ -87,7 +84,6 @@ char	**cmdexpand(char **s)
 {
 	char	**res;
 
-	res = NULL;
 	if (!need_expand(s))
 		return (s);
 	else
