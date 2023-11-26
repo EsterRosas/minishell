@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/23 18:09:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:03:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,41 @@
 #include "../includes/defines.h"
 #include <fcntl.h>
 
+t_envv	*cp_envp(char **envp)
+{
+	t_envv	*res;
+	int		i;
+	int		pos;
+
+	i = 0;
+	pos = 0;
+	res = malloc(sizeof(t_envv) * dbl_len(envp));
+	if (!res)
+		return (NULL);
+	while (envp[i] != NULL)
+	{
+		pos = ft_strchr(envp[i], '=') - envp[i];
+		res[i].nm = ft_substr(envp[i], 0, pos);
+		res[i].val = ft_substr(envp[i], pos + 1, ft_strlen(envp[i]) - 1);
+		res[i].size = dbl_len(envp);
+//		printf("res[%i].nm: %s, res[%i].val: %si, res[%i].size: %i\n", i, res[i].nm, i, res[i].val, i, res[i].size);
+		i++;
+	}
+	return (res);
+}
+
+
 int	main(int argc, char **argv, char **envp)
 {
 	static char	*line;
+	t_envv		*o_envp;
 
+	o_envp = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-	(void)envp;
 	line = NULL;
-	loop_prompt(line);
+	loop_prompt(line, o_envp);
+	free_env(o_envp);
 	return (0);
 }
 /*

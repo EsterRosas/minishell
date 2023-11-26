@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/25 15:05:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:09:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"	
 
-char	*var_name(char	*p, int aft_dl)
+char	*var_name(char *p, int aft_dl)
 {
 	int		i;
+	char	*res;
 
 	i = aft_dl;
 	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
 		i++;
-	return (ft_substr(p, aft_dl, i - aft_dl));
+	res = ft_substr(p, aft_dl, i - aft_dl);
+	free(p);
+	return (res);
 }
 
 char	*init_dlr(char *s)
@@ -31,14 +34,16 @@ char	*init_dlr(char *s)
 	size_t	vname_l;
 	char	*res;
 
+	printf("variable name: %s\n", getenv(var_name(s, 1)));
 	one = malloc(sizeof(char) * ft_strlen(getenv(var_name(s, 1))) + 1);
 	if (!one)
 		return (NULL);
 	one = getenv(var_name(s, 1));
+	printf("one is: %s\n", one);
 	two = NULL;
 	vname_l = ft_strlen(var_name(s, 1));
 	if (ft_strlen(s) == vname_l + 1)
-		return (one);
+		res = one;
 	else
 	{
 		/*two = malloc(sizeof(char) * ft_strlen(s));
@@ -48,8 +53,9 @@ char	*init_dlr(char *s)
 		res = ft_strjoin(one, two);
 		free(one);
 		free(two);
-		return (res);
 	}
+	return (res);
+
 }
 
 char	*put_val(char *dl, int j, char **val)
@@ -88,7 +94,7 @@ char	**nametoval(char **dlr, char **val)
 	return (val);
 }
 
-char	**repl_var(char **s)
+char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
 
@@ -101,7 +107,7 @@ char	**repl_var(char **s)
 			return (NULL);
 		res = nametoval(s, res);
 		if (need_var(res))
-			res = repl_var(res);
+			res = repl_var(res, o_envp);
 		free_all(s, dbl_len(s));
 		return (res);
 	}

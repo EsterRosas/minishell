@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/10/02 17:27:32 by damendez         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:58:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,12 @@ typedef struct s_subpr
 	int		infile;
 	int		outfile;
 }		t_subpr;
+
+typedef	struct s_envv
+{
+	char	*nm;
+	char	*val;
+	int		size;
+}		t_envv;
 
 #endif

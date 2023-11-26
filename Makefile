@@ -6,14 +6,14 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2023/11/21 20:56:37 by erosas-c         ###   ########.fr        #
+#    Updated: 2023/11/26 20:59:26 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=		minishell
 HEADER		=		includes/minishell.h
 USERNAME	:=		$(shell whoami)
-OS		:=		$(shell uname)
+OS			:=		$(shell uname)
 
 SRC			=		src
 OBJ			=		obj
