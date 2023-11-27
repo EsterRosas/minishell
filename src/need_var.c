@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/26 14:05:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:05:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"
 
-char	*mid_dlr(char *s)
+/*char	*get_oenv(char *s, t_envv *o_envp)
+{
+	int	i;
+
+	i = 0;
+	while (i 
+
+}*/
+
+/*char	*mid_dlr(char *s, t_envv *o_envp)
 {
 	char	*one;
 	char	*two;
@@ -37,7 +46,7 @@ char	*mid_dlr(char *s)
 		return (ft_strjoin(one, two));
 	}
 	return (one);
-}
+}*/
 
 int	some_doll_outq(char *p)
 {

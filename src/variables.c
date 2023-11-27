@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/26 20:09:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:57:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,61 @@ char	*var_name(char *p, int aft_dl)
 	return (res);
 }
 
-char	*init_dlr(char *s)
+char	*init_dlr(char *s, t_envv *o_envp)
 {
 	char	*one;
 	char	*two;
+	char	*three;
 	size_t	vname_l;
-	char	*res;
+	int		i = 0;
+	(void)o_envp;
+//	size_t	vval_l;
+//	char	*res;
 
-	printf("variable name: %s\n", getenv(var_name(s, 1)));
-	one = malloc(sizeof(char) * ft_strlen(getenv(var_name(s, 1))) + 1);
+//	printf("variable name: %s\n", get_oenv(var_name(s, 1)), o_envp);
+//	vval_l = ft_strlen(get_oenv(var_name(s, 1), o_envp));
+/*	one = malloc(sizeof(char) * vval_l + 1);
 	if (!one)
 		return (NULL);
-	one = getenv(var_name(s, 1));
+	one = get_oenv(var_name(s, 1), o_envp);*/
+	while (s[i] != '$')
+		i++;
+	printf("i: %i\n", i);
+	vname_l = ft_strlen(var_name(s, i));
+	printf("AFTER i: %i\n", i);
+	printf("BEFORE s is: %s\n", s);
+	one = ft_substr(s, 0, i);
+	printf("s is: %s\n", s);
 	printf("one is: %s\n", one);
-	two = NULL;
-	vname_l = ft_strlen(var_name(s, 1));
-	if (ft_strlen(s) == vname_l + 1)
+	printf("len(s): %lu\n", ft_strlen(s));
+	two = ft_substr(s, i + 1, ft_strlen(s) - (i + 1));
+	printf("i: %i, two is: %s\n", i, two);
+	three = ft_substr(two, vname_l, ft_strlen(two));
+	two = ft_substr(two, 0, vname_l - 1);
+	printf("one: %s\ntwo: %s\nthree: %s\n", one, two, three);
+	/*if (ft_strlen(s) == ft_strlen(var_name(s, 1)) + 1)
 		res = one;
 	else
 	{
-		/*two = malloc(sizeof(char) * ft_strlen(s));
-		if (!two)
-			return (NULL);*/
 		two = ft_substr(s, vname_l + 1, ft_strlen(s) - vname_l);
 		res = ft_strjoin(one, two);
 		free(one);
 		free(two);
-	}
-	return (res);
-
+	}*/
+	return (two);
 }
 
-char	*put_val(char *dl, int j, char **val)
+
+char	*put_val(char *dl, int j, char **val, t_envv *o_envp)
 {
-	if (dl[0] == '$')
-		val[j] = init_dlr(dl);
-	else
-		val[j] = mid_dlr(dl);
+	/*if (dl[0] == '$')*/
+		val[j] = init_dlr(dl, o_envp);
+	/*else
+		val[j] = mid_dlr(dl, o_envp);*/
 	return (val[j]);
 }
 
-char	**nametoval(char **dlr, char **val)
+char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 {
 	int		i;
 	int		j;
@@ -85,7 +99,7 @@ char	**nametoval(char **dlr, char **val)
 		}
 		else
 		{
-			val[j] = put_val(dlr[i], j, val);
+			val[j] = put_val(dlr[i], j, val, o_envp);
 			j++;
 		}
 		i++;
@@ -105,7 +119,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		res = malloc (sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
-		res = nametoval(s, res);
+		res = nametoval(s, res, o_envp);
 		if (need_var(res))
 			res = repl_var(res, o_envp);
 		free_all(s, dbl_len(s));

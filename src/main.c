@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/26 21:03:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:37:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_envv	*cp_envp(char **envp)
 		res[i].nm = ft_substr(envp[i], 0, pos);
 		res[i].val = ft_substr(envp[i], pos + 1, ft_strlen(envp[i]) - 1);
 		res[i].size = dbl_len(envp);
-//		printf("res[%i].nm: %s, res[%i].val: %si, res[%i].size: %i\n", i, res[i].nm, i, res[i].val, i, res[i].size);
 		i++;
 	}
 	return (res);
