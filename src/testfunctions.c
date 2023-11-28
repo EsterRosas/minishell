@@ -51,13 +51,13 @@ void	test(char *line, t_envv *o_envp)
 	}*/
 //	free_all(cmd_exp, dbl_len(cmd_spl));
 	cmd_var = repl_var(cmd_exp, o_envp);
-/*	i = 0;
+//	i = 0;
 	while (cmd_var[i])
 	{
 		printf("var_replcd[%i]: %s\n", i, cmd_var[i]);
 		i++;
 	}
-	free_all(cmd_var, dbl_len(cmd_var));*/
+	free_all(cmd_var, dbl_len(cmd_var));
 }
 
 /*

@@ -50,8 +50,10 @@ char	**cmdexpand(char **s);
 int		need_var(char **s);
 int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
-char	*mid_dlr(char *s, t_envv *o_envp);
+//char	*mid_dlr(char *s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
+char	*get_oenv(char *s, t_envv *o_envp);
+
 
 /*      testfunctions.c        */
 void	test(char *line, t_envv *o_envp);

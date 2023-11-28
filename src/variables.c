@@ -23,59 +23,69 @@ char	*var_name(char *p, int aft_dl)
 	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
 		i++;
 	res = ft_substr(p, aft_dl, i - aft_dl);
-	free(p);
+	//free(p);
 	return (res);
 }
 
-char	*init_dlr(char *s, t_envv *o_envp)
+char	*feed_res(char *s, size_t vname_l, char	*vval, char *res)
 {
-	char	*one;
-	char	*two;
-	char	*three;
-	size_t	vname_l;
-	int		i = 0;
-	(void)o_envp;
-//	size_t	vval_l;
-//	char	*res;
+	int	i;
+	int	j;
+	int	k;
 
-//	printf("variable name: %s\n", get_oenv(var_name(s, 1)), o_envp);
-//	vval_l = ft_strlen(get_oenv(var_name(s, 1), o_envp));
-/*	one = malloc(sizeof(char) * vval_l + 1);
-	if (!one)
-		return (NULL);
-	one = get_oenv(var_name(s, 1), o_envp);*/
-	while (s[i] != '$')
-		i++;
-	printf("i: %i\n", i);
-	vname_l = ft_strlen(var_name(s, i));
-	printf("AFTER i: %i\n", i);
-	printf("BEFORE s is: %s\n", s);
-	one = ft_substr(s, 0, i);
-	printf("s is: %s\n", s);
-	printf("one is: %s\n", one);
-	printf("len(s): %lu\n", ft_strlen(s));
-	two = ft_substr(s, i + 1, ft_strlen(s) - (i + 1));
-	printf("i: %i, two is: %s\n", i, two);
-	three = ft_substr(two, vname_l, ft_strlen(two));
-	two = ft_substr(two, 0, vname_l - 1);
-	printf("one: %s\ntwo: %s\nthree: %s\n", one, two, three);
-	/*if (ft_strlen(s) == ft_strlen(var_name(s, 1)) + 1)
-		res = one;
-	else
+	j = 0;
+	k = 0;
+	while (s[j] != '$')
+		j++;
+	i = j + 1 + vname_l;
+	while (vval[k])
 	{
-		two = ft_substr(s, vname_l + 1, ft_strlen(s) - vname_l);
-		res = ft_strjoin(one, two);
-		free(one);
-		free(two);
-	}*/
-	return (two);
+		res[j] = vval[k];
+		j++;
+		k++;
+	}
+	while (s[i])
+	{
+		res[j] = s[i];
+		i++;
+		j++;
+	}
+	res[j] = '\0';
+	return (res);
 }
 
+char	*rpl_dlr(char *s, t_envv *o_envp)
+{
+	char	*res;
+	char	*vname;
+	char	*vval;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (s[i] != '$')
+		i++;
+	vname = var_name(s, i + 1);
+	vval = get_oenv(vname, o_envp);
+	res = malloc(sizeof(char) * (ft_strlen(s) - ft_strlen(vname) + ft_strlen(vval)));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s[i] != '$')
+	{
+		res[j] = s[i];
+		i++;
+		j++;
+	}
+	res = feed_res(s, ft_strlen(vname), vval, res);
+	return (res);
+}
 
 char	*put_val(char *dl, int j, char **val, t_envv *o_envp)
 {
 	/*if (dl[0] == '$')*/
-		val[j] = init_dlr(dl, o_envp);
+		val[j] = rpl_dlr(dl, o_envp);
 	/*else
 		val[j] = mid_dlr(dl, o_envp);*/
 	return (val[j]);

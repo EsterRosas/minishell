@@ -14,14 +14,15 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"
 
-/*char	*get_oenv(char *s, t_envv *o_envp)
+char	*get_oenv(char *s, t_envv *o_envp)
 {
 	int	i;
 
 	i = 0;
-	while (i 
-
-}*/
+	while (ft_strncmp(s, o_envp[i].nm, ft_strlen(o_envp[i].nm)) != 0)
+		i++;
+	return (o_envp[i].val);
+}
 
 /*char	*mid_dlr(char *s, t_envv *o_envp)
 {

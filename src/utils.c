@@ -16,10 +16,10 @@
 
 void	free_env(t_envv *o_envp)
 {
-	int	i;
+//	int	i;
 	int	size;
 
-	i = 0;
+//	i = 0;
 	size = o_envp[0].size;
 	while (size > 0)
 	{
