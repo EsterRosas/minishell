@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/25 14:59:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:05:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static char	**spltoexp(char **spl, char **exp)
 }
 
 /* Converts the splitted ** into a new one replacing all ~ instances with $HOME
- * but only if they are not between quotes. Seen that BASH only converts ~ to
- * $HOME when it's alone in the "string" or has "/" after it to include subfolders
+ * but only if they are not between quotes. NOTE: BASH only converts ~ to $HOME
+ * when it's alone in the "string" or has "/" after it to include subfolders
  */
 char	**cmdexpand(char **s)
 {

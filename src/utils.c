@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:25:10 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/26 21:05:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:07:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 
 void	free_env(t_envv *o_envp)
 {
-//	int	i;
 	int	size;
 
-//	i = 0;
 	size = o_envp[0].size;
 	while (size > 0)
 	{

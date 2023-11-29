@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/27 20:57:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:55:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*var_name(char *p, int aft_dl)
 	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
 		i++;
 	res = ft_substr(p, aft_dl, i - aft_dl);
-	//free(p);
 	return (res);
 }
 
@@ -68,7 +67,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		i++;
 	vname = var_name(s, i + 1);
 	vval = get_oenv(vname, o_envp);
-	res = malloc(sizeof(char) * (ft_strlen(s) - ft_strlen(vname) + ft_strlen(vval)));
+	res = malloc(ft_strlen(s) - ft_strlen(vname) + ft_strlen(vval));
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -80,15 +79,6 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	}
 	res = feed_res(s, ft_strlen(vname), vval, res);
 	return (res);
-}
-
-char	*put_val(char *dl, int j, char **val, t_envv *o_envp)
-{
-	/*if (dl[0] == '$')*/
-		val[j] = rpl_dlr(dl, o_envp);
-	/*else
-		val[j] = mid_dlr(dl, o_envp);*/
-	return (val[j]);
 }
 
 char	**nametoval(char **dlr, char **val, t_envv *o_envp)
@@ -109,7 +99,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 		}
 		else
 		{
-			val[j] = put_val(dlr[i], j, val, o_envp);
+			val[j] = rpl_dlr(dlr[i], o_envp);
 			j++;
 		}
 		i++;

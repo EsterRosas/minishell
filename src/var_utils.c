@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/27 20:05:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:57:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,32 @@
 
 char	*get_oenv(char *s, t_envv *o_envp)
 {
-	int	i;
-
-	i = 0;
-	while (ft_strncmp(s, o_envp[i].nm, ft_strlen(o_envp[i].nm)) != 0)
-		i++;
-	return (o_envp[i].val);
-}
-
-/*char	*mid_dlr(char *s, t_envv *o_envp)
-{
-	char	*one;
-	char	*two;
-	size_t	vname_l;
 	int		i;
+	char	*res;
+	size_t	n;
+	char	c;
 
+	n = ft_strlen(s);
 	i = 0;
-//	one = NULL;
-//	two = NULL;
-	vname_l = 0;
-	while (s[i] && s[i] != '$')
-		i++;
-	one = ft_substr(s, 0, i);
-	two = getenv(var_name(s, ft_strlen(one) + 1));
-	vname_l = ft_strlen(var_name(s, ft_strlen(one) + 1));
-	if (two && ft_strlen(s) != vname_l + ft_strlen(one))
+	c = '\0';
+	while (i < o_envp[0].size)
 	{
-		i = vname_l + ft_strlen(one) + 1;
-		two = ft_strjoin(two, ft_substr(s, i, ft_strlen(s)));
-		return (ft_strjoin(one, two));
+		if (n > ft_strlen(o_envp[i].nm))
+			n = ft_strlen(o_envp[i].nm);
+		if (ft_strlen(o_envp[i].nm) != ft_strlen(s)
+			|| ft_strncmp(s, o_envp[i].nm, n) != 0)
+			i++;
+		else
+			break ;
+		n = ft_strlen(s);
 	}
-	return (one);
-}*/
+	if (i == o_envp[0].size)
+		res = &c;
+	else
+		res = o_envp[i].val;
+	free(s);
+	return (res);
+}
 
 int	some_doll_outq(char *p)
 {
