@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/11/27 20:04:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:37:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ char	**cmdexpand(char **s);
 int		need_var(char **s);
 int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
-//char	*mid_dlr(char *s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
-
 
 /*      testfunctions.c        */
 void	test(char *line, t_envv *o_envp);
@@ -67,8 +65,8 @@ void    handle_error(const char *message);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
-void	free_env(t_envv *o_envp);
-
+void	free_env(t_envv **o_envp);
+void	add_env_back(t_envv **env_lst, t_envv *new);
 
 
 #endif
