@@ -54,48 +54,38 @@ void	add_node(char *evar, t_envv *env_lst)
 t_envv	*cp_envp(char **envp)
 {
 	t_envv	*env_lst;
-//	t_envv	*cmd;
-//	int		pos;
 	int		i;
-	env_lst = NULL;
+	env_lst = malloc(sizeof(t_envv));
 
 	i = 0;
-//	pos = 0;
 	while (i < dbl_len(envp))
 	{
 		add_node(envp[i], env_lst);
 		i++;
-/*		cmd = malloc(sizeof(t_envv));
-		if (!res)
-			return (NULL);
-		pos = ft_strchr(envp[i], '=') - envp[i];
-		cmd.nm = ft_substr(envp[i], 0, pos);
-		cmd.val = ft_substr(envp[i], pos + 1, ft_strlen(envp[i]) - 1);
-		env_lst = ft_lstnew(t_envv *cmd);*/
 	}
 	return (env_lst);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-//	static char	*line;
+	static char	*line;
 	t_envv		*env_lst;
-	//	t_envv		*o_envp;
-	int i = 0;
-	t_envv	*aux;
-	env_lst = cp_envp(envp);
-	aux = env_lst;
+//	int i = 0;
+	//t_envv	*aux;
 
-	while (aux != NULL)
+	env_lst = cp_envp(envp);
+/*	aux = env_lst;
+	while (aux)
 	{
-		printf("i: %i, aux->nm: %s, aux->val: %s\n", i, aux->nm, aux->val);
+		printf("MAIN - i: %i, aux->nm: %s, aux->val: %s\n", i, aux->nm, aux->val);
+		aux = aux->next;
 		i++;
-	}
+	}*/
 	(void)argv;
 	(void)argc;
-/*	line = NULL;
+	line = NULL;
 	loop_prompt(line, env_lst);
-	free_env(env_lst);*/
+	free_env(env_lst);
 	return (0);
 }
 /*

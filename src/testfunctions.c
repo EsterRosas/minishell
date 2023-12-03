@@ -21,15 +21,16 @@ void	test(char *line, t_envv  *o_envp)
 	char	**cmd_spl;
 	char	**cmd_exp;
 	char	**cmd_var;
-	t_envv	*aux;
+
+	i = 0;
+/*	t_envv	*aux;
 
 	aux = o_envp;
-	(void)line;
 	while (aux)
 	{
 		printf("aux->nm: %s, aux->val: %s\n", aux->nm, aux->val);
 		aux = aux->next;
-	}
+	}*/
 	cmd_trm = cmdtrim(line);
 /*	while (cmd_trm[i])
 	{
@@ -50,7 +51,7 @@ void	test(char *line, t_envv  *o_envp)
 		printf("home_expanded[%i]: %s\n", i, cmd_exp[i]);
 		i++;
 	}
-	free_all(cmd_exp, dbl_len(cmd_spl));*/
+	free_all(cmd_exp, dbl_len(cmd_exp));*/
 	cmd_var = repl_var(cmd_exp, o_envp);
 	i = 0;
 	while (cmd_var[i])

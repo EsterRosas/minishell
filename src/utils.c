@@ -23,7 +23,7 @@ void	add_env_back(t_envv *env_lst, t_envv *new)
 		env_lst = new;
 	else
 	{
-		while (aux)
+		while (aux->next)
 		{
 			aux = aux->next;
 		}
@@ -42,24 +42,11 @@ void	free_env(t_envv *o_envp)
 		temp = o_envp->next;
 		free(o_envp->nm);
 		free(o_envp->val);
+		free(o_envp);
 		o_envp = temp;
 	}
-	o_envp = NULL;
-}
-
-/*void	free_env(t_envv *o_envp)
-{
-	int	size;
-
-	size = o_envp[0].size;
-	while (size > 0)
-	{
-		free(o_envp[size - 1].nm);
-		free(o_envp[size - 1].val);
-		size--;
-	}
 	free(o_envp);
-}*/
+}
 
 int	dbl_len(char **s)
 {

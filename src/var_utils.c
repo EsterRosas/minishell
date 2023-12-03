@@ -35,13 +35,13 @@ char	*get_oenv(char *s, t_envv *o_envp)
 			aux = aux->next;
 		else
 			break ;
-		n = ft_strlen(s);
+	//	n = ft_strlen(s);
 	}
 	if (aux == NULL)
 		res = &c;
 	else
 		res = aux->val;
-	free(s);
+//	free(s);
 	return (res);
 }
 
