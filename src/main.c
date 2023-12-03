@@ -48,7 +48,7 @@ void	add_node(char *evar, t_envv *env_lst)
 	cmd->nm = ft_substr(evar, 0, pos);
 	cmd->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
 	cmd->next = NULL;
-	add_env_back(&env_lst, cmd);
+	add_env_back(env_lst, cmd);
 }
 
 t_envv	*cp_envp(char **envp)
@@ -78,21 +78,24 @@ t_envv	*cp_envp(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	static char	*line;
+//	static char	*line;
 	t_envv		*env_lst;
 	//	t_envv		*o_envp;
-//	int i = 0;
-	env_lst = cp_envp(envp);	
-/*	while (i < dbl_len(o_envp))
+	int i = 0;
+	t_envv	*aux;
+	env_lst = cp_envp(envp);
+	aux = env_lst;
+
+	while (aux != NULL)
 	{
-		printf("o_envp[%i]: %s\n", i, o_envp[i]);
+		printf("i: %i, aux->nm: %s, aux->val: %s\n", i, aux->nm, aux->val);
 		i++;
-	}*/
+	}
 	(void)argv;
 	(void)argc;
-	line = NULL;
+/*	line = NULL;
 	loop_prompt(line, env_lst);
-	free_env(&env_lst);
+	free_env(env_lst);*/
 	return (0);
 }
 /*

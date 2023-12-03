@@ -21,13 +21,14 @@ void	test(char *line, t_envv  *o_envp)
 	char	**cmd_spl;
 	char	**cmd_exp;
 	char	**cmd_var;
-	
+	t_envv	*aux;
+
+	aux = o_envp;
 	(void)line;
-	i = 0;
-	while (i < o_envp[0].size)
+	while (aux)
 	{
-		printf("o_envp[%i].nm: %s, o_envp[%i].val: %s, o_envp[%i]: %i\n", i, o_envp[i].nm, i, o_envp[i].val, i, o_envp[i].size);
-		i++;
+		printf("aux->nm: %s, aux->val: %s\n", aux->nm, aux->val);
+		aux = aux->next;
 	}
 	cmd_trm = cmdtrim(line);
 /*	while (cmd_trm[i])

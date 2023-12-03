@@ -65,8 +65,8 @@ void    handle_error(const char *message);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
-void	free_env(t_envv **o_envp);
-void	add_env_back(t_envv **env_lst, t_envv *new);
+void	free_env(t_envv *o_envp);
+void	add_env_back(t_envv *env_lst, t_envv *new);
 
 
 #endif

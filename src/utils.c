@@ -14,37 +14,37 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"
 
-void	add_env_back(t_envv **env_lst, t_envv *new)
+void	add_env_back(t_envv *env_lst, t_envv *new)
 {
-	t_envv **aux;
+	t_envv *aux;
 
 	aux = env_lst;
-	if (*env_lst == 0)
-		*env_lst = new;
+	if (env_lst == NULL)
+		env_lst = new;
 	else
 	{
-		while (*aux->next)
+		while (aux)
 		{
-			*aux = *aux->next;
+			aux = aux->next;
 		}
-		*aux->next = new;
-		new->next = NULL;
+		aux->next = new;
 	}
+	new->next = NULL;
 }
 
-void	free_env(t_envv **o_envp)
+void	free_env(t_envv *o_envp)
 {
 	t_envv	*temp;
 
-	temp = *o_envp->next;
-	while (*o_envp)
+	temp = o_envp->next;
+	while (o_envp)
 	{
-		temp = (*o_envp)->next;
-		free(*o_envp->nm);
-		free(*o_envp->val);
-		*o_envp = temp;
+		temp = o_envp->next;
+		free(o_envp->nm);
+		free(o_envp->val);
+		o_envp = temp;
 	}
-	*o_envp = NULL;
+	o_envp = NULL;
 }
 
 /*void	free_env(t_envv *o_envp)

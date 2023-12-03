@@ -16,29 +16,31 @@
 
 char	*get_oenv(char *s, t_envv *o_envp)
 {
-	int		i;
+//	int		i;
 	char	*res;
 	size_t	n;
 	char	c;
+	t_envv	*aux;
 
+	aux = o_envp;
 	n = ft_strlen(s);
-	i = 0;
+//	i = 0;
 	c = '\0';
-	while (i < o_envp[0].size)
+	while (aux)
 	{
-		if (n > ft_strlen(o_envp[i].nm))
-			n = ft_strlen(o_envp[i].nm);
-		if (ft_strlen(o_envp[i].nm) != ft_strlen(s)
-			|| ft_strncmp(s, o_envp[i].nm, n) != 0)
-			i++;
+		if (n > ft_strlen(aux->nm))
+			n = ft_strlen(aux->nm);
+		if (ft_strlen(aux->nm) != ft_strlen(s)
+			|| ft_strncmp(s, aux->nm, n) != 0)
+			aux = aux->next;
 		else
 			break ;
 		n = ft_strlen(s);
 	}
-	if (i == o_envp[0].size)
+	if (aux == NULL)
 		res = &c;
 	else
-		res = o_envp[i].val;
+		res = aux->val;
 	free(s);
 	return (res);
 }
