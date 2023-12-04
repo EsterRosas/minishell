@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/02 17:06:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:17:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 char	*get_oenv(char *s, t_envv *o_envp)
 {
-//	int		i;
 	char	*res;
 	size_t	n;
 	char	c;
@@ -24,7 +23,6 @@ char	*get_oenv(char *s, t_envv *o_envp)
 
 	aux = o_envp;
 	n = ft_strlen(s);
-//	i = 0;
 	c = '\0';
 	while (aux)
 	{
@@ -35,13 +33,11 @@ char	*get_oenv(char *s, t_envv *o_envp)
 			aux = aux->next;
 		else
 			break ;
-	//	n = ft_strlen(s);
 	}
 	if (aux == NULL)
 		res = &c;
 	else
 		res = aux->val;
-//	free(s);
 	return (res);
 }
 

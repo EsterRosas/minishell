@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/02 17:02:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:13:11 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		j++;
 	}
 	res = feed_res(s, ft_strlen(vname), vval, res);
+	free (vname);
 	return (res);
 }
 

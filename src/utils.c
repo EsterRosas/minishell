@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:25:10 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/02 19:36:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:17:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	add_env_back(t_envv *env_lst, t_envv *new)
 {
-	t_envv *aux;
+	t_envv	*aux;
 
 	aux = env_lst;
 	if (env_lst == NULL)

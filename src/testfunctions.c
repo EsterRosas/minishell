@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/02 17:05:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:56:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/defines.h"
 #include "../lib/libft/libft.h"
 
-void	test(char *line, t_envv  *o_envp)
+void	test(char *line, t_envv *o_envp)
 {
 	int		i;
 	char	**cmd_trm;
@@ -22,7 +22,7 @@ void	test(char *line, t_envv  *o_envp)
 	char	**cmd_exp;
 	char	**cmd_var;
 
-	i = 0;
+//	i = 0;
 /*	t_envv	*aux;
 
 	aux = o_envp;
@@ -52,13 +52,14 @@ void	test(char *line, t_envv  *o_envp)
 		i++;
 	}
 	free_all(cmd_exp, dbl_len(cmd_exp));*/
+//	printf("4 o_envp->nm: %s\n", o_envp->nm);
 	cmd_var = repl_var(cmd_exp, o_envp);
-	i = 0;
+/*	i = 0;
 	while (cmd_var[i])
 	{
 		printf("var_replcd[%i]: %s\n", i, cmd_var[i]);
 		i++;
-	}
+	}*/
 	free_all(cmd_var, dbl_len(cmd_var));
 }
 
