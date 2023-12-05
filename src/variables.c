@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/04 20:13:11 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:34:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 	return (val);
 }
 
+/* Converts the expanded ** into a new one replacing all$VAR_NAME instances with
+ * the corresponding value but only if they are not between single quotes.
+ * NOTE: if between double quotes the DO need to get converted.
+ */
 char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
