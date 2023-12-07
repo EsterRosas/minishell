@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 18:43:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:29:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ int	main(int argc, char **argv, char **envp)
 	t_envv		*env_lst;
 
 	env_lst = cp_envp(envp);
-/*	aux = env_lst;
-	while (env_lst != NULL)
-	{
-		printf("MAIN - i: %i, env_lst->nm: %s, env_lst->val: %s, env_lst->next: %p\n", i, env_lst->nm, env_lst->val, env_lst->next);
-		env_lst = env_lst->next;
-		i++;
-	}
-	env_lst = aux;*/
 	(void)argv;
 	(void)argc;
 	line = NULL;

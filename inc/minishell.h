@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/12/07 18:50:03 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:58:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void    handle_error(const char *message);
 int		dbl_len(char **s);
 void	free_env(t_envv *o_envp);
 void	add_env_back(t_envv *env_lst, t_envv *new);
+char	**env_lst2arr(t_envv *env_lst);
+
+/*		parser.c				*/
+void	parse_lexed(char **lex);
 
 
 #endif
