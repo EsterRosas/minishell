@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:38:16 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/05 18:34:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:46:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"	
+#include "../inc/minishell.h"
 
 char	*var_name(char *p, int aft_dl)
 {

@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:10:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/29 19:03:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:44:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"	
+#include "../inc/minishell.h"
 
 int	next_quote(char *p, int i, char c)
 {

@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/29 19:03:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:43:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"
+#include "../inc/minishell.h"
 
 static int	ft_upd_j(char *s, int j, int i)
 {

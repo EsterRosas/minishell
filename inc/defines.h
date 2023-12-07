@@ -6,14 +6,14 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/04 20:44:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:50:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# include "../lib/libft/libft.h"
+# include "minishell.h"
 
 # define SQUOTE	39
 # define DQUOTE	34
@@ -40,6 +40,5 @@ typedef struct s_cmd
 	int		infile;
 	int		outfile;
 }		t_cmd;
-
 
 #endif

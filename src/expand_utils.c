@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:07:30 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/25 13:43:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:44:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"	
+#include "../inc/minishell.h"
 
 int	expandable(char *s)
 {

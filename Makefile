@@ -6,12 +6,12 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2023/11/26 20:59:26 by erosas-c         ###   ########.fr        #
+#    Updated: 2023/12/07 18:39:09 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=		minishell
-HEADER		=		includes/minishell.h
+HEADER		=		inc/minishell.h
 USERNAME	:=		$(shell whoami)
 OS			:=		$(shell uname)
 

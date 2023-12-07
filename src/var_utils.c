@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/04 20:17:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:46:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"
+#include "../inc/minishell.h"
 
 char	*get_oenv(char *s, t_envv *o_envp)
 {

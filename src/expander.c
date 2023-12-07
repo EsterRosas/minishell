@@ -6,13 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/11/29 19:05:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:43:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/defines.h"
-#include "../lib/libft/libft.h"	
+#include "../inc/minishell.h"
 
 static char	*init_virg(char *s)
 {
