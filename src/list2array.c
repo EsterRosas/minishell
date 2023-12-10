@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 20:44:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:07:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	lstsize(t_envv *lst)
 }
 
 /* Converts our list with the copy of the environment variables (t_envv)
- * back to a char** so we can have it whenever an execve or another funtion needs the
- * in the form of a char **
+ * back to a char** so we can have it whenever an execve or another funtion
+ * needs the in the form of a char **
  */
 char	**env_lst2arr(t_envv *env_lst)
 {

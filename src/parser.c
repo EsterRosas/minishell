@@ -6,31 +6,32 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 21:03:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:56:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**fill_args(char **args, char **lex)
+char	**fill_args(char **args, char **lex, int lex_pos)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (lex[i] && !is_sep(lex[i][0]))
+	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
-		args[i] = malloc(sizeof(char) * ft_strlen(lex[i]) + 1);
+		args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
 		if (!args[i])
 			return (NULL);
-		while (lex[i][j])
+		while (lex[lex_pos][j])
 		{
-			args[i][j] = lex[i][j];
+			args[i][j] = lex[lex_pos][j];
 			j++;
 		}
 		args[i][j] = '\0';
 		i++;
+		lex_pos++;
 		j = 0;
 	}
 	args[i] = NULL;
@@ -50,13 +51,13 @@ t_cmd	fill_node(t_cmd s, char **lex)
 				s.infile = assign_infile(lex[++i]);
 			else
 				s.outfile = assign_outfile(lex[++i]);
+			i++;
 		}
 		else
-		{
-			s.args = fill_args(s.args, lex);
+		{	
+			s.args = fill_args(s.args, lex, i);
 			i = i + dbl_len(s.args);
 		}
-		i++;
 	}
 	return (s);
 }

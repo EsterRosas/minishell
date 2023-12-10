@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/12/07 20:58:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:15:08 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	**env_lst2arr(t_envv *env_lst);
 t_cmd	*parse_lexed(char **lex);
 int		assign_infile(char	*file);
 int		assign_outfile(char	*file);
+void	free_cmds(char **lexed, t_cmd *cmd);
 
 
 
