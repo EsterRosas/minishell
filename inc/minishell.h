@@ -26,6 +26,8 @@
 /*      prompt.c        	*/
 char	*rl_gets(char *line);
 void	loop_prompt(char *line, t_envv *o_envp);
+int		ft_strcmp(char *s1, char *s2);
+
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -72,7 +74,11 @@ void	add_env_back(t_envv *env_lst, t_envv *new);
 char	**env_lst2arr(t_envv *env_lst);
 
 /*		parser.c				*/
-void	parse_lexed(char **lex);
+t_cmd	*parse_lexed(char **lex);
+int		assign_infile(char	*file);
+int		assign_outfile(char	*file);
+
+
 
 
 #endif

@@ -14,17 +14,31 @@
 
 void	test(char *line, t_envv *o_envp)
 {
-	//int		i;
+	int		i;
 	char	**lexed;
+	t_cmd	*cmd;
 
 	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
-	/*i = 0;
-	while (lexed[i])
+	i = 0;
+	/*while (lexed[i])
 	{
 		printf("lexed[%i]: %s\n", i, lexed[i]);
 		i++;
 	}*/
-	parse_lexed(lexed);
+	/* Before proceeiding to PARSER we can chec for syntax errors as we said. E.g.:
+	 * if using NON EXISTIG COMMAND as "first args[0] SHOW > but so we need it parsed!!
+	 * "minishell: not_cmd: command not found"
+	 */
+	if (ft_strcmp(line, "exit") != 0)
+	{
+		cmd = parse_lexed(lexed);
+		printf("cmd->in: %i, cmd->out: %i, cmd->fl_p: %s\n", cmd->infile, cmd->outfile, cmd->full_path);
+		while (cmd->args[i])
+		{
+			printf("cmd->args[%i]: %s\n", i, cmd->args[i]);
+			i++;
+		}
+	}
 	free_all(lexed, dbl_len(lexed));
 }
 
