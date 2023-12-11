@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/10 19:10:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:59:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define DQUOTE	34
 # define KSPACE	32
 
-typedef	struct s_envv
+typedef struct s_envv
 {
 	char			*nm;
 	char			*val;
@@ -29,7 +29,7 @@ typedef	struct s_envv
 typedef struct s_prompt
 {
 	t_list	*cmds;
-	t_envv 	*o_envp;
+	t_envv	*o_envp;
 //	pid_t	pid;
 }		t_prompt;
 

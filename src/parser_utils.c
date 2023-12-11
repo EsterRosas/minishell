@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/10 21:31:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:54:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	assign_infile(char	*file)
 	int	fd;
 
 	fd = open(file, O_RDONLY);
+	//if the file doesn't exist yet, now its returning the error, but we should
+	//create it instead
 	if (fd == -1)
 	{
-		printf("Error opening file %s", file);
+		printf("Error opening file %s\n", file);
 		return (-1);
 	}
 	else
@@ -33,7 +35,7 @@ int	assign_outfile(char	*file)
 	fd = open(file, O_WRONLY);
 	if (fd == -1)
 	{
-		printf("Error opening file %s", file);
+		printf("Error opening file %s\n", file);
 		return (-1);
 	}
 	else
@@ -51,13 +53,13 @@ void	free_cmds(char **lexed, t_cmd *cmd)
 	{
 		if (lexed[i][0] == '|')
 			cmd_n++;
-			i++;
+		i++;
 	}
-	printf("cmd_n: %i\n", cmd_n);
 	while (cmd_n > 0)
 	{
+		if (cmd->full_path)
+			free(cmd->full_path);
 		free(&cmd[cmd_n - 1]);
 		cmd_n--;
 	}
 }
-

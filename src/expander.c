@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 18:43:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:28:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,23 @@ static char	**spltoexp(char **spl, char **exp)
 	}
 	exp[j] = NULL;
 	return (exp);
+}
+
+int	need_expand(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i][0] == '~' && (ft_strlen(s[i]) <= 1))
+			return (1);
+		else if (s[i][0] == '~' && s[i][1] == '/')
+			return (1);
+		else
+			i++;
+	}
+	return (0);
 }
 
 /* Converts the splitted ** into a new one replacing all ~ instances with $HOME

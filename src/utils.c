@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:25:10 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 20:44:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:36:02 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ void	free_env(t_envv *o_envp)
 		o_envp = temp;
 	}
 	free(o_envp);
+}
+
+int	expandable(char *s)
+{
+	if (s[0] == '~' && (ft_strlen(s) <= 1))
+		return (1);
+	else if (s[0] == '~' && s[1] == '/')
+		return (1);
+	return (0);
 }
 
 int	dbl_len(char **s)
