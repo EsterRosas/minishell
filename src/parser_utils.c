@@ -6,11 +6,53 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:54:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:46:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*rm_quotes(int n, char *s)
+{
+	char	*res;
+
+	res = ft_substr(s, n, ft_strlen(s) - (n * 2));
+	free(s);
+	return (res);
+}
+
+/* Delete quotation marks at the first position and last of all the strings
+ * as far as they are in both places and are the same. If more than one, need to
+ * be the same type (squotes or dquotes) as the ones in the innitial ends,
+ * according to bash behaviour.
+ */
+void	del_all_quotes(char **args)
+{
+	int	i;
+	int	l;
+	int	j;
+
+	i = 0;
+	l = 0;
+	j = 0;
+	while (args[i])
+	{
+		l = ft_strlen(args[i]);
+		if (l > 1 && args[i][0] == SQUOTE && args[i][l - 1] == SQUOTE)
+		{
+			while (args[i][j] == SQUOTE && args[i][l - 1 - j] == SQUOTE)
+				j++;
+			args[i] = rm_quotes(j, args[i]);
+		}
+		else if (l > 1 && args[i][0] == DQUOTE && args[i][l - 1] == DQUOTE)
+		{
+			while (args[i][j] == DQUOTE && args[i][l - 1 - j] == DQUOTE)
+				j++;
+			args[i] = rm_quotes(j, args[i]);
+		}
+		i++;
+	}
+}
 
 int	assign_infile(char	*file)
 {

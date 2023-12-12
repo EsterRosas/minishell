@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:51:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:33:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_cmd	fill_node(t_cmd s, char **lex, t_envv *env_lst)
 			s.args = fill_args(s.args, lex, i);
 			i = i + dbl_len(s.args);
 		}
+		del_all_quotes(s.args);
 		if (!is_builtin(s.args[0]) && s.args[0][0] != '/')
 			s.full_path = fill_path(s.full_path, env_lst, s.args[0]);
 	}
@@ -107,10 +108,15 @@ t_cmd	fill_node(t_cmd s, char **lex, t_envv *env_lst)
  * and with variables replaced and parses it into an array of several t_cmd
  * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
  * NOTE: for the moment I'm only parsing ONE t_cmd (i.e., the array contains
- * always only one item).
+ * always only one item). PROBABLY I WILL CHANGE THIS INTO A LIST. NOT SURE
+ * If so, need to redo free and other functions related to this array/list.
+ *
  * TO_DO:
  * 1) Will need to add another t_cmd per pipe existing alone in the char**
+ * But need to review notes and doc on how pies work. David, maybe you will
+ * know all of this better...
  * 2) Will need to delete quotations (single and double) where needed
+ * 3) For the moment it does't manage neither << nor >>
  */
 t_cmd	*parse_lexed(char **lex, t_envv *env_lst)
 {
