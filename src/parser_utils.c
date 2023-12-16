@@ -15,8 +15,22 @@
 char	*rm_quotes(int n, char *s)
 {
 	char	*res;
+//	char	*aux;
+//	int		i;
 
+//	i = 0;
 	res = ft_substr(s, n, ft_strlen(s) - (n * 2));
+/* TRYING TO DELETE CONSECUTIVE QUOTES after deleting the ones in the ends
+ * MAYBE this can be done before, in the lexer, I mean before the parser.
+ * EVEN in trim; Need to think the order, as each quotation mark takes as its
+ * corresponding closing one th first one found in the string. THINK about
+ * quotations inside quotation (of different type);
+ * aux = res;
+	while ((aux[i] == SQUOTE && aux[i + 1] == SQUOTE) || (aux[i] == DQUOTE
+			&& aux[i + 1] == DQUOTE))
+		aux = ft_substr(aux, 2, ft_strlen(aux) - 2);
+	res = aux;
+	free(aux);*/
 	free(s);
 	return (res);
 }

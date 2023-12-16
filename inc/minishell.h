@@ -58,6 +58,7 @@ void	test(char *line, t_envv *o_envp);
 void	ft_echo(const char *message);
 void	ft_pwd(void);
 int		is_builtin(char	*s);
+void	ft_exit(void);
 
 /*      errors.c            */
 void	handle_error(const char *message);

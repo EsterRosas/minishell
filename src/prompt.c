@@ -47,6 +47,8 @@ void	loop_prompt(char *line, t_envv *o_envp)
 		line = rl_gets(line);
 		test(line, o_envp);
 	}
+	if (ft_strcmp(line, "exit") == 0)
+		ft_exit();
 	free(line);
 	return ;
 }

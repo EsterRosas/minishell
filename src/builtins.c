@@ -51,3 +51,8 @@ void	ft_pwd(void)
 	getcwd(NULL, 0);
 	printf("%s", buf);
 }
+
+void	ft_exit(void)
+{
+	printf("exit\n");
+}
