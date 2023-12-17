@@ -26,19 +26,21 @@ typedef struct s_envv
 	struct s_envv	*next;
 }		t_envv;
 
-typedef struct s_prompt
-{
-	t_list	*cmds;
-	t_envv	*o_envp;
-//	pid_t	pid;
-}		t_prompt;
-
 typedef struct s_cmd
 {
-	char	**args;
-	char	*full_path;
-	int		infile;
-	int		outfile;
+	char			**args;
+	char			*full_path;
+	int				infile;
+	int				outfile;
+	struct s_cmd	*next;
 }		t_cmd;
+
+typedef struct s_prompt
+{
+	t_cmd	*cmd;
+	t_envv	*o_envp;
+//	pid_t	pid;
+	t_cmd	*next;
+}		t_prompt;
 
 #endif

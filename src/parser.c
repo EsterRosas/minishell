@@ -15,12 +15,27 @@
 char	**get_ptharr(t_envv *env_lst)
 {
 	char	**ptharr;
-
+	
+	printf("00 enters get_ptharr\n");
+/*	while (env_lst)
+	{
+		printf("00 env_lst->nm: %s, env_lst->val: %s\n", env_lst->nm, env_lst->val);
+		env_lst = env_lst->next;
+	}*/
 	while (env_lst && ft_strlen(env_lst->nm) != 4)
 		env_lst = env_lst->next;
+	printf("00 env_lst->nm: %s, env_lst->val: %s\n", env_lst->nm, env_lst->val);
 	if (env_lst && (ft_strlen(env_lst->nm) == 4)
 		&& ft_strncmp(env_lst->nm, "PATH", 4) == 0)
+	{
 		ptharr = ft_split(env_lst->val, ':');
+		int i = 0;
+		while (ptharr[i])
+		{
+			printf("ptharr[%i]: %s\n", i, ptharr[i]);
+			i++;
+		}
+	}
 	else
 		return (NULL);
 	return (ptharr);
@@ -77,7 +92,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-t_cmd	fill_node(t_cmd s, char **lex, t_envv *env_lst)
+t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 {
 	int	i;
 
@@ -87,19 +102,19 @@ t_cmd	fill_node(t_cmd s, char **lex, t_envv *env_lst)
 		if (ft_strlen(lex[i]) == 1 && (lex[i][0] == '<' || lex[i][0] == '>'))
 		{
 			if (lex[i][0] == '<')
-				s.infile = assign_infile(lex[++i]);
+				s->infile = assign_infile(lex[++i]);
 			else
-				s.outfile = assign_outfile(lex[++i]);
+				s->outfile = assign_outfile(lex[++i]);
 			i++;
 		}
 		else
 		{
-			s.args = fill_args(s.args, lex, i);
-			i = i + dbl_len(s.args);
+			s->args = fill_args(s->args, lex, i);
+			i = i + dbl_len(s->args);
 		}
-		del_all_quotes(s.args);
-		if (!is_builtin(s.args[0]) && s.args[0][0] != '/')
-			s.full_path = fill_path(s.full_path, env_lst, s.args[0]);
+		del_all_quotes(s->args);
+		if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
+			s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	}
 	return (s);
 }
@@ -118,30 +133,40 @@ t_cmd	fill_node(t_cmd s, char **lex, t_envv *env_lst)
  * 2) Will need to delete quotations (single and double) where needed
  * 3) For the moment it does't manage neither << nor >>
  */
-t_cmd	*parse_lexed(char **lex, t_envv *env_lst)
+t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
-	int		i;
 	t_cmd	*res;
-	int		cmd_n;
+	
+	res = malloc(sizeof(t_cmd));
+	if (!res)
+		return (NULL);
+/*	while (++i < cmd_n)
+	{*/
+		res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+		res->full_path = NULL;
+		res->infile = STDIN_FILENO;
+		res->outfile = STDOUT_FILENO;
+		res->next = NULL;
+		res = fill_node(res, lex, env_lst);
+//	}
+	return (res);
+}
 
-	i = -1;
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
+{
+	t_cmd	*cmdlst;
+	int		cmd_n;
+	int		i;
+	
 	cmd_n = 1;
+	i = 0;
+	cmdlst = get_cmd(lex, env_lst);
 	while (++i < dbl_len(lex))
 	{
 		if (lex[i][0] == '|')
 			cmd_n++;
 	}
-	res = malloc(sizeof(t_cmd) * cmd_n);
-	if (!res)
-		return (NULL);
-	i = -1;
-	while (++i < cmd_n)
-	{
-		res[i].args = malloc(sizeof(char *) * dbl_len(lex) + 1);
-		res[i].full_path = NULL;
-		res[i].infile = STDIN_FILENO;
-		res[i].outfile = STDOUT_FILENO;
-		res[i] = fill_node(res[i], lex, env_lst);
-	}
-	return (res);
+	if (cmd_n > 1)
+		fill_cmdlst(lex, env_lst, cmdlst, cmd_n);
+	return (cmdlst);
 }

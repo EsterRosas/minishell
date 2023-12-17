@@ -17,7 +17,7 @@ void	test(char *line, t_envv *o_envp)
 	int		i;
 //	(void)o_envp;
 	char	**lexed;
-	t_cmd	*cmd;
+	t_cmd	*cmds;
 //	char	**trim;
 
 	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
@@ -33,16 +33,21 @@ void	test(char *line, t_envv *o_envp)
 		printf("trim[%i]: %s\n", i, trim[i]);
 		i++;
 	}*/
-	cmd = parse_lexed(lexed, o_envp);
-	printf("cmd->in: %i, cmd->out: %i, cmd->fl_p: %s\n", cmd->infile, cmd->outfile, cmd->full_path);
-	while (cmd->args[i])
+	cmds = get_cmdlst(lexed, o_envp);
+	while (cmds)
 	{
-		printf("cmd->args[%i]: %s\n", i, cmd->args[i]);
-		i++;
+		printf("cmds->in: %i, cmds->out: %i, cmds->fl_p: %s\n", cmds->infile, cmds->outfile, cmds->full_path);
+		while (cmds->args[i])
+		{
+			printf("cmds->args[%i]: %s\n", i, cmds->args[i]);
+			i++;
+		}
+		i = 0;
+		cmds = cmds->next;
 	}
-	free_all(cmd->args, dbl_len(cmd->args));
-	free_cmds(lexed, cmd);
-	free_all(lexed, dbl_len(lexed));
+//	free_all(cmds->args, dbl_len(cmds->args));
+//	free_cmds(lexed, cmds);
+//	free_all(lexed, dbl_len(lexed));
 }
 
 /*
