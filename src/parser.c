@@ -16,28 +16,11 @@ char	**get_ptharr(t_envv *env_lst)
 {
 	char	**ptharr;
 	
-	printf("00 enters get_ptharr\n");
-/*	while (env_lst)
-	{
-		printf("00 env_lst->nm: %s, env_lst->val: %s\n", env_lst->nm, env_lst->val);
+	ptharr = NULL;
+	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
 		env_lst = env_lst->next;
-	}*/
-	while (env_lst && ft_strlen(env_lst->nm) != 4)
-		env_lst = env_lst->next;
-	printf("00 env_lst->nm: %s, env_lst->val: %s\n", env_lst->nm, env_lst->val);
-	if (env_lst && (ft_strlen(env_lst->nm) == 4)
-		&& ft_strncmp(env_lst->nm, "PATH", 4) == 0)
-	{
+	if (env_lst && ft_strcmp(env_lst->nm, "PATH") == 0)
 		ptharr = ft_split(env_lst->val, ':');
-		int i = 0;
-		while (ptharr[i])
-		{
-			printf("ptharr[%i]: %s\n", i, ptharr[i]);
-			i++;
-		}
-	}
-	else
-		return (NULL);
 	return (ptharr);
 }
 

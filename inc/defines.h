@@ -38,9 +38,8 @@ typedef struct s_cmd
 typedef struct s_prompt
 {
 	t_cmd	*cmd;
-	t_envv	*o_envp;
+	char	**envp;
 //	pid_t	pid;
-	t_cmd	*next;
 }		t_prompt;
 
 #endif
