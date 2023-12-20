@@ -14,31 +14,37 @@
 
 void	test(char *line, t_envv *o_envp)
 {
-	int		i;
-	char	**lexed;
-	t_cmd	*cmds;
+	int			i;
+	char		**lexed;
+//	t_cmd		*cmds;
+	t_prompt	*prompt;
 
-	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
 	i = 0;
+	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
+	prompt = malloc(sizeof(t_prompt));
+	if (!prompt)
+		return ;
 	/* Before proceeding to PARSER we can check for syntax errors as we said.
 	 * BUT!!!! E.g.: if using NON EXISTING COMMAND as first cmd->args item
 	 * (cmd->args[0]), (> but so we need it parsed!!), then SHOW
 	 * "minishell: <non-existing_cmd_name>: command not found"
 	 */
-	cmds = get_cmdlst(lexed, o_envp);
-	while (cmds)
+	prompt->cmd = get_cmdlst(lexed, o_envp);
+	prompt->envp = env_lst2arr(o_envp); 
+	while (prompt->cmd)
 	{
-		printf("cmds->in: %i, cmds->out: %i, cmds->fl_p: %s\n", cmds->infile, cmds->outfile, cmds->full_path);
-		while (cmds->args[i])
+		printf("prompt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", prompt->cmd->infile, prompt->cmd->outfile, prompt->cmd->full_path);
+		while (prompt->cmd->args[i])
 		{
-			printf("cmds->args[%i]: %s\n", i, cmds->args[i]);
+			printf("prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
 			i++;
 		}
 		i = 0;
-		cmds = cmds->next;
+		prompt->cmd = prompt->cmd->next;
 	}
-//	free_all(cmds->args, dbl_len(cmds->args));
-//	free_cmds(lexed, cmds);
+	free_cmdlist(prompt->cmd);
+	free_all(prompt->envp, dbl_len(prompt->envp));
+	free(prompt);
 	free_all(lexed, dbl_len(lexed));
 }
 

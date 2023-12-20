@@ -65,7 +65,6 @@ char	**env_lst2arr(t_envv *env_lst)
 
 	i = 0;
 	len = lstsize(env_lst);
-	printf("env_lst->nm: %s, env->val: %s\n", env_lst->nm, env_lst->val);
 	res = malloc(sizeof(char *) * len + 1);
 	if (!res)
 		return (NULL);
@@ -75,7 +74,6 @@ char	**env_lst2arr(t_envv *env_lst)
 		i++;
 		env_lst = env_lst->next;
 	}
-	printf("res[0]: %s\n", res[0]);
 	res[i] = NULL;
 	return (res);
 }

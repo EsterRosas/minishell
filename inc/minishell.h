@@ -74,9 +74,11 @@ int		expandable(char *s);
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
 int		assign_infile(char	*file);
 int		assign_outfile(char	*file);
-void	free_cmds(char **lexed, t_cmd *cmd);
+void	free_cmdlist(t_cmd *head);
+//void	free_cmds(char **lexed, t_cmd *cmd);
 void	del_all_quotes(char **args);
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
+char	**get_ptharr(t_envv *env_lst);
 
 #endif

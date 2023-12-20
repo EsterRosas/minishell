@@ -98,24 +98,18 @@ int	assign_outfile(char	*file)
 		return (fd);
 }
 
-void	free_cmds(char **lexed, t_cmd *cmd)
+void	free_cmdlist(t_cmd *head)
 {
-	int	i;
-	int	cmd_n;
+	t_cmd	*current = head;
+	t_cmd	*nextnode;
 
-	i = 0;
-	cmd_n = 1;
-	while (i < dbl_len(lexed))
+	while (current != NULL)
 	{
-		if (lexed[i][0] == '|')
-			cmd_n++;
-		i++;
-	}
-	while (cmd_n > 0)
-	{
-		if (cmd->full_path)
-			free(cmd->full_path);
-		free(&cmd[cmd_n - 1]);
-		cmd_n--;
+		nextnode = current->next;
+		free_all(current->args, dbl_len(current->args));
+		if (current->full_path)
+			free(current->full_path);
+		free(current);
+		current = nextnode;
 	}
 }

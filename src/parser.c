@@ -12,18 +12,6 @@
 
 #include "../inc/minishell.h"
 
-char	**get_ptharr(t_envv *env_lst)
-{
-	char	**ptharr;
-	
-	ptharr = NULL;
-	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
-		env_lst = env_lst->next;
-	if (env_lst && ft_strcmp(env_lst->nm, "PATH") == 0)
-		ptharr = ft_split(env_lst->val, ':');
-	return (ptharr);
-}
-
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 {
 	char	**path_vls;
@@ -102,39 +90,52 @@ t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 	return (s);
 }
 
-/* Takes the char** once it's been trimmed, subsplitted, expanded (~ to $HOME)
- * and with variables replaced and parses it into an array of several t_cmd
- * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
- * NOTE: for the moment I'm only parsing ONE t_cmd (i.e., the array contains
- * always only one item). PROBABLY I WILL CHANGE THIS INTO A LIST. NOT SURE
- * If so, need to redo free and other functions related to this array/list.
- *
- * TO_DO:
- * 1) Will need to add another t_cmd per pipe existing alone in the char**
- * But need to review notes and doc on how pies work. David, maybe you will
- * know all of this better...
- * 2) Will need to delete quotations (single and double) where needed
- * 3) For the moment it does't manage neither << nor >>
- */
 t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
+//	int		i;
+//	int		n;
 	
+//	i = 0;
+//	n = 0;
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-/*	while (++i < cmd_n)
-	{*/
-		res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
-		res->full_path = NULL;
-		res->infile = STDIN_FILENO;
-		res->outfile = STDOUT_FILENO;
-		res->next = NULL;
-		res = fill_node(res, lex, env_lst);
-//	}
+	/* Some malloc in this function creates leaks I think (need to check in
+	 * CAMPUS). I thought I needes to calculate the exact number of
+	 * char* we need so not to alloc unnecessary string, but I got same errors
+	 */
+	/*while (lex[i] && lex[i][0] != '|')
+	{
+		if (!is_sep(lex[i][0]))
+		{
+			n++;
+			i++;
+		}
+		else
+			i += 2;
+	}
+	res->args = malloc(sizeof(char *) * n + 1);*/
+	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+	res->full_path = NULL;
+	res->infile = STDIN_FILENO;
+	res->outfile = STDOUT_FILENO;
+	res->next = NULL;
+	res = fill_node(res, lex, env_lst);
 	return (res);
 }
 
+/* Takes the char** once it's been trimmed, subsplitted, expanded (~ to $HOME)
+ * and with variables replaced and parses it into an list of several t_cmd
+ * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
+ * If the list has more than one element means they are separated by pipes
+ * in the lexer / user input. T's important to have this in mind for the
+ * executor
+ * STILL TO DO:
+ * 1) Will need to delete quotations (single and double) where needed
+ * besides the ones we're already deleting with the current code.
+ * 2) IMPORTANT NOTE: For the moment it does't manage neither << nor >>
+ */
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {
 	t_cmd	*cmdlst;
