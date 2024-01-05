@@ -53,6 +53,8 @@ int	main(int argc, char **argv, char **envp)
 	static char	*line;
 	t_envv		*env_lst;
 
+	// hey from testing-david :)
+	
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
