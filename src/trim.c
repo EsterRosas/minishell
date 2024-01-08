@@ -48,7 +48,8 @@ static int	upd_jcount(int j, char *s)
 			break ;
 		else if (s[j])
 		{
-			j = ft_upd_j(s, j, 1);
+			while (s[j] && (s[j] == SQUOTE || s[j] == DQUOTE))
+				j = ft_upd_j(s, j, 1);
 			if (s[j] && s[j] == KSPACE)
 				break ;
 			j++;
@@ -70,7 +71,8 @@ static int	ft_ptr_len(char *p)
 			break ;
 		else if (p[i])
 		{
-			i = ft_upd_j(p, i, 1);
+			while (p[i] && (p[i] == SQUOTE || p[i] == DQUOTE))
+				i = ft_upd_j(p, i, 1);
 			if (p[i] && p[i] == KSPACE)
 				break ;
 			i++;

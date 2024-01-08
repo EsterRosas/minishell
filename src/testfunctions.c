@@ -24,7 +24,6 @@ void	test(char *line, t_envv *o_envp)
 	trimmed = cmdtrim(line);
 	while (trimmed[++i])
 		printf("trimmed[%i]: %s\n", i, trimmed[i]);
-
 	lexed = repl_var(cmdexpand(cmdsubsplit(trimmed)), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
