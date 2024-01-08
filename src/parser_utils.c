@@ -12,6 +12,12 @@
 
 #include "../inc/minishell.h"
 
+/*char	*consec_quotes(char	*s)
+{
+	
+
+}*/
+
 char	*rm_quotes(int n, char *s)
 {
 	char	*res;
@@ -23,7 +29,7 @@ char	*rm_quotes(int n, char *s)
 /* TRYING TO DELETE CONSECUTIVE QUOTES after deleting the ones in the ends
  * MAYBE this can be done before, in the lexer, I mean before the parser.
  * EVEN in trim; Need to think the order, as each quotation mark takes as its
- * corresponding closing one th first one found in the string. THINK about
+ * corresponding closing one the first one found in the string. THINK about
  * quotations inside quotation (of different type);
  * aux = res;
 	while ((aux[i] == SQUOTE && aux[i + 1] == SQUOTE) || (aux[i] == DQUOTE
@@ -31,13 +37,14 @@ char	*rm_quotes(int n, char *s)
 		aux = ft_substr(aux, 2, ft_strlen(aux) - 2);
 	res = aux;
 	free(aux);*/
+//	res = consec_quotes(res);
 	free(s);
 	return (res);
 }
 
 /* Delete quotation marks at the first position and last of all the strings
  * as far as they are in both places and are the same. If more than one, need to
- * be the same type (squotes or dquotes) as the ones in the innitial ends,
+ * be the same type (squotes or dquotes) as the ones in the initial ends,
  * according to bash behaviour.
  */
 void	del_all_quotes(char **args)
@@ -96,20 +103,4 @@ int	assign_outfile(char	*file)
 	}
 	else
 		return (fd);
-}
-
-void	free_cmdlist(t_cmd *head)
-{
-	t_cmd	*current = head;
-	t_cmd	*nextnode;
-
-	while (current != NULL)
-	{
-		nextnode = current->next;
-		free_all(current->args, dbl_len(current->args));
-		if (current->full_path)
-			free(current->full_path);
-		free(current);
-		current = nextnode;
-	}
 }
