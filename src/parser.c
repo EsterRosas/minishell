@@ -83,7 +83,8 @@ t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 			s->args = fill_args(s->args, lex, i);
 			i = i + dbl_len(s->args);
 		}
-		del_all_quotes(s->args);
+	//	del_consec_quotes(s->args);
+		del_end_quotes(s->args);
 		if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
 			s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	}
@@ -102,7 +103,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	if (!res)
 		return (NULL);
 	/* Some malloc in this function creates leaks I think (need to check in
-	 * CAMPUS). I thought I needes to calculate the exact number of
+	 * CAMPUS). I thought I need to calculate the exact number of
 	 * char* we need so not to alloc unnecessary string, but I got same errors
 	 */
 	/*while (lex[i] && lex[i][0] != '|')
@@ -129,7 +130,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * and with variables replaced and parses it into an list of several t_cmd
  * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
  * If the list has more than one element means they are separated by pipes
- * in the lexer / user input. T's important to have this in mind for the
+ * in the lexer / user input. It's important to have this in mind for the
  * executor
  * STILL TO DO:
  * 1) Will need to delete quotations (single and double) where needed

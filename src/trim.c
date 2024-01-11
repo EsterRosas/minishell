@@ -130,5 +130,6 @@ char	**cmdtrim(char *s)
 		s = s + (p - s) + ft_ptr_len(p);
 	}
 	res[n] = NULL;
+	res = del_consec_quotes(res);
 	return (res);
 }

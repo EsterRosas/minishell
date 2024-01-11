@@ -31,6 +31,7 @@ int		ft_strcmp(char *s1, char *s2);
 /*		trim functions		*/
 char	**cmdtrim(char *s);
 int		readl_test(void);
+char	**del_consec_quotes(char **s);
 
 /*		subsplit functions	*/
 char	**cmdsubsplit(char **s);
@@ -76,7 +77,7 @@ int		assign_infile(char	*file);
 int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
-void	del_all_quotes(char **args);
+void	del_end_quotes(char **args);
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);

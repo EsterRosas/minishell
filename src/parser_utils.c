@@ -12,12 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*char	*consec_quotes(char	*s)
-{
-	
-
-}*/
-
 char	*rm_quotes(int n, char *s)
 {
 	char	*res;
@@ -47,7 +41,7 @@ char	*rm_quotes(int n, char *s)
  * be the same type (squotes or dquotes) as the ones in the initial ends,
  * according to bash behaviour.
  */
-void	del_all_quotes(char **args)
+void	del_end_quotes(char **args)
 {
 	int	i;
 	int	l;
