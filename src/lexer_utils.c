@@ -26,28 +26,44 @@ char	*rm_consec_quotes(char *s, int del)
 	char	*res;
 	int		i;
 	char	c;
+	int		j;
 
 	i = 0;
+	j = 0;
 	res = malloc(sizeof(char) * ft_strlen(s) - del + 1);
 	if (!res)
 		return (NULL);
 	while (s[i])
 	{
 		if ((s[i] == DQUOTE || s[i] == SQUOTE) && s[i] == s[i + 1])
-			i = i + 2;
+			i += 2;
 		else if (s[i] == DQUOTE || s[i] == SQUOTE)
 		{
 			c = s[i];
+			res[j] = s[i];
 			i++;
-			if (s[i])
+			j++;
+			while (s[i] && s[i] != c)
 			{
-				res[i] = s[i];
-				i = upd_pos(s, i, c);
+				res[j] = s[i];
+				i++;
+				j++;
+			}
+			if (s[i] && s[i] == c)
+			{
+				res[j] = c;
+				i++;
+				j++;
 			}
 		}
 		else
+		{
+			res[i] = s[i];
 			i++;
+			j++;
+		}
 	}
+	res[j] = '\0';
 	return (res);
 }
 
@@ -79,6 +95,7 @@ int	dbl_quot2del(char *p)
 	return (res);
 }
 
+/* DELETES CONSECUTIVE QUOTES. Others are needed for variable replacement*/
 char	**del_consec_quotes(char **s)
 {
 	int		i;

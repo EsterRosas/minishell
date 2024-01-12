@@ -81,5 +81,6 @@ void	del_end_quotes(char **args);
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
+void	del_mid_quotes(char **s);
 
 #endif

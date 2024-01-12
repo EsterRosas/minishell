@@ -83,8 +83,8 @@ t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 			s->args = fill_args(s->args, lex, i);
 			i = i + dbl_len(s->args);
 		}
-	//	del_consec_quotes(s->args);
 		del_end_quotes(s->args);
+		del_mid_quotes(s->args);
 		if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
 			s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	}
