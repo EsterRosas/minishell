@@ -55,3 +55,19 @@ void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 		}
 	}
 }
+
+void	free_cmdlist(t_cmd *head)
+{
+	t_cmd	*current = head;
+	t_cmd	*nextnode;
+
+	while (current != NULL)
+	{
+		nextnode = current->next;
+		free_all(current->args, dbl_len(current->args));
+		if (current->full_path)
+			free(current->full_path);
+		free(current);
+		current = nextnode;
+	}
+}

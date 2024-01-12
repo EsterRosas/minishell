@@ -18,9 +18,13 @@ void	test(char *line, t_envv *o_envp)
 	char		**lexed;
 //	t_cmd		*cmds;
 	t_prompt	*prompt;
+	char		**trimmed;
 
-	i = 0;
-	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
+	i = -1;
+	trimmed = cmdtrim(line);
+	while (trimmed[++i])
+		printf("trimmed[%i]: %s\n", i, trimmed[i]);
+	lexed = repl_var(cmdexpand(cmdsubsplit(trimmed)), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
@@ -30,7 +34,8 @@ void	test(char *line, t_envv *o_envp)
 	 * "minishell: <non-existing_cmd_name>: command not found"
 	 */
 	prompt->cmd = get_cmdlst(lexed, o_envp);
-	prompt->envp = env_lst2arr(o_envp); 
+	prompt->envp = env_lst2arr(o_envp);
+	i = 0;
 	while (prompt->cmd)
 	{
 		printf("prompt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", prompt->cmd->infile, prompt->cmd->outfile, prompt->cmd->full_path);

@@ -15,32 +15,18 @@
 char	*rm_quotes(int n, char *s)
 {
 	char	*res;
-//	char	*aux;
-//	int		i;
-
-//	i = 0;
+	
 	res = ft_substr(s, n, ft_strlen(s) - (n * 2));
-/* TRYING TO DELETE CONSECUTIVE QUOTES after deleting the ones in the ends
- * MAYBE this can be done before, in the lexer, I mean before the parser.
- * EVEN in trim; Need to think the order, as each quotation mark takes as its
- * corresponding closing one th first one found in the string. THINK about
- * quotations inside quotation (of different type);
- * aux = res;
-	while ((aux[i] == SQUOTE && aux[i + 1] == SQUOTE) || (aux[i] == DQUOTE
-			&& aux[i + 1] == DQUOTE))
-		aux = ft_substr(aux, 2, ft_strlen(aux) - 2);
-	res = aux;
-	free(aux);*/
-	free(s);
+ 	free(s);
 	return (res);
 }
 
 /* Delete quotation marks at the first position and last of all the strings
  * as far as they are in both places and are the same. If more than one, need to
- * be the same type (squotes or dquotes) as the ones in the innitial ends,
+ * be the same type (squotes or dquotes) as the ones in the initial ends,
  * according to bash behaviour.
  */
-void	del_all_quotes(char **args)
+void	del_end_quotes(char **args)
 {
 	int	i;
 	int	l;
@@ -63,6 +49,91 @@ void	del_all_quotes(char **args)
 			while (args[i][j] == DQUOTE && args[i][l - 1 - j] == DQUOTE)
 				j++;
 			args[i] = rm_quotes(j, args[i]);
+		}
+		i++;
+	}
+}
+
+char	*rm_midquot(char *s, int n)
+{
+	char	*res;
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	j = 0;
+	res = malloc(sizeof(char) * ft_strlen(s) - n + 1);
+	if (!res)
+		return (NULL);
+	while (s[i])
+	{
+		while (s[i] && s[i] != SQUOTE && s[i] != DQUOTE)
+		{
+			res[j] = s[i];
+			i++;
+			j++;
+		}
+		if (s[i] && (s[i] == DQUOTE || s[i] == SQUOTE))
+		{
+			c = s[i];
+			i++;
+			while (s[i] && s[i] != c)
+			{
+				res[j] = s[i];
+				i++;
+				j++;
+			}
+			if (s[i] && s[i] == c)
+				i++;
+		}
+	}
+	res[j] = '\0';
+	free(s);
+	return (res);
+}
+
+int	ct_quotes(char *p)
+{
+	int		i;
+	int		res;
+	char	c;
+
+	i = 0;
+	res = 0;
+	while (p[i])
+	{
+		while (p[i] && p[i] != SQUOTE && p[i] != DQUOTE)
+			i++;
+		if (p[i] && (p[i] == DQUOTE || p[i] == SQUOTE))
+		{
+			c = p[i];
+			res += 2;
+			i++;
+			while (p[i] && p[i] != c)
+				i++;
+			if (p[i] && p[i] == c)
+				i++;
+		}
+	}	
+	return (res);
+}
+
+/* IN PROGRESS. Once done, maybe it can also include the movements needed for del_end_quotes
+ */
+void	del_mid_quotes(char **s)
+{
+	int	i;
+	int	ct;
+
+	i = 0;
+	ct = 0;
+	while (s[i])
+	{
+		if (ft_strchr(s[i], SQUOTE) || ft_strchr(s[i], DQUOTE))
+		{
+			ct = ct_quotes(s[i]);
+			s[i] = rm_midquot(s[i], ct);
 		}
 		i++;
 	}
@@ -96,20 +167,4 @@ int	assign_outfile(char	*file)
 	}
 	else
 		return (fd);
-}
-
-void	free_cmdlist(t_cmd *head)
-{
-	t_cmd	*current = head;
-	t_cmd	*nextnode;
-
-	while (current != NULL)
-	{
-		nextnode = current->next;
-		free_all(current->args, dbl_len(current->args));
-		if (current->full_path)
-			free(current->full_path);
-		free(current);
-		current = nextnode;
-	}
 }
