@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 17:41:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:57:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 			i = i + dbl_len(s->args);
 		}
 	//	del_end_quotes(s->args);
-		del_mid_quotes(s->args);
-		if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
-			s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	}
+	del_mid_quotes(s->args);
+	if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
+		s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	return (s);
 }
 
@@ -103,6 +103,8 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	 * char* we need so not to alloc unnecessary string, but I got same errors
 	 */
 	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+	if (!res->args)
+		return (NULL);
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
@@ -138,5 +140,6 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 	}
 	if (cmd_n > 1)
 		fill_cmdlst(lex, env_lst, cmdlst, cmd_n);
+	free_all(lex, dbl_len(lex));
 	return (cmdlst);
 }
