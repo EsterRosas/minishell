@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/12 20:33:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:48:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**get_ptharr(t_envv *env_lst)
 {
 	char	**ptharr;
-	
+
 	ptharr = NULL;
 	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
 		env_lst = env_lst->next;
@@ -31,12 +31,13 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 	else
 	{
 		if (!cmdlst)
-			return;
+			return ;
 		while (cmdlst->next)
 			cmdlst = cmdlst->next;
 	}
 	cmdlst->next = new;
 }
+
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 {
 	int		i;
@@ -58,9 +59,10 @@ void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 
 void	free_cmdlist(t_cmd *head)
 {
-	t_cmd	*current = head;
+	t_cmd	*current;
 	t_cmd	*nextnode;
 
+	current = head;
 	while (current != NULL)
 	{
 		nextnode = current->next;
