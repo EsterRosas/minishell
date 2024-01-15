@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/12/12 19:54:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:41:10 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		assign_infile(char	*file);
 int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
-void	del_end_quotes(char **args);
+//void	del_end_quotes(char **args);
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);

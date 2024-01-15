@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/07 18:42:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:58:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**cmdsubsplit(char **s)
 	char	**res;
 	int		len;
 
-	res = NULL;
+//	res = NULL;
 	len = dbl_len(s);
 	if (!need_split(s))
 		return (s);

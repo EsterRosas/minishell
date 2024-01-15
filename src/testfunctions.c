@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/12 20:52:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:45:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	test(char *line, t_envv *o_envp)
 	char		**lexed;
 //	t_cmd		*cmds;
 	t_prompt	*prompt;
-	char		**trimmed;
+//	char		**trimmed;
 
-	i = -1;
+/*	i = -1;
 	trimmed = cmdtrim(line);
 	while (trimmed[++i])
-		printf("trimmed[%i]: %s\n", i, trimmed[i]);
-	lexed = repl_var(cmdexpand(cmdsubsplit(trimmed)), o_envp);
+		printf("trimmed[%i]: %s\n", i, trimmed[i]);*/
+	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
@@ -50,7 +50,7 @@ void	test(char *line, t_envv *o_envp)
 	free_cmdlist(prompt->cmd);
 	free_all(prompt->envp, dbl_len(prompt->envp));
 	free(prompt);
-	free_all(lexed, dbl_len(lexed));
+//	free_all(lexed, dbl_len(lexed));
 }
 
 /*
