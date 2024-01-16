@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:57:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:25:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-	/* Some malloc in this function creates leaks I think (need to check in
-	 * CAMPUS). I thought I need to calculate the exact number of
-	 * char* we need so not to alloc unnecessary string, but I got same errors
-	 */
 	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
 	if (!res->args)
 		return (NULL);

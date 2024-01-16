@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:45:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:22:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@ void	test(char *line, t_envv *o_envp)
 {
 	int			i;
 	char		**lexed;
-//	t_cmd		*cmds;
 	t_prompt	*prompt;
-//	char		**trimmed;
+	t_cmd		*aux;
 
-/*	i = -1;
-	trimmed = cmdtrim(line);
-	while (trimmed[++i])
-		printf("trimmed[%i]: %s\n", i, trimmed[i]);*/
 	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
@@ -36,16 +31,17 @@ void	test(char *line, t_envv *o_envp)
 	prompt->cmd = get_cmdlst(lexed, o_envp);
 	prompt->envp = env_lst2arr(o_envp);
 	i = 0;
-	while (prompt->cmd)
+	aux = prompt->cmd;
+	while (aux)
 	{
-		printf("prompt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", prompt->cmd->infile, prompt->cmd->outfile, prompt->cmd->full_path);
-		while (prompt->cmd->args[i])
+		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", aux->infile, aux->outfile, aux->full_path);
+		while (aux->args[i])
 		{
-			printf("prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
+			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
 			i++;
 		}
 		i = 0;
-		prompt->cmd = prompt->cmd->next;
+		aux = aux->next;
 	}
 	free_cmdlist(prompt->cmd);
 	free_all(prompt->envp, dbl_len(prompt->envp));

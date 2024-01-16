@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:30:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:21:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*rl_gets(char *line)
 	return (line);
 }
 
-void	loop_prompt(char *line, t_envv *o_envp)
+/*void	loop_prompt(char *line, t_envv *o_envp)
 {
 	if (line == NULL)
 	{
@@ -46,6 +46,21 @@ void	loop_prompt(char *line, t_envv *o_envp)
 	{
 		line = rl_gets(line);
 		test(line, o_envp);
+	}
+	if (ft_strcmp(line, "exit") == 0)
+		ft_exit();
+	free(line);
+	return ;
+}*/
+
+void	loop_prompt(char *line, t_envv *o_envp)
+{
+	if (line == NULL)
+		line = rl_gets(line);
+	while (ft_strcmp(line, "exit") != 0)
+	{
+		test(line, o_envp);
+		line = rl_gets(line);
 	}
 	if (ft_strcmp(line, "exit") == 0)
 		ft_exit();
