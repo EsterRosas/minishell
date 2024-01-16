@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:49:10 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:43:59 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,3 @@ int	main(int argc, char **argv, char **envp)
 	free_env(env_lst);
 	return (0);
 }
-/*
-int main() {
-    FILE *file = fopen("nonexistentfile.txt", "r");
-
-    if (file == NULL) {
-        handle_error("Failed to open file");
-    }
-
-    // Rest of your code
-    return 0;}*/
