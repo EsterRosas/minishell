@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/16 17:24:14 by damendez         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:01:12 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@
  *			2.3. 
  *
 */
+
+int	handle_cmds(t_prompt *prompt)
+{
+	// for each t_cmd node in prompt, check if the first args string is a builtin file
+	// if not then execute external command
+	t_cmd	*current_cmd = prompt->cmd;
+
+	while (current_cmd)
+	{
+		if (is_builtin(current_cmd->args[0]))
+			exec_builtin(current_cmd);
+		else
+			exec_ext_cmd(current_cmd, prompt);
+		current_cmd = current_cmd->next;
+	}
+}
 
 int	is_builtin(char	*s)
 {

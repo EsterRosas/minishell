@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/15 17:41:10 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:02:02 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	ft_echo(const char *message);
 void	ft_pwd(void);
 int		is_builtin(char	*s);
 void	ft_exit(void);
+
+/*      get_cmd.c            */
+void    exec_ext_cmd(t_cmd	*current_cmd, t_prompt  *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);

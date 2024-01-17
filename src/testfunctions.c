@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testfunctions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:45:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:43:57 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	test(char *line, t_envv *o_envp)
 		i = 0;
 		prompt->cmd = prompt->cmd->next;
 	}
+	handle_cmds(prompt);
 	free_cmdlist(prompt->cmd);
 	free_all(prompt->envp, dbl_len(prompt->envp));
 	free(prompt);
