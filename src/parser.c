@@ -42,7 +42,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = dbl_len(args);
 	j = 0;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
@@ -63,11 +63,13 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
+t_cmd	*fill_node(t_cmd *s, char **lex)
 {
 	int	i;
+	int	len;
 
 	i = 0;
+	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
 		if (ft_strlen(lex[i]) == 1 && (lex[i][0] == '<' || lex[i][0] == '>'))
@@ -81,13 +83,11 @@ t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
 		else
 		{
 			s->args = fill_args(s->args, lex, i);
-			i = i + dbl_len(s->args);
+			i = i + dbl_len(s->args) - len;
+			len = dbl_len(s->args);
 		}
-	//	del_end_quotes(s->args);
 	}
 	del_mid_quotes(s->args);
-	if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
-		s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	return (s);
 }
 
@@ -105,7 +105,9 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
-	res = fill_node(res, lex, env_lst);
+	res = fill_node(res, lex);
+	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
+		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
 
