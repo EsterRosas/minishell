@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/17 20:02:02 by damendez         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:18:48 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ void	ft_echo(const char *message);
 void	ft_pwd(void);
 int		is_builtin(char	*s);
 void	ft_exit(void);
+void	handle_cmds(t_prompt *prompt);
 
 /*      get_cmd.c            */
-void    exec_ext_cmd(t_cmd	*current_cmd, t_prompt  *prompt);
+void    exec_ext_cmd(t_prompt  *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
