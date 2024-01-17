@@ -6,13 +6,13 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 16:53:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:45:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	assign_infile(char	*file)
+int	assign_infile(char *file)
 {
 	int	fd;
 

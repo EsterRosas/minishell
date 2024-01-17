@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/16 20:25:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:41:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * in the lexer / user input. It's important to have this in mind for the
  * executor
  * STILL TO DO:
- * 1) Will need to delete quotations (single and double) where needed
- * besides the ones we're already deleting with the current code.
- * 2) IMPORTANT NOTE: For the moment it does't manage neither << nor >>
+ * 1) IMPORTANT NOTE: For the moment it does't manage neither << nor >>
  */
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:59:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:14:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_prompt
 {
 	t_cmd	*cmd;
 	char	**envp;
-//	pid_t	pid;
+	pid_t	pid;
 }		t_prompt;
 
 #endif
