@@ -14,10 +14,8 @@
 
 int	aft_dol_varchr(char *s)
 {
-	int	res;
 	int	i;
 
-	res = 0;
 	i = 0;
 	while (s[i] && s[i] != '$')
 		i++;
