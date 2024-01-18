@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
@@ -74,7 +75,8 @@ int		expandable(char *s);
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
 int		assign_infile(char	*file);
-int		assign_outfile(char	*file);
+int		assign_outfile(char **lex, int i, bool *append);
+//int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
 //void	del_end_quotes(char **args);

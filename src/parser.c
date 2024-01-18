@@ -72,12 +72,14 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (ft_strlen(lex[i]) == 1 && (lex[i][0] == '<' || lex[i][0] == '>'))
+		if /*(ft_strlen(lex[i]) == 1 &&*/(lex[i][0] == '<' || lex[i][0] == '>')//)
 		{
 			if (lex[i][0] == '<')
 				s->infile = assign_infile(lex[++i]);
 			else
-				s->outfile = assign_outfile(lex[++i]);
+			{
+						s->outfile = assign_outfile(lex, ++i, &s->append);
+			}
 			i++;
 		}
 		else
@@ -104,6 +106,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
+	res->append = false;
 	res->next = NULL;
 	res = fill_node(res, lex);
 	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')

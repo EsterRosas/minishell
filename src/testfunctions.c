@@ -18,8 +18,10 @@ void	test(char *line, t_envv *o_envp)
 	char		**lexed;
 	t_prompt	*prompt;
 	t_cmd		*aux;
+	char		**trimmed;
 
-	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
+	trimmed = cmdtrim(line);
+	lexed = repl_var(cmdexpand(cmdsubsplit(trimmed)), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
@@ -34,7 +36,8 @@ void	test(char *line, t_envv *o_envp)
 	aux = prompt->cmd;
 	while (aux)
 	{
-		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", aux->infile, aux->outfile, aux->full_path);
+		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->append: %i, \
+prompt->cmd->fl_p: %s\n", aux->infile, aux->outfile, aux->append, aux->full_path);
 		while (aux->args[i])
 		{
 			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);

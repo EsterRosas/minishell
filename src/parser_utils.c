@@ -28,16 +28,18 @@ int	assign_infile(char *file)
 		return (fd);
 }
 
-int	assign_outfile(char	*file)
+int	assign_outfile(char **lex, int i, bool *append)
 {
 	int	fd;
 
-	fd = open(file, O_WRONLY);
+	fd = open(lex[i], O_RDWR);
 	if (fd == -1)
 	{
-		printf("Error opening file %s\n", file);
+		printf("Error opening file %s\n", lex[i]);
 		return (-1);
 	}
-	else
-		return (fd);
+	i--;
+	if (ft_strlen(lex[i]) == 2 && lex[i][1] == '>')
+		*append = true;
+	return (fd);
 }

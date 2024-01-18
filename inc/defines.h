@@ -32,6 +32,7 @@ typedef struct s_cmd
 	char			*full_path;
 	int				infile;
 	int				outfile;
+	bool			append;
 	struct s_cmd	*next;
 }		t_cmd;
 
