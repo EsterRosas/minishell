@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 12:45:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:44:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	assign_outfile(char **lex, int i, bool *append)
 	int	fd;
 
 	fd = open(lex[i], O_RDWR);
+	printf("ENTERS ASSIGN_OUTFILE al parser_utils\n");
 	if (fd == -1)
 	{
 		printf("Error opening file %s\n", lex[i]);
