@@ -28,6 +28,8 @@ int	assign_infile(char *file)
 		return (fd);
 }
 
+/* NOTE: If the file cannot be opened, it doesn't get to the line where it checks
+ * whether its append instead of simple redirection*/
 int	assign_outfile(char **lex, int i, bool *append)
 {
 	int	fd;

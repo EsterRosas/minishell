@@ -18,10 +18,8 @@ void	test(char *line, t_envv *o_envp)
 	char		**lexed;
 	t_prompt	*prompt;
 	t_cmd		*aux;
-	char		**trimmed;
 
-	trimmed = cmdtrim(line);
-	lexed = repl_var(cmdexpand(cmdsubsplit(trimmed)), o_envp);
+	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
