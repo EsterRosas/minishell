@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/22 13:12:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:25:11 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 		if (lex[i][0] == '<' || lex[i][0] == '>')
 		{
 			if (lex[i][0] == '<')
-				s->infile = assign_infile(lex[++i]);
+			{
+				if (assign_infile(s, lex[++i]) == -1)
+					return (NULL);
+			}
 			else
 				s->outfile = assign_outfile(lex, ++i, &s->append);
 			i++;
@@ -109,7 +112,11 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->append = false;
 	res->next = NULL;
-	res = fill_node(res, lex);
+	if (!fill_node(res, lex))
+	{
+		printf("!fill_node\n");
+		return (NULL);
+	}
 	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
@@ -129,16 +136,26 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 	t_cmd	*cmdlst;
 	int		cmd_n;
 	int		i;
+	char	**aux;
 
 	cmd_n = 1;
 	i = 0;
-	cmdlst = get_cmd(lex, env_lst);
 	while (++i < dbl_len(lex))
 	{
 		if (lex[i][0] == '|')
 			cmd_n++;
 	}
-	if (cmd_n > 1)
+	printf("GET_CMDLST (parser.c) cmd_n: %i\n", cmd_n);
+	//aqui he de posar un if !get_cmd... pq si torna NULL i cmd_n > 1 segueixi
+	//amb el seguent cmd darrere de pipe (casos amb pipe)
+	cmdlst = get_cmd(lex, env_lst);
+	printf("GET_CMDLST (parser.c) cmdlst: %p\n", cmdlst);
+	if (!cmdlst && cmd_n > 1)
+	{
+		aux = &(lex[i + 1]);
+		get_cmdlst(aux, env_lst);
+	}
+	else if (cmd_n > 1)
 		fill_cmdlst(lex, env_lst, cmdlst, cmd_n);
 	free_all(lex, dbl_len(lex));
 	return (cmdlst);

@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/15 17:41:10 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:31:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,17 @@ void	handle_error(const char *message);
 /*		utils.c				*/
 int		dbl_len(char **s);
 void	free_env(t_envv *o_envp);
-void	add_env_back(t_envv *env_lst, t_envv *new);
+void	add_env_back(t_envv *env_lst, t_envv *nw);
 char	**env_lst2arr(t_envv *env_lst);
 int		expandable(char *s);
 
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
-int		assign_infile(char	*file);
+int		assign_infile(t_cmd *s, char	*file);
 int		assign_outfile(char **lex, int i, bool *append);
 //int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
-//void	del_end_quotes(char **args);
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
