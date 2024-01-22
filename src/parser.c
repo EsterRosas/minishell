@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/21 21:17:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:12:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	int	j;
 
 	i = dbl_len(args);
-	printf("enter FILL_ARGS i = dbl_len(args): %i\n", i);
 	j = 0;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
@@ -61,13 +60,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 		lex_pos++;
 		j = 0;
 	}
-	args[i] = NULL; //potser aixo ho he de fer mes tard, pq si no no puc afegir elements, no?
-	i = 0;
-	while (args[i])
-	{
-		printf("args[%i]: %s\n", i, args[i]);
-		i++;
-	}
+	args[i] = NULL;
 	return (args);
 }
 
@@ -81,27 +74,18 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		printf("enters FILL_NODE while, lex[%i]: %s\n", i, lex[i]);
 		if (lex[i][0] == '<' || lex[i][0] == '>')
 		{
-			printf("enterS IF 1 FILL_NODE\n");
 			if (lex[i][0] == '<')
 				s->infile = assign_infile(lex[++i]);
 			else
-			{
-				printf("enters ELSE FILL_NODE\n");
 				s->outfile = assign_outfile(lex, ++i, &s->append);
-				printf("ELSE fill_node outfile: %i\n", s->outfile);
-			}
 			i++;
 		}
 		else
 		{
-			printf("enters ELSE 2 fill_node\n");
 			s->args = fill_args(s->args, lex, i);
-			printf("ELSE 2 fill_node (parser), i: %i, dbl_len(s->args): %i, len: %i\n", i, dbl_len(s->args), len);
 			i = i + dbl_len(s->args) - len;
-			printf("i value after FILL_ARGS in ELSE 2 in fill_node (parser.c): %i\n", i);
 			len = dbl_len(s->args);
 		}
 	}
@@ -113,19 +97,13 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
 
-	int i = 0;
-	while (lex[i])
-	{
-		printf("GET_CMD lex[%i]: %s\n", i, lex[i]);
-		i++;
-	}
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-	printf("after MALLOC GET_CMD\n");
 	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
 	if (!res->args)
 		return (NULL);
+	res->args[0] = NULL;
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
