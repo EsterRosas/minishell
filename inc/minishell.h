@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/22 13:31:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:04:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int		expandable(char *s);
 
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
-int		assign_infile(t_cmd *s, char	*file);
+void	assign_infile(t_cmd *s, char **lex, int i);
+//int		assign_infile(t_cmd *s, char	*file);
 int		assign_outfile(char **lex, int i, bool *append);
 //int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);

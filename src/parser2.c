@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/16 20:18:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:15:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ char	**get_ptharr(t_envv *env_lst)
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 {
 	if (cmdlst == 0)
-		cmdlst = new;
+		printf("cmdlst == 0 IF at cmdlst_addback IF\n");
 	else
 	{
 		if (!cmdlst)
 			return ;
 		while (cmdlst->next)
 			cmdlst = cmdlst->next;
+		cmdlst->next = new;
 	}
-	cmdlst->next = new;
 }
 
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 {
 	int		i;
 	t_cmd	*new;
-
+	
 	i = 0;
 	while (++i < cmd_n)
 	{

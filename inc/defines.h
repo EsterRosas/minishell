@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 12:14:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:01:10 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # define DQUOTE	34
 # define KSPACE	32
 
+typedef struct s_in
+{
+	char	*path;
+	bool	hdoc;
+}		t_in;
+
 typedef struct s_envv
 {
 	char			*nm;
@@ -30,8 +36,8 @@ typedef struct s_cmd
 {
 	char			**args;
 	char			*full_path;
-	int				infile;
-	int				outfile;
+	struct s_in		*infiles;
+	char			**outfiles;
 	bool			append;
 	struct s_cmd	*next;
 }		t_cmd;
