@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/23 21:06:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:24:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 	return (path);
 }
 
-/* I think I have to redo this ft cause takes i not as expected*/
 char	**fill_args(char **args, char **lex, int lex_pos)
 {
 	int	i;
