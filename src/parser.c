@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/22 21:03:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:54:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 		{
 			if (lex[i][0] == '<')
 				assign_infile(s, lex, i);
-		/*	else
-				s->outfiles = assign_outfile(lex, ++i, &s->append);*/
-			i++;
+			else
+				assign_outfile(s, lex, i);
+			i += 2;
 		}
 		else
 		{

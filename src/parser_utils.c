@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/22 21:11:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:00:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ct_files(char c, char **lex, int i)
 	{
 		if (lex[i][0] == c)
 			ct++;
+		i++;
 	}
 	return (ct);
 }
@@ -36,24 +37,24 @@ void	assign_infile(t_cmd *s, char **lex, int i)
 		s->infiles = malloc(sizeof(t_in) * n + 1);
 		if (!s->infiles)
 			return;
-		s->infiles[0].path = lex[i + 1];
+		s->infiles[0].file = ft_strcp(lex[i + 1]);
 		if (ft_strlen(lex[i]) == 2 && lex[i][1] == lex[i][0])
 			s->infiles[0].hdoc = true;
 		else
 			s->infiles[0].hdoc = false;
-		s->infiles[1].path = NULL;
+		s->infiles[1].file = NULL;
 	}
 	else
 	{
 		n = 0;
-		while (s->infiles[n].path)
+		while (s->infiles[n].file)
 			n++;
-		s->infiles[n].path = lex[i + 1];
+		s->infiles[n].file = ft_strcp(lex[i + 1]);
 		if (ft_strlen(lex[i]) == 2 && lex[i][1] == lex[i][0])
 			s->infiles[n].hdoc = true;
 		else
 			s->infiles[n].hdoc = false;
-		s->infiles[n + 1].path = NULL;
+		s->infiles[n + 1].file = NULL;
 	}
 }
 
@@ -62,18 +63,35 @@ void	assign_infile(t_cmd *s, char **lex, int i)
  * if the file doesn't exist yet, now its returning the error, but we should
  * create it instead
  */
-int	assign_outfile(char **lex, int i, bool *append)
+void	assign_outfile(t_cmd *s, char **lex, int i)
 {
-	int	fd;
 
-	fd = open(lex[i], O_RDWR);
-	if (fd == -1)
+	int n;
+//fent aquest a mitges
+	n = 0;
+	if (s->infiles == NULL)
 	{
-		printf("Error opening file %s\n", lex[i]);
-		return (-1);
+		n = ct_files('<', lex, i);
+		s->infiles = malloc(sizeof(t_in) * n + 1);
+		if (!s->infiles)
+			return;
+		s->infiles[0].file = ft_strcp(lex[i + 1]);
+		if (ft_strlen(lex[i]) == 2 && lex[i][1] == lex[i][0])
+			s->append = true;
+		else
+			s->append = false;
+		s->outfiles[1] = NULL;
 	}
-	i--;
-	if (ft_strlen(lex[i]) == 2 && lex[i][1] == '>')
-		*append = true;
-	return (fd);
+	else
+	{
+		n = 0;
+		while (s->infiles[n].file)
+			n++;
+		s->infiles[n].file = ft_strcp(lex[i + 1]);
+		if (ft_strlen(lex[i]) == 2 && lex[i][1] == lex[i][0])
+			s->infiles[n].hdoc = true;
+		else
+			s->infiles[n].hdoc = false;
+		s->infiles[n + 1].file = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/21 20:44:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:18:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,37 @@ void	test(char *line, t_envv *o_envp)
 	prompt->envp = env_lst2arr(o_envp);
 	i = 0;
 	aux = prompt->cmd;
+	int j = 0;
 	while (aux)
 	{
-		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->append: %i, \
-prompt->cmd->fl_p: %s\n", aux->infile, aux->outfile, aux->append, aux->full_path);
+		printf("AUX %i = PROMPT->CMD prompt->cmd->append: %i, prompt->cmd->fl_p: %s\n", \
+j, aux->append, aux->full_path);
+		if (aux->infiles)
+		{
+			while (aux->infiles[i].file)
+			{
+				printf("AUX prompt->cmd->infiles[%i].file: %s, prompt->cmd->infiles[%i].hdoc: \
+%i\n", i, aux->infiles[i].file, i, aux->infiles[i].hdoc);
+				i++;
+			}
+			i = 0;
+		}
+		if (aux->outfiles)
+		{
+			while (aux->outfiles[i])
+			{
+				printf("AUX prompt->cmd->outfiles[%i]: %s\n", i, aux->outfiles[i]);
+				i++;
+			}
+			i = 0;
+		}
 		while (aux->args[i])
 		{
 			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
 			i++;
 		}
 		i = 0;
+		j++;
 		aux = aux->next;
 	}
 	free_cmdlist(prompt->cmd);
