@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/23 10:54:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:06:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-/*(ft_strlen(lex[i]) == 1 &&*/
+/* Primer caldra processar si hi ha heredoc (o heredocs) i saber si es el darrer
+ * input file que hi ha o no.
+ */
 t_cmd	*fill_node(t_cmd *s, char **lex)
 {
 	int	i;
@@ -77,10 +79,10 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 		if (lex[i][0] == '<' || lex[i][0] == '>')
 		{
 			if (lex[i][0] == '<')
-				assign_infile(s, lex, i);
+				assign_infile(lex, ++i, s);
 			else
-				assign_outfile(s, lex, i);
-			i += 2;
+				assign_outfile(lex, ++i, s);
+			i++;
 		}
 		else
 		{
@@ -105,8 +107,8 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 		return (NULL);
 	res->args[0] = NULL;
 	res->full_path = NULL;
-	res->infiles = NULL;
-	res->outfiles = NULL;
+	res->infile = STDIN_FILENO;
+	res->outfile = STDOUT_FILENO;
 	res->append = false;
 	res->next = NULL;
 	res = fill_node(res, lex);
@@ -132,12 +134,12 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 
 	cmd_n = 1;
 	i = 0;
+	cmdlst = get_cmd(lex, env_lst);
 	while (++i < dbl_len(lex))
 	{
 		if (lex[i][0] == '|')
 			cmd_n++;
 	}
-	cmdlst = get_cmd(lex, env_lst);
 	if (cmd_n > 1)
 		fill_cmdlst(lex, env_lst, cmdlst, cmd_n);
 	free_all(lex, dbl_len(lex));

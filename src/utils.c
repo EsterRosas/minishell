@@ -6,29 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:25:10 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/23 10:34:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:36:02 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*ft_strcp(char *src)
-{
-	char	*dst;
-	int		i;
-
-	i = 0;
-	dst = malloc(sizeof(char) * ft_strlen(src) + 1);
-	if (!dst)
-		return (NULL);
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
 
 void	add_env_back(t_envv *env_lst, t_envv *new)
 {
