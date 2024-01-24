@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/23 21:03:15 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:03:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	assign_infile(char **lex, int i, t_cmd *s)
  * EN REALITAT sera NOMES SI EL PROBLEMA (ERROR) es que no existeix.
  *
  * Si el problema es de permisos, caldra fer una altra cosa!!!!!
+ *
+ * NOTA IMPORTANT: si troba el fitxer output pero no es el darrer, no l'envia
+ * com a
  */
 void	assign_outfile(char **lex, int i, t_cmd *s)
 {
