@@ -6,11 +6,17 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/25 09:45:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:23:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/*int	is_lastfile(char **lex, int i, char c)
+{
+
+
+}*/
 
 void	assign_infile(char **lex, int i, t_cmd *s)
 {
@@ -32,12 +38,18 @@ void	assign_infile(char **lex, int i, t_cmd *s)
  *
  * NOTA IMPORTANT: si troba el fitxer output (tant > com >>) pero no es el
  * darrer, no l'envia com a outfile, pero si que n'esborra el contingut!!!
- * A MESURA QUE PASSEM, sempre que no sigui el darrer, n-hem d'esborrar el
- * contingut. IDEA: 1) esborrem (amb el nostre propi RM, per exemple),
- * 2) creem amb un open, O_CREAT (o amb el nostre propi touch)
+ * A MESURA QUE PASSEM, sempre que no sigui el darrer, n'hem d'esborrar el
+ * contingut. A la carpeta Tests hi tinc la funcio feta per fer-ho:
+ * delete_file_content.c. Haurem de simular ftruncate function. 
+ * CREC QUE HO PODEM FER SUBSTITUINT CADA caracter del fitxer (a traves de
+ * get_next_line o d'algun read o aixi i posant en comptes de que hi ha el
+ * '\0' a cada caracter. Potser simplement posant '\0' en el primer caracter?
+ * AMB UN SIMPLE WRITE??
  */
 void	assign_outfile(char **lex, int i, t_cmd *s)
 {
+//	if (!is_lastfile
+
 	if (s->outfile > 1)
 		close(s->outfile);
 	s->outfile = open(lex[i], O_RDWR);

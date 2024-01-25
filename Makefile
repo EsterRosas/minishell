@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2024/01/25 11:21:29 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/01/25 18:54:35 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ OS			:=		$(shell uname)
 
 SRC			=		src
 OBJ			=		obj
+INC_DIR		=		inc
 SRCS		=		$(wildcard $(SRC)/*.c)
 OBJS		=		$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 DEPS		=		$(addsuffix .d, $(basename $(SRCS)))
@@ -24,7 +25,9 @@ DEPS		=		$(addsuffix .d, $(basename $(SRCS)))
 
 LIBFT		=		-L ./lib/libft -lft
 #LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
-IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib/libreadline.dylib
+#IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib/libreadline.dylib
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 
 CC			=		gcc
 CFLAGS		=		-Wall -Wextra -Werror -MMD
@@ -48,11 +51,11 @@ $(NAME):  libft $(OBJS)
 	$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT) $(IREADLINE) -lreadline $(OBJS) -o $@
 # DAVANT -o: -fsanitize='address,undefined'
 
-linux: libft $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+#linux: libft $(OBJS)
+#	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 
 $(OBJ)/%.o: $(SRC)/%.c $(OBJ)
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INC_DIR) $(IREADLINE) -g -c $< -o $@
 # DAVANT LA -c: -fsanitize='address,undefined'
 
 $(OBJ):
