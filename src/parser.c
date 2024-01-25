@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/24 16:11:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:26:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
  * input file que hi ha o no.
  * NOTA: if several '<<' occurrences, both are processed (we have to ask input
  * to the user for both of them).
+ * 
  */
 t_cmd	*fill_node(t_cmd *s, char **lex)
 {
@@ -81,7 +82,7 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 		{
 			if (lex[i][0] == '>')
 				assign_outfile(lex, ++i, s);
-			else if (lex[i][0] == '<' && ft_strlen(lex[i] == 1)
+			else if (lex[i][0] == '<' && ft_strlen(lex[i]) == 1)
 				assign_infile(lex, ++i, s);
 			i++;
 		}
@@ -125,7 +126,11 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * in the lexer / user input. It's important to have this in mind for the
  * executor
  * STILL TO DO:
- * 1) IMPORTANT NOTE: For the moment it does't manage neither << nor >>
+ * 1) IMPORTANT NOTE: For the moment it does't manage neither << (heredoc)
+ *
+ * ATENCIO: need to create a grid with all possible cmds to know what they
+ * receive and so know if execve receives infile as arg or as input file.
+ *
  */
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {

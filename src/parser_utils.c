@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/24 18:09:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/25 09:45:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ void	assign_infile(char **lex, int i, t_cmd *s)
  *
  * Si el problema es de permisos, caldra fer una altra cosa!!!!!
  *
- * NOTA IMPORTANT: si troba el fitxer output pero no es el darrer, no l'envia
- * com a outfile, pero si que n'esborra el contingut!!!
+ * NOTA IMPORTANT: si troba el fitxer output (tant > com >>) pero no es el
+ * darrer, no l'envia com a outfile, pero si que n'esborra el contingut!!!
+ * A MESURA QUE PASSEM, sempre que no sigui el darrer, n-hem d'esborrar el
+ * contingut. IDEA: 1) esborrem (amb el nostre propi RM, per exemple),
+ * 2) creem amb un open, O_CREAT (o amb el nostre propi touch)
  */
 void	assign_outfile(char **lex, int i, t_cmd *s)
 {

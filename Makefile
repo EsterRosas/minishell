@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2023/12/07 18:39:09 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/01/25 11:21:29 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DEPS		=		$(addsuffix .d, $(basename $(SRCS)))
 
 
 LIBFT		=		-L ./lib/libft -lft
-LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
+#LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
 IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib/libreadline.dylib
 
 CC			=		gcc
