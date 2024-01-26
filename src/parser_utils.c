@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/26 13:54:29 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:24:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	assign_outfile(char **lex, int i, t_cmd *s)
 	}
 	else
 		s->outfile = open(lex[i], O_RDWR);
-	if (s->outfile == -1 && errno == 2) // 2 es quan no el troba
+	if (s->outfile == -1)/* && errno == 2) // 2 es quan no el troba
 		s->outfile = open(lex[i], O_CREAT, 0600);
-	else
+	else*/
 	{
 		printf("minishell: %s: %s\n", lex[i], strerror(errno));
 		//aqui hem de fer alguna cosa mes? pensar com i que hem de retornar
