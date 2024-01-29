@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/26 17:24:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:14:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,37 @@ int	is_lastfile(char **lex, int i, char c)
 	return (0);
 }
 
+/* CONTINUA PER AQUI tenin en compte canvis fets a outfile
+ * (us de is_lastfile)
+ * CAT: cat < . si que ha des er "." arg que se li passi a exec
+ * EN CANVI, FIND: es queda com a infile o el que sigui pero no com a arg.
+ */
 void	assign_infile(char **lex, int i, t_cmd *s)
 {
-	if (s->infile > 1)
-		close(s->infile);
-	s->infile = open(lex[i], O_RDONLY);
-	if (s->infile == -1)
-		return;
+	int fd;
+
+	if (is_lastfile(lex, i, lex[i - 1][0]))
+	{
+		if (access(lex[i], R_OK) == -1)
+			printf("minishell: %s: %s\n", lex[i], strerror(errno));
+		else
+		{
+			fd = open(lex[i], O_RDONLY);
+			if (fd == -1)
+				printf("minishell: %s: %s\n", lex[i], strerror(errno));
+			else
+				s->infile = fd;
+		}
+	}
 }
 
 /* Defines the current lex position as output file only if it's the last one.
  * If it's not, it deletes its content (with O_TRUNC option).
- * If the open returns error 2 (non existing file), it cretes it.
+ * If the open returns error 2 (non existing file), it creates it.
  *
  * Finally checks if the previous lex position was >> or >, so sets
  * the boolean s->append to true or false, respectively.
- *
- * Si el problema no es que no existeix, caldra fer una altra cosa!!!!!
- */
+  */
 void	assign_outfile(char **lex, int i, t_cmd *s)
 {
 	int	fd;
@@ -51,9 +64,9 @@ void	assign_outfile(char **lex, int i, t_cmd *s)
 	}
 	else
 		s->outfile = open(lex[i], O_RDWR);
-	if (s->outfile == -1)/* && errno == 2) // 2 es quan no el troba
+	if (s->outfile == -1 && errno == 2) // 2 es quan no el troba
 		s->outfile = open(lex[i], O_CREAT, 0600);
-	else*/
+	else if (s->outfile == -1)
 	{
 		printf("minishell: %s: %s\n", lex[i], strerror(errno));
 		//aqui hem de fer alguna cosa mes? pensar com i que hem de retornar
