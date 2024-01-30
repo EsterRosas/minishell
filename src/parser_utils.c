@@ -6,13 +6,13 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/29 22:14:45 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:04:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_lastfile(char **lex, int i, char c)
+int	is_lastfile(char **lex, int i, char c) //refer per a append i heredoc
 {
 	while (lex[i] && lex[i][0] != '|' && lex[i][0] != c)
 		i++;
@@ -21,16 +21,19 @@ int	is_lastfile(char **lex, int i, char c)
 	return (0);
 }
 
-/* CONTINUA PER AQUI tenin en compte canvis fets a outfile
- * (us de is_lastfile)
- * CAT: cat < . si que ha des er "." arg que se li passi a exec
+/* CAT: cat < . si que ha des er "." arg que se li passi a exec
  * EN CANVI, FIND: es queda com a infile o el que sigui pero no com a arg.
+ *
+ * PENDENT DE FER:
+ * si un infile no existeix, independentment de l’ordre (posició entre els 
+ * diversos infiles del t_cmd) >> ATUREM i saltem al següent t_cmd de la
+ * llista (suposo que haure d’eliminar el node) i ja no el passem a l’executor
  */
 void	assign_infile(char **lex, int i, t_cmd *s)
 {
-	int fd;
+	int	fd;
 
-	if (is_lastfile(lex, i, lex[i - 1][0]))
+	if (ft_strlen(lex[i - 1]) == 1 && is_lastfile(lex, i, lex[i - 1][0]))
 	{
 		if (access(lex[i], R_OK) == -1)
 			printf("minishell: %s: %s\n", lex[i], strerror(errno));
@@ -43,6 +46,8 @@ void	assign_infile(char **lex, int i, t_cmd *s)
 				s->infile = fd;
 		}
 	}
+	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
+		s->hdoc = process_hdoc(lex[i], is_lastfile(lex, i, '<'));
 }
 
 /* Defines the current lex position as output file only if it's the last one.

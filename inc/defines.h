@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 12:14:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:24:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_cmd
 	int				infile;
 	int				outfile;
 	bool			append;
+	char			*hdoc;
 	struct s_cmd	*next;
 }		t_cmd;
 

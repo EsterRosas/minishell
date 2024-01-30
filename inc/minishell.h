@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/23 21:03:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:34:08 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);
+//int		has_hdoc(char **lex);
+char	*process_hdoc(char *delim, int last);
 
 #endif
