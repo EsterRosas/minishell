@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/30 20:52:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:37:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	test(char *line, t_envv *o_envp)
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
-	/* Before proceeding to PARSER we can check for syntax errors as we said.
-	 * BUT!!!! E.g.: if using NON EXISTING COMMAND as first cmd->args item
-	 * (cmd->args[0]), (> but so we need it parsed!!), then SHOW
-	 * "minishell: <non-existing_cmd_name>: command not found"
+	/* If non-existing command (args[0]) it will get execve and it will launch
+	 * the error >> doncs no, no es aixi
 	 */
 	prompt->cmd = get_cmdlst(lexed, o_envp);
 	prompt->envp = env_lst2arr(o_envp);

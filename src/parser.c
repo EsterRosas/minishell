@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/30 20:13:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:25:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 			break ;
 		else
 		{
-			free(path);
+			if (path)
+				free(path);
+			path = NULL;
 			i++;
 		}
 	}
@@ -128,12 +130,15 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * in the lexer / user input. It's important to have this in mind for the
  * executor
  * STILL TO DO:
- * 1) IMPORTANT NOTE: For the moment it does't manage << (heredoc)
  * 2) PRIMER CAL QUE MIREM quina es l'ordre
  *
  * ATENCIO: need to create a grid with all possible cmds to know what they
  * receive and so know if execve receives infile as arg or as input file.
  *
+ * NOTA:
+ * quan no es builtin execve sembla que no gestiona Command
+ * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
+ * quan agafem ruta  d’exec (no builtin) pero path = NULL
  */
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {
