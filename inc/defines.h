@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/30 20:24:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:55:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # define SQUOTE	39
 # define DQUOTE	34
 # define KSPACE	32
+
+# define R_END 0
+# define W_END 1
 
 typedef struct s_envv
 {

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/31 17:37:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:45:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	test(char *line, t_envv *o_envp)
 	if (!prompt)
 		return ;
 	/* If non-existing command (args[0]) it will get execve and it will launch
-	 * the error >> doncs no, no es aixi
+	 * the error >> doncs no, no es aixi, ho haurem de forcar si path = NULL
 	 */
 	prompt->cmd = get_cmdlst(lexed, o_envp);
 	prompt->envp = env_lst2arr(o_envp);

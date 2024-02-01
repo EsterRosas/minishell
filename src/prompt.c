@@ -6,11 +6,22 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/16 19:21:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:32:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/*void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_status = 130;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
+}*/
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -59,6 +70,12 @@ void	loop_prompt(char *line, t_envv *o_envp)
 		line = rl_gets(line);
 	while (ft_strcmp(line, "exit") != 0)
 	{
+	//	signal(SIGINT, handle_sigint);
+	//	signal(SIGQUIT, SIG_IGN);
+	/*	if (line[0] == '\n')  //intento que si l'usuari posa ENTER toni a llegir rl_gets...i mostrar minishell~
+		{
+			loop_prompt(char 
+		}	*/
 		test(line, o_envp);
 		line = rl_gets(line);
 	}

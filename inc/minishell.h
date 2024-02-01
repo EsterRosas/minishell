@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/30 20:34:08 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:00:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <signal.h>
+# include <sys/ioctl.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 

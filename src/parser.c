@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/31 19:25:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:45:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,10 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-/* Primer caldra processar si hi ha heredoc (o heredocs) i saber si es el darrer
- * input file que hi ha o no. >> NOTA IMPORTANT: heredoc te els seus propis
+/* NOTA IMPORTANT: heredoc te els seus propis
  * senyals, pq si estem a mig "demanar input heredoc a usuari", si es fa Ctr+C
  * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
  * d'executar en un proces a part (child).
- * NOTA: if several '<<' occurrences, both are processed (we have to ask input
- * to the user for both of them).
  */
 t_cmd	*fill_node(t_cmd *s, char **lex)
 {
