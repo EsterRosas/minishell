@@ -23,6 +23,18 @@
 	}
 }*/
 
+int	only_sp(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] == KSPACE)
+		i++;
+	if (!s[i])
+		return (1);
+	return (2);
+}
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 && (*s1 == *s2))
@@ -72,14 +84,14 @@ void	loop_prompt(char *line, t_envv *o_envp)
 	{
 	//	signal(SIGINT, handle_sigint);
 	//	signal(SIGQUIT, SIG_IGN);
-	/*	if (line[0] == '\n')  //intento que si l'usuari posa ENTER toni a llegir rl_gets...i mostrar minishell~
-		{
-			loop_prompt(char 
-		}	*/
-		test(line, o_envp);
+		if (line[0] && !only_sp(line))  //si l'usuari prem ENTER no processa la line i mostra de nou minishell~
+			test(line, o_envp);
 		line = rl_gets(line);
 	}
-	if (ft_strcmp(line, "exit") == 0)
+	if (ft_strcmp(line, "exit") == 0) // aqui hem de posar tb la condicio de si es Ctrl-D
+									  // Ctrl-C ara surt i hem de fer que no faci res com BASH
+									  // AIXO ANIRIA amb el que fa la condicio de l'IF anterior
+									  // (usuari prem nomes ENTER o nomes espais i ENTER
 		ft_exit();
 	free(line);
 	return ;

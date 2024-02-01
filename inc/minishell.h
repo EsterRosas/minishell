@@ -23,6 +23,7 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <string.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
