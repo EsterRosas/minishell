@@ -12,16 +12,30 @@
 
 #include "../inc/minishell.h"
 
-/*void	handle_sigint(int sig)
+void	handle_signal(int sig)
 {
-	if (sig == SIGINT)
+/*	if (sig == SIGINT)
 	{
 		g_status = 130;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
+	}*/
+	if (sig == SIGINT)
+	{
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+//		g_exst = 1;
 	}
-}*/
+	else if (sig == SIGQUIT)
+	{
+		write(1, "Quit: 3\n", 10);
+//		g_exst = 131;
+	}
+	return ;
+}
 
 int	only_sp(char *s)
 {
@@ -32,7 +46,7 @@ int	only_sp(char *s)
 		i++;
 	if (!s[i])
 		return (1);
-	return (2);
+	return (0);
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -82,16 +96,13 @@ void	loop_prompt(char *line, t_envv *o_envp)
 		line = rl_gets(line);
 	while (ft_strcmp(line, "exit") != 0)
 	{
-	//	signal(SIGINT, handle_sigint);
 	//	signal(SIGQUIT, SIG_IGN);
-		if (line[0] && !only_sp(line))  //si l'usuari prem ENTER no processa la line i mostra de nou minishell~
+	//	a l'IF seguent falta afegir Ctrl-C: ara surt i hem de fer que no faci res, com BASH
+		if (line[0] != '\0' && !only_sp(line))  //si l'usuari prem ENTER no processa la line i mostra de nou minishell~
 			test(line, o_envp);
 		line = rl_gets(line);
 	}
-	if (ft_strcmp(line, "exit") == 0) // aqui hem de posar tb la condicio de si es Ctrl-D
-									  // Ctrl-C ara surt i hem de fer que no faci res com BASH
-									  // AIXO ANIRIA amb el que fa la condicio de l'IF anterior
-									  // (usuari prem nomes ENTER o nomes espais i ENTER
+	if (ft_strcmp(line, "exit") == 0) // aqui hem de posar tb la condicio de si es Ctrl-D (tb printa "exit")
 		ft_exit();
 	free(line);
 	return ;

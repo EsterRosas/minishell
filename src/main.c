@@ -57,6 +57,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	line = NULL;
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
 	loop_prompt(line, env_lst);
 	free_env(env_lst);
 	return (0);

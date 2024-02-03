@@ -24,10 +24,12 @@ DEPS		=		$(addsuffix .d, $(basename $(SRCS)))
 
 
 LIBFT		=		-L ./lib/libft -lft
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
 #LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
 #IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib/libreadline.dylib
-LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
-IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
+#LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+#IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 
 CC			=		gcc
 CFLAGS		=		-Wall -Wextra -Werror -MMD

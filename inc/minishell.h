@@ -27,6 +27,8 @@
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
+int		g_exst;
+
 /*      prompt.c        	*/
 char	*rl_gets(char *line);
 void	loop_prompt(char *line, t_envv *o_envp);
@@ -89,5 +91,8 @@ char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);
 //int		has_hdoc(char **lex);
 char	*process_hdoc(char *delim, int last);
+
+/*		signals					*/
+void	handle_signal(int sig);
 
 #endif
