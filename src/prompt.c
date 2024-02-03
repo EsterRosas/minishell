@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/01 18:32:53 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/03 12:35:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 void	handle_signal(int sig)
 {
-/*	if (sig == SIGINT)
-	{
-		g_status = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}*/
 	if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
@@ -29,11 +22,12 @@ void	handle_signal(int sig)
 		rl_redisplay();
 //		g_exst = 1;
 	}
-	else if (sig == SIGQUIT)
+/*	else if (sig == SIGQUIT)
 	{
+	POTSER BUSCAR IGNORE SIGNALS FUNCTION
 		write(1, "Quit: 3\n", 10);
-//		g_exst = 131;
-	}
+		g_exst = 131;
+	}*/
 	return ;
 }
 
