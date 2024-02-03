@@ -12,48 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*char	*rm_quotes(int n, char *s)
-{
-	char	*res;
-
-	res = ft_substr(s, n, ft_strlen(s) - (n * 2));
-	free(s);
-	return (res);
-}*/
-
-/* Delete quotation marks at the first position and last of all the strings
- * as far as they are in both places and are the same. If more than one, need to
- * be the same type (squotes or dquotes) as the ones in the initial ends,
- * according to bash behaviour.
- */
-/*void	del_end_quotes(char **args)
-{
-	int	i;
-	int	l;
-	int	j;
-
-	i = 0;
-	l = 0;
-	j = 0;
-	while (args[i])
-	{
-		l = ft_strlen(args[i]);
-		if (l > 1 && args[i][0] == SQUOTE && args[i][l - 1] == SQUOTE)
-		{
-			while (args[i][j] == SQUOTE && args[i][l - 1 - j] == SQUOTE)
-				j++;
-			args[i] = rm_quotes(j, args[i]);
-		}
-		else if (l > 1 && args[i][0] == DQUOTE && args[i][l - 1] == DQUOTE)
-		{
-			while (args[i][j] == DQUOTE && args[i][l - 1 - j] == DQUOTE)
-				j++;
-			args[i] = rm_quotes(j, args[i]);
-		}
-		i++;
-	}
-}*/
-
 char	*cp_woquotes(char *s, char *t)
 {
 	int		i;

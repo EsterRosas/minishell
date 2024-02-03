@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:57:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:45:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 			break ;
 		else
 		{
-			free(path);
+			if (path)
+				free(path);
+			path = NULL;
 			i++;
 		}
 	}
@@ -42,7 +44,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = dbl_len(args);
 	j = 0;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
@@ -63,31 +65,36 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-t_cmd	*fill_node(t_cmd *s, char **lex, t_envv *env_lst)
+/* NOTA IMPORTANT: heredoc te els seus propis
+ * senyals, pq si estem a mig "demanar input heredoc a usuari", si es fa Ctr+C
+ * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
+ * d'executar en un proces a part (child).
+ */
+t_cmd	*fill_node(t_cmd *s, char **lex)
 {
 	int	i;
+	int	len;
 
 	i = 0;
+	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (ft_strlen(lex[i]) == 1 && (lex[i][0] == '<' || lex[i][0] == '>'))
+		if (lex[i][0] == '<' || lex[i][0] == '>')
 		{
-			if (lex[i][0] == '<')
-				s->infile = assign_infile(lex[++i]);
-			else
-				s->outfile = assign_outfile(lex[++i]);
+			if (lex[i][0] == '>')
+				assign_outfile(lex, ++i, s);
+			else if (lex[i][0] == '<') /*&& ft_strlen(lex[i]) == 1*/
+				assign_infile(lex, ++i, s);
 			i++;
 		}
 		else
 		{
 			s->args = fill_args(s->args, lex, i);
-			i = i + dbl_len(s->args);
+			i = i + dbl_len(s->args) - len;
+			len = dbl_len(s->args);
 		}
-	//	del_end_quotes(s->args);
 	}
 	del_mid_quotes(s->args);
-	if (!is_builtin(s->args[0]) && s->args[0][0] != '/')
-		s->full_path = fill_path(s->full_path, env_lst, s->args[0]);
 	return (s);
 }
 
@@ -98,18 +105,18 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-	/* Some malloc in this function creates leaks I think (need to check in
-	 * CAMPUS). I thought I need to calculate the exact number of
-	 * char* we need so not to alloc unnecessary string, but I got same errors
-	 */
 	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
 	if (!res->args)
 		return (NULL);
+	res->args[0] = NULL;
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
+	res->append = false;
 	res->next = NULL;
-	res = fill_node(res, lex, env_lst);
+	res = fill_node(res, lex);
+	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
+		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
 
@@ -120,9 +127,15 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * in the lexer / user input. It's important to have this in mind for the
  * executor
  * STILL TO DO:
- * 1) Will need to delete quotations (single and double) where needed
- * besides the ones we're already deleting with the current code.
- * 2) IMPORTANT NOTE: For the moment it does't manage neither << nor >>
+ * 2) PRIMER CAL QUE MIREM quina es l'ordre
+ *
+ * ATENCIO: need to create a grid with all possible cmds to know what they
+ * receive and so know if execve receives infile as arg or as input file.
+ *
+ * NOTA:
+ * quan no es builtin execve sembla que no gestiona Command
+ * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
+ * quan agafem ruta  d’exec (no builtin) pero path = NULL
  */
 t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {

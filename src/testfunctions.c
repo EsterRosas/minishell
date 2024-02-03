@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 18:43:57 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:14:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,33 @@ void	test(char *line, t_envv *o_envp)
 {
 	int			i;
 	char		**lexed;
-//	t_cmd		*cmds;
 	t_prompt	*prompt;
-//	char		**trimmed;
+	t_cmd		*aux;
 
-/*	i = -1;
-	trimmed = cmdtrim(line);
-	while (trimmed[++i])
-		printf("trimmed[%i]: %s\n", i, trimmed[i]);*/
 	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
+//	rl_replace_line("", 0);
+//	rl_on_new_line();
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return ;
-	/* Before proceeding to PARSER we can check for syntax errors as we said.
-	 * BUT!!!! E.g.: if using NON EXISTING COMMAND as first cmd->args item
-	 * (cmd->args[0]), (> but so we need it parsed!!), then SHOW
-	 * "minishell: <non-existing_cmd_name>: command not found"
+	/* If non-existing command (args[0]) it will get execve and it will launch
+	 * the error >> doncs no, no es aixi, ho haurem de forcar si path = NULL
 	 */
 	prompt->cmd = get_cmdlst(lexed, o_envp);
 	prompt->envp = env_lst2arr(o_envp);
 	i = 0;
-	while (prompt->cmd)
+	aux = prompt->cmd;
+	while (aux)
 	{
-		printf("prompt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->fl_p: %s\n", prompt->cmd->infile, prompt->cmd->outfile, prompt->cmd->full_path);
-		while (prompt->cmd->args[i])
+		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->append: %i, \
+prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", aux->infile, aux->outfile, aux->append, aux->full_path, aux->hdoc);
+		while (aux->args[i])
 		{
-			printf("prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
+			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
 			i++;
 		}
 		i = 0;
-		prompt->cmd = prompt->cmd->next;
+		aux = aux->next;
 	}
 	handle_cmds(prompt);
 	free_cmdlist(prompt->cmd);

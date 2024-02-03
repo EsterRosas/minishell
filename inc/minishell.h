@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/01/17 20:18:48 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:15:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <stdbool.h>
+# include <signal.h>
+# include <sys/ioctl.h>
+# include <string.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
+
+int		g_exst;
 
 /*      prompt.c        	*/
 char	*rl_gets(char *line);
@@ -71,14 +77,15 @@ void	handle_error(const char *message);
 /*		utils.c				*/
 int		dbl_len(char **s);
 void	free_env(t_envv *o_envp);
-void	add_env_back(t_envv *env_lst, t_envv *new);
+void	add_env_back(t_envv *env_lst, t_envv *nw);
 char	**env_lst2arr(t_envv *env_lst);
 int		expandable(char *s);
 
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
-int		assign_infile(char	*file);
-int		assign_outfile(char	*file);
+void	assign_infile(char **lex, int i, t_cmd *s);
+void	assign_outfile(char **lex, int i, t_cmd *s);
+//int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
 //void	del_end_quotes(char **args);
@@ -86,5 +93,10 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);
+//int		has_hdoc(char **lex);
+char	*process_hdoc(char *delim, int last);
+
+/*		signals					*/
+void	handle_signal(int sig);
 
 #endif
