@@ -12,6 +12,16 @@
 
 #include "../inc/minishell.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+
 void	add_env_back(t_envv *env_lst, t_envv *new)
 {
 	t_envv	*aux;

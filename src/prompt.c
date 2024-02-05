@@ -24,28 +24,38 @@ int	only_sp(char *s)
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+void	ft_parse(char *line, t_envv *o_envp)
 {
-	while (*s1 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
+	int			i;
+	t_prompt	*prompt;
+	t_cmd		*aux;
 
-/*char	*rl_gets(char *line)
-{
-	if (line)
+	i = 0;
+	prompt = malloc(sizeof(t_prompt));
+	if (!prompt)
+		return ;
+	/* If non-existing command (args[0]) it will get execve and it will launch
+	 * the error >> doncs no, no es aixi, ho haurem de forcar si path = NULL
+	 */
+	prompt->cmd = get_cmdlst(line, o_envp);
+	prompt->envp = env_lst2arr(o_envp);
+	aux = prompt->cmd;
+	while (aux)
 	{
-		free(line);
-		line = NULL;
+		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->append: %i, \
+prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", aux->infile, aux->outfile, aux->append, aux->full_path, aux->hdoc);
+		while (aux->args[i])
+		{
+			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
+			i++;
+		}
+		i = 0;
+		aux = aux->next;
 	}
-	line = readline("minishell~ ");
-	if (line && *line)
-		add_history(line);
-	return (line);
-}*/
+	free_cmdlist(prompt->cmd);
+	free_all(prompt->envp, dbl_len(prompt->envp));
+	free(prompt);
+}
 
 void	loop_prompt(/*char *line,*/t_envv *o_envp)
 {
@@ -57,10 +67,10 @@ void	loop_prompt(/*char *line,*/t_envv *o_envp)
 		if (!line) //this is the case when the user hits Ctrl+D
 			break ;
 		else if (line[0] != '\0' && !only_sp(line))  //si l'usuari prem ENTER o nomes espais, no processa la line i mostra de nou minishell~
-			test(line, o_envp);
+			ft_parse(line, o_envp);
 		add_history(line);
-		if (line)
-			free(line);
+	//	if (line)
+		free(line);
 	}
 	return ;
 }

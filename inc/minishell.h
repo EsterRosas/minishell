@@ -30,9 +30,8 @@
 int		g_exst;
 
 /*      prompt.c        	*/
-char	*rl_gets(char *line);
+//char	*rl_gets(char *line);
 void	loop_prompt(t_envv *o_envp);
-int		ft_strcmp(char *s1, char *s2);
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -78,8 +77,10 @@ void	handle_error(const char *message);
 int		dbl_len(char **s);
 void	free_env(t_envv *o_envp);
 void	add_env_back(t_envv *env_lst, t_envv *nw);
-char	**env_lst2arr(t_envv *env_lst);
 int		expandable(char *s);
+int		ft_strcmp(char *s1, char *s2);
+
+char	**env_lst2arr(t_envv *env_lst);
 
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
@@ -89,7 +90,7 @@ void	assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
 //void	del_end_quotes(char **args);
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
+t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);

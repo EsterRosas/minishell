@@ -45,7 +45,6 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	int	j;
 
 	i = dbl_len(args);
-	printf("fill_args, lex_pos: %i, i: %i\n", lex_pos, i);
 	j = 0;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
@@ -142,22 +141,24 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
  * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
  * quan agafem ruta  d’exec (no builtin) pero path = NULL
  */
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
+t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
 	t_cmd	*cmdlst;
 	int		cmd_n;
 	int		i;
+	char	**lexed;
 
 	cmd_n = 1;
 	i = 0;
-	cmdlst = get_cmd(lex, env_lst);
-	while (++i < dbl_len(lex))
+	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	cmdlst = get_cmd(lexed, env_lst);
+	while (++i < dbl_len(lexed))
 	{
-		if (lex[i][0] == '|')
+		if (lexed[i][0] == '|')
 			cmd_n++;
 	}
 	if (cmd_n > 1)
-		fill_cmdlst(lex, env_lst, cmdlst, cmd_n);
-	free_all(lex, dbl_len(lex));
+		fill_cmdlst(lexed, env_lst, cmdlst, cmd_n);
+	free_all(lexed, dbl_len(lexed));
 	return (cmdlst);
 }

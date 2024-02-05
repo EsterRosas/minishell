@@ -66,7 +66,6 @@ t_envv	*cp_envp(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-//	static char	*line;
 	t_envv		*env_lst;
 
 	// hey from testing-david :)
