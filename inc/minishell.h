@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/03 13:15:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:55:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		g_exst;
 
 /*      prompt.c        	*/
 char	*rl_gets(char *line);
-void	loop_prompt(char *line, t_envv *o_envp);
+void	loop_prompt(t_envv *o_envp);
 int		ft_strcmp(char *s1, char *s2);
 
 /*		trim functions		*/
@@ -97,6 +97,6 @@ void	del_mid_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
 
 /*		signals					*/
-void	handle_signal(int sig);
+//void	handle_signal(int sig);
 
 #endif

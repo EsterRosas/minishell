@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/01 16:45:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:23:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	int	j;
 
 	i = dbl_len(args);
+	printf("fill_args, lex_pos: %i, i: %i\n", lex_pos, i);
 	j = 0;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
@@ -62,6 +63,9 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 		j = 0;
 	}
 	args[i] = NULL;
+	i = -1;
+	while (++i)
+		printf("args[%i]: %s\n", i, args[i]);
 	return (args);
 }
 
@@ -114,6 +118,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->append = false;
 	res->next = NULL;
+	res->hdoc = NULL;
 	res = fill_node(res, lex);
 	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);

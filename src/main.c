@@ -6,11 +6,27 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/16 14:43:59 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:25:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	handle_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+//		g_exst = 1;
+	}
+	else if (sig == SIGQUIT)
+	{
+	}
+	return ;
+}
 
 void	add_node(char *evar, t_envv *env_lst)
 {
@@ -50,7 +66,7 @@ t_envv	*cp_envp(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	static char	*line;
+//	static char	*line;
 	t_envv		*env_lst;
 
 	// hey from testing-david :)
@@ -58,10 +74,9 @@ int	main(int argc, char **argv, char **envp)
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-	line = NULL;
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
-	loop_prompt(line, env_lst);
+	signal(SIGINT, handle_signal);  //Ctrl+C
+	signal(SIGQUIT, handle_signal); //Ctrl+contrabarra
+	loop_prompt(env_lst);
 	free_env(env_lst);
 	return (0);
 }
