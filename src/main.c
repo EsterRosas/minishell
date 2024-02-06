@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/05 21:25:13 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:50:02 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@ int	main(int argc, char **argv, char **envp)
 	t_envv		*env_lst;
 
 	// hey from testing-david :)
-	
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, handle_signal);  //Ctrl+C
+	signal(SIGINT, handle_signal); //Ctrl+C
 	signal(SIGQUIT, handle_signal); //Ctrl+contrabarra
 	loop_prompt(env_lst);
 	free_env(env_lst);

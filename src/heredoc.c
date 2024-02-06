@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/01 17:38:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:31:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 /* NOTA: el heredoc ha de tenir els seus propis senyals
  */
 
+char	*ft_str_eol(void)
+{
+	char	*res;
+
+	res = malloc(sizeof(char) + 1);
+	if (!res)
+		return (NULL);
+	res[0] = '\n';
+	res[1] = '\0';
+	return (res);
+}
+
 char	*process_hdoc(char *delim, int last)
 {
 	static char	*input;
@@ -22,9 +34,7 @@ char	*process_hdoc(char *delim, int last)
 	char		*eol;
 	char		*aux2;
 
-	eol = malloc(sizeof(char) + 1);
-	eol[0] = '\n';
-	eol[1] = '\0';
+	eol = ft_str_eol();
 	res = NULL;
 	if (last)
 		res = ft_strdup(input);

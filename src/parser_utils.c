@@ -6,13 +6,13 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/30 21:04:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:00:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_lastfile(char **lex, int i, char c) //refer per a append i heredoc
+int	is_lastfile(char **lex, int i, char c)
 {
 	while (lex[i] && lex[i][0] != '|' && lex[i][0] != c)
 		i++;
@@ -69,7 +69,7 @@ void	assign_outfile(char **lex, int i, t_cmd *s)
 	}
 	else
 		s->outfile = open(lex[i], O_RDWR);
-	if (s->outfile == -1 && errno == 2) // 2 es quan no el troba
+	if (s->outfile == -1 && errno == 2)
 		s->outfile = open(lex[i], O_CREAT, 0600);
 	else if (s->outfile == -1)
 	{
