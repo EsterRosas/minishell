@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:25:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:03:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,21 @@ int	is_builtin(char	*s)
 	return (0);
 }
 
-void	ft_echo(const char *message)
+void	ft_echo(t_cmd *cmd)
 {
-	printf("%s\n", message);
+	char	**aux;
+	int		i;
+
+	i = 0;
+	aux = cmd->args;
+	while (cmd->args[++i])
+	{
+		printf("%s", cmd->args[i]);
+		if (i == dbl_len(cmd->args) - 1)
+			printf("\n");
+		else
+			printf(" ");
+	}
 }
 
 void	ft_pwd(t_envv *env)

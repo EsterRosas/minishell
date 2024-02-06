@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 18:48:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:55:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 		j = 0;
 	}
 	args[i] = NULL;
-	i = -1;
-	while (++i)
-		printf("args[%i]: %s\n", i, args[i]);
 	return (args);
 }
 
