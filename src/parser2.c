@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/05 19:37:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:23:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,24 @@ void	free_cmdlist(t_cmd *head)
 			free(current->full_path);
 		if (current->hdoc)
 			free(current->hdoc);
+		free(current);
+		current = nextnode;
+	}
+}
+
+void	free_envlist(t_envv *head)
+{
+	t_envv	*current;
+	t_envv	*nextnode;
+
+	current = head;
+	while (current)
+	{
+		nextnode = current->next;
+		if (current->nm)
+			free(current->nm);
+		if (current->val)
+			free(current->val);
 		free(current);
 		current = nextnode;
 	}

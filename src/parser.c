@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 17:51:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:48:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
  * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
  * d'executar en un proces a part (child).
  */
-t_cmd	*fill_node(t_cmd *s, char **lex)
+int	fill_node(t_cmd *s, char **lex)
 {
 	int	i;
 	int	len;
@@ -87,7 +87,10 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 			if (lex[i][0] == '>')
 				assign_outfile(lex, ++i, s);
 			else if (lex[i][0] == '<')
-				assign_infile(lex, ++i, s);
+			{
+				if (assign_infile(lex, ++i, s) == -1)
+					return (-1);
+			}
 			i++;
 		}
 		else
@@ -98,7 +101,7 @@ t_cmd	*fill_node(t_cmd *s, char **lex)
 		}
 	}
 	del_mid_quotes(s->args);
-	return (s);
+	return (0);
 }
 
 t_cmd	*get_cmd(char **lex, t_envv *env_lst)
@@ -118,8 +121,9 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->append = false;
 	res->next = NULL;
 	res->hdoc = NULL;
-	res = fill_node(res, lex);
-	if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
+	if (fill_node(res, lex) == -1)
+		return (NULL);
+	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
@@ -157,6 +161,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 		if (lexed[i][0] == '|')
 			cmd_n++;
 	}
+	/*if (!cmdlst)
+	{
+		ft_skipnode(lex...///completar - REINICIALITZAR DADES NODE I MOURE POSICIO al PIPE + 1
+		cmd_n--;
+	}*/
 	if (cmd_n > 1)
 		fill_cmdlst(lexed, env_lst, cmdlst, cmd_n);
 	free_all(lexed, dbl_len(lexed));

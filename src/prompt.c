@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 17:53:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:24:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	only_sp(char *s)
  * the error >> BUT IT DOESN'T behave this way. We'll have to code this
  * IF !is_builtin(args[0]) && full_ path = NULL
  */
-void	ft_parse(char *line, t_envv *o_envp)
+t_prompt	*ft_parse(char *line, t_envv *o_envp)
 {
 	int			i;
 	t_prompt	*prompt;
@@ -37,9 +37,9 @@ void	ft_parse(char *line, t_envv *o_envp)
 	i = 0;
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
-		return ;
+		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
-	prompt->envp = env_lst2arr(o_envp);
+	prompt->envp = o_envp;
 	aux = prompt->cmd;
 	while (aux)
 	{
@@ -55,9 +55,10 @@ aux->full_path, aux->hdoc);
 		i = 0;
 		aux = aux->next;
 	}
-	free_cmdlist(prompt->cmd);
+/*	free_cmdlist(prompt->cmd);
 	free_all(prompt->envp, dbl_len(prompt->envp));
-	free(prompt);
+	free(prompt);*/
+	return (prompt);
 }
 
 /* Starts the prompt to the user and reads the input (line).
@@ -75,7 +76,7 @@ void	loop_prompt(t_envv *o_envp)
 		if (!line)
 			break ;
 		else if (line[0] != '\0' && !only_sp(line))
-			ft_parse(line, o_envp);
+			ft_exec(ft_parse(line, o_envp));
 		add_history(line);
 		free(line);
 	}

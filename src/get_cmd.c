@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:46:17 by damendez          #+#    #+#             */
-/*   Updated: 2024/01/17 20:58:24 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:22:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void exec_ext_cmd(t_prompt  *prompt)
     else if (!pid)
     {
         printf("Hello from child process");
-        if (execve(prompt->cmd->full_path, prompt->cmd->args, prompt->envp) == -1)
+        if (execve(prompt->cmd->full_path, prompt->cmd->args, env_lst2arr(prompt->envp)) == -1)
             handle_error("execve error");
         exit(EXIT_SUCCESS);
     }
