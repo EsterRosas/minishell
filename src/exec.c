@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 21:14:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:47:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit(prompt);
+		ft_exit();
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		ft_pwd(prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)

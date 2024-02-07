@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:24:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:47:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ aux->full_path, aux->hdoc);
 }
 
 /* Starts the prompt to the user and reads the input (line).
- * IF !line it's because the user perssed Ctrl+D
+ * IF !line it's because the user pressed Ctrl+D
  * ELSE IF: if the user presses Enter or only spaces + Enter, the program does
  * not process the line and shows minishell~ again to the user in a new line.
  */
@@ -74,7 +74,7 @@ void	loop_prompt(t_envv *o_envp)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			break ;
+			ft_exit();	
 		else if (line[0] != '\0' && !only_sp(line))
 			ft_exec(ft_parse(line, o_envp));
 		add_history(line);

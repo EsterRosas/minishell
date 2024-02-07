@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 21:03:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:46:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,8 @@ void	ft_pwd(t_envv *env)
 		printf("%s\n", aux->val);
 }
 
-void	ft_exit(t_prompt *prompt)
+void	ft_exit()
 {
 	printf("exit\n");
-	free_cmdlist(prompt->cmd);
-	free_envlist(prompt->envp);
-	free(prompt);
 	exit (1); 
 }
