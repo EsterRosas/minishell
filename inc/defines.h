@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/03 13:15:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:48:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_cmd
 typedef struct s_prompt
 {
 	t_cmd	*cmd;
-	char	**envp;
+	t_envv	*envp;
 	pid_t	pid;
 }		t_prompt;
 

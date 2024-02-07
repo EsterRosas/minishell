@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/03 13:15:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:42:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 int		g_exst;
 
 /*      prompt.c        	*/
-char	*rl_gets(char *line);
-void	loop_prompt(char *line, t_envv *o_envp);
-int		ft_strcmp(char *s1, char *s2);
+//char	*rl_gets(char *line);
+void	loop_prompt(t_envv *o_envp);
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -62,8 +61,10 @@ char	*get_oenv(char *s, t_envv *o_envp);
 void	test(char *line, t_envv *o_envp);
 
 /*      builtins.c            */
-void	ft_echo(const char *message);
-void	ft_pwd(void);
+//void	ft_echo(const char *message);
+void	ft_echo(t_cmd *cmd);
+//void	ft_pwd(void);
+void	ft_pwd(t_envv *env);
 int		is_builtin(char	*s);
 void	ft_exit(void);
 void	handle_cmds(t_prompt *prompt);
@@ -78,25 +79,30 @@ void	handle_error(const char *message);
 int		dbl_len(char **s);
 void	free_env(t_envv *o_envp);
 void	add_env_back(t_envv *env_lst, t_envv *nw);
-char	**env_lst2arr(t_envv *env_lst);
 int		expandable(char *s);
+int		ft_strcmp(char *s1, char *s2);
+t_envv	*cp_envp(char **envp);
+
+char	**env_lst2arr(t_envv *env_lst);
 
 /*		parser.c				*/
-t_cmd	*get_cmd(char **lexi, t_envv *env_lst);
-void	assign_infile(char **lex, int i, t_cmd *s);
+t_cmd	*get_cmd(char **lex, t_envv *env_lst);
+int		assign_infile(char **lex, int i, t_cmd *s);
 void	assign_outfile(char **lex, int i, t_cmd *s);
 //int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
+void	free_envlist(t_envv *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
-//void	del_end_quotes(char **args);
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
+t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
 char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);
-//int		has_hdoc(char **lex);
 char	*process_hdoc(char *delim, int last);
 
 /*		signals					*/
-void	handle_signal(int sig);
+//void	handle_signal(int sig);
+
+/*		executor				*/
+void	ft_exec(t_prompt *prompt);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 20:55:15 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:03:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,39 @@ int	is_builtin(char	*s)
 	return (0);
 }
 
-void	ft_echo(const char *message)
+void	ft_echo(t_cmd *cmd)
 {
-	printf("%s\n", message);
+	char	**aux;
+	int		i;
+
+	i = 0;
+	aux = cmd->args;
+	while (cmd->args[++i])
+	{
+		printf("%s", cmd->args[i]);
+		if (i == dbl_len(cmd->args) - 1)
+			printf("\n");
+		else
+			printf(" ");
+	}
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_envv *env)
 {
-	char	*buf;
+	t_envv	*aux;
 
-	buf = NULL;
-	getcwd(NULL, 0);
-	printf("%s", buf);
+	aux = env;
+	while (ft_strcmp(aux->nm, "PWD") != 0)
+		aux = aux->next;
+	if (ft_strcmp(aux->nm, "PWD") == 0)
+		printf("%s\n", aux->val);
 }
 
-void	ft_exit(void)
+void	ft_exit(t_prompt *prompt)
 {
 	printf("exit\n");
+	free_cmdlist(prompt->cmd);
+	free_envlist(prompt->envp);
+	free(prompt);
+	exit (1); 
 }

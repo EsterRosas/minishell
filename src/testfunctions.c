@@ -6,50 +6,16 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 12:52:57 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/03 13:14:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:53:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	test(char *line, t_envv *o_envp)
+/*void	test(char *line, t_envv *o_envp)
 {
-	int			i;
-	char		**lexed;
-	t_prompt	*prompt;
-	t_cmd		*aux;
-
-	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), o_envp);
-//	rl_replace_line("", 0);
-//	rl_on_new_line();
-	prompt = malloc(sizeof(t_prompt));
-	if (!prompt)
-		return ;
-	/* If non-existing command (args[0]) it will get execve and it will launch
-	 * the error >> doncs no, no es aixi, ho haurem de forcar si path = NULL
-	 */
-	prompt->cmd = get_cmdlst(lexed, o_envp);
-	prompt->envp = env_lst2arr(o_envp);
-	i = 0;
-	aux = prompt->cmd;
-	while (aux)
-	{
-		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, prompt->cmd->append: %i, \
-prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", aux->infile, aux->outfile, aux->append, aux->full_path, aux->hdoc);
-		while (aux->args[i])
-		{
-			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
-			i++;
-		}
-		i = 0;
-		aux = aux->next;
-	}
-	handle_cmds(prompt);
-	free_cmdlist(prompt->cmd);
-	free_all(prompt->envp, dbl_len(prompt->envp));
-	free(prompt);
-//	free_all(lexed, dbl_len(lexed));
-}
+//	handle_cmds(prompt);
+}*/
 
 /*
 In interactive mode:
