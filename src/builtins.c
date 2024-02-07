@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 21:03:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:07:44 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@
  *
 */
 
-void	handle_cmds(t_prompt *prompt)
-{
-	//printf("hello from handle_cmds\n");
-	//printf("Heres prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
-	while (prompt->cmd)
-	{
-		printf("Ready to execute external command");
-		exec_ext_cmd(prompt);
-		prompt->cmd = prompt->cmd->next;
-	}
-}
+// void	handle_cmds(t_prompt *prompt)
+// {
+// 	//printf("hello from handle_cmds\n");
+// 	//printf("Heres prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
+// 	while (prompt->cmd)
+// 	{
+// 		printf("Ready to execute external command");
+// 		g_exst = exec_ext_cmd(prompt);
+// 		prompt->cmd = prompt->cmd->next;
+// 	}
+// }
 
 int	is_builtin(char	*s)
 {
@@ -84,39 +84,21 @@ int	is_builtin(char	*s)
 	return (0);
 }
 
-void	ft_echo(t_cmd *cmd)
+void	ft_echo(const char *message)
 {
-	char	**aux;
-	int		i;
-
-	i = 0;
-	aux = cmd->args;
-	while (cmd->args[++i])
-	{
-		printf("%s", cmd->args[i]);
-		if (i == dbl_len(cmd->args) - 1)
-			printf("\n");
-		else
-			printf(" ");
-	}
+	printf("%s\n", message);
 }
 
-void	ft_pwd(t_envv *env)
+void	ft_pwd(void)
 {
-	t_envv	*aux;
+	char	*buf;
 
-	aux = env;
-	while (ft_strcmp(aux->nm, "PWD") != 0)
-		aux = aux->next;
-	if (ft_strcmp(aux->nm, "PWD") == 0)
-		printf("%s\n", aux->val);
+	buf = NULL;
+	getcwd(NULL, 0);
+	printf("%s", buf);
 }
 
-void	ft_exit(t_prompt *prompt)
+void	ft_exit(void)
 {
 	printf("exit\n");
-	free_cmdlist(prompt->cmd);
-	free_envlist(prompt->envp);
-	free(prompt);
-	exit (1); 
 }

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:48:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:32:35 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_prompt
 {
 	t_cmd	*cmd;
 	t_envv	*envp;
+	//char	*infile_path; // TO-DO
+	//char	*outfile_path; // TO-DO
 	pid_t	pid;
 }		t_prompt;
 
