@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 17:07:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:07:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	t_cmd		*aux;
 
 	i = 0;
+	int j = 0;
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return (NULL);
@@ -43,9 +44,9 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	aux = prompt->cmd;
 	while (aux)
 	{
-		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
+		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
 prompt->cmd->append: %i, prompt->cmd->fl_p: %s, \
-prompt->cmd->hdoc: %s\n", aux->infile, aux->outfile, aux->append, \
+prompt->cmd->hdoc: %s\n", j, aux->infile, aux->outfile, aux->append, \
 aux->full_path, aux->hdoc);
 		while (aux->args[i])
 		{
@@ -54,6 +55,7 @@ aux->full_path, aux->hdoc);
 		}
 		i = 0;
 		aux = aux->next;
+		j++;
 	}
 	return (prompt);
 }

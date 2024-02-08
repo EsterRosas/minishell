@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:23:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:28:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 	cmdlst->next = new;
 }
 
-void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
+t_cmd	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 {
 	int		i;
 	t_cmd	*new;
@@ -51,8 +51,17 @@ void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 		if (*lex && *lex[0] == '|')
 		{
 			lex++;
-			new = get_cmd(lex, env_lst);
-			cmdlst_addback(cmdlst, new);
+			if (cmdlst == NULL)
+			{
+				printf("fill_cmdlst: cmdlst should be NULL: %p\n", cmdlst);
+				cmdlst = get_cmd(lex, env_lst);
+				printf("fill_cmdlst (parser2) cmdlst: %p\n", cmdlst);
+			}
+			else
+			{
+				new = get_cmd(lex, env_lst);
+				cmdlst_addback(cmdlst, new);
+			}
 		}
 	}
 }
