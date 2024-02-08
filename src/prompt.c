@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/07 16:47:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:07:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ aux->full_path, aux->hdoc);
 		i = 0;
 		aux = aux->next;
 	}
-/*	free_cmdlist(prompt->cmd);
-	free_all(prompt->envp, dbl_len(prompt->envp));
-	free(prompt);*/
 	return (prompt);
 }
 
@@ -68,15 +65,21 @@ aux->full_path, aux->hdoc);
  */
 void	loop_prompt(t_envv *o_envp)
 {
-	char	*line;
-
+	char		*line;
+	t_prompt	*prompt;
 	while (1)
 	{
 		line = readline("minishell~ ");
 		if (!line)
 			ft_exit();	
 		else if (line[0] != '\0' && !only_sp(line))
-			ft_exec(ft_parse(line, o_envp));
+		{
+			prompt = ft_parse(line, o_envp);
+			ft_exec(prompt);
+			free_cmdlist(prompt->cmd);
+//			free_envlist(o_envp);
+			free(prompt);
+		}
 		add_history(line);
 		free(line);
 	}
