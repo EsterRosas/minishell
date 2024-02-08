@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/07 16:46:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:47:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,17 @@ int	is_builtin(char	*s)
 		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
 		return (1);
 	return (0);
+}
+
+void	ft_env(t_envv *env)
+{
+	char	**s;
+	int		i;
+
+	s = env_lst2arr(env);
+	i = -1;
+	while (s[++i])
+		printf("%s\n", s[i]);
 }
 
 void	ft_echo(t_cmd *cmd)

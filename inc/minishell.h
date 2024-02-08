@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/07 16:47:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:50:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ char	*get_oenv(char *s, t_envv *o_envp);
 void	test(char *line, t_envv *o_envp);
 
 /*      builtins.c            */
+int		is_builtin(char	*s);
 //void	ft_echo(const char *message);
 void	ft_echo(t_cmd *cmd);
 //void	ft_pwd(void);
 void	ft_pwd(t_envv *env);
-int		is_builtin(char	*s);
+void	ft_env(t_envv *env);
 //void	ft_exit(void);
 void	ft_exit();
 void	handle_cmds(t_prompt *prompt);

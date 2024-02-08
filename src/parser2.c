@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:28:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:34:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 	cmdlst->next = new;
 }
 
-t_cmd	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
+void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 {
 	int		i;
 	t_cmd	*new;
