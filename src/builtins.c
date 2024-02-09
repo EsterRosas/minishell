@@ -95,23 +95,6 @@ void	ft_env(t_envv *env)
 		printf("%s\n", s[i]);
 }
 
-void	ft_echo(t_cmd *cmd)
-{
-	char	**aux;
-	int		i;
-
-	i = 0;
-	aux = cmd->args;
-	while (cmd->args[++i])
-	{
-		printf("%s", cmd->args[i]);
-		if (i == dbl_len(cmd->args) - 1)
-			printf("\n");
-		else
-			printf(" ");
-	}
-}
-
 void	ft_pwd(t_envv *env)
 {
 	t_envv	*aux;

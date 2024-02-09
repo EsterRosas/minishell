@@ -68,7 +68,6 @@ t_envv	*cp_envp(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_envv		*env_lst;
-	int	i = -1;
 
 	// hey from testing-david :)
 	env_lst = cp_envp(envp);
