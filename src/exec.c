@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:49:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:08:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		ft_echo(cmd);
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
 		ft_env(prompt->envp);
-
-//	free_cmdlist(prompt->cmd);
-//	free_envlist(prompt->envp);
-//	free(prompt);
 }
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
@@ -45,5 +41,4 @@ void	ft_exec(t_prompt *prompt)
 		ft_execcmd(prompt, aux);
 		aux = aux->next;
 	}
-// GLOBAL FREE
 }

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 18:31:03 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:11:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,29 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 	cmdlst->next = new;
 }
 
-t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst)
+/* Takes the char** once it's been trimmed, subsplitted, expanded (~ to $HOME)
+ * and with variables replaced and parses it into an list of several t_cmd
+ * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
+ * If the list has more than one element means they are separated by pipes
+ * in the lexer / user input. It's important to have this in mind for the
+ * executor
+ * 
+ * ATENCIO: need to create a grid with all possible cmds to know what they
+ * receive and so know if execve receives infile as arg or as input file.
+ *
+ * NOTA:
+ * quan no es builtin execve sembla que no gestiona Command
+ * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
+ * quan agafem ruta  d’exec (no builtin) pero path = NULL
+ */
+t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
-	int		i;
 	t_cmd	*res;
+	char	**lex;
 	t_cmd	*new;
+	int		i;
 
+	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
 	res = NULL;
 	i = 0;
 	while (lex[i])
@@ -51,43 +68,16 @@ t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst)
 		new = get_cmd(&lex[i], env_lst);
 		if (new && res)
 			cmdlst_addback(res, new);
-		else if (new) 
+		else if (new)
 			res = new;
 		while (lex[i] && lex[i][0] != '|')
 			i++;
 		if (lex[i] && lex[i][0] == '|')
 			i++;
 	}
+	free_all(lex, dbl_len(lex));
 	return (res);
 }
-
-/*void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
-{
-	int		i;
-	t_cmd	*new;
-
-	i = 0;
-	while (++i < cmd_n)
-	{
-		while (*lex && *lex[0] != '|')
-			lex++;
-		if (*lex && *lex[0] == '|')
-		{
-			lex++;
-			if (cmdlst == NULL)
-			{
-				printf("fill_cmdlst: cmdlst should be NULL: %p\n", cmdlst);
-				cmdlst = get_cmd(lex, env_lst);
-				printf("fill_cmdlst (parser2) cmdlst: %p\n", cmdlst);
-			}
-			else
-			{
-				new = get_cmd(lex, env_lst);
-				cmdlst_addback(cmdlst, new);
-			}
-		}
-	}
-}*/
 
 void	free_cmdlist(t_cmd *head)
 {

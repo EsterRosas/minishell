@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 18:53:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:11:56 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	is_lastfile(char **lex, int i, char c)
 
 /* CAT: cat < . si que ha des er "." arg que se li passi a exec
  * EN CANVI, FIND: es queda com a infile o el que sigui pero no com a arg.
- *
- * PENDENT DE FER:
- * si un infile no existeix, independentment de l’ordre (posició entre els 
- * diversos infiles del t_cmd) >> ATUREM i saltem al següent t_cmd de la
- * llista (suposo que haure d’eliminar el node) i ja no el passem a l’executor
  */
 int	assign_infile(char **lex, int i, t_cmd *s)
 {
@@ -65,7 +60,7 @@ int	assign_infile(char **lex, int i, t_cmd *s)
  * Finally checks if the previous lex position was >> or >, so sets
  * the boolean s->append to true or false, respectively.
   */
-void	assign_outfile(char **lex, int i, t_cmd *s)
+int	assign_outfile(char **lex, int i, t_cmd *s)
 {
 	int	fd;
 
@@ -82,12 +77,12 @@ void	assign_outfile(char **lex, int i, t_cmd *s)
 	else if (s->outfile == -1)
 	{
 		printf("minishell: %s: %s\n", lex[i], strerror(errno));
-		//aqui hem de fer alguna cosa mes? pensar com i que hem de retornar
-		//per si hem de saltar tot el cmd en aquest cas >> ER RA PROVANT AMB INFILE (return -1)
+		return (-1);
 	}
 	i--;
 	if (ft_strlen(lex[i]) == 2 && lex[i][1] == '>')
 		s->append = true;
 	else
 		s->append = false;
+	return (0);
 }

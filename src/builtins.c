@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:47:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:07:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	ft_pwd(t_envv *env)
 		printf("%s\n", aux->val);
 }
 
-void	ft_exit()
+void	ft_exit(void)
 {
 	printf("exit\n");
-	exit (1); 
+	exit (1);
 }
