@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:54:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:15:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-//		write(1, "\n", 1);
+//		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-//		rl_redisplay();
+		rl_redisplay();
 //		g_exst = 1;
 	}
 /*	else if (sig == SIGQUIT)

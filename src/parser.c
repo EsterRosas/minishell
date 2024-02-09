@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:29:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:33:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ int	fill_node(t_cmd *s, char **lex)
 			else if (lex[i][0] == '<')
 			{
 				if (assign_infile(lex, ++i, s) == -1)
-				{
-					printf("FILL_NODE infile = -1\n");
 					return (-1);
-				}
 			}
 			i++;
 		}
@@ -155,22 +152,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	cmd_n = 1;
 	i = 0;
 	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	//AQUI HEM DE CRIDAR LA GET_CMDLST i refer get_cmdlst ft
-	cmdlst = get_cmd(lexed, env_lst);
-	while (++i < dbl_len(lexed))
-	{
-		if (lexed[i][0] == '|')
-			cmd_n++;
-	}
-	printf("cmdlst: %p\n", cmdlst);
-/*	if (!cmdlst)
-	{
-	//	ft_skipnode(lex...///completar - REINICIALITZAR DADES NODE I MOURE POSICIO al PIPE + 1
-		cmd_n--;
-	}*/
-	if (cmd_n > 1)
-		fill_cmdlst(lexed, env_lst, cmdlst, cmd_n);
-	printf("get_cmdlst ft after filling list, cmdlst: %p\n", cmdlst);
+	cmdlst = fill_cmdlst(lexed, env_lst);
 	free_all(lexed, dbl_len(lexed));
 	return (cmdlst);
 }

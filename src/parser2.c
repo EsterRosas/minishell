@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/08 18:34:53 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:31:03 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,30 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
 	cmdlst->next = new;
 }
 
-void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
+t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst)
+{
+	int		i;
+	t_cmd	*res;
+	t_cmd	*new;
+
+	res = NULL;
+	i = 0;
+	while (lex[i])
+	{
+		new = get_cmd(&lex[i], env_lst);
+		if (new && res)
+			cmdlst_addback(res, new);
+		else if (new) 
+			res = new;
+		while (lex[i] && lex[i][0] != '|')
+			i++;
+		if (lex[i] && lex[i][0] == '|')
+			i++;
+	}
+	return (res);
+}
+
+/*void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 {
 	int		i;
 	t_cmd	*new;
@@ -64,7 +87,7 @@ void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n)
 			}
 		}
 	}
-}
+}*/
 
 void	free_cmdlist(t_cmd *head)
 {

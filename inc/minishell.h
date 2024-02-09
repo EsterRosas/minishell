@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/08 18:50:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:16:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
 //void	free_cmds(char **lexed, t_cmd *cmd);
 t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
-void	fill_cmdlst(char **lex, t_envv *env_lst, t_cmd *cmdlst, int cmd_n);
+t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst);
 char	**get_ptharr(t_envv *env_lst);
 void	del_mid_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
