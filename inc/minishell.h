@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/09 19:09:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 21:06:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	del_mid_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
 
 /*		signals					*/
-//void	handle_signal(int sig);
+void	handle_sigint(int sig);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);

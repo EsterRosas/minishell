@@ -6,28 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 17:15:54 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/09 21:06:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	handle_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-//		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-//		g_exst = 1;
-	}
-/*	else if (sig == SIGQUIT)
-	{
-	}*/
-	return ;
-}
 
 void	add_node(char *evar, t_envv *env_lst)
 {
@@ -73,9 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, handle_signal); //Ctrl+C
-	signal(SIGQUIT, handle_signal); //Ctrl+contrabarra
+//	disable_ctrl_chars();
+	signal(SIGINT, handle_sigint); //Ctrl+C
+	signal(SIGQUIT, SIG_IGN); //Ctrl+contrabarra
 	loop_prompt(env_lst);
 	free_env(env_lst);
+//	restore_terminal_settings();
 	return (0);
 }
