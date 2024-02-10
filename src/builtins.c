@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 17:35:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:34:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_env(t_envv *env)
 	i = -1;
 	while (s[++i])
 		printf("%s\n", s[i]);
+	free_all(s, dbl_len(s));
 }
 
 void	ft_pwd(t_envv *env)

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/10 18:44:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:05:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ void	test(char *line, t_envv *o_envp);
 
 /*      builtins.c            */
 int		is_builtin(char	*s);
-//void	ft_echo(const char *message);
 void	ft_echo(t_cmd *cmd);
-//void	ft_pwd(void);
 void	ft_pwd(t_envv *env);
 void	ft_env(t_envv *env);
-//void	ft_exit(void);
-void	ft_exit();
+void	ft_unset(t_cmd *cmd/*, t_envv *env*/);
+void	ft_cd(t_cmd *cmd);
+void	ft_exit(void);
 void	handle_cmds(t_prompt *prompt);
 
 /*      get_cmd.c            */
@@ -86,16 +85,16 @@ int		expandable(char *s);
 int		ft_strcmp(char *s1, char *s2);
 t_envv	*cp_envp(char **envp);
 
+/*		list2array.c		*/
 char	**env_lst2arr(t_envv *env_lst);
+//char	**export_env_lst2arr(t_envv *env_lst);
 
 /*		parser.c				*/
 t_cmd	*get_cmd(char **lex, t_envv *env_lst);
 int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
-//int		assign_outfile(char	*file);
 void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
-//void	free_cmds(char **lexed, t_cmd *cmd);
 t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst);
 char	**get_ptharr(t_envv *env_lst);
