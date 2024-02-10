@@ -56,11 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-//	disable_ctrl_chars();
+	disable_ctrl_chars();
 	signal(SIGINT, handle_sigint); //Ctrl+C
 	signal(SIGQUIT, SIG_IGN); //Ctrl+contrabarra
 	loop_prompt(env_lst);
 	free_env(env_lst);
-//	restore_terminal_settings();
+	restore_terminal_settings();
 	return (0);
 }

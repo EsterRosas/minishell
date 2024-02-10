@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include <string.h>
+# include <termios.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
@@ -103,6 +104,8 @@ char	*process_hdoc(char *delim, int last);
 
 /*		signals					*/
 void	handle_sigint(int sig);
+void	disable_ctrl_chars(void);
+void	restore_terminal_settings(void);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);
