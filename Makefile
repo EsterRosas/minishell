@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2024/02/06 17:11:09 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/02/10 17:29:33 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,10 @@ DEPS		=		$(addsuffix .d, $(basename $(SRCS)))
 
 
 LIBFT		=		-L ./lib/libft -lft
-LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
-IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
-#LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
-#IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
+#LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
+#IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 
 CC			=		gcc
 CFLAGS		=		-Wall -Wextra -Werror -MMD

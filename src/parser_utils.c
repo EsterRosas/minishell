@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 20:11:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:07:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,18 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 {
 	int	fd;
 
-	if (!is_lastfile(lex, i, lex[i - 1][0]))
+	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
+		s->append = true;
+	else
+		s->append = false;
+	if (!is_lastfile(lex, i, lex[i - 1][0]) && s->append == false)
 	{
 		fd = open(lex[i], O_WRONLY | O_TRUNC);
 		if (fd > 1)
 			close (fd);
 	}
+	else if (s->append == false)
+		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
 		s->outfile = open(lex[i], O_RDWR);
 	if (s->outfile == -1 && errno == 2)
@@ -79,10 +85,5 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		printf("minishell: %s: %s\n", lex[i], strerror(errno));
 		return (-1);
 	}
-	i--;
-	if (ft_strlen(lex[i]) == 2 && lex[i][1] == '>')
-		s->append = true;
-	else
-		s->append = false;
 	return (0);
 }

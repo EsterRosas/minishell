@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 20:10:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:50:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	ft_echo(t_cmd *cmd)
 		i++;
 	while (cmd->args[++i])
 	{
-		printf("%s", cmd->args[i]);
+		ft_putstr_fd(cmd->args[i], cmd->outfile);
 		if (i < dbl_len(cmd->args) - 1)
-			printf(" ");
-		else if (ft_strcmp(cmd->args[1], "-n") != 0)
-			printf("\n");
+			ft_putstr_fd(" ", cmd->outfile);
+		else if (ft_strcmp(cmd->args[1], "-n") != 0 /*&& cmd->outfile == STDOUT_FILENO*/)
+			ft_putstr_fd("\n", cmd->outfile);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 20:06:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:44:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,15 @@ int	fill_node(t_cmd *s, char **lex)
 {
 	int	i;
 	int	len;
-
 	i = 0;
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if ((lex[i][0] == '<' && assign_infile(lex, ++i, s) == -1) ||
-			(lex[i][0] == '>' && assign_outfile(lex, ++i, s) == -1))
-		{
+		if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
+			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
 			return (-1);
-			i++;
-		}
+		else if (lex[i][0] == '<' || lex[i][0] == '>')
+			i+=2;
 		else
 		{
 			s->args = fill_args(s->args, lex, i);
@@ -92,7 +90,7 @@ int	fill_node(t_cmd *s, char **lex)
 			len = dbl_len(s->args);
 		}
 	}
-	del_mid_quotes(s->args);
+	del_quotes(s->args);
 	return (0);
 }
 
