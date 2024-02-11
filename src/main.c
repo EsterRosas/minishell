@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 21:06:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:33:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 void	add_node(char *evar, t_envv *env_lst)
 {
-	t_envv	*cmd;
+	t_envv	*node;
 	int		pos;
 
-	cmd = malloc(sizeof(t_envv));
-	if (!cmd)
+	node = malloc(sizeof(t_envv));
+	if (!node)
 		return ;
 	pos = ft_strchr(evar, '=') - evar;
-	cmd->nm = ft_substr(evar, 0, pos);
-	cmd->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-	cmd->next = NULL;
-	add_env_back(env_lst, cmd);
+	node->nm = ft_substr(evar, 0, pos);
+	if (ft_strcmp(node->nm, "OLDPWD") == 0)
+		node->val = NULL;
+	else
+		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+	node->next = NULL;
+	add_env_back(env_lst, node);
 }
 
 t_envv	*cp_envp(char **envp)

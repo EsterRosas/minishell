@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 21:05:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:18:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char	*fill_var(t_envv *env_lst)
 		res[i] = env_lst->nm[i];
 		i++;
 	}
-	res[i++] = '=';
+	if (l > 0)
+		res[i++] = '=';
 	while (j < ft_strlen(env_lst->val))
 	{
 		res[i + j] = env_lst->val[j];

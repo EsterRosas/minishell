@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/10 21:05:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:29:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	ft_pwd(t_envv *env);
 void	ft_env(t_envv *env);
 void	ft_unset(t_cmd *cmd/*, t_envv *env*/);
 void	ft_cd(t_cmd *cmd);
+void	ft_export(char **args, t_envv *env);
+void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
 void	handle_cmds(t_prompt *prompt);
 

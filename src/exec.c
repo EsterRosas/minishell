@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 20:23:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:09:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		ft_cd(cmd);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		ft_unset(cmd/*, prompt->envp*/);
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		ft_export(cmd->args, prompt->envp);
 }
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
