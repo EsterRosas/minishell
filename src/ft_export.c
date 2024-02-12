@@ -28,9 +28,9 @@ int	goes_after(char *s1, char *s2)
 		else if (s1[i] < s2[i])
 			return (0);
 	}
-	if (!s1)
-		return (0);
-	return (1);
+	if ((!s1 && s2[i] < '=') || (!s2 && s1[i] > '='))
+		return (1);
+	return (0);
 }
 
 t_envv	*ft_sortlist(t_envv	*env)
@@ -66,28 +66,34 @@ t_envv	*ft_sortlist(t_envv	*env)
 				free(aux->next->val);
 				aux->next->nm = ft_strdup(temp->nm);
 				aux->next->val = ft_strdup(temp->val);
+				free(temp->nm);
+				free(temp->val);
 			}
 			aux = aux->next;
 		}
 		len--;
 		aux = env;
 	}
-	return (env);
+	free(temp);
+	return (aux);
 }
 
 void	only_export(t_envv *env)
 {
 	t_envv	*sorted;
+	t_envv	*aux;
 
 	sorted = ft_sortlist(env);
-	while (sorted)
+	aux = sorted;
+	while (aux)
 	{
-		printf("declare -x %s", sorted->nm);
-		if (sorted->val[0] != '\0')
-			printf("=\"%s\"", sorted->val);
+		printf("declare -x %s", aux->nm);
+		if (aux->val[0] != '\0')
+			printf("=\"%s\"", aux->val);
 		printf("\n");
-		sorted = sorted->next;
+		aux = aux->next;
 	}
+	free_envlist(sorted);
 }
 
 void	ft_export(char **args, t_envv *env)
