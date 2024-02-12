@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 20:10:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:25:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_echo(t_cmd *cmd)
 		i++;
 	while (cmd->args[++i])
 	{
+		printf("WHILE in ft_echo, cmd->args[i]: %s\n", cmd->args[i]);
 		ft_putstr_fd(cmd->args[i], cmd->outfile);
 		if (i < dbl_len(cmd->args) - 1)
 			ft_putstr_fd(" ", cmd->outfile);

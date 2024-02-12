@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 17:59:01 by ecabanas          #+#    #+#             */
-/*   Updated: 2023/11/27 20:54:08 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:13:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr = (char *) malloc(sizeof(char) * (new_size + 1));
 	if (!ptr)
 		return (0);
-	//ft_strlcpy (ptr, (s + start), (new_size + 1));
 	i = 0;
 	while (i < new_size)
 	{

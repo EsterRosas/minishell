@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/11 19:29:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:07:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_exit(void);
 void	handle_cmds(t_prompt *prompt);
 
 /*      get_cmd.c            */
-void    exec_ext_cmd(t_prompt  *prompt);
+void	exec_ext_cmd(t_prompt *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
@@ -98,10 +98,12 @@ int		assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
 t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
-t_cmd	*fill_cmdlst(char **lex, t_envv *env_lst);
+t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
+//char	*path_exists(char *s);
+char	*path2cmd(char *arg);
 
 /*		signals					*/
 void	handle_sigint(int sig);

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/09 21:06:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:50:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * user presses Ctrl+C & Ctrl+\, respectively (signals)). This is done by
  * setting the ECHOCTL flag (an attribute of the terminal), through the termios
  * library.
- */ 
+ */
 void	disable_ctrl_chars(void)
 {
 	struct termios	new_termios;

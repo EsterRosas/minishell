@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 19:44:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:14:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,28 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 
 char	**fill_args(char **args, char **lex, int lex_pos)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = dbl_len(args);
-	j = 0;
+	j = -1;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
-		args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
-		if (!args[i])
-			return (NULL);
-		while (lex[lex_pos][j])
+		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0)
+			args[i] = path2cmd(lex[lex_pos]);
+		else
 		{
-			args[i][j] = lex[lex_pos][j];
+			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
+			if (!args[i])
+				return (NULL);
+			while (lex[lex_pos][++j])
+				args[i][j] = lex[lex_pos][j];
 			j++;
+			args[i][j] = '\0';
 		}
-		args[i][j] = '\0';
 		i++;
 		lex_pos++;
-		j = 0;
+		j = -1;
 	}
 	args[i] = NULL;
 	return (args);
@@ -74,6 +77,7 @@ int	fill_node(t_cmd *s, char **lex)
 {
 	int	i;
 	int	len;
+
 	i = 0;
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
@@ -82,7 +86,7 @@ int	fill_node(t_cmd *s, char **lex)
 			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
 			return (-1);
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
-			i+=2;
+			i += 2;
 		else
 		{
 			s->args = fill_args(s->args, lex, i);
@@ -90,10 +94,6 @@ int	fill_node(t_cmd *s, char **lex)
 			len = dbl_len(s->args);
 		}
 	}
-	printf("BEFORE s->args[0]: %s, full_path: %s\n", s->args[0], s->full_path);
-	if (s->args[0][0] == '/' && ft_pathexists(s->args[0]))
-		path2cmd(s);
-	printf("AFTER s->args[0]: %s, full_path: %s\n", s->args[0], s->full_path);
 	del_quotes(s->args);
 	return (0);
 }

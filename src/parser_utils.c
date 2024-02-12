@@ -6,16 +6,20 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 19:07:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:42:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	path2cmd(t_cmd *cmd)
+char	*path2cmd(char *arg)
 {
+	int		i;
 
-
+	i = ft_strlen(arg) - 1;
+	while (i >= 0 && arg[i] != '/')
+		i--;
+	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
 }
 
 int	is_lastfile(char **lex, int i, char c)
@@ -83,9 +87,9 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 	else if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
-		s->outfile = open(lex[i], O_RDWR | O_APPEND);
+		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0600);
 	if (s->outfile == -1 && errno == 2)
-		s->outfile = open(lex[i], O_CREAT, 0600);
+		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
 	else if (s->outfile == -1)
 	{
 		printf("minishell: %s: %s\n", lex[i], strerror(errno));

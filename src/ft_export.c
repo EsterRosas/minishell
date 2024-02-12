@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/11 21:38:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:45:25 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_envv	*ft_sortlist(t_envv	*env)
 {
 	t_envv	*aux;
 	int		len;
+
 	aux = env;
 	len = 0;
 	while (aux)

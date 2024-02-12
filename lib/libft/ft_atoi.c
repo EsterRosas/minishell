@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 10:47:57 by ecabanas          #+#    #+#             */
-/*   Updated: 2022/03/01 18:41:40 by ecabanas         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:14:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -22,7 +22,7 @@ int	ft_atoi(const char *str)
 	res = 0;
 	while (str[i] == ' ' || str[i] == '\r' || str[i] == '\t' || str[i] == '\n'
 		|| str[i] == '\v' || str[i] == '\f')
-			i++;
+		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
