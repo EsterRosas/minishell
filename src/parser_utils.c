@@ -12,6 +12,12 @@
 
 #include "../inc/minishell.h"
 
+void	path2cmd(t_cmd *cmd)
+{
+
+
+}
+
 int	is_lastfile(char **lex, int i, char c)
 {
 	while (lex[i] && lex[i][0] != '|' && lex[i][0] != c)

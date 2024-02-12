@@ -90,6 +90,10 @@ int	fill_node(t_cmd *s, char **lex)
 			len = dbl_len(s->args);
 		}
 	}
+	printf("BEFORE s->args[0]: %s, full_path: %s\n", s->args[0], s->full_path);
+	if (s->args[0][0] == '/' && ft_pathexists(s->args[0]))
+		path2cmd(s);
+	printf("AFTER s->args[0]: %s, full_path: %s\n", s->args[0], s->full_path);
 	del_quotes(s->args);
 	return (0);
 }
