@@ -33,15 +33,32 @@ int	goes_after(char *s1, char *s2)
 	return (0);
 }
 
-t_envv	*ft_sortlist(t_envv	*env)
+void	ft_swapnodes(t_envv *aux)
 {
-	t_envv	*aux;
-	int		len;
 	t_envv	*temp;
 
 	temp = malloc(sizeof(t_envv));
 	if (!temp)
-		return (NULL);
+		return ;
+	temp->nm = ft_strdup(aux->nm);
+	temp->val = ft_strdup(aux->val);
+	free(aux->nm);
+	free(aux->val);
+	aux->nm = ft_strdup(aux->next->nm);
+	aux->val = ft_strdup(aux->next->val);
+	free(aux->next->nm);
+	free(aux->next->val);
+	aux->next->nm = ft_strdup(temp->nm);
+	aux->next->val = ft_strdup(temp->val);
+	free(temp->nm);
+	free(temp->val);
+	free(temp);
+}
+
+t_envv	*ft_sortlist(t_envv	*env)
+{
+	t_envv	*aux;
+	int		len;
 	aux = env;
 	len = 0;
 	while (aux)
@@ -55,26 +72,12 @@ t_envv	*ft_sortlist(t_envv	*env)
 		while (aux->next)
 		{
 			if (goes_after(aux->nm, aux->next->nm))
-			{
-				temp->nm = ft_strdup(aux->nm);
-				temp->val = ft_strdup(aux->val);
-				free(aux->nm);
-				free(aux->val);
-				aux->nm = ft_strdup(aux->next->nm);
-				aux->val = ft_strdup(aux->next->val);
-				free(aux->next->nm);
-				free(aux->next->val);
-				aux->next->nm = ft_strdup(temp->nm);
-				aux->next->val = ft_strdup(temp->val);
-				free(temp->nm);
-				free(temp->val);
-			}
+				ft_swapnodes(aux);
 			aux = aux->next;
 		}
 		len--;
 		aux = env;
 	}
-	free(temp);
 	return (aux);
 }
 

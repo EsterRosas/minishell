@@ -32,4 +32,6 @@ void	ft_echo(t_cmd *cmd)
 		else if (ft_strcmp(cmd->args[1], "-n") != 0)
 			ft_putstr_fd("\n", cmd->outfile);
 	}
+	if (cmd->outfile > 2)
+		close (cmd->outfile);
 }

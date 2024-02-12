@@ -57,24 +57,24 @@ int	assign_infile(char **lex, int i, t_cmd *s)
  * If it's not, it deletes its content (with O_TRUNC option).
  * If the open returns error 2 (non existing file), it creates it.
  *
- * Finally checks if the previous lex position was >> or >, so sets
- * the boolean s->append to true or false, respectively.
-  */
+ * First it checks if the previous lex position was >> or >, so to open the
+ * outfile in append mode or not.
+ */
 int	assign_outfile(char **lex, int i, t_cmd *s)
 {
-	int	fd;
+	int		fd;
+	bool	append;
 
+	append = false;
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
-		s->append = true;
-/*	else
-		s->append = false;*/
-	if (!is_lastfile(lex, i, lex[i - 1][0]) && s->append == false)
+		append = true;
+	if (!is_lastfile(lex, i, lex[i - 1][0]) && append == false)
 	{
 		fd = open(lex[i], O_WRONLY | O_TRUNC);
 		if (fd > 1)
 			close (fd);
 	}
-	else if (s->append == false)
+	else if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
 		s->outfile = open(lex[i], O_RDWR | O_APPEND);

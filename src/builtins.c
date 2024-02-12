@@ -88,7 +88,7 @@ void	ft_env(t_envv *env)
 {
 	char	**s;
 	int		i;
-
+	printf("enters FT_ENV\n");
 	s = env_lst2arr(env);
 	i = -1;
 	while (s[++i])

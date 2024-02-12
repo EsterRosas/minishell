@@ -108,7 +108,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
-	res->append = false;
 	res->next = NULL;
 	res->hdoc = NULL;
 	if (fill_node(res, lex) == -1)
