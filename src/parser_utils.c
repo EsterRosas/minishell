@@ -66,8 +66,8 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
 		s->append = true;
-	else
-		s->append = false;
+/*	else
+		s->append = false;*/
 	if (!is_lastfile(lex, i, lex[i - 1][0]) && s->append == false)
 	{
 		fd = open(lex[i], O_WRONLY | O_TRUNC);
@@ -77,7 +77,7 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 	else if (s->append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
-		s->outfile = open(lex[i], O_RDWR);
+		s->outfile = open(lex[i], O_RDWR | O_APPEND);
 	if (s->outfile == -1 && errno == 2)
 		s->outfile = open(lex[i], O_CREAT, 0600);
 	else if (s->outfile == -1)

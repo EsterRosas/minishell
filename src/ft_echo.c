@@ -12,14 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*void	ft_echo_append(t_cmd *cmd)
-{
-	
-
-
-
-}*/
-
 void	ft_echo(t_cmd *cmd)
 {
 	int		i;
@@ -32,17 +24,12 @@ void	ft_echo(t_cmd *cmd)
 	}
 	if (ft_strcmp(cmd->args[1], "-n") == 0)
 		i++;
-	if (cmd->append == false)
+	while (cmd->args[++i])
 	{
-		while (cmd->args[++i])
-		{
-			ft_putstr_fd(cmd->args[i], cmd->outfile);
-			if (i < dbl_len(cmd->args) - 1)
-				ft_putstr_fd(" ", cmd->outfile);
-			else if (ft_strcmp(cmd->args[1], "-n") != 0)
-				ft_putstr_fd("\n", cmd->outfile);
-		}
+		ft_putstr_fd(cmd->args[i], cmd->outfile);
+		if (i < dbl_len(cmd->args) - 1)
+			ft_putstr_fd(" ", cmd->outfile);
+		else if (ft_strcmp(cmd->args[1], "-n") != 0)
+			ft_putstr_fd("\n", cmd->outfile);
 	}
-//	else
-//		ft_echo_append(cmd);
 }
