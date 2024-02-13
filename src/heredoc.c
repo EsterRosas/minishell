@@ -38,9 +38,13 @@ char	*process_hdoc(char *delim, int last)
 	res = NULL;
 	if (last)
 		res = ft_strdup(input);
+//	restore_terminal_settings();
 	input = readline("> ");
+	if (!input)
+		return (NULL);
 	while (ft_strcmp(input, delim) != 0)
 	{
+//		ft_signal(0);
 		if (last)
 		{
 			aux2 = ft_strjoin(res, input);
@@ -52,5 +56,6 @@ char	*process_hdoc(char *delim, int last)
 		input = readline("> ");
 	}
 	free(eol);
+//	disable_ctrl_chars();
 	return (res);
 }

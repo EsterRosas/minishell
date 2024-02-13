@@ -58,8 +58,16 @@ static void	parent_handler(int sig)
 
 static void	child_handler(int sig)
 {
+//	printf("enters CHILD HANDLER\n");
 	if (sig == SIGINT)
+	{
+//		write(1, "\n", 1);
+//		rl_replace_line("minishell~ ", 0);
+//		rl_on_new_line();
+//		rl_redisplay();
+
 		g_exst = 130;
+	}
 	else if (sig == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 10);
@@ -83,5 +91,4 @@ void	ft_signal(int i)
 	sigaction(SIGINT, &sa, NULL); //Ctrl+C
 	sigaction(SIGQUIT, &sa, NULL); //Ctrl+contrabarra
 	sigaction(SIGTERM, &sa, NULL);
-
 }
