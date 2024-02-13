@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/12 19:07:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:54:14 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char	*path2cmd(char *arg);
 void	handle_sigint(int sig);
 void	disable_ctrl_chars(void);
 void	restore_terminal_settings(void);
+void	ft_signal(int i);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);

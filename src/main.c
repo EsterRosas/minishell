@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/12 20:09:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:31:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	disable_ctrl_chars();
-	signal(SIGINT, handle_sigint); //Ctrl+C
-	signal(SIGQUIT, SIG_IGN); //Ctrl+contrabarra
+	ft_signal(1);
 	loop_prompt(env_lst);
 	free_env(env_lst);
 	restore_terminal_settings();

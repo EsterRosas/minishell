@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/12 16:50:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:59:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	restore_terminal_settings(void)
 	tcsetattr(0, TCSANOW, &new_termios);
 }
 
-void	handle_sigint(int sig)
+static void	parent_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -46,7 +46,42 @@ void	handle_sigint(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-//		g_exst = 1;
+		g_exst = 1;
+	}
+	else if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	return ;
+}
+
+static void	child_handler(int sig)
+{
+	if (sig == SIGINT)
+		g_exst = 130;
+	else if (sig == SIGQUIT)
+	{
+		write(1, "Quit: 3\n", 10);
+		g_exst = 131;
+	}
+	return ;
+}
+
+/* This function can be called either from the parent process or from a child.
+ * Use i = 1 from the parent, and i = 0 from any child.
+ */
+void	ft_signal(int i)
+{
+	struct sigaction	sa;
+
+	if (i)
+		sa.sa_handler = &parent_handler;
+	else
+		sa.sa_handler = &child_handler;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL); //Ctrl+C
+	sigaction(SIGQUIT, &sa, NULL); //Ctrl+contrabarra
+	sigaction(SIGTERM, &sa, NULL);
+
 }
