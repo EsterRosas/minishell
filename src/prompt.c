@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 17:50:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:19:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
 	prompt->envp = o_envp;
-	t_cmd		*aux;
+/*	t_cmd		*aux;
 	int i = 0;
 	int j = 0;
 	aux = prompt->cmd;
@@ -54,8 +54,7 @@ aux->full_path, aux->hdoc);
 		i = 0;
 		aux = aux->next;
 		j++;
-	}
-	printf("cmdlistsize: %i\n", cmdlistsize(prompt->cmd));
+	}*/
 	return (prompt);
 }
 

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/13 19:59:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:12:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	child_handler(int sig)
 //		rl_replace_line("minishell~ ", 0);
 //		rl_on_new_line();
 //		rl_redisplay();
-
 		g_exst = 130;
 	}
 	else if (sig == SIGQUIT)
