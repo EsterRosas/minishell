@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 16:47:42 by erosas-c         ###   ########.fr       */
+/*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
+/*   Updated: 2024/02/14 17:51:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_echo(t_cmd *cmd)
+int	cmdlistsize(t_cmd *cmd)
 {
+	t_cmd	*aux;
 	int		i;
 
+	aux = cmd;
 	i = 0;
-	if (dbl_len(cmd->args) == 1)
+	while (aux)
 	{
-		printf("\n");
-		return ;
-	}
-	if (ft_strcmp(cmd->args[1], "-n") == 0)
 		i++;
-	while (cmd->args[++i])
-	{
-		ft_putstr_fd(cmd->args[i], cmd->outfile);
-		if (i < dbl_len(cmd->args) - 1)
-			ft_putstr_fd(" ", cmd->outfile);
-		else if (ft_strcmp(cmd->args[1], "-n") != 0)
-			ft_putstr_fd("\n", cmd->outfile);
+		aux = aux->next;
 	}
-	if (cmd->outfile > 2)
-		close (cmd->outfile);
+	return (i);
 }

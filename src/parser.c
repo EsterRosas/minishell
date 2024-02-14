@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/13 20:53:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:49:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 				args[i][j] = lex[lex_pos][j];
 			j++;
 			args[i][j] = '\0';
+//			printf("args[%i]: %s, lex[%i]: %s\n", i, args[i], lex_pos, lex[lex_pos]);
 		}
 		i++;
 		lex_pos++;
@@ -118,7 +119,5 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 		return (NULL);
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
-/*	if (need_moreinput(res)
-		handle_moreinput(void);*/
 	return (res);
 }

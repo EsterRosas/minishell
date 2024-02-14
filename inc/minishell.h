@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/13 20:54:14 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:50:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,8 @@ void	ft_signal(int i);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);
+
+/*		exec_utils.c			*/
+int		cmdlistsize(t_cmd *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/13 19:29:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:57:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ char	*process_hdoc(char *delim, int last)
 	res = NULL;
 	if (last)
 		res = ft_strdup(input);
-//	restore_terminal_settings();
+	restore_terminal_settings();
 	input = readline("> ");
 	if (!input)
 		return (NULL);
 	while (ft_strcmp(input, delim) != 0)
 	{
-//		ft_signal(0);
+		ft_signal(0);
 		if (last)
 		{
 			aux2 = ft_strjoin(res, input);
@@ -56,6 +56,6 @@ char	*process_hdoc(char *delim, int last)
 		input = readline("> ");
 	}
 	free(eol);
-//	disable_ctrl_chars();
+	disable_ctrl_chars();
 	return (res);
 }
