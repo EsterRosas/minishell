@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:24:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:53:39 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	loop_prompt(t_envv *o_envp)
 		if (!line)
 			break ;
 		else if (line[0] != '\0' && !only_sp(line))
-			ft_exec(ft_parse(line, o_envp));
+			//ft_exec(ft_parse(line, o_envp));
+			redir_and_exec(ft_parse(line, o_envp));
 		add_history(line);
 		free(line);
 	}
