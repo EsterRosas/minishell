@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 19:12:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/15 19:07:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ static void	parent_handler(int sig)
 
 static void	child_handler(int sig)
 {
-//	printf("enters CHILD HANDLER\n");
+	printf("enters CHILD HANDLER\n");
 	if (sig == SIGINT)
 	{
-//		write(1, "\n", 1);
-//		rl_replace_line("minishell~ ", 0);
-//		rl_on_new_line();
-//		rl_redisplay();
+/*		write(1, "\n", 1);
+		rl_replace_line("minishell~ ", 0);
+		rl_on_new_line();
+		rl_redisplay();*/
 		g_exst = 130;
+		exit (130);
 	}
 	else if (sig == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 10);
 		g_exst = 131;
+		exit (131);
 	}
 	return ;
 }

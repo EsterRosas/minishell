@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/14 17:50:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:23:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 int		g_exst;
 
 /*      prompt.c        	*/
-//char	*rl_gets(char *line);
 void	loop_prompt(t_envv *o_envp);
 
 /*		trim functions		*/
@@ -102,7 +101,6 @@ t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
-//char	*path_exists(char *s);
 char	*path2cmd(char *arg);
 
 /*		signals					*/

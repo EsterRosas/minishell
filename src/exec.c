@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 17:32:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:26:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
 	if (is_builtin(cmd->args[0]))
 		ft_exbuiltin(prompt, cmd);
-//	if (need_moreinput(res)
+//	if (need_moreinput(res)  //this is when the user inputs only cd or only wc (at least)
 //		handle_moreinput(void);
 //else
 }
