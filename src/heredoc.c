@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 18:49:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:45:02 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,13 @@ char	*process_hdoc(char *delim, int last)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		wait(NULL);
-	//	ft_signal(1);
+		ft_signal(1);
 	}
 	if (!last)
 	{
 		free(res);
 		res = NULL;
 	}
+	printf("res: %s\n", res);
 	return (res);
 }
