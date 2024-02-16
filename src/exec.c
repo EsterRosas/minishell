@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 19:40:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:23:31 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,18 @@ static int	handle_cmds(t_prompt *prompt)
 	pid_t	last_child;
 	
 	aux = prompt->cmd;
+	printf("hello from handle_cmds\n");
 	while (aux)
 	{
-		if (aux->next)
+		//if (aux->next)
 			//make_pipe(); // TO-DO
 		pid = make_fork();
 		if (pid == 0)
+		{
+			printf("hello from child_process\n");
 			return (handle_cmd(prompt, aux)); // TO-FINISH
+		}
+			
 		//update_parent_pipe(); // TO-DO
 		last_child = pid;
 		aux = aux->next;

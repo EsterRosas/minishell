@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 19:15:48 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:39:29 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
 	prompt->envp = o_envp;
-/*	t_cmd		*aux;
+	t_cmd		*aux;
 	int i = 0;
 	int j = 0;
 	aux = prompt->cmd;
@@ -54,7 +54,7 @@ aux->full_path, aux->hdoc);
 		i = 0;
 		aux = aux->next;
 		j++;
-	}*/
+	}
 	return (prompt);
 }
 

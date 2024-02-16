@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 18:49:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:26:09 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*process_hdoc(char *delim, int last)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		wait(NULL);
-	//	ft_signal(1);
+		ft_signal(1);
 	}
 	if (!last)
 	{
