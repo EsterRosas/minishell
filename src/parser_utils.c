@@ -59,7 +59,11 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
+	{
 		s->hdoc = process_hdoc(lex[i], is_lastfile(lex, i, '<'));
+		if (s->hdoc == NULL)
+			return (-1);
+	}
 	return (0);
 }
 

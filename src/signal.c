@@ -58,11 +58,10 @@ static void	parent_handler(int sig)
 
 static void	child_handler(int sig)
 {
-	printf("enters CHILD HANDLER\n");
 	if (sig == SIGINT)
 	{
-/*		write(1, "\n", 1);
-		rl_replace_line("minishell~ ", 0);
+		write(1, "\n", 1);
+/*		rl_replace_line("minishell~ ", 0);
 		rl_on_new_line();
 		rl_redisplay();*/
 		g_exst = 130;

@@ -27,7 +27,7 @@ char	*ft_str_eol(void)
 	return (res);
 }
 
-static char	*get_hdocinput(char *delim, int last)
+/*static char	*get_hdocinput(char *delim, int last)
 {
 	static char	*input;
 	char		*res;
@@ -56,6 +56,48 @@ static char	*get_hdocinput(char *delim, int last)
 	}
 	free(eol);
 	return (res);
+}*/
+
+static char	*get_hdocinput(char *delim)
+{
+	static char	*input;
+	char		*res;
+	char		*eol;
+	char		*aux2;
+	eol = ft_str_eol();
+	res = NULL;
+	input = NULL;
+	ft_signal(0);
+	input = readline("> ");
+	if (!input)
+		{
+			printf("000 Ctrl+D received\n");
+			return (NULL);  //Ctrl + D
+		}		
+/*	if (g_exst == 130)
+		return (NULL);*/
+	while (ft_strcmp(input, delim) != 0 && g_exst != 130)
+	{	
+		if (!input)
+		{
+			printf("111 Ctrl+D received\n");
+			return (NULL);  //Ctrl + D
+		}		
+		if (!res)
+			res = ft_strdup(input);
+		else
+		{
+			aux2 = ft_strjoin(res, input);
+			free(res);
+			res = ft_strjoin(aux2, eol);
+			free(aux2);
+		}
+		free(input);
+		input = readline("> ");
+	}
+	free(eol);
+	free(input);
+	return (res);
 }
 
 char	*process_hdoc(char *delim, int last)
@@ -76,13 +118,18 @@ char	*process_hdoc(char *delim, int last)
 		signal(SIGQUIT, SIG_IGN);
 //		signal(SIGTERM, SIG_IGN);
 		wait(NULL);
-		ft_signal(1);
 	}
 	else
 	{
-		restore_terminal_settings();
-		res = get_hdocinput(delim, last);
-		disable_ctrl_chars();
+//		restore_terminal_settings();
+		res = get_hdocinput(delim);
+//		disable_ctrl_chars();
 	}
+	if (!last)
+	{
+		free(res);
+		res = NULL;
+	}
+	ft_signal(1);
 	return (res);
 }

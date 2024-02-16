@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	t_envv		*env_lst;
 
 	// hey from testing-david :)
+	g_exst = 0;
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
