@@ -76,8 +76,7 @@ void	loop_prompt(t_envv *o_envp)
 		if (!line)
 			break ;
 		else if (line[0] != '\0' && !only_sp(line))
-			//ft_exec(ft_parse(line, o_envp));
-			redir_and_exec(ft_parse(line, o_envp));
+			ft_exec(ft_parse(line, o_envp), );
 		add_history(line);
 		free(line);
 	}
