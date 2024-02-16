@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/15 19:05:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:49:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,62 +27,24 @@ char	*ft_str_eol(void)
 	return (res);
 }
 
-/*static char	*get_hdocinput(char *delim, int last)
-{
-	static char	*input;
-	char		*res;
-	char		*eol;
-	char		*aux2;
-
-	eol = ft_str_eol();
-	res = NULL;
-	input = readline("> ");
-	ft_signal(0);
-	if (last)
-		res = ft_strdup(input);
-	if (!input)
-		return (NULL);
-	while (ft_strcmp(input, delim) != 0)
-	{
-		if (last)
-		{
-			aux2 = ft_strjoin(res, input);
-			free(res);
-			res = ft_strjoin(aux2, eol);
-			free(aux2);
-		}
-		free(input);
-		input = readline("> ");
-	}
-	free(eol);
-	return (res);
-}*/
-
 static char	*get_hdocinput(char *delim)
 {
 	static char	*input;
 	char		*res;
 	char		*eol;
 	char		*aux2;
+
 	eol = ft_str_eol();
 	res = NULL;
 	input = NULL;
-	ft_signal(0);
+	ft_signal(2);
 	input = readline("> ");
 	if (!input)
-		{
-			printf("000 Ctrl+D received\n");
-			return (NULL);  //Ctrl + D
-		}		
-/*	if (g_exst == 130)
-		return (NULL);*/
-	while (ft_strcmp(input, delim) != 0 && g_exst != 130)
+		return (NULL);
+	while (ft_strcmp(input, delim) != 0)
 	{	
 		if (!input)
-		{
-			printf("111 Ctrl+D received\n");
-			return (NULL);  //Ctrl + D
-		}		
+			return (NULL);
 		if (!res)
 			res = ft_strdup(input);
 		else
@@ -111,25 +73,20 @@ char	*process_hdoc(char *delim, int last)
 	{
 		printf("minishell: %s\n", strerror(errno));
 		return (NULL);
-	}	
-	if (id != 0)
+	}
+	if (id == 0)
+		res = get_hdocinput(delim);
+	else
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-//		signal(SIGTERM, SIG_IGN);
 		wait(NULL);
-	}
-	else
-	{
-//		restore_terminal_settings();
-		res = get_hdocinput(delim);
-//		disable_ctrl_chars();
+	//	ft_signal(1);
 	}
 	if (!last)
 	{
 		free(res);
 		res = NULL;
 	}
-	ft_signal(1);
 	return (res);
 }

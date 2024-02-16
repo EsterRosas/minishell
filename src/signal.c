@@ -6,37 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/15 19:07:44 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:11:03 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/* This functions prevents the control chars (^C & ^\)to be shown in the
- * terminal. By default those ctrl chars are shown in the terminal when the
- * user presses Ctrl+C & Ctrl+\, respectively (signals)). This is done by
- * setting the ECHOCTL flag (an attribute of the terminal), through the termios
- * library.
- */
-void	disable_ctrl_chars(void)
-{
-	struct termios	new_termios;
-
-	tcgetattr(0, &new_termios);
-	new_termios.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &new_termios);
-}
-
-/* Sets the terminal attributes back to their original (default) setting.
- */
-void	restore_terminal_settings(void)
-{
-	struct termios	new_termios;
-
-	tcgetattr(0, &new_termios);
-	new_termios.c_lflag |= ECHOCTL;
-	tcsetattr(0, TCSANOW, &new_termios);
-}
 
 static void	parent_handler(int sig)
 {
@@ -61,9 +35,6 @@ static void	child_handler(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-/*		rl_replace_line("minishell~ ", 0);
-		rl_on_new_line();
-		rl_redisplay();*/
 		g_exst = 130;
 		exit (130);
 	}
@@ -76,17 +47,36 @@ static void	child_handler(int sig)
 	return ;
 }
 
+static void	heredoc_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		g_exst = 130;
+		exit (130);
+	}
+	else if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	return ;
+}
+
 /* This function can be called either from the parent process or from a child.
  * Use i = 1 from the parent, and i = 0 from any child.
+ * Adding 2 for heredoc.
  */
 void	ft_signal(int i)
 {
 	struct sigaction	sa;
 
-	if (i)
+	if (i == 1)
 		sa.sa_handler = &parent_handler;
-	else
+	else if (i == 0)
 		sa.sa_handler = &child_handler;
+	else
+		sa.sa_handler = &heredoc_handler;
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL); //Ctrl+C
 	sigaction(SIGQUIT, &sa, NULL); //Ctrl+contrabarra
