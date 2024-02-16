@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 17:52:51 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/12 19:16:40 by erosas-c         ###   ########.fr       */
+/*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
+/*   Updated: 2024/02/16 19:40:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_isalpha(int c)
+#include "../inc/minishell.h"
+
+int	ft_cd(t_cmd *cmd)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z' ))
-		return (1);
+	if (dbl_len(cmd->args) == 1)
+		return (0);
 	return (0);
 }

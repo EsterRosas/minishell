@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 19:01:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:49:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_str_eol(void)
 	return (res);
 }
 
-char	*process_hdoc(char *delim, int last)
+static char	*get_hdocinput(char *delim)
 {
 	static char	*input;
 	char		*res;
@@ -36,12 +36,18 @@ char	*process_hdoc(char *delim, int last)
 
 	eol = ft_str_eol();
 	res = NULL;
-	if (last)
-		res = ft_strdup(input);
+	input = NULL;
+	ft_signal(2);
 	input = readline("> ");
+	if (!input)
+		return (NULL);
 	while (ft_strcmp(input, delim) != 0)
-	{
-		if (last)
+	{	
+		if (!input)
+			return (NULL);
+		if (!res)
+			res = ft_strdup(input);
+		else
 		{
 			aux2 = ft_strjoin(res, input);
 			free(res);
@@ -52,5 +58,35 @@ char	*process_hdoc(char *delim, int last)
 		input = readline("> ");
 	}
 	free(eol);
+	free(input);
+	return (res);
+}
+
+char	*process_hdoc(char *delim, int last)
+{
+	char		*res;
+	int			id;
+
+	res = NULL;
+	id = fork();
+	if (id == -1)
+	{
+		printf("minishell: %s\n", strerror(errno));
+		return (NULL);
+	}
+	if (id == 0)
+		res = get_hdocinput(delim);
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		wait(NULL);
+	//	ft_signal(1);
+	}
+	if (!last)
+	{
+		free(res);
+		res = NULL;
+	}
 	return (res);
 }

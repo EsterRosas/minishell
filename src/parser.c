@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 20:55:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:14:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,27 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 
 char	**fill_args(char **args, char **lex, int lex_pos)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = dbl_len(args);
-	j = 0;
+	j = -1;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
-		args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
-		if (!args[i])
-			return (NULL);
-		while (lex[lex_pos][j])
+		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0)
+			args[i] = path2cmd(lex[lex_pos]);
+		else
 		{
-			args[i][j] = lex[lex_pos][j];
-			j++;
+			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
+			if (!args[i])
+				return (NULL);
+			while (lex[lex_pos][++j])
+				args[i][j] = lex[lex_pos][j];
+			args[i][j] = '\0';
 		}
-		args[i][j] = '\0';
 		i++;
 		lex_pos++;
-		j = 0;
+		j = -1;
 	}
 	args[i] = NULL;
 	return (args);
@@ -79,17 +81,11 @@ int	fill_node(t_cmd *s, char **lex)
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (lex[i][0] == '<' || lex[i][0] == '>')
-		{
-			if (lex[i][0] == '>')
-				assign_outfile(lex, ++i, s);
-			else if (lex[i][0] == '<')
-			{
-				if (assign_infile(lex, ++i, s) == -1)
-					return (-1);
-			}
-			i++;
-		}
+		if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
+			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
+			return (-1);
+		else if (lex[i][0] == '<' || lex[i][0] == '>')
+			i += 2;
 		else
 		{
 			s->args = fill_args(s->args, lex, i);
@@ -97,7 +93,7 @@ int	fill_node(t_cmd *s, char **lex)
 			len = dbl_len(s->args);
 		}
 	}
-	del_mid_quotes(s->args);
+	del_quotes(s->args);
 	return (0);
 }
 
@@ -115,7 +111,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
-	res->append = false;
 	res->next = NULL;
 	res->hdoc = NULL;
 	if (fill_node(res, lex) == -1)
@@ -123,48 +118,4 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
-}
-
-/* Takes the char** once it's been trimmed, subsplitted, expanded (~ to $HOME)
- * and with variables replaced and parses it into an list of several t_cmd
- * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
- * If the list has more than one element means they are separated by pipes
- * in the lexer / user input. It's important to have this in mind for the
- * executor
- * STILL TO DO:
- * 2) PRIMER CAL QUE MIREM quina es l'ordre
- *
- * ATENCIO: need to create a grid with all possible cmds to know what they
- * receive and so know if execve receives infile as arg or as input file.
- *
- * NOTA:
- * quan no es builtin execve sembla que no gestiona Command
- * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
- * quan agafem ruta  d’exec (no builtin) pero path = NULL
- */
-t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
-{
-	t_cmd	*cmdlst;
-	int		cmd_n;
-	int		i;
-	char	**lexed;
-
-	cmd_n = 1;
-	i = 0;
-	lexed = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	cmdlst = get_cmd(lexed, env_lst);
-	while (++i < dbl_len(lexed))
-	{
-		if (lexed[i][0] == '|')
-			cmd_n++;
-	}
-	/*if (!cmdlst)
-	{
-		ft_skipnode(lex...///completar - REINICIALITZAR DADES NODE I MOURE POSICIO al PIPE + 1
-		cmd_n--;
-	}*/
-	if (cmd_n > 1)
-		fill_cmdlst(lexed, env_lst, cmdlst, cmd_n);
-	free_all(lexed, dbl_len(lexed));
-	return (cmdlst);
 }

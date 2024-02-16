@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 17:53:39 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:15:48 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,21 @@ int	only_sp(char *s)
  */
 t_prompt	*ft_parse(char *line, t_envv *o_envp)
 {
-	int			i;
 	t_prompt	*prompt;
-	t_cmd		*aux;
 
-	i = 0;
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
 	prompt->envp = o_envp;
+/*	t_cmd		*aux;
+	int i = 0;
+	int j = 0;
 	aux = prompt->cmd;
 	while (aux)
 	{
-		printf("AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
-prompt->cmd->append: %i, prompt->cmd->fl_p: %s, \
-prompt->cmd->hdoc: %s\n", aux->infile, aux->outfile, aux->append, \
+		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
+prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", j, aux->infile, aux->outfile, \
 aux->full_path, aux->hdoc);
 		while (aux->args[i])
 		{
@@ -54,29 +53,33 @@ aux->full_path, aux->hdoc);
 		}
 		i = 0;
 		aux = aux->next;
-	}
-/*	free_cmdlist(prompt->cmd);
-	free_all(prompt->envp, dbl_len(prompt->envp));
-	free(prompt);*/
+		j++;
+	}*/
 	return (prompt);
 }
 
 /* Starts the prompt to the user and reads the input (line).
- * IF !line it's because the user perssed Ctrl+D
+ * IF !line it's because the user pressed Ctrl+D
  * ELSE IF: if the user presses Enter or only spaces + Enter, the program does
  * not process the line and shows minishell~ again to the user in a new line.
  */
 void	loop_prompt(t_envv *o_envp)
 {
-	char	*line;
+	char		*line;
+	t_prompt	*prompt;
 
 	while (1)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			break ;
+			ft_exit();
 		else if (line[0] != '\0' && !only_sp(line))
-			ft_exec(ft_parse(line, o_envp), );
+		{
+			prompt = ft_parse(line, o_envp);
+			ft_exec(prompt);
+			free_cmdlist(prompt->cmd);
+			free(prompt);
+		}
 		add_history(line);
 		free(line);
 	}

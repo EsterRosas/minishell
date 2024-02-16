@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 17:52:51 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/12 19:16:40 by erosas-c         ###   ########.fr       */
+/*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
+/*   Updated: 2024/02/14 17:51:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_isalpha(int c)
+#include "../inc/minishell.h"
+
+int	cmdlistsize(t_cmd *cmd)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z' ))
-		return (1);
-	return (0);
+	t_cmd	*aux;
+	int		i;
+
+	aux = cmd;
+	i = 0;
+	while (aux)
+	{
+		i++;
+		aux = aux->next;
+	}
+	return (i);
 }

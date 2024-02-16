@@ -6,7 +6,7 @@
 /*   By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 12:12:56 by ecabanas          #+#    #+#             */
-/*   Updated: 2022/02/20 12:30:33 by ecabanas         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:17:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_split(char const *s, char c)
 			return (free_all(res, i));
 		i++;
 		s = s + (ptr - s) + word_len(ptr, c);
-	}	
+	}
 	res[i] = NULL;
 	return (res);
 }

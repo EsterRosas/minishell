@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:52:06 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 17:45:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:46:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*cp_woquotes(char *s, char *t)
 	return (t);
 }
 
-char	*rm_midquot(char *s, int n)
+char	*rm_quotes(char *s, int n)
 {
 	char	*res;
 
@@ -75,11 +75,10 @@ int	ct_quotes(char *p)
 	return (res);
 }
 
-/* IN PROGRESS. Once done, maybe it can also include the movements needed for
- * del_end_quotes. DONE. I think it works when not applying del_end_quotes,
- * for the moment corresponding functions are commented just in case
+/* Deletes all qutations marks by pairs in all char * included in the
+ * char **cmd->args variable.
  */
-void	del_mid_quotes(char **s)
+void	del_quotes(char **s)
 {
 	int	i;
 	int	ct;
@@ -91,7 +90,7 @@ void	del_mid_quotes(char **s)
 		if (ft_strchr(s[i], SQUOTE) || ft_strchr(s[i], DQUOTE))
 		{
 			ct = ct_quotes(s[i]);
-			s[i] = rm_midquot(s[i], ct);
+			s[i] = rm_quotes(s[i], ct);
 		}
 		i++;
 	}

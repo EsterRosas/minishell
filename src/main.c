@@ -6,41 +6,37 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/06 17:50:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:31:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	handle_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_replace_line("", 0);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-//		g_exst = 1;
-	}
-	else if (sig == SIGQUIT)
-	{
-	}
-	return ;
-}
-
 void	add_node(char *evar, t_envv *env_lst)
 {
-	t_envv	*cmd;
+	t_envv	*node;
 	int		pos;
 
-	cmd = malloc(sizeof(t_envv));
-	if (!cmd)
+	pos = 0;
+	node = malloc(sizeof(t_envv));
+	if (!node)
 		return ;
-	pos = ft_strchr(evar, '=') - evar;
-	cmd->nm = ft_substr(evar, 0, pos);
-	cmd->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-	cmd->next = NULL;
-	add_env_back(env_lst, cmd);
+	if (ft_strchr(evar, '='))
+	{
+		pos = ft_strchr(evar, '=') - evar;
+		node->nm = ft_substr(evar, 0, pos);
+		if (ft_strcmp(node->nm, "OLDPWD") == 0)
+			node->val = NULL;
+		else
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+	}
+	else
+	{
+		node->nm = evar;
+		node->val = NULL;
+	}
+	node->next = NULL;
+	add_env_back(env_lst, node);
 }
 
 t_envv	*cp_envp(char **envp)
@@ -69,12 +65,14 @@ int	main(int argc, char **argv, char **envp)
 	t_envv		*env_lst;
 
 	// hey from testing-david :)
+	g_exst = 0;
 	env_lst = cp_envp(envp);
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, handle_signal); //Ctrl+C
-	signal(SIGQUIT, handle_signal); //Ctrl+contrabarra
+	disable_ctrl_chars();
+	ft_signal(1);
 	loop_prompt(env_lst);
 	free_env(env_lst);
+	restore_terminal_settings();
 	return (0);
 }
