@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/12 16:45:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:39:35 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ void	only_export(t_envv *env)
 	free_envlist(sorted);
 }
 
-void	ft_export(char **args, t_envv *env)
+int	ft_export(char **args, t_envv *env)
 {
 	if (dbl_len(args) == 1)
 		only_export(env);
+	return (0);
 }

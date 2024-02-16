@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 16:47:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:41:07 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_echo(t_cmd *cmd)
+int	ft_echo(t_cmd *cmd)
 {
 	int		i;
 
@@ -20,7 +20,7 @@ void	ft_echo(t_cmd *cmd)
 	if (dbl_len(cmd->args) == 1)
 	{
 		printf("\n");
-		return ;
+		return (0);
 	}
 	if (ft_strcmp(cmd->args[1], "-n") == 0)
 		i++;
@@ -34,4 +34,5 @@ void	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
+	return (0);	
 }

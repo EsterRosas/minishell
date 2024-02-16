@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 20:24:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:40:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_cd(t_cmd *cmd)
+int	ft_cd(t_cmd *cmd)
 {
 	if (dbl_len(cmd->args) == 1)
-		return ;
+		return (0);
+	return (0);
 }

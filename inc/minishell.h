@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/14 19:23:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:39:35 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ void	test(char *line, t_envv *o_envp);
 
 /*      builtins.c            */
 int		is_builtin(char	*s);
-void	ft_echo(t_cmd *cmd);
-void	ft_pwd(t_envv *env);
-void	ft_env(t_envv *env);
-void	ft_unset(t_cmd *cmd/*, t_envv *env*/);
-void	ft_cd(t_cmd *cmd);
-void	ft_export(char **args, t_envv *env);
+int 	ft_echo(t_cmd *cmd);
+int 	ft_pwd(t_envv *env);
+int		is_builtin(char	*s);
+int 	ft_env(t_envv *env);
+int 	ft_unset(t_cmd *cmd/*, t_envv *env*/);
+int 	ft_cd(t_cmd *cmd);
+int 	ft_export(char **args, t_envv *env);
 void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
-void	handle_cmds(t_prompt *prompt);
 
 /*      get_cmd.c            */
 void	exec_ext_cmd(t_prompt *prompt);

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/12 20:10:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:39:35 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@
  *
 */
 
-void	handle_cmds(t_prompt *prompt)
-{
-	//printf("hello from handle_cmds\n");
-	//printf("Heres prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
-	while (prompt->cmd)
-	{
-		printf("Ready to execute external command");
-		exec_ext_cmd(prompt);
-		prompt->cmd = prompt->cmd->next;
-	}
-}
+// void	handle_cmds(t_prompt *prompt)
+// {
+// 	//printf("hello from handle_cmds\n");
+// 	//printf("Heres prompt->cmd->args[%i]: %s\n", i, prompt->cmd->args[i]);
+// 	while (prompt->cmd)
+// 	{
+// 		printf("Ready to execute external command");
+// 		g_exst = exec_ext_cmd(prompt);
+// 		prompt->cmd = prompt->cmd->next;
+// 	}
+// }
 
 int	is_builtin(char	*s)
 {
@@ -84,7 +84,7 @@ int	is_builtin(char	*s)
 	return (0);
 }
 
-void	ft_env(t_envv *env)
+int	ft_env(t_envv *env)
 {
 	char	**s;
 	int		i;
@@ -97,21 +97,23 @@ void	ft_env(t_envv *env)
 			printf("%s\n", s[i]);
 	}
 	free_all(s, dbl_len(s));
+	return (0);
 }
 
-void	ft_pwd(t_envv *env)
+int	ft_pwd(t_envv *env)
 {
 	t_envv	*aux;
-
 	aux = env;
 	while (ft_strcmp(aux->nm, "PWD") != 0)
 		aux = aux->next;
 	if (ft_strcmp(aux->nm, "PWD") == 0)
 		printf("%s\n", aux->val);
+	return (0);
 }
 
 void	ft_exit(void)
 {
 	printf("exit\n");
+	//g_exst= 
 	exit (1);
 }
