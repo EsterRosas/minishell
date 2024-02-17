@@ -6,14 +6,15 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:10:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 19:41:25 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:50:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_unset(t_cmd *cmd/*, t_envv *env*/)
+int	ft_unset(t_cmd *cmd, t_envv *env)
 {
+	(void)env;
 	if (dbl_len(cmd->args) == 1)
 		return (0);
 	return (0);

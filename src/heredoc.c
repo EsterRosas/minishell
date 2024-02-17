@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 20:45:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:55:55 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*get_hdocinput(char *delim)
 	if (!input)
 		return (NULL);
 	while (ft_strcmp(input, delim) != 0)
-	{	
+	{
 		if (!input)
 			return (NULL);
 		if (!res)
@@ -88,6 +88,5 @@ char	*process_hdoc(char *delim, int last)
 		free(res);
 		res = NULL;
 	}
-	printf("res: %s\n", res);
 	return (res);
 }

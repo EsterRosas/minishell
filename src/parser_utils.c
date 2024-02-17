@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/15 18:01:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:56:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,20 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		return (-1);
 	}
 	return (0);
+}
+
+int	is_env(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(s) != 3)
+		return (0);
+	else if (s[0] != 'e' && s[0] != 'E')
+		return (0);
+	else if (s[1] != 'n' && s[1] != 'N')
+		return (0);
+	else if (s[2] != 'v' && s[2] != 'V')
+		return (0);
+	return (1);
 }

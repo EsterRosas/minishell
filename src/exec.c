@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 19:40:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:51:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = ft_pwd(prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
 		g_exst = ft_echo(cmd);
-	else if (ft_strcmp(cmd->args[0], "env") == 0)
+	else if (is_env(cmd->args[0]))
 		g_exst = ft_env(prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
 		g_exst = ft_cd(cmd);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		g_exst = ft_unset(cmd/*, prompt->envp*/);
+		g_exst = ft_unset(cmd, prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		g_exst = ft_export(cmd->args, prompt->envp);
 }
@@ -50,7 +50,7 @@ void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
 	if (is_builtin(cmd->args[0]))
-	 	ft_exbuiltin(prompt, cmd);
+		ft_exbuiltin(prompt, cmd);
 	exec_cmd(prompt, cmd);
 	exit(EXIT_FAILURE);
 }
@@ -61,7 +61,6 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd)
 	 * TO-DO: link read/write ends of pipes to current command
 	 * and return to exit_st
 	*/
-
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
 	ft_execcmd(prompt, cmd);

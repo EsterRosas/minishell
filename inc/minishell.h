@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/16 19:39:35 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:49:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ char	*get_oenv(char *s, t_envv *o_envp);
 /*      testfunctions.c        */
 void	test(char *line, t_envv *o_envp);
 
-/*      builtins.c            */
+/*      builtins            */
 int		is_builtin(char	*s);
 int 	ft_echo(t_cmd *cmd);
 int 	ft_pwd(t_envv *env);
 int		is_builtin(char	*s);
 int 	ft_env(t_envv *env);
-int 	ft_unset(t_cmd *cmd/*, t_envv *env*/);
+int 	ft_unset(t_cmd *cmd, t_envv *env);
 int 	ft_cd(t_cmd *cmd);
 int 	ft_export(char **args, t_envv *env);
+int		ft_edit_envlist(char **args, t_envv *env);
 void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
 
@@ -77,6 +78,7 @@ void	exec_ext_cmd(t_prompt *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
+void	ft_printerror(char *cmd, char *s, char *msg);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
@@ -90,7 +92,7 @@ t_envv	*cp_envp(char **envp);
 char	**env_lst2arr(t_envv *env_lst);
 //char	**export_env_lst2arr(t_envv *env_lst);
 
-/*		parser.c				*/
+/*		parser				*/
 t_cmd	*get_cmd(char **lex, t_envv *env_lst);
 int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
@@ -102,6 +104,7 @@ char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
 char	*process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
+int		is_env(char *s);
 
 /*		signals					*/
 void	handle_sigint(int sig);

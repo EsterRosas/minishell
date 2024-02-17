@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 20:36:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:45:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ int	is_builtin(char	*s)
 	else if (ft_strlen(s) == ft_strlen("unset")
 		&& ft_strncmp(s, "unset", ft_strlen(s)) == 0)
 		return (1);
-	else if (ft_strlen(s) == ft_strlen("env")
-		&& ft_strncmp(s, "env", ft_strlen(s)) == 0)
+	else if (is_env(s))
 		return (1);
 	else if (ft_strlen(s) == ft_strlen("exit")
 		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
@@ -103,6 +102,7 @@ int	ft_env(t_envv *env)
 int	ft_pwd(t_envv *env)
 {
 	t_envv	*aux;
+	
 	aux = env;
 	while (ft_strcmp(aux->nm, "PWD") != 0)
 		aux = aux->next;
