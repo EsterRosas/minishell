@@ -72,7 +72,7 @@ static int	handle_cmds(t_prompt *prompt)
 	t_cmd	*aux;
 	//int		exit_st;
 	pid_t	pid;
-	pid_t	last_child;
+//	pid_t	last_child;
 	
 	aux = prompt->cmd;
 	while (aux)
@@ -83,7 +83,7 @@ static int	handle_cmds(t_prompt *prompt)
 		if (pid == 0)
 			return (handle_cmd(prompt, aux)); // TO-FINISH
 		//update_parent_pipe(); // TO-DO
-		last_child = pid;
+//		last_child = pid;
 		aux = aux->next;
 	}
 	//exit_st = wait_children(last_child, cmdlistsize(prompt->cmd)); // TO-DO

@@ -15,14 +15,14 @@
 int	ft_echo(t_cmd *cmd)
 {
 	int		i;
-
+	
 	i = 0;
-	if (dbl_len(cmd->args) == 1)
+	if (dbl_len(cmd->args) == 1 && cmd->infile == 0)
 	{
 		printf("\n");
 		return (0);
 	}
-	if (ft_strcmp(cmd->args[1], "-n") == 0)
+	else if (cmd->args[1] && ft_strcmp(cmd->args[1], "-n") == 0)
 		i++;
 	while (cmd->args[++i])
 	{

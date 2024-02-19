@@ -31,7 +31,7 @@ static char	*read_input(char *input, char *delim)
 {
 	char	*res;
 	char	*eol;
-	char	*aux2;
+	char	*aux;
 
 	eol = ft_str_eol();
 	res = NULL;
@@ -39,15 +39,18 @@ static char	*read_input(char *input, char *delim)
 	{
 		if (!input)
 			exit (1);
-//			return (NULL);
 		if (!res)
-			res = ft_strdup(input);
+		{
+			aux = ft_strdup(input);
+			res = ft_strjoin(input, eol);
+			free(aux);
+		}
 		else
 		{
-			aux2 = ft_strjoin(res, input);
+			aux = ft_strjoin(res, input);
 			free(res);
-			res = ft_strjoin(aux2, eol);
-			free(aux2);
+			res = ft_strjoin(aux, eol);
+			free(aux);
 		}
 		free(input);
 		input = readline("> ");
@@ -68,11 +71,9 @@ static void	get_input(char *delim, int *fd)
 	if (!input)
 		exit (1);
 	res = read_input(input, delim);
-	if (write(fd[W_END], &res, ft_strlen(res)) == -1)
-	{
+	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
-		return ;
-	}
+	return ;
 }
 
 static int	do_fork(char *delim, int *fd)
@@ -81,7 +82,10 @@ static int	do_fork(char *delim, int *fd)
 
 	id = make_fork();
 	if (id == 0)
+	{
 		get_input(delim, fd);
+		exit (1);
+	}
 	else
 	{
 		close(fd[W_END]);
@@ -95,20 +99,18 @@ static int	do_fork(char *delim, int *fd)
 
 int	process_hdoc(char *delim, int last)
 {
-	int	res;
 	int	fd[2];
 
-	res = 0;
 	if (pipe(fd) == -1)
 	{
 		printf("minishell: %s\n", strerror(errno));
 		return (-1); //segur??
 	}
-	res = do_fork(delim, fd);
+	do_fork(delim, fd);
 	if (!last)
 	{
 		close(fd[R_END]);
-		res = 0;
+		return (0);
 	}
-	return (res);
+	return (fd[R_END]);
 }

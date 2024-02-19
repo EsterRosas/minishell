@@ -60,17 +60,10 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
 	{
-		char buffer[10];
 		s->infile = process_hdoc(lex[i], is_lastfile(lex, i, '<'));
-		printf("s->infile: %i\n", s->infile);
-		int i = -1;
-		while (++i < 10)
-		{
-			read(s->infile, &buffer[i], 1);
-			i++;
-		}
-		printf("buffer: %s\n", buffer);
-		close(s->infile);
+//		char buffer[10];
+//		read(s->infile, buffer, 10);
+  //  	write(1, buffer, 10);
 	}
 	return (0);
 }
@@ -112,9 +105,6 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 
 int	is_env(char *s)
 {
-	int	i;
-
-	i = 0;
 	if (ft_strlen(s) != 3)
 		return (0);
 	else if (s[0] != 'e' && s[0] != 'E')

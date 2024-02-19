@@ -75,7 +75,7 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-		//	ft_exec(prompt);
+			ft_exec(prompt);
 			free_cmdlist(prompt->cmd);
 			free(prompt);
 		}
