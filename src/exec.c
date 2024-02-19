@@ -6,11 +6,13 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 21:23:31 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:53:42 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+extern int	g_exst;
 
 pid_t	make_fork(void)
 {
@@ -76,25 +78,19 @@ static int	handle_cmds(t_prompt *prompt)
 	pid_t	last_child;
 	
 	aux = prompt->cmd;
-	printf("hello from handle_cmds\n");
 	while (aux)
 	{
 		//if (aux->next)
 			//make_pipe(); // TO-DO
 		pid = make_fork();
 		if (pid == 0)
-		{
-			printf("hello from child_process\n");
 			return (handle_cmd(prompt, aux)); // TO-FINISH
-		}
-			
 		//update_parent_pipe(); // TO-DO
 		last_child = pid;
 		aux = aux->next;
 	}
-	//exit_st = wait_children(last_child, cmdlistsize(prompt->cmd)); // TO-DO
-	//return (exit_st);
-	return (0);
+	g_exst = wait_children(last_child, cmdlistsize(prompt->cmd)); // TO-DO
+	return (g_exst);
 }
 
 void	ft_exec(t_prompt *prompt)
