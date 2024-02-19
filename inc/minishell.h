@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/17 13:49:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:00:10 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <signal.h>
-# include <sys/ioctl.h>
 # include <string.h>
 # include <termios.h>
 # include "../lib/libft/libft.h"
@@ -78,7 +77,7 @@ void	exec_ext_cmd(t_prompt *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
-void	ft_printerror(char *cmd, char *s, char *msg);
+void	ft_exporterror(char *cmd, char *s, char *msg);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
@@ -102,7 +101,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
-char	*process_hdoc(char *delim, int last);
+int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 int		is_env(char *s);
 
@@ -117,5 +116,7 @@ void	ft_exec(t_prompt *prompt);
 
 /*		exec_utils.c			*/
 int		cmdlistsize(t_cmd *cmd);
+pid_t	make_fork(void);
+
 
 #endif

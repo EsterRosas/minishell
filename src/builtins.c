@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/17 13:45:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:59:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_env(t_envv *env)
 int	ft_pwd(t_envv *env)
 {
 	t_envv	*aux;
-	
+
 	aux = env;
 	while (ft_strcmp(aux->nm, "PWD") != 0)
 		aux = aux->next;
@@ -114,6 +114,7 @@ int	ft_pwd(t_envv *env)
 void	ft_exit(void)
 {
 	printf("exit\n");
-//g_exst= 
+//g_exst=
+	restore_terminal_settings();
 	exit (0);
 }

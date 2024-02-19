@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/17 13:55:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:00:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,19 @@ char	*ft_str_eol(void)
 	return (res);
 }
 
-static char	*get_hdocinput(char *delim)
+static char	*read_input(char *input, char *delim)
 {
-	static char	*input;
-	char		*res;
-	char		*eol;
-	char		*aux2;
+	char	*res;
+	char	*eol;
+	char	*aux2;
 
 	eol = ft_str_eol();
 	res = NULL;
-	input = NULL;
-	ft_signal(2);
-	input = readline("> ");
-	if (!input)
-		return (NULL);
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
-			return (NULL);
+			exit (1);
+//			return (NULL);
 		if (!res)
 			res = ft_strdup(input);
 		else
@@ -62,31 +57,58 @@ static char	*get_hdocinput(char *delim)
 	return (res);
 }
 
-char	*process_hdoc(char *delim, int last)
+static void	get_input(char *delim, int *fd)
 {
+	static char	*input;
 	char		*res;
-	int			id;
 
-	res = NULL;
-	id = fork();
-	if (id == -1)
+	close(fd[R_END]);
+	ft_signal(2);
+	input = readline("> ");
+	if (!input)
+		exit (1);
+	res = read_input(input, delim);
+	if (write(fd[W_END], &res, ft_strlen(res)) == -1)
 	{
 		printf("minishell: %s\n", strerror(errno));
-		return (NULL);
+		return ;
 	}
+}
+
+static int	do_fork(char *delim, int *fd)
+{
+	int	id;
+
+	id = make_fork();
 	if (id == 0)
-		res = get_hdocinput(delim);
+		get_input(delim, fd);
 	else
 	{
+		close(fd[W_END]);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		wait(NULL);
 		ft_signal(1);
 	}
+	return (fd[R_END]);
+}
+
+int	process_hdoc(char *delim, int last)
+{
+	int	res;
+	int	fd[2];
+
+	res = 0;
+	if (pipe(fd) == -1)
+	{
+		printf("minishell: %s\n", strerror(errno));
+		return (-1); //segur??
+	}
+	res = do_fork(delim, fd);
 	if (!last)
 	{
-		free(res);
-		res = NULL;
+		close(fd[R_END]);
+		res = 0;
 	}
 	return (res);
 }

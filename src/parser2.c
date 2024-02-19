@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 18:12:47 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:01:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ void	free_cmdlist(t_cmd *head)
 		free_all(current->args, dbl_len(current->args));
 		if (current->full_path)
 			free(current->full_path);
-		if (current->hdoc)
-			free(current->hdoc);
 		free(current);
 		current = nextnode;
 	}

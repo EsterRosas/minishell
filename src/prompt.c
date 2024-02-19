@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/16 20:35:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:12:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	while (aux)
 	{
 		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
-prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", j, aux->infile, aux->outfile, \
-aux->full_path, aux->hdoc);
+prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
 		while (aux->args[i])
 		{
 			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
@@ -76,7 +75,7 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-			ft_exec(prompt);
+		//	ft_exec(prompt);
 			free_cmdlist(prompt->cmd);
 			free(prompt);
 		}

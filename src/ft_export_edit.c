@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/17 13:55:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:02:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	create_only(char *nm, t_envv *env)
 	{
 		if (!ft_isalnum(nm[i]) && nm[i] != '_')
 		{
-			ft_printerror("export", nm, "not a valid identifier");
+			ft_exporterror("export", nm, "not a valid identifier");
 			return (-1);
 		}
 	}
@@ -29,6 +29,12 @@ int	create_only(char *nm, t_envv *env)
 	return (0);
 }
 
+/* This function adds a new envvar if it doesn't exist yet and assigns it
+ * the vaule specified by the user, if any. If the variable already exists,
+ * edits its value according to the user input.
+ * First, if some arg (variable) name starts with a char not "-" and not
+ * alphanum, it printd the corresponding error
+ */
 int	ft_edit_envlist(char **args, t_envv *env)
 {
 	int	i;
@@ -37,7 +43,7 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	while (args[++i])
 	{
 		if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
-			ft_printerror("export", args[i], "not a valid identifier");
+			ft_exporterror("export", args[i], "not a valid identifier");
 		else
 			create_only(args[i], env);
 	}
