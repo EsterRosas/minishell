@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 19:57:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 20:09:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	heredoc_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-	//	write(1, "\n", 1);
 		g_exst = 130;
 		exit (130);
 	}
@@ -78,7 +77,7 @@ void	ft_signal(int i)
 	else
 		sa.sa_handler = &heredoc_handler;
 	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL); //Ctrl+C
-	sigaction(SIGQUIT, &sa, NULL); //Ctrl+contrabarra
+	sigaction(SIGINT, &sa, NULL); 
+	sigaction(SIGQUIT, &sa, NULL);
 	sigaction(SIGTERM, &sa, NULL);
 }

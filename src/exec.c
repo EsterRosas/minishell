@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/17 13:51:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 20:57:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	// error message incase of error TO-DO
 	exit (EXIT_FAILURE);
-}
-
-void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
-{
-	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit();
-	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		g_exst = ft_pwd(prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		g_exst = ft_echo(cmd);
-	else if (is_env(cmd->args[0]))
-		g_exst = ft_env(prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		g_exst = ft_cd(cmd);
-	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		g_exst = ft_unset(cmd, prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "export") == 0)
-		g_exst = ft_export(cmd->args, prompt->envp);
 }
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)

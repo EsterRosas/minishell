@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 21:00:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:20:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,43 @@ char	*ft_str_eol(void)
 	res[1] = '\0';
 	return (res);
 }
-
-static char	*read_input(char *input, char *delim)
+static char *feed_hdoc(char *res, char	*input)
 {
-	char	*res;
 	char	*eol;
 	char	*aux;
 
 	eol = ft_str_eol();
+	if (!res)
+	{
+		aux = ft_strdup(input);
+		res = ft_strjoin(input, eol);
+		free(aux);
+	}
+	else
+	{
+		aux = ft_strjoin(res, input);
+		free(res);
+		res = ft_strjoin(aux, eol);
+		free(aux);
+	}
+	free(eol);
+	return (res);
+}
+
+static char	*read_input(char *input, char *delim)
+{
+	char	*res;
+//	char	*eol;
+//	char	*aux;
+
+//	eol = ft_str_eol();
 	res = NULL;
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
 			exit (1);
-		if (!res)
+		res = feed_hdoc(res, input);
+	/*	if (!res)
 		{
 			aux = ft_strdup(input);
 			res = ft_strjoin(input, eol);
@@ -51,12 +74,12 @@ static char	*read_input(char *input, char *delim)
 			free(res);
 			res = ft_strjoin(aux, eol);
 			free(aux);
-		}
+		}*/
 		free(input);
 		input = readline("> ");
 	}
-	free(eol);
 	free(input);
+//	printf("res heredoc: %s\n", res);
 	return (res);
 }
 

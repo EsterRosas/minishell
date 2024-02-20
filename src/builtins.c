@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 19:59:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 20:56:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,22 @@ void	ft_exit(void)
 //g_exst=
 	restore_terminal_settings();
 	exit (0);
+}
+
+void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->args[0], "exit") == 0)
+		ft_exit();
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+		g_exst = ft_pwd(prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "echo") == 0)
+		g_exst = ft_echo(cmd);
+	else if (is_env(cmd->args[0]))
+		g_exst = ft_env(prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "cd") == 0)
+		g_exst = ft_cd(cmd, prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		g_exst = ft_unset(cmd, prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		g_exst = ft_export(cmd->args, prompt->envp);
 }
