@@ -6,32 +6,27 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/20 21:20:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:03:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 /* NOTA: el heredoc ha de tenir els seus propis senyals
+ * pq si estem a mig "demanar input heredoc a usuari", si es fa Ctr+C
+ * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
+ * d'executar en un proces a part (child).
  */
-
-char	*ft_str_eol(void)
-{
-	char	*res;
-
-	res = malloc(sizeof(char) + 1);
-	if (!res)
-		return (NULL);
-	res[0] = '\n';
-	res[1] = '\0';
-	return (res);
-}
-static char *feed_hdoc(char *res, char	*input)
+static char	*feed_hdoc(char *res, char	*input)
 {
 	char	*eol;
 	char	*aux;
 
-	eol = ft_str_eol();
+	eol = malloc(sizeof(char) + 1);
+	if (!eol)
+		return (NULL);
+	eol[0] = '\n';
+	eol[1] = '\0';
 	if (!res)
 	{
 		aux = ft_strdup(input);
@@ -52,34 +47,20 @@ static char *feed_hdoc(char *res, char	*input)
 static char	*read_input(char *input, char *delim)
 {
 	char	*res;
-//	char	*eol;
-//	char	*aux;
+	char	*aux;
 
-//	eol = ft_str_eol();
-	res = NULL;
+	aux = NULL;
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
 			exit (1);
-		res = feed_hdoc(res, input);
-	/*	if (!res)
-		{
-			aux = ft_strdup(input);
-			res = ft_strjoin(input, eol);
-			free(aux);
-		}
-		else
-		{
-			aux = ft_strjoin(res, input);
-			free(res);
-			res = ft_strjoin(aux, eol);
-			free(aux);
-		}*/
+		aux = feed_hdoc(aux, input);
 		free(input);
 		input = readline("> ");
 	}
 	free(input);
-//	printf("res heredoc: %s\n", res);
+	res = ft_substr(aux, 0, ft_strlen(aux) - 1);
+	free(aux);
 	return (res);
 }
 
@@ -127,7 +108,7 @@ int	process_hdoc(char *delim, int last)
 	if (pipe(fd) == -1)
 	{
 		printf("minishell: %s\n", strerror(errno));
-		return (-1); //segur??
+		return (-1);
 	}
 	do_fork(delim, fd);
 	if (!last)

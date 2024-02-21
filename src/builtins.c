@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/20 20:56:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:19:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,18 @@ int	ft_env(t_envv *env)
 	return (0);
 }
 
-int	ft_pwd(t_envv *env)
+int	ft_pwd(void)
 {
-	t_envv	*aux;
+	char	*s;
+	char	*aux;
 
-	aux = env;
-	while (ft_strcmp(aux->nm, "PWD") != 0)
-		aux = aux->next;
-	if (ft_strcmp(aux->nm, "PWD") == 0)
-		printf("%s\n", aux->val);
+	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	if (!s)
+		return (-1);
+	aux = ft_strdup(getcwd(s, MAXPATHLEN));
+	printf("%s\n", s);
+	free(s);
+	free(aux);
 	return (0);
 }
 
@@ -124,7 +127,7 @@ void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		ft_exit();
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		g_exst = ft_pwd(prompt->envp);
+		g_exst = ft_pwd();
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
 		g_exst = ft_echo(cmd);
 	else if (is_env(cmd->args[0]))
