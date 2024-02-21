@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 18:53:42 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:51:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd)
 static int	handle_cmds(t_prompt *prompt)
 {
 	t_cmd	*aux;
-	//int		exit_st;
 	pid_t	pid;
 	pid_t	last_child;
 	
@@ -89,7 +88,7 @@ static int	handle_cmds(t_prompt *prompt)
 		last_child = pid;
 		aux = aux->next;
 	}
-	g_exst = wait_children(last_child, cmdlistsize(prompt->cmd)); // TO-DO
+	g_exst = wait_children(last_child, cmdlistsize(prompt->cmd));
 	return (g_exst);
 }
 

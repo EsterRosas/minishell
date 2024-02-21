@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/16 19:39:35 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:04:18 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ void	ft_exec(t_prompt *prompt);
 
 /*		exec_utils.c			*/
 int		cmdlistsize(t_cmd *cmd);
+int     wait_children(pid_t last_child, int n);
 
 #endif
