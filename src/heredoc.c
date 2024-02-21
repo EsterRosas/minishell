@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/21 13:03:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/21 19:06:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,14 @@ static char	*read_input(char *input, char *delim)
 	char	*aux;
 
 	aux = NULL;
+	res = NULL;
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
+		{ 
+			free(aux);
 			exit (1);
+		}
 		aux = feed_hdoc(aux, input);
 		free(input);
 		input = readline("> ");
@@ -101,6 +105,20 @@ static int	do_fork(char *delim, int *fd)
 	return (fd[R_END]);
 }
 
+/* This function is called from assign_infile function in parser_utils.c file
+ * in order to get a file descriptor corresponding to the file where the
+ * input content to be used is stored. but only WHEN "<<" separator (heredoc)
+ * is found.
+ *
+ * It creates a pipe so we can ask and get the user input from a child (as
+ * the signals in heredoc work in a different way than in the parent process),
+ * and save this content to the WRITE END of the pipe and later on readit from
+ * the READ END of the pipe in the parent process.
+ *
+ * In case the "input file" (separator '<' OR '<<' is not the last in the cmd,
+ * it closes both ends of the pipe as none of them this will be used as the
+ * input to by the cmd, since it always uses the last input file found.
+ */
 int	process_hdoc(char *delim, int last)
 {
 	int	fd[2];
@@ -113,6 +131,7 @@ int	process_hdoc(char *delim, int last)
 	do_fork(delim, fd);
 	if (!last)
 	{
+		close(fd[W_END]);
 		close(fd[R_END]);
 		return (0);
 	}
