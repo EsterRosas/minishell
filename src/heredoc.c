@@ -44,6 +44,12 @@ static char	*feed_hdoc(char *res, char	*input)
 	return (res);
 }
 
+/* While the input written by the user is not the DELIMITER (EOF or similar,
+ * usually), we go getting user input and joining all input received. Each
+ * line followed by a "\n" (eol)
+ *
+ * That's why at the end we take the substring not including last cgar (\n).
+ */ 
 static char	*read_input(char *input, char *delim)
 {
 	char	*res;
@@ -68,6 +74,22 @@ static char	*read_input(char *input, char *delim)
 	return (res);
 }
 
+/* When we start the heredoc itself (showing '> ' to the user for them to input
+ * the content they want, first we close the READ END of the pipe, because
+ * we will not need it in the child process.
+ *
+ * We enable the ft_signal with a parameter not 0 and not 1, which calls the
+ * heredoc signal handler.
+ *
+ * Show '> ' to the user so to collect the input. If user presses Ctrl+D
+ * (not a signal) this means theres no input (!input), we have to exit the heredoc
+ * (not the minishell) as in Bash.
+ *
+ * If the user writes some input, we get it through the function read_input.
+ *
+ * Once we got it, we write it to the WRITE END of the pipe, so it will be ready
+ * to be read from the parent process, as the pipe was created before the fork
+ */
 static void	get_input(char *delim, int *fd)
 {
 	static char	*input;
@@ -84,6 +106,19 @@ static void	get_input(char *delim, int *fd)
 	return ;
 }
 
+/* We do the fork.
+ *
+ * CHILD: we offer "> " to the user to get his input (heredoc) through the
+ * get_input function (its parameters are the "delimiter, such as EOF writen
+ * by the user right after '<<' and the int *fd that the pipe function
+ * returned. Then call exit to exit the child process.
+ *
+ * PARENT: closes the write end firstly because we will not need it.
+ * We ignore the signals through SIG_IGN so to avoid that a signal makes
+ * the program to follow the signals as in parent until the child has finished.
+ * wait for the CHILD process and then enable again the signals corresponding
+ * to the parent (not to the heredoc).
+ */
 static int	do_fork(char *delim, int *fd)
 {
 	int	id;
