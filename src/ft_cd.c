@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/21 13:42:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:58:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 	current = ft_strdup(getcwd(s, MAXPATHLEN));
 	free(s);
 	if (ft_strcmp(cmd->args[0], "cd") != 0)
-		return (0); // segur?
+		return (0);
 	else if (dbl_len(cmd->args) == 1)
 	{
 		if (cd_only(env, current) == -1)

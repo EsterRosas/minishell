@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/20 20:04:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:55:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_only(char *nm, t_envv *env)
 		if (!ft_isalnum(nm[i]) && nm[i] != '_')
 		{
 			ft_exporterror("export", nm, "not a valid identifier");
-			return (-1);
+			return (1);
 		}
 	}
 	add_node(nm, env);
@@ -43,9 +43,12 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	while (args[++i])
 	{
 		if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
+		{
 			ft_exporterror("export", args[i], "not a valid identifier");
-		else
-			create_only(args[i], env);
+			return (1);
+		}
+		else if (create_only(args[i], env) == 1)
+			return (1);
 	}
 	return (0);
 }

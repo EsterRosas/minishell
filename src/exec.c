@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/20 20:57:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:31:11 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void	ft_exec(t_prompt *prompt)
 	if (cmdlistsize(prompt->cmd) == 0)
 		g_exst = 0;
 	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
-		//g_exst = ft_exbuiltin(prompt, prompt->cmd);
-		ft_exbuiltin(prompt, prompt->cmd);
+		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 	else
 		g_exst = handle_cmds(prompt);
 }

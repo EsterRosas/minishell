@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/21 19:06:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:58:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*feed_hdoc(char *res, char	*input)
  * line followed by a "\n" (eol)
  *
  * That's why at the end we take the substring not including last cgar (\n).
- */ 
+ */
 static char	*read_input(char *input, char *delim)
 {
 	char	*res;
@@ -60,9 +60,9 @@ static char	*read_input(char *input, char *delim)
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
-		{ 
+		{
 			free(aux);
-			exit (1);
+			exit (0);
 		}
 		aux = feed_hdoc(aux, input);
 		free(input);
@@ -82,8 +82,8 @@ static char	*read_input(char *input, char *delim)
  * heredoc signal handler.
  *
  * Show '> ' to the user so to collect the input. If user presses Ctrl+D
- * (not a signal) this means theres no input (!input), we have to exit the heredoc
- * (not the minishell) as in Bash.
+ * (not a signal) this means theres no input (!input), we have to exit the
+ * heredoc (not the minishell) as in Bash.
  *
  * If the user writes some input, we get it through the function read_input.
  *
@@ -99,7 +99,7 @@ static void	get_input(char *delim, int *fd)
 	ft_signal(2);
 	input = readline("> ");
 	if (!input)
-		exit (1);
+		exit (0);
 	res = read_input(input, delim);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
@@ -122,21 +122,26 @@ static void	get_input(char *delim, int *fd)
 static int	do_fork(char *delim, int *fd)
 {
 	int	id;
+	int	status;
 
 	id = make_fork();
 	if (id == 0)
 	{
 		get_input(delim, fd);
-		exit (1);
+		exit (0);
 	}
 	else
 	{
 		close(fd[W_END]);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-		wait(NULL);
+		waitpid(id, &status, 0);
 		ft_signal(1);
 	}
+	if (WIFEXITED(status))
+		g_exst = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_exst = WTERMSIG(status);
 	return (fd[R_END]);
 }
 

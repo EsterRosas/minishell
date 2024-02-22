@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 19:12:15 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:58:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_envv		*env_lst;
 
-	// hey from testing-david :)
 	g_exst = 0;
 	env_lst = cp_envp(envp);
 	(void)argv;

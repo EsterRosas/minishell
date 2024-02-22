@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/21 13:13:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:03:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	test(char *line, t_envv *o_envp);
 
 /*      builtins            */
 int		is_builtin(char	*s);
-void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd);
-int 	ft_echo(t_cmd *cmd);
-int 	ft_pwd(void);
+int		ft_exbuiltin(t_prompt *prompt, t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
+int		ft_pwd(void);
 int		is_builtin(char	*s);
-int 	ft_env(t_envv *env);
-int 	ft_unset(t_cmd *cmd, t_envv *env);
-int 	ft_cd(t_cmd *cmd, t_envv *env);
-int 	ft_export(char **args, t_envv *env);
+int		ft_env(t_envv *env);
+int		ft_unset(t_cmd *cmd, t_envv *env);
+int		ft_cd(t_cmd *cmd, t_envv *env);
+int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
@@ -91,7 +91,6 @@ t_envv	*cp_envp(char **envp);
 
 /*		list2array.c		*/
 char	**env_lst2arr(t_envv *env_lst);
-//char	**export_env_lst2arr(t_envv *env_lst);
 
 /*		parser				*/
 t_cmd	*get_cmd(char **lex, t_envv *env_lst);
@@ -119,6 +118,5 @@ void	ft_exec(t_prompt *prompt);
 /*		exec_utils.c			*/
 int		cmdlistsize(t_cmd *cmd);
 pid_t	make_fork(void);
-
 
 #endif
