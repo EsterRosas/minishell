@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/22 21:03:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:56:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ char	*get_oenv(char *s, t_envv *o_envp);
 /*      builtins            */
 int		is_builtin(char	*s);
 int		ft_exbuiltin(t_prompt *prompt, t_cmd *cmd);
-int		ft_echo(t_cmd *cmd);
 int		ft_pwd(void);
-int		is_builtin(char	*s);
+int 	ft_echo(t_cmd *cmd);
 int		ft_env(t_envv *env);
 int		ft_unset(t_cmd *cmd, t_envv *env);
 int		ft_cd(t_cmd *cmd, t_envv *env);
@@ -117,7 +116,15 @@ void	ft_signal(int i);
 void	ft_exec(t_prompt *prompt);
 
 /*		exec_utils.c			*/
+void	exec_cmd(t_prompt *prompt, t_cmd *cmd);
 int		cmdlistsize(t_cmd *cmd);
+int     wait_children(pid_t last_child, int n);
 pid_t	make_fork(void);
+
+/*		pipe_utils.c			*/
+void	make_pipe(int pipefd[2]);
+void    handle_read_end(int *pipe_fd);
+void    handle_write_end(int *pipe_fd);
+void    update_pipes(t_pipe *p);
 
 #endif

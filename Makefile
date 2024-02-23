@@ -6,7 +6,7 @@
 #    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2024/02/20 18:29:00 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/02/23 20:01:45 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,7 @@ RM			=		rm -rf
 
 ######################################################################
 
-ifeq ($(OS), Linux)
-	SYSTEM_RULE := linux
-else
-	SYSTEM_RULE := $(NAME)
-endif
+SYSTEM_RULE := $(NAME)
 
 all: $(SYSTEM_RULE)
 

@@ -6,28 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/22 18:31:11 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:39:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-pid_t	make_fork(void)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		exit (EXIT_FAILURE);
-	return (pid);
-}
-
-void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
-{
-	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
-	// error message incase of error TO-DO
-	exit (EXIT_FAILURE);
-}
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
@@ -37,48 +20,61 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static int	handle_cmd(t_prompt *prompt, t_cmd *cmd)
+static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
 	/*
-	 * TO-DO: link read/write ends of pipes to current command
-	 * and return to exit_st
+	 * TO-DO: manejar redirreciones desde handle_cmd 
+	 * teniendo en cuenta el cmd 'i' actual ?
 	*/
+	if ((p->i) > 0) // NOT WORKING
+	{
+		handle_read_end(p->prev_fds);
+		printf("linking read end from previous pipe as cmd input");
+	}
+	if ((p->i) < (p->num_cmds - 1)) // NOT WORKING
+	{
+		handle_write_end(p->next_fds);
+		printf("linking write end from next pipe as cmd output");
+	}
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
 }
 
-static int	handle_cmds(t_prompt *prompt)
+static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 {
 	t_cmd	*aux;
-	//int		exit_st;
 	pid_t	pid;
-//	pid_t	last_child;
+	pid_t	last_child;
 	
 	aux = prompt->cmd;
+	p->i = -1;
 	while (aux)
 	{
-		if (aux->next)
-			//make_pipe(); // TO-DO
+		p->i++;
+		if (p->i < (p->num_cmds - 1))
+			make_pipe(p->next_fds);
 		pid = make_fork();
 		if (pid == 0)
-			return (handle_cmd(prompt, aux)); // TO-FINISH
-		//update_parent_pipe(); // TO-DO
-//		last_child = pid;
+			return (handle_cmd(prompt, aux, p)); // TO-FINISH
+		update_pipes(p); // TO-DO
+		last_child = pid;
 		aux = aux->next;
 	}
-	//exit_st = wait_children(last_child, cmdlistsize(prompt->cmd)); // TO-DO
-	//return (exit_st);
-	return (0);
+	g_exst = wait_children(last_child, cmdlistsize(prompt->cmd));
+	return (g_exst);
 }
 
 void	ft_exec(t_prompt *prompt)
 {
-	if (cmdlistsize(prompt->cmd) == 0)
+	t_pipe	p;
+
+	p.num_cmds = cmdlistsize(prompt->cmd);
+	if (p.num_cmds == 0)
 		g_exst = 0;
 	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 	else
-		g_exst = handle_cmds(prompt);
+		g_exst = handle_cmds(prompt, &p);
 }

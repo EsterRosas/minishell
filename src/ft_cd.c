@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 18:53:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:56:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	cd_only(t_envv *env, char *current)
 	t_envv	*aux;
 	char	*home;
 
-	printf("current: %s\n", current);
+//	printf("current: %s\n", current);
 	aux = env;
 	while (aux && ft_strcmp(aux->nm, "HOME") != 0)
 		aux = aux->next;
