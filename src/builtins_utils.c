@@ -35,3 +35,30 @@ int	is_cd(char *s)
 		return (0);
 	return (1);
 }
+
+int	is_subshell(char *s)
+{
+	if (s[0] != '.')
+		return (0);
+	else if (s[1] != '/')
+		return (0);
+	else if (s[2] != 'm' && s[2] != 'M')
+		return (0);
+	else if (s[3] != 'i' && s[3] != 'I')
+		return (0);
+	else if (s[4] != 'n' && s[4] != 'N')
+		return (0);
+	else if (s[5] != 'i' && s[5] != 'I')
+		return (0);
+	else if (s[6] != 's' && s[6] != 'S')
+		return (0);
+	else if (s[7] != 'h' && s[7] != 'H')
+		return (0);
+	else if (s[8] != 'e' && s[8] != 'E')
+		return (0);
+	else if (s[9] != 'l' && s[9] != 'L')
+		return (0);
+	else if (s[10] != 'l' && s[10] != 'L')
+		return (0);
+	return (1);
+}

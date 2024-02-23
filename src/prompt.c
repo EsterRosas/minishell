@@ -12,6 +12,24 @@
 
 #include "../inc/minishell.h"
 
+int	upd_shlvl(t_envv *env)
+{
+	t_envv	*aux;
+	char	*tmp;
+
+	aux = env;
+	while (aux && ft_strcmp("SHLVL", aux->nm) != 0)
+		aux = aux->next;
+	if (ft_strcmp("SHLVL", aux->nm) == 0)
+	{
+		tmp = ft_itoa(ft_atoi(aux->val) + 1);
+		free(aux->val);
+		aux->val = ft_strdup(tmp);
+		free(tmp);
+	}
+	return (0);
+}
+
 int	only_sp(char *s)
 {
 	int	i;
@@ -67,6 +85,7 @@ void	loop_prompt(t_envv *o_envp)
 	char		*line;
 	t_prompt	*prompt;
 
+	upd_shlvl(o_envp);
 	while (1)
 	{
 		line = readline("minishell~ ");

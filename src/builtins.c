@@ -63,8 +63,7 @@ int	is_builtin(char	*s)
 	if (ft_strlen(s) == ft_strlen("echo")
 		&& ft_strncmp(s, "echo", ft_strlen(s)) == 0)
 		return (1);
-	else if (ft_strlen(s) == ft_strlen("cd")
-		&& ft_strncmp(s, "cd", ft_strlen(s)) == 0)
+	else if (is_cd(s))
 		return (1);
 	else if (ft_strlen(s) == ft_strlen("pwd")
 		&& ft_strncmp(s, "pwd", ft_strlen(s)) == 0)
@@ -79,6 +78,8 @@ int	is_builtin(char	*s)
 		return (1);
 	else if (ft_strlen(s) == ft_strlen("exit")
 		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
+		return (1);
+	else if (ft_strlen(s) == 11 && is_subshell(s))
 		return (1);
 	return (0);
 }
@@ -132,11 +133,13 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = ft_echo(cmd);
 	else if (is_env(cmd->args[0]))
 		g_exst = ft_env(prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "cd") == 0)
+	else if (is_cd(cmd->args[0]))
 		g_exst = ft_cd(cmd, prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		g_exst = ft_unset(cmd, prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		g_exst = ft_export(cmd->args, prompt->envp);
+	else if (is_subshell(cmd->args[0]))
+		g_exst = upd_shlvl(prompt->envp);
 	return (g_exst);
 }

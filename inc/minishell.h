@@ -32,6 +32,8 @@ int		g_exst;
 
 /*      prompt.c        	*/
 void	loop_prompt(t_envv *o_envp);
+int		upd_shlvl(t_envv *env);
+
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -56,9 +58,6 @@ int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
-
-/*      testfunctions.c        */
-void	test(char *line, t_envv *o_envp);
 
 /*      builtins            */
 int		is_builtin(char	*s);
@@ -105,6 +104,8 @@ void	del_quotes(char **s);
 int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 int		is_env(char *s);
+int		is_cd(char *s);
+int		is_subshell(char *s);
 
 /*		signals					*/
 void	handle_sigint(int sig);

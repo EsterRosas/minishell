@@ -38,7 +38,7 @@ static void	upd_pwds(t_envv *env, char *current)
 		aux->val = ft_strdup(current);
 	}
 	free(s);
-	free(current);
+//	free(current);
 }
 
 static int	cd_only(t_envv *env, char *current)
@@ -60,6 +60,7 @@ static int	cd_only(t_envv *env, char *current)
 	}
 	else
 		upd_pwds(env, current);
+//	free(current);
 	return (0);
 }
 
@@ -87,5 +88,6 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 		else
 			upd_pwds(env, current);
 	}
+	free(current);
 	return (0);
 }
