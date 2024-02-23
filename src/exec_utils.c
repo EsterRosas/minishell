@@ -12,6 +12,22 @@
 
 #include "../inc/minishell.h"
 
+pid_t	make_fork(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		handle_error("fork error\n");
+	return (pid);
+}
+
+void	make_pipe(int pipefd[2])
+{
+	if (pipe(pipefd) == -1)
+		handle_error("pipe error\n");
+}
+
 int	cmdlistsize(t_cmd *cmd)
 {
 	t_cmd	*aux;

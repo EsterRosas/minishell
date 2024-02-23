@@ -36,11 +36,11 @@ RM			=		rm -rf
 
 ######################################################################
 
-ifeq ($(OS), Linux)
-	SYSTEM_RULE := linux
-else
+#feq ($(OS), Linux)
+#SYSTEM_RULE := linux
+#lse
 	SYSTEM_RULE := $(NAME)
-endif
+#ndif
 
 all: $(SYSTEM_RULE)
 

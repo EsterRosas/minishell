@@ -115,5 +115,6 @@ void	ft_exec(t_prompt *prompt);
 /*		exec_utils.c			*/
 int		cmdlistsize(t_cmd *cmd);
 int     wait_children(pid_t last_child, int n);
+pid_t	make_fork(void);
 
 #endif

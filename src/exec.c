@@ -14,16 +14,6 @@
 
 extern int	g_exst;
 
-pid_t	make_fork(void)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		exit (EXIT_FAILURE);
-	return (pid);
-}
-
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
@@ -57,30 +47,32 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static int	handle_cmd(t_prompt *prompt, t_cmd *cmd)
+static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
 	/*
 	 * TO-DO: link read/write ends of pipes to current command
 	 * and return to exit_st
 	*/
-
+	if (p->i > 0)
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
 }
 
-static int	handle_cmds(t_prompt *prompt)
+static int	handle_cmds(t_pipe *p, t_prompt *prompt)
 {
 	t_cmd	*aux;
 	pid_t	pid;
 	pid_t	last_child;
 	
 	aux = prompt->cmd;
+	p->i = -1
 	while (aux)
 	{
-		//if (aux->next)
-			//make_pipe(); // TO-DO
+		p->i++;
+		if (p->i < (p->num_cmds - 1)) // works?
+			make_pipe();
 		pid = make_fork();
 		if (pid == 0)
 			return (handle_cmd(prompt, aux)); // TO-FINISH
@@ -94,9 +86,12 @@ static int	handle_cmds(t_prompt *prompt)
 
 void	ft_exec(t_prompt *prompt)
 {
-	if (cmdlistsize(prompt->cmd) == 0)
+	t_pipe	p;
+
+	p.num_cmds = cmdlistsize(prompt->cmd);
+	if (p.num_cmds == 0)
 		g_exst = 0;
-	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
+	else if (p.num_cmds == 1 && is_builtin(prompt->cmd->args[0]))
 		//g_exst = ft_exbuiltin(prompt, prompt->cmd);
 		ft_exbuiltin(prompt, prompt->cmd);
 	else
