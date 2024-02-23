@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/23 19:56:53 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:15:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		g_exst;
 /*      prompt.c        	*/
 void	loop_prompt(t_envv *o_envp);
 int		upd_shlvl(t_envv *env);
-
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -71,6 +70,11 @@ int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
+int		is_env(char *s);
+int		is_cd(char *s);
+int		is_echo(char *s);
+int		is_pwd(char *s);
+int		is_subshell(char *s);
 
 /*      get_cmd.c            */
 void	exec_ext_cmd(t_prompt *prompt);
@@ -102,9 +106,6 @@ char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
 int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
-int		is_env(char *s);
-int		is_cd(char *s);
-int		is_subshell(char *s);
 
 /*		signals					*/
 void	handle_sigint(int sig);

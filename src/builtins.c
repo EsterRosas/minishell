@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:56:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:16:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 int	is_builtin(char	*s)
 {
-	if (ft_strlen(s) == ft_strlen("echo")
-		&& ft_strncmp(s, "echo", ft_strlen(s)) == 0)
+	if (is_echo(s))
 		return (1);
 	else if (is_cd(s))
 		return (1);
-	else if (ft_strlen(s) == ft_strlen("pwd")
-		&& ft_strncmp(s, "pwd", ft_strlen(s)) == 0)
+	else if (is_pwd(s))
 		return (1);
 	else if (ft_strlen(s) == ft_strlen("export")
 		&& ft_strncmp(s, "export", ft_strlen(s)) == 0)
@@ -80,9 +78,9 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		ft_exit();
-	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+	else if (is_pwd(cmd->args[0]))
 		g_exst = ft_pwd();
-	else if (ft_strcmp(cmd->args[0], "echo") == 0)
+	else if (is_echo(cmd->args[0]))
 		g_exst = ft_echo(cmd);
 	else if (is_env(cmd->args[0]))
 		g_exst = ft_env(prompt->envp);

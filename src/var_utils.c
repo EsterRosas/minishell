@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/17 13:10:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:35:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_oenv(char *s, t_envv *o_envp)
 		else
 			break ;
 	}
-	if (aux == NULL)
+	if (aux == NULL || aux->val == NULL)
 		res = &c;
 	else
 		res = aux->val;

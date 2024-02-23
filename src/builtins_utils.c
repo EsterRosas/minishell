@@ -6,11 +6,39 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/20 21:01:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:12:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	is_echo(char *s)
+{
+	if (ft_strlen(s) != 4)
+		return (0);
+	else if (s[0] != 'e' && s[0] != 'E')
+		return (0);
+	else if (s[1] != 'c' && s[1] != 'C')
+		return (0);
+	else if (s[2] != 'h' && s[2] != 'H')
+		return (0);
+	else if (s[3] != 'o' && s[3] != 'O')
+		return (0);
+	return (1);
+}
+
+int	is_pwd(char *s)
+{
+	if (ft_strlen(s) != 3)
+		return (0);
+	else if (s[0] != 'p' && s[0] != 'P')
+		return (0);
+	else if (s[1] != 'w' && s[1] != 'W')
+		return (0);
+	else if (s[2] != 'd' && s[2] != 'D')
+		return (0);
+	return (1);
+}
 
 int	is_env(char *s)
 {
