@@ -6,11 +6,18 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/21 20:01:40 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:38:20 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
+{
+	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
+	// error message incase of error TO-DO
+	exit (EXIT_FAILURE);
+}
 
 pid_t	make_fork(void)
 {
@@ -20,12 +27,6 @@ pid_t	make_fork(void)
 	if (pid == -1)
 		handle_error("fork error\n");
 	return (pid);
-}
-
-void	make_pipe(int pipefd[2])
-{
-	if (pipe(pipefd) == -1)
-		handle_error("pipe error\n");
 }
 
 int	cmdlistsize(t_cmd *cmd)
@@ -46,9 +47,9 @@ int	cmdlistsize(t_cmd *cmd)
 int	wait_children(pid_t last_child, int n)
 {
 	pid_t	pid;
-	int	i;
-	int	status;
-	int	last_status;
+	int		i;
+	int		status;
+	int		last_status;
 
 	i = -1;
 	while (++i < n)
