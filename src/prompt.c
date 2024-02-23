@@ -85,7 +85,6 @@ void	loop_prompt(t_envv *o_envp)
 	char		*line;
 	t_prompt	*prompt;
 
-	upd_shlvl(o_envp);
 	while (1)
 	{
 		line = readline("minishell~ ");

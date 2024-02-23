@@ -57,6 +57,7 @@ t_envv	*cp_envp(char **envp)
 		add_node(envp[i], env_lst);
 		i++;
 	}
+	upd_shlvl(env_lst);
 	return (env_lst);
 }
 
