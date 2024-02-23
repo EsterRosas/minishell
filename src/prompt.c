@@ -6,11 +6,29 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 17:02:12 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:56:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	upd_shlvl(t_envv *env)
+{
+	t_envv	*aux;
+	char	*tmp;
+
+	aux = env;
+	while (aux && ft_strcmp("SHLVL", aux->nm) != 0)
+		aux = aux->next;
+	if (ft_strcmp("SHLVL", aux->nm) == 0)
+	{
+		tmp = ft_itoa(ft_atoi(aux->val) + 1);
+		free(aux->val);
+		aux->val = ft_strdup(tmp);
+		free(tmp);
+	}
+	return (0);
+}
 
 int	only_sp(char *s)
 {
@@ -44,8 +62,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	while (aux)
 	{
 		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
-prompt->cmd->fl_p: %s, prompt->cmd->hdoc: %s\n", j, aux->infile, aux->outfile, \
-aux->full_path, aux->hdoc);
+prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
 		while (aux->args[i])
 		{
 			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);

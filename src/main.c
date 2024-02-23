@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/13 19:31:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:07:14 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_envv	*cp_envp(char **envp)
 		add_node(envp[i], env_lst);
 		i++;
 	}
+	upd_shlvl(env_lst);
 	return (env_lst);
 }
 
@@ -64,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_envv		*env_lst;
 
-	// hey from testing-david :)
 	g_exst = 0;
 	env_lst = cp_envp(envp);
 	(void)argv;

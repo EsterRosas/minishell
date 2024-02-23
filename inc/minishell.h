@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/23 18:49:25 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:56:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <signal.h>
-# include <sys/ioctl.h>
 # include <string.h>
 # include <termios.h>
+# include <sys/param.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
@@ -32,6 +32,8 @@ int		g_exst;
 
 /*      prompt.c        	*/
 void	loop_prompt(t_envv *o_envp);
+int		upd_shlvl(t_envv *env);
+
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -57,18 +59,16 @@ char	**repl_var(char **s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
 
-/*      testfunctions.c        */
-void	test(char *line, t_envv *o_envp);
-
-/*      builtins.c            */
+/*      builtins            */
 int		is_builtin(char	*s);
+int		ft_exbuiltin(t_prompt *prompt, t_cmd *cmd);
+int		ft_pwd(void);
 int 	ft_echo(t_cmd *cmd);
-int 	ft_pwd(t_envv *env);
-int		is_builtin(char	*s);
-int 	ft_env(t_envv *env);
-int 	ft_unset(t_cmd *cmd/*, t_envv *env*/);
-int 	ft_cd(t_cmd *cmd);
-int 	ft_export(char **args, t_envv *env);
+int		ft_env(t_envv *env);
+int		ft_unset(t_cmd *cmd, t_envv *env);
+int		ft_cd(t_cmd *cmd, t_envv *env);
+int		ft_export(char **args, t_envv *env);
+int		ft_edit_envlist(char **args, t_envv *env);
 void	add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
 
@@ -77,6 +77,7 @@ void	exec_ext_cmd(t_prompt *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
+void	ft_exporterror(char *cmd, char *s, char *msg);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
@@ -88,9 +89,8 @@ t_envv	*cp_envp(char **envp);
 
 /*		list2array.c		*/
 char	**env_lst2arr(t_envv *env_lst);
-//char	**export_env_lst2arr(t_envv *env_lst);
 
-/*		parser.c				*/
+/*		parser				*/
 t_cmd	*get_cmd(char **lex, t_envv *env_lst);
 int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
@@ -100,8 +100,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
-char	*process_hdoc(char *delim, int last);
+int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
+int		is_env(char *s);
+int		is_cd(char *s);
+int		is_subshell(char *s);
 
 /*		signals					*/
 void	handle_sigint(int sig);

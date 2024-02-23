@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/14 19:14:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:09:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	return (args);
 }
 
-/* NOTA IMPORTANT: heredoc te els seus propis
- * senyals, pq si estem a mig "demanar input heredoc a usuari", si es fa Ctr+C
- * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
- * d'executar en un proces a part (child).
+/* * If there's an error in some input or output file returns -1 so the node can
+ * be skipped in the list. Same if no item is added in the args, which means
+ * no command has been input by the user.
  */
 int	fill_node(t_cmd *s, char **lex)
 {
@@ -94,6 +93,8 @@ int	fill_node(t_cmd *s, char **lex)
 		}
 	}
 	del_quotes(s->args);
+	if (!s->args[0])
+		return (-1);
 	return (0);
 }
 
@@ -112,7 +113,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
-	res->hdoc = NULL;
 	if (fill_node(res, lex) == -1)
 		return (NULL);
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')

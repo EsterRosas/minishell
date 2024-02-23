@@ -6,31 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 18:41:09 by damendez         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:39:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-extern int	g_exst;
-
-void	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
-{
-	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit();
-	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		g_exst = ft_pwd(prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		g_exst = ft_echo(cmd);
-	else if (ft_strcmp(cmd->args[0], "env") == 0)
-		g_exst = ft_env(prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		g_exst = ft_cd(cmd);
-	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		g_exst = ft_unset(cmd/*, prompt->envp*/);
-	else if (ft_strcmp(cmd->args[0], "export") == 0)
-		g_exst = ft_export(cmd->args, prompt->envp);
-}
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
@@ -67,7 +47,7 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 	t_cmd	*aux;
 	pid_t	pid;
 	pid_t	last_child;
-
+	
 	aux = prompt->cmd;
 	p->i = -1;
 	while (aux)
@@ -93,9 +73,8 @@ void	ft_exec(t_prompt *prompt)
 	p.num_cmds = cmdlistsize(prompt->cmd);
 	if (p.num_cmds == 0)
 		g_exst = 0;
-	else if (p.num_cmds == 1 && is_builtin(prompt->cmd->args[0]))
-		//g_exst = ft_exbuiltin(prompt, prompt->cmd);
-		ft_exbuiltin(prompt, prompt->cmd);
+	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
+		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 	else
 		g_exst = handle_cmds(prompt, &p);
 }
