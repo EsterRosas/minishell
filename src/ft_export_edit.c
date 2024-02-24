@@ -12,20 +12,77 @@
 
 #include "../inc/minishell.h"
 
-int	create_only(char *nm, t_envv *env)
+int	add_new_node(char *evar, t_envv *env)
+{
+	t_envv	*node;
+	int		pos;
+
+	pos = 0;
+	node = malloc(sizeof(t_envv));
+	if (!node)
+		return (1);
+	if (ft_strchr(evar, '='))
+	{
+		pos = ft_strchr(evar, '=') - evar;
+		node->nm = ft_substr(evar, 0, pos);
+		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+	}
+	else
+	{
+		node->nm = ft_strdup(evar);
+		node->val = NULL;
+	}
+	node->next = NULL;
+	add_env_back(env, node);
+	return (0);
+}
+
+int	is_inenvlst(char *s, t_envv *env)
+{
+	char	*new_nm;
+	t_envv	*aux;
+	int		i;
+
+	i = 0;
+	aux = env;
+	if (!ft_strchr(s, '='))
+		new_nm = s;
+	else
+	{
+		while (s[i] && s[i] != '=')
+			++i;
+		new_nm = malloc(sizeof(char) * i + 1);
+		if (!new_nm)
+			return (1);
+		new_nm = ft_substr(s, 0, i);
+	}
+	while (aux)
+	{
+		if (ft_strcmp(new_nm, aux->nm) == 0)
+			return (1);
+		aux = aux->next;
+	}
+	return (0);
+}
+
+int	id_notvalid(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (nm[++i] && nm[i] != '=')
+	if (!ft_isalpha(s[0]) && s[0] != '_')
+	{	
+		ft_exporterror("export", s, "not a valid identifier");
+		return (1);
+	}
+	while (s[++i] && s[i] != '=')
 	{
-		if (!ft_isalnum(nm[i]) && nm[i] != '_')
+		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{
-			ft_exporterror("export", nm, "not a valid identifier");
+			ft_exporterror("export", s, "not a valid identifier");
 			return (1);
 		}
 	}
-	add_node(nm, env);
 	return (0);
 }
 
@@ -42,13 +99,15 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	i = 0;
 	while (args[++i])
 	{
-		if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
+		if (id_notvalid(args[i]) == 1)
+			return (1);
+		else if (!is_inenvlst(args[i], env))
 		{
-			ft_exporterror("export", args[i], "not a valid identifier");
-			return (1);
+			if (add_new_node(args[i], env) == 1)
+				return (1);
 		}
-		else if (create_only(args[i], env) == 1)
-			return (1);
+/*		else if (edit_node(args[i], env) == 1)
+			return (1);*/
 	}
 	return (0);
 }

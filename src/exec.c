@@ -16,7 +16,8 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
 	if (is_builtin(cmd->args[0]))
 		ft_exbuiltin(prompt, cmd);
-	exec_cmd(prompt, cmd);
+	else
+		exec_cmd(prompt, cmd);
 	exit(EXIT_FAILURE);
 }
 
@@ -29,15 +30,16 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 	if ((p->i) > 0) // NOT WORKING
 	{
 		handle_read_end(p->prev_fds);
-		printf("linking read end from previous pipe as cmd input");
+		printf("linking read end from previous pipe as cmd input\n");
 	}
 	if ((p->i) < (p->num_cmds - 1)) // NOT WORKING
 	{
 		handle_write_end(p->next_fds);
-		printf("linking write end from next pipe as cmd output");
+		printf("linking write end from next pipe as cmd output\n");
 	}
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
+	printf("gets to ft_execcmd in HANDLE_CMDS\n");
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
 }

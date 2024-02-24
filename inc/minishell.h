@@ -68,7 +68,7 @@ int		ft_unset(t_cmd *cmd, t_envv *env);
 int		ft_cd(t_cmd *cmd, t_envv *env);
 int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
-void	add_node(char *evar, t_envv *env_lst);
+int		add_node(char *evar, t_envv *env_lst);
 void	ft_exit(void);
 int		is_env(char *s);
 int		is_cd(char *s);

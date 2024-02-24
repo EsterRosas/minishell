@@ -14,10 +14,11 @@
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
+	printf("enters exec_cmd in exec utils\n");
 	if (cmd->full_path == NULL)
 	{
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
-			printf("minishell: 0: command not found\n");
+			printf("minishell: %i: command not found\n", g_exst);
 		else
 			printf("minishell: %s: command not found\n", cmd->args[0]);
 		exit(127);

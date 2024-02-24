@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-void	add_node(char *evar, t_envv *env_lst)
+int	add_node(char *evar, t_envv *env_lst)
 {
 	t_envv	*node;
 	int		pos;
@@ -20,7 +20,7 @@ void	add_node(char *evar, t_envv *env_lst)
 	pos = 0;
 	node = malloc(sizeof(t_envv));
 	if (!node)
-		return ;
+		return (1);
 	if (ft_strchr(evar, '='))
 	{
 		pos = ft_strchr(evar, '=') - evar;
@@ -37,6 +37,7 @@ void	add_node(char *evar, t_envv *env_lst)
 	}
 	node->next = NULL;
 	add_env_back(env_lst, node);
+	return (0);
 }
 
 t_envv	*cp_envp(char **envp)
