@@ -12,6 +12,24 @@
 
 #include "../inc/minishell.h"
 
+void	upd_underscore_var(t_prompt *prompt)
+{
+	t_envv	*aux;
+	t_cmd	*tmp;
+
+	aux = prompt->envp;
+	tmp = prompt->cmd;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (aux && ft_strcmp(aux->nm, "_") != 0)
+		aux = aux->next;
+	if (ft_strcmp(aux->nm, "_") == 0)
+	{  
+		free(aux->val);
+		aux->val = ft_strdup(tmp->args[dbl_len(tmp->args) - 1]);
+	}
+}
+
 int	upd_shlvl(t_envv *env)
 {
 	t_envv	*aux;
@@ -94,6 +112,7 @@ void	loop_prompt(t_envv *o_envp)
 		{
 			prompt = ft_parse(line, o_envp);
 			ft_exec(prompt);
+			upd_underscore_var(prompt);
 			free_cmdlist(prompt->cmd);
 			free(prompt);
 		}

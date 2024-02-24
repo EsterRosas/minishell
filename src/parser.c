@@ -115,8 +115,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->next = NULL;
 	if (fill_node(res, lex) == -1)
 		return (NULL);
-/*	if (res->args)
-		upd_underscore_var(*/
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);

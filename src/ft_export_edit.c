@@ -86,6 +86,33 @@ int	id_notvalid(char *s)
 	return (0);
 }
 
+int	edit_node(char *s, t_envv *env)
+{
+	char	*nm;
+	int		pos;
+	t_envv	*aux;
+
+	pos = 0;
+	aux = env;
+	if (ft_strchr(s, '='))
+	{
+		pos = ft_strchr(s, '=') - s;
+		nm = ft_substr(s, 0, pos);
+		while (aux)
+		{
+			if (ft_strcmp(aux->nm, nm) == 0)
+			{
+				free(aux->val);
+				aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+				free(nm);
+				break ;
+			}
+			aux = aux->next;
+		}	
+	}
+	return (0);
+}
+
 /* This function adds a new envvar if it doesn't exist yet and assigns it
  * the vaule specified by the user, if any. If the variable already exists,
  * edits its value according to the user input.
@@ -106,8 +133,8 @@ int	ft_edit_envlist(char **args, t_envv *env)
 			if (add_new_node(args[i], env) == 1)
 				return (1);
 		}
-/*		else if (edit_node(args[i], env) == 1)
-			return (1);*/
+		else if (edit_node(args[i], env) == 1)
+			return (1);
 	}
 	return (0);
 }
