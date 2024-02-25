@@ -14,7 +14,6 @@
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
-	printf("enters exec_cmd in exec utils\n");
 	if (cmd->full_path == NULL)
 	{
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)

@@ -51,9 +51,6 @@ int	is_inenvlst(char *s, t_envv *env)
 	{
 		while (s[i] && s[i] != '=')
 			++i;
-		new_nm = malloc(sizeof(char) * i + 1);
-		if (!new_nm)
-			return (1);
 		new_nm = ft_substr(s, 0, i);
 	}
 	while (aux)
@@ -62,6 +59,7 @@ int	is_inenvlst(char *s, t_envv *env)
 			return (1);
 		aux = aux->next;
 	}
+	free(new_nm);
 	return (0);
 }
 

@@ -39,7 +39,6 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 	}
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
-	printf("gets to ft_execcmd in HANDLE_CMDS\n");
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
 }
