@@ -47,10 +47,10 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 {
 	t_cmd	*aux;
 	pid_t	pid;
-	pid_t	last_child;
+//	pid_t	last_child;
 	
 	aux = prompt->cmd;
-	p->i = -1;
+//	p->i = -1;
 	while (aux)
 	{
 		p->i+;
@@ -69,13 +69,10 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 
 void	ft_exec(t_prompt *prompt)
 {
-	t_pipe	p;
-
-	p.num_cmds = cmdlistsize(prompt->cmd);
-	if (p.num_cmds == 0)
-		g_exst = 0;
-	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
+/*	if (!prompt->cmd)
+		g_exst = 0;*/
+	if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 	else
-		g_exst = handle_cmds(prompt, &p);
+		g_exst = handle_cmds(prompt);
 }
