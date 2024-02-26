@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 20:47:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:17:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
+	if (!prompt->cmd)
+	{
+		free (prompt);
+		return (NULL);
+	}
 	prompt->envp = o_envp;
 /*	t_cmd		*aux;
 	int	i = 0;
@@ -111,10 +116,13 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-			ft_exec(prompt);
-			upd_underscore_var(prompt);
-			free_cmdlist(prompt->cmd);
-			free(prompt);
+			if (prompt)
+			{
+				ft_exec(prompt);
+				upd_underscore_var(prompt);
+				free_cmdlist(prompt->cmd);
+				free(prompt);
+			}
 		}
 		add_history(line);
 		free(line);

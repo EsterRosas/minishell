@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:07:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:14:15 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	int		i;
 
 	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	if (check_syntax(lex))
+	{
+		free_all(lex, dbl_len(lex));
+		return (NULL);
+	}
 	res = NULL;
 	i = 0;
 	while (lex[i])

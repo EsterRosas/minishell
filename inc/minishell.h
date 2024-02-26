@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/23 21:15:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:59:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,7 @@ char	**del_consec_quotes(char **s);
 char	**cmdsubsplit(char **s);
 int		need_split(char **s);
 int		only_sep(char *s);
-int		is_sep(char c);
 int		splitable(char *s);
-int		count_new_ptrs(char **s);
-char	*first_spl(char *tr);
-char	*last_spl(char *tr, int l);
 int		next_quote(char *p, int i, char c);
 
 /*		expander functions	*/
@@ -57,6 +53,13 @@ int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
+
+/*		lexer_utils			*/
+int		check_syntax(char **lex);
+int		is_sep(char c);
+char	*first_spl(char *tr);
+char	*last_spl(char *tr, int l);
+int		count_new_ptrs(char **s);
 
 /*      builtins            */
 int		is_builtin(char	*s);

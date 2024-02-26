@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 21:16:53 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:23:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_exit(void)
 {
 	printf("exit\n");
 	restore_terminal_settings();
-	exit (0);
+	exit (EXIT_FAILURE);
 }
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)

@@ -6,11 +6,34 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:52:38 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 18:37:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:58:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	check_syntax(char **lex)
+{
+	int	i;
+
+	i = -1;
+	while (lex[++i] && lex[i + 1])
+	{
+		if (lex[i + 1] && (lex[i][0] == '|' && lex[i + 1][0] == '|'))
+		{
+			printf("minishell: syntax error near unexpected token `||'\n");
+			g_exst = 258;
+			return (1);
+		}
+	}
+	if (lex[0][0] == '|' || lex[dbl_len(lex) - 1][0] == '|')
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		g_exst = 258;
+		return (1);
+	}
+	return (0);
+}
 
 char	*last_spl(char *tr, int l)
 {

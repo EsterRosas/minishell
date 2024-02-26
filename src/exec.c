@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:39:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:51:02 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 	p->i = -1;
 	while (aux)
 	{
-		p->i+;
+		p->i++;
 		if (p->i < (p->num_cmds - 1))
 			make_pipe(p->next_fds);
 		pid = make_fork();
