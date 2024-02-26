@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/26 12:59:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:50:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,14 @@ void	ft_signal(int i);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);
+int		onecmd_nobuilt(t_prompt *prompt);
 
 /*		exec_utils.c			*/
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd);
 int		cmdlistsize(t_cmd *cmd);
 int     wait_children(pid_t last_child, int n);
 pid_t	make_fork(void);
+int		check_cmd(t_cmd *cmd);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);
