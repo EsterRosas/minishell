@@ -92,7 +92,7 @@ void	only_export(t_envv *env)
 	while (aux)
 	{
 		printf("declare -x %s", aux->nm);
-		if (aux->val)
+		if (aux->val && aux->val[0])
 			printf("=\"%s\"", aux->val);
 		printf("\n");
 		aux = aux->next;

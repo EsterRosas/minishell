@@ -46,7 +46,7 @@ int	is_inenvlst(char *s, t_envv *env)
 	i = 0;
 	aux = env;
 	if (!ft_strchr(s, '='))
-		new_nm = s;
+		new_nm = ft_strdup(s);
 	else
 	{
 		while (s[i] && s[i] != '=')
@@ -126,7 +126,7 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	{
 		if (id_notvalid(args[i]) == 1)
 			return (1);
-		else if (!is_inenvlst(args[i], env))
+		else  if (!is_inenvlst(args[i], env))
 		{
 			if (add_new_node(args[i], env) == 1)
 				return (1);
