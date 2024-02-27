@@ -12,15 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*char	*get_ex_st(char *s)
-{
-	char	*res;
-
-	res = ft_itoa(g_exst);
-	free(s);
-	return (res);
-}*/
-
 int	ft_echo(t_cmd *cmd)
 {
 	int		i;
@@ -45,5 +36,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
-	return (g_exst);
+	return (0);
 }

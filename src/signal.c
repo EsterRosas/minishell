@@ -20,7 +20,6 @@ static void	parent_handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-//		printf("HOLA!!\n");
 		g_exst = 1;
 	}
 	else if (sig == SIGQUIT)
@@ -33,7 +32,6 @@ static void	parent_handler(int sig)
 
 static void	child_handler(int sig)
 {
-	printf("sig: %i\n", sig);
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -77,10 +75,7 @@ void	ft_signal(int i)
 	if (i == 1)
 		sa.sa_handler = &parent_handler;
 	else if (i == 0)
-	{
-		printf("enters else if\n");
 		sa.sa_handler = &child_handler;
-	}
 	else
 		sa.sa_handler = &heredoc_handler;
 	sa.sa_flags = SA_RESTART;
