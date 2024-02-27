@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/26 18:50:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:59:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
 	check_cmd(cmd);
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
-	// error message incase of error TO-DO
 	exit (EXIT_FAILURE);
 }
 

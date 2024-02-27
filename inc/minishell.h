@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/26 18:50:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:01:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,12 @@ void	make_pipe(int pipefd[2]);
 void    handle_read_end(int *pipe_fd);
 void    handle_write_end(int *pipe_fd);
 void    update_pipes(t_pipe *p);
+
+/*		pipe_utils.c			*/
+void	make_pipe(int pipefd[2]);
+void    handle_read_end(int *pipe_fd);
+void    handle_write_end(int *pipe_fd);
+void    update_pipes(t_pipe *p);
+void	handle_stdio(t_pipe *p, char *str);
 
 #endif

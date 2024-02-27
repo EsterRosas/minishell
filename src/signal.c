@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/26 20:10:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:03:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	child_handler(int sig)
 
 static void	heredoc_handler(int sig)
 {
-	printf("heredoc_handler\n");
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
