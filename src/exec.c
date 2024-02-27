@@ -50,9 +50,13 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 	
 	aux = prompt->cmd;
 	p->i = -1;
+
+	printf("pipe struct counter (p->i) before handle_cmd loop = %i\n", p->i);
+
 	while (aux)
 	{
 		p->i++;
+		printf("handle_cmd loop = %i\n", p->i);
 		if (p->i < (p->num_cmds - 1))
 			make_pipe(p->next_fds);
 		pid = make_fork();
@@ -70,11 +74,19 @@ void	ft_exec(t_prompt *prompt)
 {
 	t_pipe	p;
 
+	printf("Global variable from ft_exec = %i\n", g_exst);
+
+	handle_stdio(&p, "SAVE");
 	p.num_cmds = cmdlistsize(prompt->cmd);
+
+	printf("p.num_cmds ft_exec = %i\n", p.num_cmds);
+
 	if (p.num_cmds == 0)
 		g_exst = 0;
-	else if (cmdlistsize(prompt->cmd) == 1 && is_builtin(prompt->cmd->args[0]))
+	else if (p.num_cmds == 1 && is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 	else
 		g_exst = handle_cmds(prompt, &p);
+	handle_stdio(&p, "RESTORE");
+	printf("Global variable from ft_exec after handleing cmds= %i\n", g_exst);
 }

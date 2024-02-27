@@ -14,7 +14,16 @@
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
-	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
+	if (cmd->full_path = NULL)
+	{
+		if (ft_strcmp(cmd->args[0], "$\?") == 0)
+			printf("minishell: 0: command not found\n");
+		else
+			printf("minishell: %s: command not found\n", cmd->args[0]);
+		exit(127); 
+	}
+	else
+		execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	// error message incase of error TO-DO
 	exit (EXIT_FAILURE);
 }

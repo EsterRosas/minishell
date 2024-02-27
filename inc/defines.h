@@ -24,6 +24,8 @@
 
 typedef struct s_pipe
 {
+	int	tmpin;
+	int	tmpout;
 	int num_cmds;
 	int prev_fds[2];
 	int next_fds[2];

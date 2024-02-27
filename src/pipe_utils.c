@@ -45,3 +45,17 @@ void	update_pipes(t_pipe *p)
 		p->next_fds[W_END] = p->next_fds[W_END];
 	}
 }
+
+void	handle_stdio(t_pipe *p, char *str)
+{
+	if (str == "SAVE")
+	{
+		p.tmpin = dup(0);
+		p.tmput = dup(1);
+	}
+	else if (str == "RESTORE")
+	{
+		dup2(p.tmpin, 0);
+		dup2(p.tmpout, 1);
+	}
+}

@@ -126,5 +126,6 @@ void	make_pipe(int pipefd[2]);
 void    handle_read_end(int *pipe_fd);
 void    handle_write_end(int *pipe_fd);
 void    update_pipes(t_pipe *p);
+void	handle_stdio(t_pipe *p, char *str);
 
 #endif
