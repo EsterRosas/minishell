@@ -6,20 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:29:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:58:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*get_ex_st(char *s)
-{
-	char	*res;
-
-	res = ft_itoa(g_exst);
-	free(s);
-	return (res);
-}
 
 int	ft_echo(t_cmd *cmd)
 {
@@ -36,7 +27,7 @@ int	ft_echo(t_cmd *cmd)
 	while (cmd->args[++i])
 	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
-			cmd->args[i] = get_ex_st(cmd->args[i]);
+			cmd->args[i] = ft_itoa(g_exst);
 		ft_putstr_fd(cmd->args[i], cmd->outfile);
 		if (i < dbl_len(cmd->args) - 1)
 			ft_putstr_fd(" ", cmd->outfile);
@@ -45,5 +36,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
-	return (g_exst);
+	return (0);
 }

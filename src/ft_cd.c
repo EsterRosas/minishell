@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:56:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:58:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	upd_pwds(t_envv *env, char *current)
 			free(aux->val);
 		aux->val = ft_strdup(current);
 	}
-//	free(s);
 }
 
 static int	cd_only(t_envv *env, char *current)
@@ -48,7 +47,6 @@ static int	cd_only(t_envv *env, char *current)
 	t_envv	*aux;
 	char	*home;
 
-//	printf("current: %s\n", current);
 	aux = env;
 	while (aux && ft_strcmp(aux->nm, "HOME") != 0)
 		aux = aux->next;
@@ -63,7 +61,6 @@ static int	cd_only(t_envv *env, char *current)
 	}
 	else
 		upd_pwds(env, current);
-//	free(current);
 	return (0);
 }
 
@@ -72,14 +69,12 @@ int	with_args(char *current, t_cmd *cmd, t_envv *env)
 	if (chdir(cmd->args[1]) == -1)
 	{
 		printf("minishell: cd: %s: %s\n", cmd->args[1], strerror(errno));
-//		free(current);
 		return (1);
 	}
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
 		upd_pwds(env, current);
 	else
 		chdir(current);
-//	free(current);
 	return (0);
 }
 
@@ -91,9 +86,6 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 	if (!current)
 		return (-1);
 	getcwd(current, MAXPATHLEN);
-//	printf("current: %s\n", current);
-	/*if (!cmd->args[1] && ft_strcmp(cmd->args[0], "cd") != 0)
-		free(current);*/
 	if (!cmd->args[1] && ft_strcmp(cmd->args[0], "cd") == 0)
 	{
 		if (cd_only(env, current) == -1)

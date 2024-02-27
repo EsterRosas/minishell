@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:05:42 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/19 18:57:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:54:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,5 @@ void	ft_exporterror(char *cmd, char *s, char *msg)
 {
 	printf("minishell: %s: `%s': %s\n", cmd, s, msg);
 }
+
+

@@ -6,11 +6,29 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:56:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:57:03 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	upd_underscore_var(t_prompt *prompt)
+{
+	t_envv	*aux;
+	t_cmd	*tmp;
+
+	aux = prompt->envp;
+	tmp = prompt->cmd;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (aux && ft_strcmp(aux->nm, "_") != 0)
+		aux = aux->next;
+	if (ft_strcmp(aux->nm, "_") == 0)
+	{  
+		free(aux->val);
+		aux->val = ft_strdup(tmp->args[dbl_len(tmp->args) - 1]);
+	}
+}
 
 int	upd_shlvl(t_envv *env)
 {
@@ -54,9 +72,14 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(line, o_envp);
+	if (!prompt->cmd)
+	{
+		free (prompt);
+		return (NULL);
+	}
 	prompt->envp = o_envp;
 /*	t_cmd		*aux;
-	int i = 0;
+	int	i = 0;
 	int j = 0;
 	aux = prompt->cmd;
 	while (aux)
@@ -93,9 +116,13 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-			ft_exec(prompt);
-			free_cmdlist(prompt->cmd);
-			free(prompt);
+			if (prompt)
+			{
+				ft_exec(prompt);
+				upd_underscore_var(prompt);
+				free_cmdlist(prompt->cmd);
+				free(prompt);
+			}
 		}
 		add_history(line);
 		free(line);

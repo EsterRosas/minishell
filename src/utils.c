@@ -32,9 +32,7 @@ void	add_env_back(t_envv *env_lst, t_envv *new)
 	else
 	{
 		while (aux->next)
-		{
 			aux = aux->next;
-		}
 		aux->next = new;
 	}
 	new->next = NULL;
