@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/02/27 18:01:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:49:34 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		count_new_ptrs(char **s);
 int		is_builtin(char	*s);
 int		ft_exbuiltin(t_prompt *prompt, t_cmd *cmd);
 int		ft_pwd(void);
-int 	ft_echo(t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
 int		ft_env(t_envv *env);
 int		ft_unset(t_cmd *cmd, t_envv *env);
 int		ft_cd(t_cmd *cmd, t_envv *env);
@@ -78,9 +78,6 @@ int		is_cd(char *s);
 int		is_echo(char *s);
 int		is_pwd(char *s);
 int		is_subshell(char *s);
-
-/*      get_cmd.c            */
-void	exec_ext_cmd(t_prompt *prompt);
 
 /*      errors.c            */
 void	handle_error(const char *message);
@@ -98,7 +95,6 @@ t_envv	*cp_envp(char **envp);
 char	**env_lst2arr(t_envv *env_lst);
 
 /*		parser				*/
-t_cmd	*get_cmd(char **lex, t_envv *env_lst);
 int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
@@ -109,6 +105,8 @@ char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s);
 int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
+void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
+char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
 
 /*		signals					*/
 void	handle_sigint(int sig);
@@ -123,21 +121,21 @@ int		onecmd_nobuilt(t_prompt *prompt);
 /*		exec_utils.c			*/
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd);
 int		cmdlistsize(t_cmd *cmd);
-int     wait_children(pid_t last_child, int n);
+int		wait_children(pid_t last_child, int n);
 pid_t	make_fork(void);
 int		check_cmd(t_cmd *cmd);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);
-void    handle_read_end(int *pipe_fd);
-void    handle_write_end(int *pipe_fd);
-void    update_pipes(t_pipe *p);
+void	handle_read_end(int *pipe_fd);
+void	handle_write_end(int *pipe_fd);
+void	update_pipes(t_pipe *p);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);
-void    handle_read_end(int *pipe_fd);
-void    handle_write_end(int *pipe_fd);
-void    update_pipes(t_pipe *p);
+void	handle_read_end(int *pipe_fd);
+void	handle_write_end(int *pipe_fd);
+void	update_pipes(t_pipe *p);
 void	handle_stdio(t_pipe *p, char *str);
 
 #endif

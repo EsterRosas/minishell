@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:01:59 by damendez          #+#    #+#             */
-/*   Updated: 2024/02/27 17:56:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:50:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	make_pipe(int pipefd[2])
 {
 	if (pipe(pipefd) == -1)
-		handle_error("pipe error\n");
+		handle_error("error creating pipe");
 }
 
 void	handle_read_end(int *pipe_fd)

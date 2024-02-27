@@ -6,38 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 20:21:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:01:55 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
-{
-	char	**path_vls;
-	int		i;
-	char	*aux;
-
-	i = 0;
-	path_vls = get_ptharr(env_lst);
-	while (path_vls[i])
-	{
-		aux = ft_strjoin(path_vls[i], "/");
-		path = ft_strjoin(aux, first_arg);
-		free(aux);
-		if (access(path, F_OK) == 0)
-			break ;
-		else
-		{
-			if (path)
-				free(path);
-			path = NULL;
-			i++;
-		}
-	}
-	free_all(path_vls, dbl_len(path_vls));
-	return (path);
-}
 
 char	**fill_args(char **args, char **lex, int lex_pos)
 {
@@ -117,5 +90,58 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 		return (NULL);
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
+	return (res);
+}
+
+t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
+{
+	int		i;
+	t_cmd	*new;
+
+	i = 0;
+	while (lex[i])
+	{
+		new = get_cmd(&lex[i], env_lst);
+		if (new && res)
+			cmdlst_addback(res, new);
+		else if (new)
+			res = new;
+		while (lex[i] && lex[i][0] != '|')
+			i++;
+		if (lex[i] && lex[i][0] == '|')
+			i++;
+	}
+	return (res);
+}
+
+/* Takes the char** once it's been trimmed, subsplitted, expanded (~ to $HOME)
+ * and with variables replaced and parses it into an list of several t_cmd
+ * structs. (See ../inc/defines.h), and retuns the corresponding pointer.
+ * If the list has more than one element means they are separated by pipes
+ * in the lexer / user input. It's important to have this in mind for the
+ * executor
+ * 
+ * ATENCIO: need to create a grid with all possible cmds to know what they
+ * receive and so know if execve receives infile as arg or as input file.
+ *
+ * NOTA:
+ * quan no es builtin execve sembla que no gestiona Command
+ * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
+ * quan agafem ruta  d’exec (no builtin) pero path = NULL
+ */
+t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
+{
+	t_cmd	*res;
+	char	**lex;
+
+	res = NULL;
+	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	if (check_syntax(lex))
+	{
+		free_all(lex, dbl_len(lex));
+		return (NULL);
+	}
+	res = get_list(lex, res, env_lst);
+	free_all(lex, dbl_len(lex));
 	return (res);
 }

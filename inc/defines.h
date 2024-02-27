@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 17:55:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:41:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ typedef struct s_pipe
 {
 	int	tmpin;
 	int	tmpout;
-	int num_cmds;
-	int prev_fds[2];
-	int next_fds[2];
-	int i;
+	int	num_cmds;
+	int	prev_fds[2];
+	int	next_fds[2];
+	int	i;
 }		t_pipe;
 
 typedef struct s_envv

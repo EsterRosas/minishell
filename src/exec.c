@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 18:00:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:37:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 
 static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
-	/*
-	 * TO-DO: manejar redirreciones desde handle_cmd 
-	 * teniendo en cuenta el cmd 'i' actual ?
-	*/
 	if (p->i > 0)
 		handle_read_end(p->prev_fds);
 	if (p->i < (p->num_cmds - 1))
@@ -42,6 +38,7 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 	t_cmd	*aux;
 	pid_t	pid;
 	pid_t	last_child;
+
 	aux = prompt->cmd;
 	p->i = -1;
 	while (aux)
@@ -74,5 +71,4 @@ void	ft_exec(t_prompt *prompt)
 		g_exst = onecmd_nobuilt(prompt);
 	else
 		g_exst = handle_cmds(prompt, &p);
-	handle_stdio(&p, "RESTORE");
 }

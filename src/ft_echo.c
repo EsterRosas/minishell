@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 17:58:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:37:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
-	return (0);
+	return (g_exst);
 }
