@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/26 20:15:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:37:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ void	child_signaled(int status)
 }
 
 static void	exec_child(t_cmd *cmd, char **env)
-{	
+{
 	ft_signal(0);
 	restore_terminal_settings();
-	//	FALTEN ELS DUPS PER QUAN EL CMD TINGUI UN INPUT O OUTPUT QUE NO SIGUIN ELS ESTANDARDS
 	dup2(cmd->infile, STDIN_FILENO);
 	dup2(cmd->outfile, STDOUT_FILENO);
 	execve(cmd->full_path, cmd->args, env);

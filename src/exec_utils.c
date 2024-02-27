@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 17:59:05 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:37:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ pid_t	make_fork(void)
 
 	pid = fork();
 	if (pid == -1)
-		handle_error("fork error\n");
+		handle_error("fork error");
 	return (pid);
 }
 

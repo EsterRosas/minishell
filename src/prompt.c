@@ -6,29 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 17:57:03 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:59:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	upd_underscore_var(t_prompt *prompt)
-{
-	t_envv	*aux;
-	t_cmd	*tmp;
-
-	aux = prompt->envp;
-	tmp = prompt->cmd;
-	while (tmp->next)
-		tmp = tmp->next;
-	while (aux && ft_strcmp(aux->nm, "_") != 0)
-		aux = aux->next;
-	if (ft_strcmp(aux->nm, "_") == 0)
-	{  
-		free(aux->val);
-		aux->val = ft_strdup(tmp->args[dbl_len(tmp->args) - 1]);
-	}
-}
 
 int	upd_shlvl(t_envv *env)
 {
@@ -119,7 +101,6 @@ void	loop_prompt(t_envv *o_envp)
 			if (prompt)
 			{
 				ft_exec(prompt);
-				upd_underscore_var(prompt);
 				free_cmdlist(prompt->cmd);
 				free(prompt);
 			}

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 17:58:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:37:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 static void	upd_pwds(t_envv *env, char *current)
 {
 	t_envv	*aux;
-//	char	*s;
 
-/*	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
-	if (!s)
-		return ;*/
 	aux = env;
 	while (ft_strcmp(aux->nm, "PWD") != 0)
 		aux = aux->next;
 	if (ft_strcmp(aux->nm, "PWD") == 0)
 	{
 		free(aux->val);
-		aux->val =  malloc(sizeof(char) * (MAXPATHLEN + 1));
+		aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
 		if (!aux->val)
 			return ;
 		getcwd(aux->val, MAXPATHLEN);

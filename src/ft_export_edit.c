@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/22 20:55:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:38:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	id_notvalid(char *s)
 
 	i = 0;
 	if (!ft_isalpha(s[0]) && s[0] != '_')
-	{	
+	{
 		ft_exporterror("export", s, "not a valid identifier");
 		return (1);
 	}
@@ -106,7 +106,7 @@ int	edit_node(char *s, t_envv *env)
 				break ;
 			}
 			aux = aux->next;
-		}	
+		}
 	}
 	return (0);
 }
