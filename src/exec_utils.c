@@ -6,25 +6,30 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 19:31:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:07:09 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
+int	check_cmd(t_cmd *cmd)
 {
-	if (cmd->full_path = NULL)
+	if (cmd->full_path == NULL)
 	{
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
-			printf("minishell: 0: command not found\n");
+			printf("minishell: %i: command not found\n", g_exst);
 		else
 			printf("minishell: %s: command not found\n", cmd->args[0]);
-		exit(127); 
+		g_exst = 127;
+		return (-1);
 	}
-	else
-		execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
-	// error message incase of error TO-DO
+	return (0);
+}
+
+void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
+{
+	check_cmd(cmd);
+	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	exit (EXIT_FAILURE);
 }
 
