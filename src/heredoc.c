@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:59:29 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:56:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ static int	do_fork(char *delim, int *fd)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(id, &status, 0);
-		ft_signal(1);
+//		ft_signal(1);
 	}
 	if (WIFEXITED(status))
 		g_exst = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:07:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static int	parent_process(int id, int status)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	waitpid(id, &status, 0);
-	ft_signal(1);
+	disable_ctrl_chars();
+//	ft_signal(1);
 	return (status);
 }
 
@@ -32,7 +33,6 @@ void	child_signaled(int status)
 			write(1, "Quit: 3", 10);
 		else if (g_exst == 130)
 			write(1, "\n", 1);
-		disable_ctrl_chars();
 	}
 }
 
