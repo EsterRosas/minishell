@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:38:05 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:35:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_inenvlst(char *s, t_envv *env)
 	i = 0;
 	aux = env;
 	if (!ft_strchr(s, '='))
-		new_nm = s;
+		new_nm = ft_strdup(s);
 	else
 	{
 		while (s[i] && s[i] != '=')
