@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:38:05 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:35:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	{
 		if (id_notvalid(args[i]) == 1)
 			return (1);
-		else  if (!is_inenvlst(args[i], env))
+		else if (!is_inenvlst(args[i], env))
 		{
 			if (add_new_node(args[i], env) == 1)
 				return (1);
