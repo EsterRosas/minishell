@@ -36,5 +36,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
+//	printf("g_exst: %i\n", g_exst);
 	return (g_exst);
 }

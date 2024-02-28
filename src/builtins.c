@@ -67,9 +67,12 @@ int	ft_pwd(void)
 	return (0);
 }
 
-void	ft_exit(void)
+void	ft_exit(char **args)
 {
 	printf("exit\n");
+	if (dbl_len(args) > 1)
+		g_exst = 1;
+//	printf("g_exst: %i\n", g_exst);
 	restore_terminal_settings();
 	exit (EXIT_FAILURE);
 }
@@ -77,7 +80,7 @@ void	ft_exit(void)
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit();
+		ft_exit(cmd->args);
 	else if (is_pwd(cmd->args[0]))
 		g_exst = ft_pwd();
 	else if (is_echo(cmd->args[0]))

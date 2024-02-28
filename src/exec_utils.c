@@ -17,9 +17,15 @@ int	check_cmd(t_cmd *cmd)
 	if (cmd->full_path == NULL)
 	{
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
+		{
 			printf("minishell: %i: command not found\n", g_exst);
+		
+		}
 		else
-			printf("minishell: %s: command not found\n", cmd->args[0]);
+		{
+		//	printf("minishell: %s: command not found\n", cmd->args[0]);
+			handle_error(cmd->args[0], "command not found");
+		}
 		g_exst = 127;
 		return (-1);
 	}
@@ -39,7 +45,7 @@ pid_t	make_fork(void)
 
 	pid = fork();
 	if (pid == -1)
-		handle_error("fork error");
+		handle_error("fork", strerror(errno));
 	return (pid);
 }
 

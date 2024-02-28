@@ -94,7 +94,7 @@ void	loop_prompt(t_envv *o_envp)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			ft_exit();
+			ft_exit(&line);
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);

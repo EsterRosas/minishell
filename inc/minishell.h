@@ -72,7 +72,7 @@ int		ft_cd(t_cmd *cmd, t_envv *env);
 int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
-void	ft_exit(void);
+void	ft_exit(char **s);
 int		is_env(char *s);
 int		is_cd(char *s);
 int		is_echo(char *s);
@@ -80,7 +80,8 @@ int		is_pwd(char *s);
 int		is_subshell(char *s);
 
 /*      errors.c            */
-void	handle_error(const char *message);
+void	handle_error(char *cmd, char *message);
+//void	handle_error(const char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
 
 /*		utils.c				*/
