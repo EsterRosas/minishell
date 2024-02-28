@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 19:55:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:03:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		printf("SIGINT in child received\n");
 		write(1, "\n", 1);
 		g_exst = 130;
 		exit (130);
