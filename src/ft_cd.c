@@ -6,27 +6,16 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:24:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	upd_pwds(t_envv *env, char *current)
+static void upd_oldpwd(t_envv *env, char *current)
 {
-	t_envv	*aux;
+	t_envv *aux;
 
-	aux = env;
-	while (ft_strcmp(aux->nm, "PWD") != 0)
-		aux = aux->next;
-	if (ft_strcmp(aux->nm, "PWD") == 0)
-	{
-		free(aux->val);
-		aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
-		if (!aux->val)
-			return ;
-		getcwd(aux->val, MAXPATHLEN);
-	}
 	aux = env;
 	while (ft_strcmp(aux->nm, "OLDPWD") != 0)
 		aux = aux->next;
@@ -34,8 +23,33 @@ static void	upd_pwds(t_envv *env, char *current)
 	{
 		if (aux->val)
 			free(aux->val);
-		aux->val = ft_strdup(current);
+		if (is_inenvlst("PWD", env))
+			aux->val = ft_strdup(current);
+		else
+			aux->val = NULL;
 	}
+}
+
+static void	upd_pwds(t_envv *env, char *current)
+{
+	t_envv	*aux;
+
+	aux = env;
+	if (is_inenvlst("PWD", env))
+	{
+		while (ft_strcmp(aux->nm, "PWD") != 0)
+			aux = aux->next;
+		if (ft_strcmp(aux->nm, "PWD") == 0)
+		{
+			free(aux->val);
+			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
+			if (!aux->val)
+				return ;
+			getcwd(aux->val, MAXPATHLEN);
+		}
+	}
+	if (is_inenvlst("OLDPWD", env))
+		upd_oldpwd(env, current);
 }
 
 static int	cd_only(t_envv *env, char *current)

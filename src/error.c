@@ -12,10 +12,15 @@
 
 #include "../inc/minishell.h"
 
-void	handle_error(const char *message)
+void	handle_error(char *cmd, char *message)
 {
-	printf("minishell: %s: %s\n", message, strerror(errno));
-	exit(EXIT_FAILURE);
+//	printf("minishell: %s: %s\n", message, strerror(errno));
+	write(2, "minishell: ", 11);
+   	write(2, cmd, ft_strlen(cmd));
+	write(2, ": ", 2);
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+//	exit(EXIT_FAILURE);
 }
 
 void	ft_exporterror(char *cmd, char *s, char *msg)

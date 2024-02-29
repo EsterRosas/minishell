@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 16:56:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:41:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	process_hdoc(char *delim, int last)
 
 	if (pipe(fd) == -1)
 	{
-		printf("minishell: %s\n", strerror(errno));
+		handle_error("pipe", strerror(errno));
 		return (-1);
 	}
 	do_fork(delim, fd);

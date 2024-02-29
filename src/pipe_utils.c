@@ -15,7 +15,7 @@
 void	make_pipe(int pipefd[2])
 {
 	if (pipe(pipefd) == -1)
-		handle_error("error creating pipe");
+		handle_error("pipe", strerror(errno));
 }
 
 void	handle_read_end(int *pipe_fd)

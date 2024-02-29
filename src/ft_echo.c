@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:47:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
-	return (g_exst);
+//	printf("g_exst: %i\n", g_exst);
+	return (0);
 }
