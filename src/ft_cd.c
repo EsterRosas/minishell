@@ -63,11 +63,11 @@ static int	cd_only(t_envv *env, char *current)
 	if (ft_strcmp(aux->nm, "HOME") == 0)
 		home = aux->val;
 	else
-		return (-1);
+		return (1);
 	if (chdir(home) == -1)
 	{
-		printf("minishell: cd: %s: %s\n", home, strerror(errno));
-		return (-1);
+		handle_error("cd", home);
+		return (1);
 	}
 	else
 		upd_pwds(env, current);
@@ -78,7 +78,7 @@ int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
 	if (chdir(cmd->args[1]) == -1)
 	{
-		printf("minishell: cd: %s: %s\n", cmd->args[1], strerror(errno));
+		handle_error2("cd", cmd->args[1], strerror(errno));
 		return (1);
 	}
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
@@ -94,21 +94,18 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 
 	current = malloc(sizeof(char) * (MAXPATHLEN + 1));
 	if (!current)
-		return (-1);
+		return (1);
 	getcwd(current, MAXPATHLEN);
 	if (!cmd->args[1] && ft_strcmp(cmd->args[0], "cd") == 0)
 	{
-		if (cd_only(env, current) == -1)
+		if (cd_only(env, current) == 1)
 		{
 			free(current);
 			return (1);
 		}
 	}
 	else if (cmd->args[1])
-	{
-		if (with_args(current, cmd, env) == -1)
-			return (1);
-	}
+		return(with_args(current, cmd, env));
 	free(current);
 	return (0);
 }
