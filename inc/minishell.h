@@ -82,7 +82,7 @@ int		is_inenvlst(char *s, t_envv *env);
 
 /*      errors.c            */
 void	handle_error(char *cmd, char *message);
-//void	handle_error(const char *message);
+void	handle_error2(char *cmd, char *option, char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
 
 /*		utils.c				*/
