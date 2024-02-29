@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 17:07:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:42:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	child_signaled(int status)
 	{
 		g_exst = WTERMSIG(status) + 128;
 		if (g_exst == 131)
-			write(1, "Quit: 3", 10);
+			write(2, "Quit: 3", 10);
 		else if (g_exst == 130)
-			write(1, "\n", 1);
+			write(2, "\n", 1);
 	}
 }
 

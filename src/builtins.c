@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:21 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:48:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	is_builtin(char	*s)
 	else if (ft_strlen(s) == ft_strlen("exit")
 		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
 		return (1);
-	else if (ft_strlen(s) == 11 && is_subshell(s))
-		return (1);
+//	else if (ft_strlen(s) == 11 && is_subshell(s))
+//		return (1);
 	return (0);
 }
 
@@ -67,12 +67,11 @@ int	ft_pwd(void)
 	return (0);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(void)
 {
 	printf("exit\n");
-	if (dbl_len(args) > 1)
-		g_exst = 1;
-//	printf("g_exst: %i\n", g_exst);
+	g_exst = 0;
+	printf("g_exst: %i\n", g_exst);
 	restore_terminal_settings();
 	exit (EXIT_FAILURE);
 }
@@ -80,7 +79,7 @@ void	ft_exit(char **args)
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit(cmd->args);
+		ft_exit();
 	else if (is_pwd(cmd->args[0]))
 		g_exst = ft_pwd();
 	else if (is_echo(cmd->args[0]))
@@ -93,7 +92,7 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = ft_unset(cmd, prompt->envp);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		g_exst = ft_export(cmd->args, prompt->envp);
-	else if (is_subshell(cmd->args[0]))
-		g_exst = upd_shlvl(prompt->envp);
+//	else if (is_subshell(cmd->args[0]))
+//		g_exst = upd_shlvl(prompt->envp);
 	return (g_exst);
 }

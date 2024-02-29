@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 17:40:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:47:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	loop_prompt(t_envv *o_envp)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			ft_exit(&line);
+			ft_exit();
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 21:12:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:40:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	is_cd(char *s)
 	return (1);
 }
 
-int	is_subshell(char *s)
+/*int	is_subshell(char *s)
 {
 	if (s[0] != '.')
 		return (0);
@@ -89,4 +89,4 @@ int	is_subshell(char *s)
 	else if (s[10] != 'l' && s[10] != 'L')
 		return (0);
 	return (1);
-}
+}*/
