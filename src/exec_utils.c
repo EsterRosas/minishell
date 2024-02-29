@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:26:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	check_cmd(t_cmd *cmd)
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
 		{
 			printf("minishell: %i: command not found\n", g_exst);
-		
 		}
 		else
 		{

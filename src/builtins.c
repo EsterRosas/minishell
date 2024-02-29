@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 17:48:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:13:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,25 @@ int	ft_pwd(void)
 	return (0);
 }
 
-void	ft_exit(void)
+void	ft_exit(int print)
 {
-	printf("exit\n");
+	if (print == 1)
+		printf("exit\n");
 	g_exst = 0;
-	printf("g_exst: %i\n", g_exst);
+//	printf("g_exst: %i\n", g_exst);
 	restore_terminal_settings();
-	exit (EXIT_FAILURE);
+	exit (g_exst);
 }
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit();
+	{
+		if (dbl_len(cmd->args) == 1)
+			ft_exit(1);
+		else
+			ft_exit(0);
+	}
 	else if (is_pwd(cmd->args[0]))
 		g_exst = ft_pwd();
 	else if (is_echo(cmd->args[0]))
