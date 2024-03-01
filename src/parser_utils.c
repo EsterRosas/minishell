@@ -6,11 +6,37 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:08:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:39:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	is_wc_opt(char *l)
+{
+	if (ft_strcmp(l, "-l") == 0)
+		return (1);
+	else if (ft_strcmp(l, "-w") == 0)
+		return (1);
+	else if (ft_strcmp(l, "-c") == 0)
+		return (1);
+	return (0);
+}
+
+int	stop_case_catwc(t_cmd *s, char *l)
+{
+	printf("enters stop case\n");
+	if (s->args[0] && s->infile != 0)
+	{
+		if (ft_strcmp(s->args[0], "cat") == 0
+			|| ft_strcmp(s->args[0], "wc") == 0)
+		{	
+			if (s->args[1] || !is_wc_opt(l))
+			return (1);
+		}
+	}
+	return (0);
+}
 
 char	*path2cmd(char *arg)
 {
