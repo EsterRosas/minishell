@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 19:24:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:55:32 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ static void upd_oldpwd(t_envv *env, char *current)
 	}
 }
 
-static void	upd_pwds(t_envv *env, char *current)
+static void	upd_pwds(t_envv *env)
 {
 	t_envv	*aux;
+	char *oldpwd_current;
 
 	aux = env;
 	if (is_inenvlst("PWD", env))
@@ -41,6 +42,7 @@ static void	upd_pwds(t_envv *env, char *current)
 			aux = aux->next;
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
+			oldpwd_current = aux->val;
 			free(aux->val);
 			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
 			if (!aux->val)
@@ -49,10 +51,10 @@ static void	upd_pwds(t_envv *env, char *current)
 		}
 	}
 	if (is_inenvlst("OLDPWD", env))
-		upd_oldpwd(env, current);
+		upd_oldpwd(env, oldpwd_current);
 }
 
-static int	cd_only(t_envv *env, char *current)
+static int	cd_only(t_envv *env)
 {
 	t_envv	*aux;
 	char	*home;
@@ -70,7 +72,7 @@ static int	cd_only(t_envv *env, char *current)
 		return (1);
 	}
 	else
-		upd_pwds(env, current);
+		upd_pwds(env);
 	return (0);
 }
 
@@ -82,7 +84,7 @@ int	with_args(char *current, t_cmd *cmd, t_envv *env)
 		return (1);
 	}
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		upd_pwds(env, current);
+		upd_pwds(env);
 	else
 		chdir(current);
 	return (0);
@@ -98,7 +100,7 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 	getcwd(current, MAXPATHLEN);
 	if (!cmd->args[1] && ft_strcmp(cmd->args[0], "cd") == 0)
 	{
-		if (cd_only(env, current) == 1)
+		if (cd_only(env) == 1)
 		{
 			free(current);
 			return (1);
