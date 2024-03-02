@@ -104,6 +104,6 @@ int	ft_export(char **args, t_envv *env)
 	if (dbl_len(args) == 1)
 		only_export(env);
 	else
-		ft_edit_envlist(args, env);
+		return(ft_edit_envlist(args, env));
 	return (0);
 }

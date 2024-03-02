@@ -39,5 +39,12 @@ void	handle_error_opt(char *cmd, char *option, char *message)
 
 void	ft_exporterror(char *cmd, char *s, char *msg)
 {
-	printf("minishell: %s: `%s': %s\n", cmd, s, msg);
+//	printf("minishell: %s: `%s': %s\n", cmd, s, msg);
+	write(2, "minishell: ", 12);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": `", 3);
+ 	write(2, s, ft_strlen(s));
+	write(2, "': ", 3);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
 }
