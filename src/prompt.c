@@ -60,7 +60,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		return (NULL);
 	}
 	prompt->envp = o_envp;
-	t_cmd		*aux;
+/*	t_cmd		*aux;
 	int	i = 0;
 	int j = 0;
 	aux = prompt->cmd;
@@ -76,7 +76,7 @@ prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
 		i = 0;
 		aux = aux->next;
 		j++;
-	}
+	}*/
 	return (prompt);
 }
 

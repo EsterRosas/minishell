@@ -12,27 +12,30 @@
 
 #include "../inc/minishell.h"
 
-int	is_wc_opt(char *l)
+int	all_args_ropt(char **ar)
 {
-	if (ft_strcmp(l, "-l") == 0)
-		return (1);
-	else if (ft_strcmp(l, "-w") == 0)
-		return (1);
-	else if (ft_strcmp(l, "-c") == 0)
-		return (1);
+	int	i;
+
+	i = 0;
+	while (ar[++i])
+	{
+		if (ar[i][0] != '-')
+			return (0);
+	}
 	return (0);
 }
 
 int	stop_case_catwc(t_cmd *s, char *l)
 {
-	printf("enters stop case\n");
-	if (s->args[0] && s->infile != 0)
+	if (s->args[0])
 	{
-		if (ft_strcmp(s->args[0], "cat") == 0
-			|| ft_strcmp(s->args[0], "wc") == 0)
-		{	
-			if (s->args[1] || !is_wc_opt(l))
-			return (1);
+		if (ft_strcmp(s->args[0], "cat") == 0)
+		{
+			if (s->args[1] && !all_args_ropt(s->args))
+				return (1);
+		
+			else if (s->infile != 0 && l[0] != '-')
+				return (1);
 		}
 	}
 	return (0);
@@ -64,24 +67,24 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 {
 	int	fd;
 
-	if (ft_strlen(lex[i - 1]) == 1 && is_lastfile(lex, i, lex[i - 1][0]))
+	if (ft_strlen(lex[i - 1]) == 1) //&& is_lastfile(lex, i, lex[i - 1][0]))
 	{
-		if (access(lex[i], R_OK) == -1)
+		/*if (access(lex[i], R_OK) == -1)
 		{
 			printf("minishell: %s: %s\n", lex[i], strerror(errno));
 			return (-1);
 		}
 		else
-		{
+		{*/
 			fd = open(lex[i], O_RDONLY);
 			if (fd == -1)
 			{
-				printf("minishell: %s: %s\n", lex[i], strerror(errno));
+				handle_error(lex[i], strerror(errno));
 				return (-1);
 			}
 			else
 				s->infile = fd;
-		}
+	//	}
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')

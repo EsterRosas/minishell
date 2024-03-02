@@ -55,7 +55,7 @@ int	fill_node(t_cmd *s, char **lex)
 	{
 		if (stop_case_catwc(s, lex[i]))
 			break ;
-		if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
+		else if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
 			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
 			return (-1);
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
