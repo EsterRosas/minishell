@@ -111,17 +111,18 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	int	i;
 
 	i = 0;
+	g_exst = 0;
 	while (args[++i])
 	{
 		if (id_notvalid(args[i]) == 1)
-			return (1);
+			g_exst = 1;
 		else if (!is_inenvlst(args[i], env))
 		{
 			if (add_new_node(args[i], env) == 1)
-				return (1);
+				g_exst = 1;
 		}
 		else if (edit_node(args[i], env) == 1)
-			return (1);
+			g_exst = 1;
 	}
-	return (0);
+	return (g_exst);
 }
