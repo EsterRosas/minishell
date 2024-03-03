@@ -51,7 +51,7 @@ int	ft_echo(t_cmd *cmd)
 	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
 			cmd->args[i] = ft_itoa(g_exst);
-		if (!is_nopt(cmd->args[i]))
+		if (!is_nopt(cmd->args[i]) || i > 1)
 		{
 			ft_putstr_fd(cmd->args[i], cmd->outfile);
 			if (i < dbl_len(cmd->args) - 1)
