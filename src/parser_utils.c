@@ -121,7 +121,7 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
 	else if (s->outfile == -1)
 	{
-		printf("minishell: %s: %s\n", lex[i], strerror(errno));
+		handle_error(lex[i], strerror(errno));
 		return (-1);
 	}
 	return (0);

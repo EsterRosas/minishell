@@ -57,7 +57,10 @@ int	fill_node(t_cmd *s, char **lex)
 			break ;
 		else if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
 			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
+		{
+			g_exst = 1;
 			return (-1);
+		}
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
 			i += 2;
 		else
@@ -67,7 +70,7 @@ int	fill_node(t_cmd *s, char **lex)
 			len = dbl_len(s->args);
 		}
 	}
-	del_quotes(s->args);
+//	del_quotes(s->args);
 	if (!s->args[0])
 		return (-1);
 	return (0);
@@ -138,6 +141,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	del_quotes(lex);
 	if (check_syntax(lex))
 	{
 		free_all(lex, dbl_len(lex));
