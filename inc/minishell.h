@@ -78,6 +78,7 @@ int		is_cd(char *s);
 int		is_echo(char *s);
 int		is_pwd(char *s);
 int		is_inenvlst(char *s, t_envv *env);
+int		id_notvalid(char *s);
 //int		is_subshell(char *s);
 
 /*      errors.c            */

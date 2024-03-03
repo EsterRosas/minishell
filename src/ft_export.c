@@ -41,15 +41,24 @@ void	ft_swapnodes(t_envv *aux)
 	if (!temp)
 		return ;
 	temp->nm = ft_strdup(aux->nm);
-	temp->val = ft_strdup(aux->val);
+	if (aux->val)
+		temp->val = ft_strdup(aux->val);
+	else
+		temp->val = NULL;
 	free(aux->nm);
 	free(aux->val);
 	aux->nm = ft_strdup(aux->next->nm);
-	aux->val = ft_strdup(aux->next->val);
+	if (aux->next-> val)
+		aux->val = ft_strdup(aux->next->val);
+	else
+		aux->val = NULL;
 	free(aux->next->nm);
 	free(aux->next->val);
 	aux->next->nm = ft_strdup(temp->nm);
-	aux->next->val = ft_strdup(temp->val);
+	if (temp->val)
+		aux->next->val = ft_strdup(temp->val);
+	else
+		aux->next->val = NULL;
 	free(temp->nm);
 	free(temp->val);
 	free(temp);
@@ -92,7 +101,7 @@ void	only_export(t_envv *env)
 	while (aux)
 	{
 		printf("declare -x %s", aux->nm);
-		if (aux->val && aux->val[0])
+		if (aux->val)
 			printf("=\"%s\"", aux->val);
 		printf("\n");
 		aux = aux->next;

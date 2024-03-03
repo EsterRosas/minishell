@@ -30,24 +30,9 @@ static int	is_nopt(char *s)
 	return (1);
 }
 
-int	ft_echo(t_cmd *cmd)
+static void	echo_print(t_cmd *cmd, int opt, int i)
 {
-	int		i;
-	int		opt;
-
-	i = 0;
-	opt = 0;
-	if (dbl_len(cmd->args) == 1 && cmd->infile == 0)
-	{
-		printf("\n");
-		return (0);
-	}
-	else if (cmd->args[1] && is_nopt(cmd->args[1]))
-	{
-		opt = 1;
-		i++;
-	}
-	while (cmd->args[++i])
+	while (cmd->args[i])
 	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
 			cmd->args[i] = ft_itoa(g_exst);
@@ -59,9 +44,31 @@ int	ft_echo(t_cmd *cmd)
 			else if (!opt)
 				ft_putstr_fd("\n", cmd->outfile);
 		}
+		i++;
 	}
+}
+
+int	ft_echo(t_cmd *cmd)
+{
+	int		i;
+	int		opt;
+
+	i = 1;
+	opt = 0;
+	if (dbl_len(cmd->args) == 1 && cmd->infile == 0)
+	{
+		printf("\n");
+		return (0);
+	}
+	else if (cmd->args[i] && is_nopt(cmd->args[i]))
+	{
+		opt = 1;
+		i++;
+	}
+	while (cmd->args[i] && is_nopt(cmd->args[i]))
+		i++;
+	echo_print(cmd, opt, i);
 	if (cmd->outfile > 2)
 		close (cmd->outfile);
-//	printf("g_exst: %i\n", g_exst);
 	return (0);
 }

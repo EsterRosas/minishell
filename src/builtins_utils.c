@@ -64,6 +64,27 @@ int	is_cd(char *s)
 	return (1);
 }
 
+int	id_notvalid(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(s[0]) && s[0] != '_')
+	{
+		ft_exporterror("export", s, "not a valid identifier");
+		return (1);
+	}
+	while (s[++i] && s[i] != '=')
+	{
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+		{
+			ft_exporterror("export", s, "not a valid identifier");
+			return (1);
+		}
+	}
+	return (0);
+}
+
 /*int	is_subshell(char *s)
 {
 	if (s[0] != '.')

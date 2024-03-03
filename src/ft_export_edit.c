@@ -12,6 +12,14 @@
 
 #include "../inc/minishell.h"
 
+static void	empty_val(t_envv *node)
+{
+	node->val = malloc(sizeof(char));
+	if (!node->val)
+		return ;
+	node->val[0] = '\0';
+}
+
 int	add_new_node(char *evar, t_envv *env)
 {
 	t_envv	*node;
@@ -26,6 +34,8 @@ int	add_new_node(char *evar, t_envv *env)
 		pos = ft_strchr(evar, '=') - evar;
 		node->nm = ft_substr(evar, 0, pos);
 		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+		if (!node->val)
+			empty_val(node);
 	}
 	else
 	{
@@ -60,27 +70,6 @@ int	is_inenvlst(char *s, t_envv *env)
 		aux = aux->next;
 	}
 	free(new_nm);
-	return (0);
-}
-
-int	id_notvalid(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(s[0]) && s[0] != '_')
-	{
-		ft_exporterror("export", s, "not a valid identifier");
-		return (1);
-	}
-	while (s[++i] && s[i] != '=')
-	{
-		if (!ft_isalnum(s[i]) && s[i] != '_')
-		{
-			ft_exporterror("export", s, "not a valid identifier");
-			return (1);
-		}
-	}
 	return (0);
 }
 
