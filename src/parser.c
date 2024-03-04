@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 21:01:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:35:25 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ int	fill_node(t_cmd *s, char **lex)
 	{
 		if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
 			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
+		{
+			g_exst = 1;
 			return (-1);
+		}
+			
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
 			i += 2;
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:08:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:45:54 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 	{
 		if (access(lex[i], R_OK) == -1)
 		{
-			printf("minishell: %s: %s\n", lex[i], strerror(errno));
+			handle_error(lex[i], strerror(errno));
 			return (-1);
 		}
 		else
@@ -50,7 +50,7 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 			fd = open(lex[i], O_RDONLY);
 			if (fd == -1)
 			{
-				printf("minishell: %s: %s\n", lex[i], strerror(errno));
+				handle_error(lex[i], strerror(errno));
 				return (-1);
 			}
 			else
@@ -92,7 +92,8 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
 	else if (s->outfile == -1)
 	{
-		printf("minishell: %s: %s\n", lex[i], strerror(errno));
+		//printf("minishell: %s: %s\n", lex[i], strerror(errno));
+		handle_error(lex[i], strerror(errno));
 		return (-1);
 	}
 	return (0);
