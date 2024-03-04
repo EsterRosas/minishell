@@ -43,3 +43,67 @@ void	only_name(t_envv *node, char *evar)
 	node->nm = ft_strdup(evar);
 	node->val = NULL;
 }
+
+int	is_inenvlst(char *s, t_envv *env)
+{
+	char	*new_nm;
+	t_envv	*aux;
+	int		i;
+
+	i = 0;
+	aux = env;
+	if (!ft_strchr(s, '='))
+		new_nm = ft_strdup(s);
+	else
+	{
+		while (s[i] && s[i] != '=' && s[i] != '+')
+			++i;
+		new_nm = ft_substr(s, 0, i);
+	}
+	while (aux)
+	{
+		if (ft_strcmp(new_nm, aux->nm) == 0)
+		{
+			free(new_nm);
+			return (1);
+		}
+		aux = aux->next;
+	}
+	free(new_nm);
+	return (0);
+}
+
+static void	empty_val(t_envv *node)
+{
+	node->val = malloc(sizeof(char));
+	if (!node->val)
+		return ;
+	node->val[0] = '\0';
+}
+
+int	add_new_node(char *evar, t_envv *env)
+{
+	t_envv	*node;
+	int		pos;
+
+	pos = 0;
+	node = malloc(sizeof(t_envv));
+	if (!node)
+		return (1);
+	if (ft_strchr(evar, '='))
+	{
+		pos = ft_strchr(evar, '=') - evar;
+		if (evar[pos - 1] == '+')
+			node->nm = ft_substr(evar, 0, pos - 1);
+		else
+			node->nm = ft_substr(evar, 0, pos);
+		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+		if (!node->val)
+			empty_val(node);
+	}
+	else
+		only_name(node, evar);
+	node->next = NULL;
+	add_env_back(env, node);
+	return (0);
+}

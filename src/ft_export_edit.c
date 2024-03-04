@@ -12,115 +12,62 @@
 
 #include "../inc/minishell.h"
 
-static void	empty_val(t_envv *node)
-{
-	node->val = malloc(sizeof(char));
-	if (!node->val)
-		return ;
-	node->val[0] = '\0';
-}
-
-int	add_new_node(char *evar, t_envv *env)
-{
-	t_envv	*node;
-	int		pos;
-
-	pos = 0;
-	node = malloc(sizeof(t_envv));
-	if (!node)
-		return (1);
-	if (ft_strchr(evar, '='))
-	{
-		pos = ft_strchr(evar, '=') - evar;
-		if (evar[pos - 1] == '+')
-			node->nm = ft_substr(evar, 0, pos - 1);
-		else
-			node->nm = ft_substr(evar, 0, pos);
-		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-		if (!node->val)
-			empty_val(node);
-	}
-	else
-		only_name(node, evar);
-	node->next = NULL;
-	add_env_back(env, node);
-	return (0);
-}
-
-int	is_inenvlst(char *s, t_envv *env)
-{
-	char	*new_nm;
-	t_envv	*aux;
-	int		i;
-
-	i = 0;
-	aux = env;
-	if (!ft_strchr(s, '=')) // editar quan hi hagi +
-		new_nm = ft_strdup(s);
-	else
-	{
-		while (s[i] && s[i] != '=' && s[i] != '+')
-			++i;
-		new_nm = ft_substr(s, 0, i);
-	}
-	while (aux)
-	{
-		if (ft_strcmp(new_nm, aux->nm) == 0)
-			return (1);
-		aux = aux->next;
-	}
-	free(new_nm);
-	return (0);
-}
-
-int	edit_node(char *s, t_envv *env)
+static void	replace_value(char *s, t_envv *aux, int	pos)
 {
 	char	*nm;
+
+	nm = ft_substr(s, 0, pos);
+	while (aux)
+	{
+		if (ft_strcmp(aux->nm, nm) == 0)
+		{
+			free(aux->val);
+			aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			break ;
+		}
+		aux = aux->next;
+	}
+	free(nm);
+}
+
+static void	join_values(char *s, t_envv *aux, int	pos)
+{
+	char	*nm;
+	char	*tmp;
+	char	*tmp2;
+
+	nm = ft_substr(s, 0, pos - 1);
+	while (aux)
+	{
+		if (ft_strcmp(aux->nm, nm) == 0)
+		{
+			tmp = ft_strdup(aux->val);
+			free(aux->val);
+			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			aux->val = ft_strjoin(tmp, tmp2);
+			free(tmp);
+			free(tmp2);
+			break ;
+		}
+		aux = aux->next;
+	}
+	free(nm);
+}
+
+static int	edit_node(char *s, t_envv *env)
+{
 	int		pos;
 	t_envv	*aux;
-//	char	*tmp;
 
 	pos = 0;
 	aux = env;
 	if (ft_strchr(s, '='))
 	{
 		pos = ft_strchr(s, '=') - s;
-	/*	if (s[pos - 1] == '+')
-		{
-			nm = ft_substr(s, 0, pos - 1);
-			while (aux)
-			{
-				if (ft_strcmp(aux->nm, nm) == 0)
-				{
-					tmp = aux->val;
-					free(aux->val);
-					aux->val = ft_strjoin(tmp, ft_substr(s, pos + 1, ft_strlen(s) - 1));
-					free(nm);
-					free(tmp);
-					break ;
-				}
-				aux = aux->next;
-			}
-		}
+		if (s[pos - 1] == '+')
+			join_values(s, aux, pos);
 		else
-		{*/
-			nm = ft_substr(s, 0, pos);
-			printf("EDIT_NODE s: %s, aux: %p, aux->nm: %s, aux->val: %s\n", s, aux, aux->nm, aux->val);
-			while (aux)
-			{
-				if (ft_strcmp(aux->nm, nm) == 0)
-				{
-					printf("BEFORE nm: %s\n", nm);
-					free(aux->val);
-					aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
-					free(nm);
-					nm = NULL;
-					printf("AFTER nm: %s\n", nm);
-					break ;
-				}
-				aux = aux->next;
-			}
-	//	}
+			replace_value(s, aux, pos);
 	}
 	return (0);
 }
