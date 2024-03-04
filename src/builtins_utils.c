@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 18:40:57 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:05:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,6 @@ int	is_cd(char *s)
 	else if (s[1] != 'd' && s[1] != 'D')
 		return (0);
 	return (1);
-}
-
-int	id_notvalid(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(s[0]) && s[0] != '_')
-	{
-		ft_exporterror("export", s, "not a valid identifier");
-		return (1);
-	}
-	while (s[++i] && s[i] != '=')
-	{
-		if (!ft_isalnum(s[i]) && s[i] != '_')
-		{
-			ft_exporterror("export", s, "not a valid identifier");
-			return (1);
-		}
-	}
-	return (0);
 }
 
 /*int	is_subshell(char *s)

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/01 16:35:50 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:54:10 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ int	add_new_node(char *evar, t_envv *env)
 	if (ft_strchr(evar, '='))
 	{
 		pos = ft_strchr(evar, '=') - evar;
-		node->nm = ft_substr(evar, 0, pos);
+		if (evar[pos - 1] == '+')
+			node->nm = ft_substr(evar, 0, pos - 1);
+		else
+			node->nm = ft_substr(evar, 0, pos);
 		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
 		if (!node->val)
 			empty_val(node);
 	}
 	else
-	{
-		node->nm = ft_strdup(evar);
-		node->val = NULL;
-	}
+		only_name(node, evar);
 	node->next = NULL;
 	add_env_back(env, node);
 	return (0);
@@ -55,11 +55,11 @@ int	is_inenvlst(char *s, t_envv *env)
 
 	i = 0;
 	aux = env;
-	if (!ft_strchr(s, '='))
+	if (!ft_strchr(s, '=')) // editar quan hi hagi +
 		new_nm = ft_strdup(s);
 	else
 	{
-		while (s[i] && s[i] != '=')
+		while (s[i] && s[i] != '=' && s[i] != '+')
 			++i;
 		new_nm = ft_substr(s, 0, i);
 	}
@@ -78,24 +78,49 @@ int	edit_node(char *s, t_envv *env)
 	char	*nm;
 	int		pos;
 	t_envv	*aux;
+//	char	*tmp;
 
 	pos = 0;
 	aux = env;
 	if (ft_strchr(s, '='))
 	{
 		pos = ft_strchr(s, '=') - s;
-		nm = ft_substr(s, 0, pos);
-		while (aux)
+	/*	if (s[pos - 1] == '+')
 		{
-			if (ft_strcmp(aux->nm, nm) == 0)
+			nm = ft_substr(s, 0, pos - 1);
+			while (aux)
 			{
-				free(aux->val);
-				aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
-				free(nm);
-				break ;
+				if (ft_strcmp(aux->nm, nm) == 0)
+				{
+					tmp = aux->val;
+					free(aux->val);
+					aux->val = ft_strjoin(tmp, ft_substr(s, pos + 1, ft_strlen(s) - 1));
+					free(nm);
+					free(tmp);
+					break ;
+				}
+				aux = aux->next;
 			}
-			aux = aux->next;
 		}
+		else
+		{*/
+			nm = ft_substr(s, 0, pos);
+			printf("EDIT_NODE s: %s, aux: %p, aux->nm: %s, aux->val: %s\n", s, aux, aux->nm, aux->val);
+			while (aux)
+			{
+				if (ft_strcmp(aux->nm, nm) == 0)
+				{
+					printf("BEFORE nm: %s\n", nm);
+					free(aux->val);
+					aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+					free(nm);
+					nm = NULL;
+					printf("AFTER nm: %s\n", nm);
+					break ;
+				}
+				aux = aux->next;
+			}
+	//	}
 	}
 	return (0);
 }

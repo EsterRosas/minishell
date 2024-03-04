@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 17:47:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:25:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 	while (cmd->args[i])
 	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
+		{
+			free(cmd->args[i]);
 			cmd->args[i] = ft_itoa(g_exst);
+		}
 		if (!is_nopt(cmd->args[i]) || i > 1)
 		{
 			ft_putstr_fd(cmd->args[i], cmd->outfile);

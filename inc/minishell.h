@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/04 18:06:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:57:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		ft_cd(t_cmd *cmd, t_envv *env);
 int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
+void	only_name(t_envv *node, char *evar);
 void	ft_exit(int st);
 int		is_env(char *s);
 int		is_cd(char *s);
