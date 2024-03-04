@@ -6,40 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/01 21:39:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:10:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	all_args_ropt(char **ar)
-{
-	int	i;
-
-	i = 0;
-	while (ar[++i])
-	{
-		if (ar[i][0] != '-')
-			return (0);
-	}
-	return (0);
-}
-
-int	stop_case_catwc(t_cmd *s, char *l)
-{
-	if (s->args[0])
-	{
-		if (ft_strcmp(s->args[0], "cat") == 0)
-		{
-			if (s->args[1] && !all_args_ropt(s->args))
-				return (1);
-		
-			else if (s->infile != 0 && l[0] != '-')
-				return (1);
-		}
-	}
-	return (0);
-}
 
 char	*path2cmd(char *arg)
 {
@@ -60,7 +31,7 @@ int	is_lastfile(char **lex, int i, char c)
 	return (0);
 }
 
-/* CAT: cat < . si que ha des er "." arg que se li passi a exec
+/* CAT: cat < . si que ha de ser "." arg que se li passi a exec
  * EN CANVI, FIND: es queda com a infile o el que sigui pero no com a arg.
  */
 int	assign_infile(char **lex, int i, t_cmd *s)

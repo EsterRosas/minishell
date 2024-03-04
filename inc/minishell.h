@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/01 21:35:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:06:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,9 @@ char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
 //int		args_ifcatwc(t_cmd *s, char *l);
-int		stop_case_catwc(t_cmd *s, char *l);
-
+int		stop_case_cat(t_cmd *s, char *l);
+char	**add_arg(char **args, char **lex, int *i, int *len);
+char	**fill_args(char **args, char **lex, int lex_pos);
 
 /*		signals					*/
 void	handle_sigint(int sig);

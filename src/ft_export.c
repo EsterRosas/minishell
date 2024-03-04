@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 16:37:29 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:41:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void	ft_swapnodes(t_envv *aux)
 		aux->next->val = ft_strdup(temp->val);
 	else
 		aux->next->val = NULL;
-	free(temp->nm);
-	free(temp->val);
-	free(temp);
+	free_env(temp);
 }
 
 t_envv	*ft_sortlist(t_envv	*env)
@@ -113,6 +111,6 @@ int	ft_export(char **args, t_envv *env)
 	if (dbl_len(args) == 1)
 		only_export(env);
 	else
-		return(ft_edit_envlist(args, env));
+		return (ft_edit_envlist(args, env));
 	return (0);
 }

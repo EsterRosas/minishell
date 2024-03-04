@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/01 21:36:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:06:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	fill_node(t_cmd *s, char **lex)
 	len = 0;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (stop_case_catwc(s, lex[i]))
+		if (stop_case_cat(s, lex[i]))
 			break ;
 		else if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
 			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
@@ -64,13 +64,8 @@ int	fill_node(t_cmd *s, char **lex)
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
 			i += 2;
 		else
-		{
-			s->args = fill_args(s->args, lex, i);
-			i = i + dbl_len(s->args) - len;
-			len = dbl_len(s->args);
-		}
+			s->args = add_arg(s->args, lex, &i, &len);
 	}
-//	del_quotes(s->args);
 	if (!s->args[0])
 		return (-1);
 	return (0);
