@@ -12,6 +12,14 @@
 
 #include "../inc/minishell.h"
 
+int		is_inpath(char *s, t_envv *env)
+{
+
+
+
+
+}
+
 char	*path2cmd(char *arg)
 {
 	int		i;

@@ -17,14 +17,11 @@ int	check_cmd(t_cmd *cmd)
 	if (cmd->full_path == NULL)
 	{
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
-		{
-			printf("minishell: %i: command not found\n", g_exst);
-		}
+			handle_error(ft_itoa(g_exst), "command not found");
+		else if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)
+			handle_error(cmd->args[0], "is a directory");
 		else
-		{
-		//	printf("minishell: %s: command not found\n", cmd->args[0]);
 			handle_error(cmd->args[0], "command not found");
-		}
 		g_exst = 127;
 		return (-1);
 	}

@@ -25,6 +25,7 @@
 # include <string.h>
 # include <termios.h>
 # include <sys/param.h>
+# include <sys/stat.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 

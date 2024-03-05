@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-char	**fill_args(char **args, char **lex, int lex_pos)
+char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 {
 	int		i;
 	int		j;
@@ -21,7 +21,7 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	j = -1;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
-		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0)
+		if (i == 0 && lex[lex_pos][0] == '/' && is_inpath(lex[lex_pos], env) == 0)
 			args[i] = path2cmd(lex[lex_pos]);
 		else
 		{
