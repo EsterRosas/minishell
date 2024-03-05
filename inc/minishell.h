@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/04 19:57:44 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 20:08:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
+int		add_new_node(char *evar, t_envv *env);
 void	ft_exit(int st);
 int		is_env(char *s);
 int		is_cd(char *s);
@@ -113,8 +114,10 @@ void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
 //int		args_ifcatwc(t_cmd *s, char *l);
 int		stop_case_cat(t_cmd *s, char *l);
-char	**add_arg(char **args, char **lex, int *i, int *len);
-char	**fill_args(char **args, char **lex, int lex_pos);
+char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
+char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
+int		is_inpath(char *s, t_envv *env);
+int		**get_iptrarr(int i, int len);
 
 /*		signals					*/
 void	handle_sigint(int sig);

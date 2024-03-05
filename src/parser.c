@@ -6,13 +6,13 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/04 18:06:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:45:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**fill_args(char **args, char **lex, int lex_pos)
+char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 {
 	int		i;
 	int		j;
@@ -21,7 +21,8 @@ char	**fill_args(char **args, char **lex, int lex_pos)
 	j = -1;
 	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
 	{
-		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0)
+		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0
+			&& is_inpath(lex[lex_pos], env))
 			args[i] = path2cmd(lex[lex_pos]);
 		else
 		{
@@ -44,13 +45,19 @@ char	**fill_args(char **args, char **lex, int lex_pos)
  * be skipped in the list. Same if no item is added in the args, which means
  * no command has been input by the user.
  */
-int	fill_node(t_cmd *s, char **lex)
+int	fill_node(t_cmd *s, char **lex, t_envv *env)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	t_iptrs	*iptrs;
 
 	i = 0;
 	len = 0;
+	iptrs = malloc(sizeof(t_iptrs));
+	if (!iptrs)
+		return (0);
+	iptrs->i = &i;
+	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
 		if (stop_case_cat(s, lex[i]))
@@ -64,7 +71,10 @@ int	fill_node(t_cmd *s, char **lex)
 		else if (lex[i][0] == '<' || lex[i][0] == '>')
 			i += 2;
 		else
-			s->args = add_arg(s->args, lex, &i, &len);
+		{
+			s->args = add_arg(s->args, lex, iptrs, env);
+			free(iptrs);
+		}
 	}
 	if (!s->args[0])
 		return (-1);
@@ -86,7 +96,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
-	if (fill_node(res, lex) == -1)
+	if (fill_node(res, lex, env_lst) == -1)
 		return (NULL);
 	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);

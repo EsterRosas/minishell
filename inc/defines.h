@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 18:41:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:39:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,11 @@ typedef struct s_prompt
 	t_envv	*envp;
 	pid_t	pid;
 }		t_prompt;
+
+typedef struct s_iptrs
+{
+	int	*i;
+	int	*len;
+}		t_iptrs;
 
 #endif

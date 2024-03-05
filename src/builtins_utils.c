@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/04 19:05:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 21:04:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,30 @@ int	is_cd(char *s)
 	else if (s[1] != 'd' && s[1] != 'D')
 		return (0);
 	return (1);
+}
+
+int	is_builtin(char	*s)
+{
+	if (is_echo(s))
+		return (1);
+	else if (is_cd(s))
+		return (1);
+	else if (is_pwd(s))
+		return (1);
+	else if (ft_strlen(s) == ft_strlen("export")
+		&& ft_strncmp(s, "export", ft_strlen(s)) == 0)
+		return (1);
+	else if (ft_strlen(s) == ft_strlen("unset")
+		&& ft_strncmp(s, "unset", ft_strlen(s)) == 0)
+		return (1);
+	else if (is_env(s))
+		return (1);
+	else if (ft_strlen(s) == ft_strlen("exit")
+		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
+		return (1);
+//	else if (ft_strlen(s) == 11 && is_subshell(s))
+//		return (1);
+	return (0);
 }
 
 /*int	is_subshell(char *s)

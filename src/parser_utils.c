@@ -6,20 +6,27 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/04 18:10:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 20:17:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*path2cmd(char *arg)
+int	is_inpath(char *s, t_envv *env)
 {
+	char	**pth_arr;
+	char	**aux;
 	int		i;
 
-	i = ft_strlen(arg) - 1;
-	while (i >= 0 && arg[i] != '/')
-		i--;
-	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
+	pth_arr = get_ptharr(env);
+	aux = pth_arr;
+	i = -1;
+	while (aux[++i])
+	{
+		if (ft_strcmp(aux[i], s) == 0)
+			return (1);
+	}
+	return (0);
 }
 
 int	is_lastfile(char **lex, int i, char c)
