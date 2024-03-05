@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 20:15:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 21:35:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	join_values(char *s, t_envv *aux, int pos)
 	free(nm);
 }
 
-int	edit_node(char *s, t_envv *env)
+static int	edit_node(char *s, t_envv *env)
 {
 	int		pos;
 	t_envv	*aux;
