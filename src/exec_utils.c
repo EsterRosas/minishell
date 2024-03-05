@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/04 16:31:35 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:30:32 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ int	check_cmd(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
 	{
-		printf("%s\n", cmd->args[0]);
 		if (ft_strcmp(cmd->args[0], "$\?") == 0)
 		{
-			printf("minishell: %i: command not found\n", g_exst);
+			//printf("minishell: %i: command not found\n", g_exst);
+			handle_error(cmd->args[0], "command not found");
+			
 		}
 		else
 		{
-			printf("minishell: %s: command not found\n", cmd->args[0]);
-			//handle_error(cmd->args[0], "command not found");
+			//printf("minishell: %s: command not found\n", cmd->args[0]);
+			handle_error(cmd->args[0], "command not found");
 		}
 		g_exst = 127;
 		return (-1);
@@ -34,7 +35,8 @@ int	check_cmd(t_cmd *cmd)
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
-	check_cmd(cmd);
+	//if (check_cmd(cmd) == -1)
+		//exit (EXIT_FAILURE);
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	exit (EXIT_FAILURE);
 }
