@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 15:31:01 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:37:33 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 		handle_write_end(p->next_fds);
 	if (cmdlistsize(prompt->cmd) == 0)
 		exit(EXIT_SUCCESS);
-	if (check_cmd(cmd) == -1)
-		return (g_exst);
+	//if (check_cmd(cmd) == -1)
+		//return (g_exst);
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
 }
@@ -80,8 +80,8 @@ void	ft_exec(t_prompt *prompt)
 		g_exst = 0;
 	else if (p.num_cmds == 1 && is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
-	else if (!prompt->cmd->next)
-		g_exst = onecmd_nobuilt(prompt);
+	//else if (!prompt->cmd->next)
+		//g_exst = onecmd_nobuilt(prompt);
 	else
 		g_exst = handle_cmds(prompt, &p);
 	handle_stdio(&p, "RESTORE");

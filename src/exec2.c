@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 20:24:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:53:46 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int	onecmd_nobuilt(t_prompt *prompt)
 	int	saved_stdout;
 
 	status = 0;
-	if (check_cmd(prompt->cmd) == -1)
-		return (g_exst);
+	check_cmd(prompt->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	id = make_fork();
