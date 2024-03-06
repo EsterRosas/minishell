@@ -17,13 +17,18 @@ int	is_inpath(char *s, t_envv *env)
 	char	**pth_arr;
 	char	**aux;
 	int		i;
+	char	*folder;
 
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && s[i] != '/')
+		i--;
+	folder = ft_substr(s, 0, i);
 	pth_arr = get_ptharr(env);
 	aux = pth_arr;
 	i = -1;
 	while (aux[++i])
 	{
-		if (ft_strcmp(aux[i], s) == 0)
+		if (ft_strcmp(aux[i], folder) == 0)
 			return (1);
 	}
 	return (0);

@@ -12,6 +12,13 @@
 
 #include "../inc/minishell.h"
 
+void	only_msg_err(char *message)
+{
+	write(2, "minishell: ", 11);
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+}
+
 void	handle_error(char *cmd, char *message)
 {
 	write(2, "minishell: ", 11);

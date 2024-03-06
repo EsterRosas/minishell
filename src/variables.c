@@ -115,7 +115,6 @@ char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
 
-	printf("s[0]: %s\n", s[0]);
 	if (!need_var(s))
 		return (s);
 	else

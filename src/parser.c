@@ -98,7 +98,8 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->next = NULL;
 	if (fill_node(res, lex, env_lst) == -1)
 		return (NULL);
-	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/')
+	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/'
+		&& ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
@@ -146,13 +147,13 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	del_quotes(lex);
 	if (check_syntax(lex))
 	{
 		free_all(lex, dbl_len(lex));
 		return (NULL);
 	}
 	res = get_list(lex, res, env_lst);
+	del_quotes(res->args);
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

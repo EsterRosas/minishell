@@ -88,6 +88,7 @@ int		id_notvalid(char *s);
 void	handle_error(char *cmd, char *message);
 void	handle_error_opt(char *cmd, char *option, char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
+void	only_msg_err(char *message);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
