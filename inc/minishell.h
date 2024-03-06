@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/05 17:53:46 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:16:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <string.h>
 # include <termios.h>
 # include <sys/param.h>
+# include <sys/stat.h>
 # include "../lib/libft/libft.h"
 # include "defines.h"
 
@@ -72,18 +73,22 @@ int		ft_cd(t_cmd *cmd, t_envv *env);
 int		ft_export(char **args, t_envv *env);
 int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
+void	only_name(t_envv *node, char *evar);
+int		add_new_node(char *evar, t_envv *env);
 void	ft_exit(int st);
 int		is_env(char *s);
 int		is_cd(char *s);
 int		is_echo(char *s);
 int		is_pwd(char *s);
 int		is_inenvlst(char *s, t_envv *env);
+int		id_notvalid(char *s);
 //int		is_subshell(char *s);
 
 /*      errors.c            */
 void	handle_error(char *cmd, char *message);
-void	handle_error2(char *cmd, char *option, char *message);
+void	handle_error_opt(char *cmd, char *option, char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
+void	only_msg_err(char *message);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
@@ -109,6 +114,12 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
+//int		args_ifcatwc(t_cmd *s, char *l);
+int		stop_case_cat(t_cmd *s, char *l);
+char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
+char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
+int		is_inpath(char *s, t_envv *env);
+int		**get_iptrarr(int i, int len);
 
 /*		signals					*/
 void	handle_sigint(int sig);

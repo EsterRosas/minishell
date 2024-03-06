@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 17:53:46 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:11:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,33 @@ void	check_cmd(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
 	{
-		if (ft_strcmp(cmd->args[0], "$\?") == 0)
-			handle_error(ft_itoa(g_exst), "command not found");	
+		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)
+		{
+			handle_error(cmd->args[0], "is a directory");
+			exit (126);
+		}
+
+		else if (ft_strcmp(cmd->args[0], "$\?") == 0)
+		{
+			handle_error(ft_itoa(g_exst), "command not found");
+			exit (127);
+		}
 		else
+		{
 			handle_error(cmd->args[0], "command not found");
-		exit(127);
+			exit (127);
+		}
 	}
-	// if (is_directory(cmd->full_path)) // TO-DO
-	// {
-	// 	handle_error(cmd->full_path, "is a directory");
-	// 	exit(126);
-	// }
-	if (executable_path(cmd->full_path) == 1) // TO-DO
+	else if (executable_path(cmd->full_path) == 1)
 	{
-		handle_error(cmd->args[0], "Permission denied str");
+		handle_error(cmd->args[0], "Permission denied");
 		exit(126);
 	}
 }
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
-	check_cmd(cmd); // TO-DO (is_dir ?)
+	check_cmd(cmd);
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	exit (EXIT_FAILURE);

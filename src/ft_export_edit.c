@@ -6,87 +6,56 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/01 16:35:50 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:56:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	add_new_node(char *evar, t_envv *env)
-{
-	t_envv	*node;
-	int		pos;
-
-	pos = 0;
-	node = malloc(sizeof(t_envv));
-	if (!node)
-		return (1);
-	if (ft_strchr(evar, '='))
-	{
-		pos = ft_strchr(evar, '=') - evar;
-		node->nm = ft_substr(evar, 0, pos);
-		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-	}
-	else
-	{
-		node->nm = ft_strdup(evar);
-		node->val = NULL;
-	}
-	node->next = NULL;
-	add_env_back(env, node);
-	return (0);
-}
-
-int	is_inenvlst(char *s, t_envv *env)
-{
-	char	*new_nm;
-	t_envv	*aux;
-	int		i;
-
-	i = 0;
-	aux = env;
-	if (!ft_strchr(s, '='))
-		new_nm = ft_strdup(s);
-	else
-	{
-		while (s[i] && s[i] != '=')
-			++i;
-		new_nm = ft_substr(s, 0, i);
-	}
-	while (aux)
-	{
-		if (ft_strcmp(new_nm, aux->nm) == 0)
-			return (1);
-		aux = aux->next;
-	}
-	free(new_nm);
-	return (0);
-}
-
-int	id_notvalid(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(s[0]) && s[0] != '_')
-	{
-		ft_exporterror("export", s, "not a valid identifier");
-		return (1);
-	}
-	while (s[++i] && s[i] != '=')
-	{
-		if (!ft_isalnum(s[i]) && s[i] != '_')
-		{
-			ft_exporterror("export", s, "not a valid identifier");
-			return (1);
-		}
-	}
-	return (0);
-}
-
-int	edit_node(char *s, t_envv *env)
+static void	replace_value(char *s, t_envv *aux, int pos)
 {
 	char	*nm;
+
+	nm = ft_substr(s, 0, pos);
+	while (aux)
+	{
+		if (ft_strcmp(aux->nm, nm) == 0)
+		{
+			free(aux->val);
+			aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			break ;
+		}
+		aux = aux->next;
+	}
+	free(nm);
+}
+
+static void	join_values(char *s, t_envv *aux, int pos)
+{
+	char	*nm;
+	char	*tmp;
+	char	*tmp2;
+
+	nm = ft_substr(s, 0, pos - 1);
+	while (aux)
+	{
+		if (ft_strcmp(aux->nm, nm) == 0)
+		{
+			tmp = ft_strdup(aux->val);
+			free(aux->val);
+			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			aux->val = ft_strjoin(tmp, tmp2);
+			free(tmp);
+			free(tmp2);
+			break ;
+		}
+		aux = aux->next;
+	}
+	free(nm);
+}
+
+static int	edit_node(char *s, t_envv *env)
+{
 	int		pos;
 	t_envv	*aux;
 
@@ -95,18 +64,10 @@ int	edit_node(char *s, t_envv *env)
 	if (ft_strchr(s, '='))
 	{
 		pos = ft_strchr(s, '=') - s;
-		nm = ft_substr(s, 0, pos);
-		while (aux)
-		{
-			if (ft_strcmp(aux->nm, nm) == 0)
-			{
-				free(aux->val);
-				aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
-				free(nm);
-				break ;
-			}
-			aux = aux->next;
-		}
+		if (s[pos - 1] == '+')
+			join_values(s, aux, pos);
+		else
+			replace_value(s, aux, pos);
 	}
 	return (0);
 }
@@ -122,17 +83,18 @@ int	ft_edit_envlist(char **args, t_envv *env)
 	int	i;
 
 	i = 0;
+	g_exst = 0;
 	while (args[++i])
 	{
 		if (id_notvalid(args[i]) == 1)
-			return (1);
+			g_exst = 1;
 		else if (!is_inenvlst(args[i], env))
 		{
 			if (add_new_node(args[i], env) == 1)
-				return (1);
+				g_exst = 1;
 		}
 		else if (edit_node(args[i], env) == 1)
-			return (1);
+			g_exst = 1;
 	}
-	return (0);
+	return (g_exst);
 }

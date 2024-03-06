@@ -21,14 +21,14 @@ int	check_syntax(char **lex)
 	{
 		if (lex[i + 1] && (lex[i][0] == '|' && lex[i + 1][0] == '|'))
 		{
-			printf("minishell: syntax error near unexpected token `||'\n");
+			only_msg_err("syntax error near unexpected token `||'");
 			g_exst = 258;
 			return (1);
 		}
 	}
 	if (lex[0][0] == '|' || lex[dbl_len(lex) - 1][0] == '|')
 	{
-		printf("minishell: syntax error near unexpected token `|'\n");
+		only_msg_err("syntax error near unexpected token `|'");
 		g_exst = 258;
 		return (1);
 	}

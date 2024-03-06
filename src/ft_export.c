@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 16:37:29 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:56:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,25 @@ void	ft_swapnodes(t_envv *aux)
 	if (!temp)
 		return ;
 	temp->nm = ft_strdup(aux->nm);
-	temp->val = ft_strdup(aux->val);
+	if (aux->val)
+		temp->val = ft_strdup(aux->val);
+	else
+		temp->val = NULL;
 	free(aux->nm);
 	free(aux->val);
 	aux->nm = ft_strdup(aux->next->nm);
-	aux->val = ft_strdup(aux->next->val);
+	if (aux->next-> val)
+		aux->val = ft_strdup(aux->next->val);
+	else
+		aux->val = NULL;
 	free(aux->next->nm);
 	free(aux->next->val);
 	aux->next->nm = ft_strdup(temp->nm);
-	aux->next->val = ft_strdup(temp->val);
-	free(temp->nm);
-	free(temp->val);
-	free(temp);
+	if (temp->val)
+		aux->next->val = ft_strdup(temp->val);
+	else
+		aux->next->val = NULL;
+	free_env(temp);
 }
 
 t_envv	*ft_sortlist(t_envv	*env)
@@ -104,6 +111,6 @@ int	ft_export(char **args, t_envv *env)
 	if (dbl_len(args) == 1)
 		only_export(env);
 	else
-		ft_edit_envlist(args, env);
+		return (ft_edit_envlist(args, env));
 	return (0);
 }

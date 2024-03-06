@@ -6,13 +6,13 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/01 17:55:32 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:11:25 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void upd_oldpwd(t_envv *env, char *current)
+static void	upd_oldpwd(t_envv *env, char *current)
 {
 	t_envv *aux;
 
@@ -80,7 +80,7 @@ int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
 	if (chdir(cmd->args[1]) == -1)
 	{
-		handle_error2("cd", cmd->args[1], strerror(errno));
+		handle_error_opt("cd", cmd->args[1], strerror(errno));
 		return (1);
 	}
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
@@ -107,7 +107,7 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 		}
 	}
 	else if (cmd->args[1])
-		return(with_args(current, cmd, env));
+		return (with_args(current, cmd, env));
 	free(current);
 	return (0);
 }

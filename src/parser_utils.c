@@ -6,20 +6,32 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/04 15:45:54 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:48:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*path2cmd(char *arg)
+int	is_inpath(char *s, t_envv *env)
 {
+	char	**pth_arr;
+	char	**aux;
 	int		i;
+	char	*folder;
 
-	i = ft_strlen(arg) - 1;
-	while (i >= 0 && arg[i] != '/')
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && s[i] != '/')
 		i--;
-	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
+	folder = ft_substr(s, 0, i);
+	pth_arr = get_ptharr(env);
+	aux = pth_arr;
+	i = -1;
+	while (aux[++i])
+	{
+		if (ft_strcmp(aux[i], folder) == 0)
+			return (1);
+	}
+	return (0);
 }
 
 int	is_lastfile(char **lex, int i, char c)
@@ -31,22 +43,22 @@ int	is_lastfile(char **lex, int i, char c)
 	return (0);
 }
 
-/* CAT: cat < . si que ha des er "." arg que se li passi a exec
+/* CAT: cat < . si que ha de ser "." arg que se li passi a exec
  * EN CANVI, FIND: es queda com a infile o el que sigui pero no com a arg.
  */
 int	assign_infile(char **lex, int i, t_cmd *s)
 {
 	int	fd;
 
-	if (ft_strlen(lex[i - 1]) == 1 && is_lastfile(lex, i, lex[i - 1][0]))
+	if (ft_strlen(lex[i - 1]) == 1) //&& is_lastfile(lex, i, lex[i - 1][0]))
 	{
-		if (access(lex[i], R_OK) == -1)
+		/*if (access(lex[i], R_OK) == -1)
 		{
 			handle_error(lex[i], strerror(errno));
 			return (-1);
 		}
 		else
-		{
+		{*/
 			fd = open(lex[i], O_RDONLY);
 			if (fd == -1)
 			{
@@ -55,7 +67,7 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 			}
 			else
 				s->infile = fd;
-		}
+	//	}
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
@@ -72,19 +84,19 @@ int	assign_infile(char **lex, int i, t_cmd *s)
  */
 int	assign_outfile(char **lex, int i, t_cmd *s)
 {
-	int		fd;
+//	int		fd;
 	bool	append;
 
 	append = false;
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
 		append = true;
-	if (!is_lastfile(lex, i, lex[i - 1][0]) && append == false)
+/*	if (!is_lastfile(lex, i, lex[i - 1][0]) && append == false)
 	{
 		fd = open(lex[i], O_WRONLY | O_TRUNC);
 		if (fd > 1)
 			close (fd);
-	}
-	else if (append == false)
+	}*/
+	if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
 		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0600);
@@ -92,7 +104,6 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
 	else if (s->outfile == -1)
 	{
-		//printf("minishell: %s: %s\n", lex[i], strerror(errno));
 		handle_error(lex[i], strerror(errno));
 		return (-1);
 	}
