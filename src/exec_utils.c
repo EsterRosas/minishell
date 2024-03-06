@@ -6,41 +6,45 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 21:36:00 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:11:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_cmd(t_cmd *cmd)
+void	check_cmd(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
 	{
 		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)
 		{
 			handle_error(cmd->args[0], "is a directory");
-			g_exst = 126;
+			exit (126);
 		}
 
 		else if (ft_strcmp(cmd->args[0], "$\?") == 0)
 		{
 			handle_error(ft_itoa(g_exst), "command not found");
-			g_exst = 127;
+			exit (127);
 		}
 		else
 		{
 			handle_error(cmd->args[0], "command not found");
-			g_exst = 127;
+			exit (127);
 		}
-		return (-1);
 	}
-	return (0);
+	else if (executable_path(cmd->full_path) == 1)
+	{
+		handle_error(cmd->args[0], "Permission denied");
+		exit(126);
+	}
 }
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
 	check_cmd(cmd);
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
+	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	exit (EXIT_FAILURE);
 }
 

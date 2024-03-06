@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/05 20:08:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:16:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,10 @@ void	exec_cmd(t_prompt *prompt, t_cmd *cmd);
 int		cmdlistsize(t_cmd *cmd);
 int		wait_children(pid_t last_child, int n);
 pid_t	make_fork(void);
-int		check_cmd(t_cmd *cmd);
+void    check_cmd(t_cmd *cmd);
 
-/*		pipe_utils.c			*/
-void	make_pipe(int pipefd[2]);
-void	handle_read_end(int *pipe_fd);
-void	handle_write_end(int *pipe_fd);
-void	update_pipes(t_pipe *p);
+/*		exec_utils2.c			*/
+int     executable_path(char *path);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);

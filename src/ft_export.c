@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 20:38:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:56:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	only_export(t_envv *env)
 	while (aux)
 	{
 		printf("declare -x %s", aux->nm);
-		if (aux->val)
+		if (aux->val && aux->val[0])
 			printf("=\"%s\"", aux->val);
 		printf("\n");
 		aux = aux->next;

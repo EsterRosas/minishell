@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 21:34:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:48:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 	{
 		/*if (access(lex[i], R_OK) == -1)
 		{
-			printf("minishell: %s: %s\n", lex[i], strerror(errno));
+			handle_error(lex[i], strerror(errno));
 			return (-1);
 		}
 		else
