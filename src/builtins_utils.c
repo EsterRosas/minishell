@@ -6,11 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/05 21:04:43 by erosas-c         ###   ########.fr       */
-=======
-/*   Updated: 2024/02/29 18:40:57 by erosas-c         ###   ########.fr       */
->>>>>>> testing-david
+/*   Updated: 2024/03/06 18:27:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +64,6 @@ int	is_cd(char *s)
 	return (1);
 }
 
-<<<<<<< HEAD
 int	is_builtin(char	*s)
 {
 	if (is_echo(s))
@@ -93,8 +88,6 @@ int	is_builtin(char	*s)
 	return (0);
 }
 
-=======
->>>>>>> testing-david
 /*int	is_subshell(char *s)
 {
 	if (s[0] != '.')

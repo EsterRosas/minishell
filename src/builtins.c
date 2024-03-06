@@ -6,43 +6,12 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/05 21:26:18 by erosas-c         ###   ########.fr       */
-=======
-/*   Updated: 2024/02/29 20:13:45 by erosas-c         ###   ########.fr       */
->>>>>>> testing-david
+/*   Updated: 2024/03/06 18:27:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-<<<<<<< HEAD
-=======
-int	is_builtin(char	*s)
-{
-	if (is_echo(s))
-		return (1);
-	else if (is_cd(s))
-		return (1);
-	else if (is_pwd(s))
-		return (1);
-	else if (ft_strlen(s) == ft_strlen("export")
-		&& ft_strncmp(s, "export", ft_strlen(s)) == 0)
-		return (1);
-	else if (ft_strlen(s) == ft_strlen("unset")
-		&& ft_strncmp(s, "unset", ft_strlen(s)) == 0)
-		return (1);
-	else if (is_env(s))
-		return (1);
-	else if (ft_strlen(s) == ft_strlen("exit")
-		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
-		return (1);
-//	else if (ft_strlen(s) == 11 && is_subshell(s))
-//		return (1);
-	return (0);
-}
-
->>>>>>> testing-david
 int	ft_env(t_envv *env)
 {
 	char	**s;
@@ -79,10 +48,8 @@ void	ft_exit(int print)
 	if (print == 1)
 		printf("exit\n");
 	g_exst = 0;
-//	printf("g_exst: %i\n", g_exst);
 	restore_terminal_settings();
 	exit (g_exst);
-<<<<<<< HEAD
 }
 
 int	path_unset(t_envv *env, char *s)
@@ -100,22 +67,16 @@ int	path_unset(t_envv *env, char *s)
 		return (1);
 	else  //cal afegir casos
 		return (0);
-=======
->>>>>>> testing-david
 }
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
-<<<<<<< HEAD
 	if (path_unset(prompt->envp, cmd->args[0]))
 	{
 		handle_error(cmd->args[0], "No such file or directory");
 		g_exst = 127;
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-=======
-	if (ft_strcmp(cmd->args[0], "exit") == 0)
->>>>>>> testing-david
 	{
 		if (dbl_len(cmd->args) == 1)
 			ft_exit(1);
