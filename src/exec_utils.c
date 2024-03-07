@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:11:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:52:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	check_cmd(t_cmd *cmd)
 			handle_error(cmd->args[0], "is a directory");
 			exit (126);
 		}
-
+		else if (cmd->args[0][0] == '/')
+		{
+			handle_error(cmd->args[0], "No such file or directory");
+			exit (127);
+		}
 		else if (ft_strcmp(cmd->args[0], "$\?") == 0)
 		{
 			handle_error(ft_itoa(g_exst), "command not found");

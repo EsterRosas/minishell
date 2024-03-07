@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 17:52:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:49:55 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 			free(iptrs);
 		}
 	}
-	if (!s->args[0])
+	if (!s->args && s->outfile == 1 && s->infile == 0)
 		return (-1);
 	return (0);
 }
@@ -84,7 +84,9 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
+	int		test;
 
+	test = 0;
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
@@ -96,9 +98,10 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
-	if (fill_node(res, lex, env_lst) == -1)
+	test = fill_node(res, lex, env_lst);
+	if (test == -1)
 		return (NULL);
-	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/'
+	else if (res->args[0] && !is_builtin(res->args[0]) && res->args[0][0] != '/'
 		&& ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
@@ -155,5 +158,6 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	res = get_list(lex, res, env_lst);
 	del_quotes(res->args);
 	free_all(lex, dbl_len(lex));
+//	printf("has freed lex\n");
 	return (res);
 }

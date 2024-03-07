@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:11:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:57:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,23 @@ int	onecmd_nobuilt(t_prompt *prompt)
 	int	saved_stdout;
 
 	status = 0;
-	check_cmd(prompt->cmd);
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	id = make_fork();
-	if (id == 0)
-		exec_child(prompt->cmd, env_lst2arr(prompt->envp));
-	else
-		status = parent_process(id, status);
-	child_signaled(status);
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
+	if (prompt->cmd->args[0])
+	{
+		check_cmd(prompt->cmd);
+		saved_stdin = dup(STDIN_FILENO);
+		saved_stdout = dup(STDOUT_FILENO);
+		id = make_fork();
+		if (id == 0)
+			exec_child(prompt->cmd, env_lst2arr(prompt->envp));
+		else
+			status = parent_process(id, status);
+		child_signaled(status);
+		dup2(saved_stdin, STDIN_FILENO);
+		dup2(saved_stdout, STDOUT_FILENO);
+	}
+	else if (prompt->cmd->outfile != 1)
+		close(prompt->cmd->outfile);
+	else if (prompt->cmd->infile != 0)
+		close(prompt->cmd->infile);
 	return (g_exst);
 }
