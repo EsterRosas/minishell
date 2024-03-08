@@ -12,16 +12,6 @@
 
 #include "../inc/minishell.h"
 
-char	*path2cmd(char *arg)
-{
-	int		i;
-
-	i = ft_strlen(arg) - 1;
-	while (i >= 0 && arg[i] != '/')
-		i--;
-	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
-}
-
 int	**get_iptrarr(int i, int len)
 {
 	int	**res;
@@ -32,6 +22,35 @@ int	**get_iptrarr(int i, int len)
 	res[0] = &i;
 	res[1] = &len;
 	return (res);
+}
+
+char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
+{
+	int		i;
+	int		j;
+
+	i = dbl_len(args);
+	j = -1;
+	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
+	{
+		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0
+			&& is_inpath(lex[lex_pos], env))
+			args[i] = path2cmd(lex[lex_pos]);
+		else
+		{
+			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
+			if (!args[i])
+				return (NULL);
+			while (lex[lex_pos][++j])
+				args[i][j] = lex[lex_pos][j];
+			args[i][j] = '\0';
+		}
+		i++;
+		lex_pos++;
+		j = -1;
+	}
+	args[i] = NULL;
+	return (args);
 }
 
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env)

@@ -12,6 +12,16 @@
 
 #include "../inc/minishell.h"
 
+char	*path2cmd(char *arg)
+{
+	int		i;
+
+	i = ft_strlen(arg) - 1;
+	while (i >= 0 && arg[i] != '/')
+		i--;
+	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
+}
+
 int	is_inpath(char *s, t_envv *env)
 {
 	char	**pth_arr;

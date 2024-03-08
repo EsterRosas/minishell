@@ -12,33 +12,21 @@
 
 #include "../inc/minishell.h"
 
-char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
+int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 {
-	int		i;
-	int		j;
-
-	i = dbl_len(args);
-	j = -1;
-	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
+	if ((lex[*ip->i][0] == '<' && assign_infile(lex, *ip->i + 1, s) == -1)
+		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
 	{
-		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0
-			&& is_inpath(lex[lex_pos], env))
-			args[i] = path2cmd(lex[lex_pos]);
-		else
-		{
-			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
-			if (!args[i])
-				return (NULL);
-			while (lex[lex_pos][++j])
-				args[i][j] = lex[lex_pos][j];
-			args[i][j] = '\0';
-		}
-		i++;
-		lex_pos++;
-		j = -1;
+		free (ip);
+		g_exst = 1;
+		return (-1);
 	}
-	args[i] = NULL;
-	return (args);
+	else if (lex[*ip->i][0] == '<' || lex[*ip->i][0] == '>')
+		*ip->i += 2;
+	else
+		s->args = add_arg(s->args, lex, ip, env);	
+	free(ip);
+	return (0);
 }
 
 /* * If there's an error in some input or output file returns -1 so the node can
@@ -62,22 +50,15 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 	{
 		if (stop_case_cat(s, lex[i]))
 			break ;
-		else if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
-			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
-		{
-			g_exst = 1;
+		else if (upd_node(s, lex, env, iptrs) == -1)
 			return (-1);
-		}
-		else if (lex[i][0] == '<' || lex[i][0] == '>')
-			i += 2;
-		else
-		{
-			s->args = add_arg(s->args, lex, iptrs, env);
-			free(iptrs);
-		}
 	}
 	if (!s->args && s->outfile == 1 && s->infile == 0)
+	{
+		free(iptrs);
 		return (-1);
+	}
+//	free(iptrs);
 	return (0);
 }
 
