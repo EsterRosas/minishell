@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:47:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 17:52:15 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:34:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static int	check_more(char **lex)
 			only_msg_err("syntax error near unexpected token `<'");
 			break ;
 		}
+		else if (lex[i + 1] && (lex[i][0] == '>' && lex[i + 1][0] == '|'))
+		{
+			only_msg_err("syntax error near unexpected token `|'");
+			break ;
+		}
+
 	}
 	if (i + 1 != dbl_len(lex))
 		return (1);
