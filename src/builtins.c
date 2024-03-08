@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:27:04 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/08 21:05:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,6 @@ int	ft_pwd(void)
 	return (0);
 }
 
-void	ft_exit(int print)
-{
-	if (print == 1)
-		printf("exit\n");
-	g_exst = 0;
-	restore_terminal_settings();
-	exit (g_exst);
-}
-
 int	path_unset(t_envv *env, char *s)
 {
 	t_envv	*aux;
@@ -69,6 +60,24 @@ int	path_unset(t_envv *env, char *s)
 		return (0);
 }
 
+void	select_builtin(t_prompt *prompt)
+{
+	if (is_pwd(prompt->cmd->args[0]))
+		g_exst = ft_pwd();
+	else if (is_echo(prompt->cmd->args[0]))
+		g_exst = ft_echo(prompt->cmd);
+	else if (is_env(prompt->cmd->args[0]))
+		g_exst = ft_env(prompt->envp);
+	else if (is_cd(prompt->cmd->args[0]))
+		g_exst = ft_cd(prompt->cmd, prompt->envp);
+	else if (ft_strcmp(prompt->cmd->args[0], "unset") == 0)
+		g_exst = ft_unset(prompt->cmd, prompt->envp);
+	else if (ft_strcmp(prompt->cmd->args[0], "export") == 0)
+		g_exst = ft_export(prompt->cmd->args, prompt->envp);
+//	else if (is_subshell(cmd->args[0]))
+//		g_exst = upd_shlvl(prompt->envp);
+}
+
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
 	if (path_unset(prompt->envp, cmd->args[0]))
@@ -83,19 +92,7 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		else
 			ft_exit(0);
 	}
-	else if (is_pwd(cmd->args[0]))
-		g_exst = ft_pwd();
-	else if (is_echo(cmd->args[0]))
-		g_exst = ft_echo(cmd);
-	else if (is_env(cmd->args[0]))
-		g_exst = ft_env(prompt->envp);
-	else if (is_cd(cmd->args[0]))
-		g_exst = ft_cd(cmd, prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		g_exst = ft_unset(cmd, prompt->envp);
-	else if (ft_strcmp(cmd->args[0], "export") == 0)
-		g_exst = ft_export(cmd->args, prompt->envp);
-//	else if (is_subshell(cmd->args[0]))
-//		g_exst = upd_shlvl(prompt->envp);
+	else
+		select_builtin(prompt);
 	return (g_exst);
 }

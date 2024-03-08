@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/07 14:02:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/08 21:06:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
 	if (is_builtin(cmd->args[0]))
 		ft_exbuiltin(prompt, cmd);
-	else 
+	else
 		exec_cmd(prompt, cmd);
 	exit(EXIT_FAILURE);
 }
