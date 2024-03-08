@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/07 12:09:13 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:24:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 {
 //	int		fd;
 	bool	append;
-
 	append = false;
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
 		append = true;
@@ -117,5 +116,7 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		handle_error(lex[i], strerror(errno));
 		return (-1);
 	}
+	if (i > 1 && lex[i - 2][0] == '<')
+		s->outfile = 1;
 	return (0);
 }

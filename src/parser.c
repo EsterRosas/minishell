@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/07 13:49:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:03:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 {
-	if ((lex[*ip->i][0] == '<' && assign_infile(lex, *ip->i + 1, s) == -1)
+	if (lex[*ip->i + 1] && lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
+	{
+		(*ip->i)++;
+		return (0);
+	}
+	else if ((lex[*ip->i][0] == '<' && assign_infile(lex, *ip->i + 1, s) == -1)
 		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
 	{
-		free (ip);
 		g_exst = 1;
 		return (-1);
 	}
-	else if (lex[*ip->i][0] == '<' || lex[*ip->i][0] == '>')
+	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>') || lex[*ip->i][0] == '>')
 		*ip->i += 2;
 	else
-		s->args = add_arg(s->args, lex, ip, env);	
-	free(ip);
+		s->args = add_arg(s->args, lex, ip, env);
 	return (0);
 }
 
@@ -51,14 +54,17 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 		if (stop_case_cat(s, lex[i]))
 			break ;
 		else if (upd_node(s, lex, env, iptrs) == -1)
+		{
+			free(iptrs);
 			return (-1);
+		}
 	}
 	if (!s->args && s->outfile == 1 && s->infile == 0)
 	{
 		free(iptrs);
 		return (-1);
 	}
-//	free(iptrs);
+	free(iptrs);
 	return (0);
 }
 
@@ -131,7 +137,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	if (check_syntax(lex))
+	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
 		return (NULL);
