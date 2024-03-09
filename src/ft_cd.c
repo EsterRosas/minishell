@@ -15,7 +15,7 @@
 static void	upd_oldpwd(t_envv *env, char *current)
 {
 	t_envv *aux;
-
+	
 	aux = env;
 	while (ft_strcmp(aux->nm, "OLDPWD") != 0)
 		aux = aux->next;
@@ -28,6 +28,7 @@ static void	upd_oldpwd(t_envv *env, char *current)
 		else
 			aux->val = NULL;
 	}
+	free(current);
 }
 
 static void	upd_pwds(t_envv *env)
@@ -42,7 +43,7 @@ static void	upd_pwds(t_envv *env)
 			aux = aux->next;
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
-			oldpwd_current = aux->val;
+			oldpwd_current = ft_strdup(aux->val); // canvi aqui
 			free(aux->val);
 			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
 			if (!aux->val)
@@ -78,15 +79,29 @@ static int	cd_only(t_envv *env)
 
 int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
-	if (chdir(cmd->args[1]) == -1)
+	char	*old;
+
+	old = get_oenv("OLDPWD", env);
+	if (ft_strcmp("-", cmd->args[1]) == 0 && (!old || old[0] == '\0'))
+	{
+		handle_error("cd", "OLDPWD not set");
+		return (1);
+	}
+	else if (ft_strcmp(cmd->args[1], "-") == 0)
+	{
+		if (chdir(old) == -1)
+		{
+			handle_error_opt("cd", cmd->args[1], strerror(errno));
+			return (1);
+		}
+	}
+	else if (chdir(cmd->args[1]) == -1)
 	{
 		handle_error_opt("cd", cmd->args[1], strerror(errno));
 		return (1);
 	}
-	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		upd_pwds(env);
-	else
-		chdir(current);
+	upd_pwds(env);
+	free(current);
 	return (0);
 }
 
@@ -106,8 +121,10 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 			return (1);
 		}
 	}
-	else if (cmd->args[1])
-		return (with_args(current, cmd, env));
-	free(current);
+	else if (cmd->args[1] && with_args(current, cmd, env) == 1)
+	{
+		free(current);
+		return (1);
+	}
 	return (0);
 }

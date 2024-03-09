@@ -12,7 +12,6 @@
 
 #include "../inc/minishell.h"
 
-
 static int	check_more(char **lex)
 {
 	int	i;
@@ -44,9 +43,6 @@ static int	check_more(char **lex)
 
 int	check_syntax(char **lex)
 {
-	int	i;
-
-	i = -1;
 	if (check_more(lex) == 1)
 	{
 		g_exst = 258;

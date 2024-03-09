@@ -26,14 +26,12 @@ void	check_cmd(t_cmd *cmd)
 			handle_error(cmd->args[0], "No such file or directory");
 			exit (127);
 		}
-		else if (ft_strcmp(cmd->args[0], "$\?") == 0)
-		{
-			handle_error(ft_itoa(g_exst), "command not found");
-			exit (127);
-		}
 		else
 		{
-			handle_error(cmd->args[0], "command not found");
+			if (ft_strcmp(cmd->args[0], "$\?") == 0)
+				handle_error(ft_itoa(g_exst), "command not found");
+			else
+				handle_error(cmd->args[0], "command not found");
 			exit (127);
 		}
 	}

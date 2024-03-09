@@ -79,8 +79,8 @@ void	ft_exec(t_prompt *prompt)
 	else if (p.num_cmds == 1 && prompt->cmd->args[0]
 		&& is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
-/*	else if (!prompt->cmd->next)
-		g_exst = onecmd_nobuilt(prompt);   IF COMMENTED ">>hola" not working properly*/
+	else if (!prompt->cmd->next)
+		g_exst = onecmd_nobuilt(prompt);  // IF COMMENTED ">>hola" and many others not working properly*/
 	else
 		g_exst = handle_cmds(prompt, &p);
 	handle_stdio(&p, "RESTORE");
