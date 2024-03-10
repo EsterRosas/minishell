@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 14:55:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:30:15 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,11 @@ void	check_cmd(t_cmd *cmd)
 			exit (127);
 		}
 	}
-/*	else if (executable_path(cmd->full_path) == 1)
-	{
-		handle_error(cmd->args[0], "Permission denied");
-		exit(126);
-	}*/
 }
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
-//	printf("000 enters exec_cmd in exec_utils.c\n");
 	check_cmd(cmd);
-//	printf("has cehcked command in exec_cmd in exec_utils.c\n");
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	exit (EXIT_FAILURE);

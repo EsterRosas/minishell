@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 15:03:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:28:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,10 @@ void	handle_redirs(t_cmd *cmd, t_pipe *p)
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
-	printf("enters ft_execcmd in exec.c\n");
-	int i = 0;
-	i = is_builtin(cmd->args[0]);
-	printf("i: %i\n", i);
-	if (is_builtin(cmd->args[0]))
-	{
-		printf("first IF\n");
+	if (cmd->args[0] && is_builtin(cmd->args[0]))
 		ft_exbuiltin(prompt, cmd);
-	}
 	else
-	{
-		printf("second IF\n");
 		exec_cmd(prompt, cmd);
-	}
 	exit(EXIT_FAILURE);
 }
 

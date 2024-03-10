@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 19:24:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:33:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,14 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 
 	if (ft_strlen(lex[i - 1]) == 1) //&& is_lastfile(lex, i, lex[i - 1][0]))
 	{
-		/*if (access(lex[i], R_OK) == -1)
+		fd = open(lex[i], O_RDONLY);
+		if (fd == -1)
 		{
 			handle_error(lex[i], strerror(errno));
 			return (-1);
 		}
 		else
-		{*/
-			fd = open(lex[i], O_RDONLY);
-			if (fd == -1)
-			{
-				handle_error(lex[i], strerror(errno));
-				return (-1);
-			}
-			else
-				s->infile = fd;
-	//	}
+			s->infile = fd;
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
@@ -94,17 +86,10 @@ int	assign_infile(char **lex, int i, t_cmd *s)
  */
 int	assign_outfile(char **lex, int i, t_cmd *s)
 {
-//	int		fd;
 	bool	append;
 	append = false;
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
 		append = true;
-/*	if (!is_lastfile(lex, i, lex[i - 1][0]) && append == false)
-	{
-		fd = open(lex[i], O_WRONLY | O_TRUNC);
-		if (fd > 1)
-			close (fd);
-	}*/
 	if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
