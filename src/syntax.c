@@ -19,9 +19,10 @@ static int	check_more(char **lex)
 	i = -1;
 	while (lex[++i] && lex[i + 1])
 	{
-		if (lex[i + 1] && (lex[i][0] == '|' && lex[i + 1][0] == '|'))
+		if (lex[i + 1] && (lex[i][0] == '|' || lex[i][0] == '>') 
+			&& lex[i + 1][0] == '|')
 		{
-			only_msg_err("syntax error near unexpected token `||'");
+			only_msg_err("syntax error near unexpected token `|'");
 			break ;
 		}
 		else if (lex[i + 1] && (lex[i][0] == '>' && lex[i + 1][0] == '<'))
@@ -29,12 +30,6 @@ static int	check_more(char **lex)
 			only_msg_err("syntax error near unexpected token `<'");
 			break ;
 		}
-		else if (lex[i + 1] && (lex[i][0] == '>' && lex[i + 1][0] == '|'))
-		{
-			only_msg_err("syntax error near unexpected token `|'");
-			break ;
-		}
-
 	}
 	if (i + 1 != dbl_len(lex))
 		return (1);

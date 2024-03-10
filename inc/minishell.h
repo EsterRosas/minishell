@@ -114,12 +114,12 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
-//int		args_ifcatwc(t_cmd *s, char *l);
 int		stop_case_cat(t_cmd *s, char *l);
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
 int		is_inpath(char *s, t_envv *env);
 int		**get_iptrarr(int i, int len);
+void	put_exex2path(t_cmd *cmd);
 
 /*		signals					*/
 void	handle_sigint(int sig);

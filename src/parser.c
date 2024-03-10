@@ -27,6 +27,19 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>') || lex[*ip->i][0] == '>')
 		*ip->i += 2;
+	else if (!s->args[0] && !(lex[*ip->i][0] == '.' && lex[*ip->i + 1][0] != '/'))
+	{
+		if (access(lex[*ip->i], X_OK) == -1)
+		{
+			handle_error(lex[*ip->i], strerror(errno));
+			(*ip->i)++;
+			g_exst = 127;
+			return (-1);
+		}
+		else
+			s->full_path = ft_strdup(lex[*ip->i]);
+		(*ip->i)++;
+	}
 	else
 		s->args = add_arg(s->args, lex, ip, env);
 	return (0);
@@ -88,8 +101,8 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	test = fill_node(res, lex, env_lst);
 	if (test == -1)
 		return (NULL);
-	else if (res->args[0] && !is_builtin(res->args[0]) && res->args[0][0] != '/'
-		&& ft_strcmp(res->args[0], "") != 0)
+	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
+		&& is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
@@ -103,6 +116,9 @@ t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 	while (lex[i])
 	{
 		new = get_cmd(&lex[i], env_lst);
+/*		if (new->args && new->args[0][0] && new->args[0][1]
+			&& new->args[0][0] == '.' && new->args[0][1] == '/')
+			put_exex2path(new);*/
 		if (new && res)
 			cmdlst_addback(res, new);
 		else if (new)
@@ -145,6 +161,5 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	res = get_list(lex, res, env_lst);
 	del_quotes(res->args);
 	free_all(lex, dbl_len(lex));
-//	printf("has freed lex\n");
 	return (res);
 }
