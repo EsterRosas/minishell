@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 17:47:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 20:35:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	with_args(char *current, t_cmd *cmd, t_envv *env)
 	{
 		if (chdir(old) == -1)
 		{
-			handle_error_opt("cd", cmd->args[1], strerror(errno));
+			handle_error_opt("cd", old, strerror(errno));
 			return (1);
 		}
 	}
