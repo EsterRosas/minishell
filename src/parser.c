@@ -6,50 +6,13 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 17:39:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 19:16:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
-{
-	if (lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
-	{
-		(*ip->i)++;
-		return (0);
-	}
-	else if ((lex[*ip->i][0] == '<' && assign_infile(lex, *ip->i + 1, s) == -1)
-		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
-	{
-		g_exst = 1;
-		return (-1);
-	}
-	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>') || lex[*ip->i][0] == '>')
-		*ip->i += 2;
-	else if (dbl_len(s->args) == 0 && lex[*ip->i][0] == '.' && lex[*ip->i][1] == '/')
-	{
-		if (access(lex[*ip->i], X_OK) == -1)
-		{
-			handle_error(lex[*ip->i], strerror(errno));
-			(*ip->i)++;
-			g_exst = 127;
-			return (-1);
-		}
-		else
-			s->full_path = ft_strdup(lex[*ip->i]);
-		(*ip->i)++;
-	}
-	else
-		s->args = add_arg(s->args, lex, ip, env);
-	return (0);
-}
-
-/* * If there's an error in some input or output file returns -1 so the node can
- * be skipped in the list. Same if no item is added in the args, which means
- * no command has been input by the user.
- */
-int	fill_node(t_cmd *s, char **lex, t_envv *env)
+static int	get_node(t_cmd *s, char **lex, t_envv *env)
 {
 	int		i;
 	int		len;
@@ -72,12 +35,20 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 			return (-1);
 		}
 	}
-	if (!s->args && s->outfile == 1 && s->infile == 0)
-	{
-		free(iptrs);
-		return (-1);
-	}
 	free(iptrs);
+	return (0);
+}
+
+/* * If there's an error in some input or output file returns -1 so the node can
+ * be skipped in the list. Same if no item is added in the args, which means
+ * no command has been input by the user.
+ */
+static int	fill_node(t_cmd *s, char **lex, t_envv *env)
+{
+	if (get_node(s, lex, env) == -1)
+		return (-1);
+	if (!s->args && s->outfile == 1 && s->infile == 0)
+		return (-1);
 	return (0);
 }
 
@@ -107,7 +78,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	return (res);
 }
 
-t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
+static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 {
 	int		i;
 	t_cmd	*new;

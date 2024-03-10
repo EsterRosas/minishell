@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 18:16:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 18:45:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	loop_prompt(t_envv *o_envp)
 			prompt = ft_parse(line, o_envp);
 			if (prompt)
 			{
-	//			printf("enters IF prompt in loop_prompt\n");
 				ft_exec(prompt);
 				free_cmdlist(prompt->cmd);
 				free(prompt);
@@ -108,7 +107,6 @@ void	loop_prompt(t_envv *o_envp)
 		}
 		add_history(line);
 		free(line);
-	//	printf("has freed line\n");
 	}
 	return ;
 }

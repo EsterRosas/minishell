@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/06 18:16:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 19:10:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
 int		is_inpath(char *s, t_envv *env);
 int		**get_iptrarr(int i, int len);
 void	put_exex2path(t_cmd *cmd);
+int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
 
 /*		signals					*/
 void	handle_sigint(int sig);
