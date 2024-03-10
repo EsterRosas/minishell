@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 20:03:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 12:47:18 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>') || lex[*ip->i][0] == '>')
 		*ip->i += 2;
-	else if (!s->args[0] && !(lex[*ip->i][0] == '.' && lex[*ip->i + 1][0] != '/'))
+	else if (!s->args && lex[*ip->i][0] == '.' && lex[*ip->i + 1][0] != '/')
 	{
+		printf("111 upd_node lex[*ip->i]: %s\n", lex[*ip->i]);
 		if (access(lex[*ip->i], X_OK) == -1)
 		{
 			handle_error(lex[*ip->i], strerror(errno));
@@ -102,7 +103,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	if (test == -1)
 		return (NULL);
 	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
-		&& is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
+		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }

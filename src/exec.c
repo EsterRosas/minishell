@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 21:06:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 14:13:25 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
 	restore_terminal_settings();
-	handle_redirs(cmd, p);
+	if (cmd->args[0])
+		handle_redirs(cmd, p);
 	if (p->i > 0)
 		handle_read_end(p->prev_fds);
 	if (p->i < (p->num_cmds - 1))
 		handle_write_end(p->next_fds);
-	if (cmdlistsize(prompt->cmd) == 0)
+	if (cmdlistsize(prompt->cmd) == 0 || (!cmd->args[0] && cmd->outfile != 1))
 		exit(EXIT_SUCCESS);
 	ft_execcmd(prompt, cmd);
 	return (EXIT_FAILURE);
@@ -79,7 +80,7 @@ void	ft_exec(t_prompt *prompt)
 	else if (p.num_cmds == 1 && prompt->cmd->args[0]
 		&& is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
-	else if (!prompt->cmd->next)
+/*	else if (!prompt->cmd->next)
 		g_exst = onecmd_nobuilt(prompt);  // IF COMMENTED ">>hola" and many others not working properly*/
 	else
 		g_exst = handle_cmds(prompt, &p);
