@@ -31,7 +31,7 @@ static void	upd_oldpwd(t_envv *env, char *current)
 	free(current);
 }
 
-static void	upd_pwds(t_envv *env)
+void	upd_pwds(t_envv *env)
 {
 	t_envv	*aux;
 	char	*oldpwd_current;
@@ -77,7 +77,7 @@ static int	cd_only(t_envv *env)
 	return (0);
 }
 
-int	with_args(char *current, t_cmd *cmd, t_envv *env)
+static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
 	char	*old;
 

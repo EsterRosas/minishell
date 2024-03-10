@@ -53,6 +53,42 @@ static int	parse_executable(char **lex, t_iptrs *ip, t_cmd *s)
 	(*ip->i)++;
 	return (0);
 }
+static char	*dots2path(char *ar)
+{
+	char	*s;
+	int		i;
+	char	*res;
+	int		len;
+
+	len = 0;
+	i = ft_strlen(ar) - 1;
+	res = ar;
+	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	if (!s)
+		return (NULL);
+	getcwd(s, MAXPATHLEN);
+	len = ft_strlen(s);
+	if (i == 0 && ar[0] == '.')
+		res = s;
+	else if (i == 1 && ar[0] == '.' && ar[1] == '.')
+	{
+		while (len >= 0 && s[len] != '/')
+			len--;
+		res = ft_substr(s, 0, len);
+		free(s);
+	}
+	free(ar);
+	return (res);
+}
+
+static char	*upd_if_cddots(char	*ar)
+{
+	if (ft_strlen(ar) > 2 || ar[0] != '.' || (ft_strlen(ar) == 2
+		&& ar[1] != '.'))
+		return (ar);
+	else
+		return (dots2path(ar));
+}
 
 int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 {
@@ -78,5 +114,7 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else
 		s->args = add_arg(s->args, lex, ip, env);
+	if (dbl_len(s->args) > 1 && ft_strcmp(s->args[0], "cd") == 0)
+		s->args[1] = upd_if_cddots(s->args[1]);
 	return (0);
 }

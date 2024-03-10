@@ -45,6 +45,10 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
  */
 static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 {
+	s->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+	if (!s->args)
+		return (-1);
+	s->args[0] = NULL;
 	if (get_node(s, lex, env) == -1)
 		return (-1);
 	if (!s->args && s->outfile == 1 && s->infile == 0)
@@ -61,17 +65,17 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
-	if (!res->args)
-		return (NULL);
-	res->args[0] = NULL;
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
 	if (test == -1)
+	{
+		free_all(res->args, dbl_len(res->args));
+		free(res);
 		return (NULL);
+	}
 	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
 		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
