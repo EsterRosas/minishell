@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 21:05:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:44:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	path_unset(t_envv *env, char *s)
 	}
 	if (is_echo(s) && ft_strcmp(s, "echo") != 0)
 		return (1);
-	else  //cal afegir casos
+	else //cal afegir casos
 		return (0);
 }
 
@@ -74,8 +74,6 @@ void	select_builtin(t_prompt *prompt)
 		g_exst = ft_unset(prompt->cmd, prompt->envp);
 	else if (ft_strcmp(prompt->cmd->args[0], "export") == 0)
 		g_exst = ft_export(prompt->cmd->args, prompt->envp);
-//	else if (is_subshell(cmd->args[0]))
-//		g_exst = upd_shlvl(prompt->envp);
 }
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)

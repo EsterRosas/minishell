@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:27:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:44:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,34 +83,5 @@ int	is_builtin(char	*s)
 	else if (ft_strlen(s) == ft_strlen("exit")
 		&& ft_strncmp(s, "exit", ft_strlen(s)) == 0)
 		return (1);
-//	else if (ft_strlen(s) == 11 && is_subshell(s))
-//		return (1);
 	return (0);
 }
-
-/*int	is_subshell(char *s)
-{
-	if (s[0] != '.')
-		return (0);
-	else if (s[1] != '/')
-		return (0);
-	else if (s[2] != 'm' && s[2] != 'M')
-		return (0);
-	else if (s[3] != 'i' && s[3] != 'I')
-		return (0);
-	else if (s[4] != 'n' && s[4] != 'N')
-		return (0);
-	else if (s[5] != 'i' && s[5] != 'I')
-		return (0);
-	else if (s[6] != 's' && s[6] != 'S')
-		return (0);
-	else if (s[7] != 'h' && s[7] != 'H')
-		return (0);
-	else if (s[8] != 'e' && s[8] != 'E')
-		return (0);
-	else if (s[9] != 'l' && s[9] != 'L')
-		return (0);
-	else if (s[10] != 'l' && s[10] != 'L')
-		return (0);
-	return (1);
-}*/

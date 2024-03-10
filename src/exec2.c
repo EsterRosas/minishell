@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:13:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/07 12:57:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:45:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	parent_process(int id, int status)
 	signal(SIGQUIT, SIG_IGN);
 	waitpid(id, &status, 0);
 	disable_ctrl_chars();
-//	ft_signal(1);
 	return (status);
 }
 

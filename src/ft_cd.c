@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 21:04:17 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:47:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	upd_oldpwd(t_envv *env, char *current)
 {
-	t_envv *aux;
-	
+	t_envv	*aux;
+
 	aux = env;
 	while (ft_strcmp(aux->nm, "OLDPWD") != 0)
 		aux = aux->next;
@@ -34,7 +34,7 @@ static void	upd_oldpwd(t_envv *env, char *current)
 static void	upd_pwds(t_envv *env)
 {
 	t_envv	*aux;
-	char *oldpwd_current;
+	char	*oldpwd_current;
 
 	aux = env;
 	if (is_inenvlst("PWD", env))
@@ -43,7 +43,7 @@ static void	upd_pwds(t_envv *env)
 			aux = aux->next;
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
-			oldpwd_current = ft_strdup(aux->val); // canvi aqui
+			oldpwd_current = ft_strdup(aux->val);
 			free(aux->val);
 			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
 			if (!aux->val)

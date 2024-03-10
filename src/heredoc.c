@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/29 17:41:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 18:16:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@
  * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
  * d'executar en un proces a part (child).
  */
-static char	*feed_hdoc(char *res, char	*input)
+static char	*feed_hdoc(char *res, char	*input, char *eol)
 {
-	char	*eol;
 	char	*aux;
-
-	eol = malloc(sizeof(char) + 1);
-	if (!eol)
-		return (NULL);
-	eol[0] = '\n';
-	eol[1] = '\0';
+	
 	if (!res)
 	{
 		aux = ft_strdup(input);
@@ -41,6 +35,7 @@ static char	*feed_hdoc(char *res, char	*input)
 		free(aux);
 	}
 	free(eol);
+	printf("res: %s\n", res);
 	return (res);
 }
 
@@ -50,13 +45,15 @@ static char	*feed_hdoc(char *res, char	*input)
  *
  * That's why at the end we take the substring not including last cgar (\n).
  */
-static char	*read_input(char *input, char *delim)
+static char	*read_input(char *input, char *delim, char *eol)
 {
 	char	*res;
 	char	*aux;
 
 	aux = NULL;
 	res = NULL;
+	if (ft_strcmp(input, delim) == 0)
+		return (eol);
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
@@ -64,7 +61,7 @@ static char	*read_input(char *input, char *delim)
 			free(aux);
 			exit (0);
 		}
-		aux = feed_hdoc(aux, input);
+		aux = feed_hdoc(aux, input, eol);
 		free(input);
 		input = readline("> ");
 	}
@@ -94,13 +91,19 @@ static void	get_input(char *delim, int *fd)
 {
 	static char	*input;
 	char		*res;
+	char		*eol;
 
+	eol = malloc(sizeof(char) + 1);
+	if (!eol)
+		return ;
+	eol[0] = '\n';
+	eol[1] = '\0';
 	close(fd[R_END]);
 	ft_signal(2);
 	input = readline("> ");
 	if (!input)
 		exit (0);
-	res = read_input(input, delim);
+	res = read_input(input, delim, eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
 	return ;

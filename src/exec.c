@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 17:28:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:44:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_exec(t_prompt *prompt)
 		&& is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
 /*	else if (!prompt->cmd->next)
-		g_exst = onecmd_nobuilt(prompt);  // IF COMMENTED ">>hola" and many others not working properly*/
+		g_exst = onecmd_nobuilt(prompt);*/
 	else
 		g_exst = handle_cmds(prompt, &p);
 	handle_stdio(&p, "RESTORE");

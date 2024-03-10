@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/08 20:47:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 18:14:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_echo(t_cmd *cmd)
 
 	i = 1;
 	opt = 0;
-	if (dbl_len(cmd->args) == 1 && cmd->infile == 0)
+	if (dbl_len(cmd->args) == 1/* && cmd->infile == 0*/)
 	{
 		printf("\n");
 		return (0);
