@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 18:44:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 19:49:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	is_lastfile(char **lex, int i, char c)
  */
 int	assign_infile(char **lex, int i, t_cmd *s)
 {
-	int	fd;
+	int		fd;
+	char	buffer[2];
 
 	if (ft_strlen(lex[i - 1]) == 1)
 	{
@@ -73,7 +74,12 @@ int	assign_infile(char **lex, int i, t_cmd *s)
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
+	{
 		s->infile = process_hdoc(lex[i], is_lastfile(lex, i, '<'));
+		read(s->infile, buffer, 2);
+		if (buffer[0] == '\n' && buffer[1] == '\0')
+			s->infile = 0;
+	}
 	return (0);
 }
 
