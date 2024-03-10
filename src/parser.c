@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 12:47:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/10 14:47:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 {
-	if (lex[*ip->i + 1] && lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
+	if (lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
 	{
 		(*ip->i)++;
 		return (0);
@@ -27,9 +27,8 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>') || lex[*ip->i][0] == '>')
 		*ip->i += 2;
-	else if (!s->args && lex[*ip->i][0] == '.' && lex[*ip->i + 1][0] != '/')
+	else if (dbl_len(s->args) == 0 && lex[*ip->i][0] == '.' && lex[*ip->i][1] == '/')
 	{
-		printf("111 upd_node lex[*ip->i]: %s\n", lex[*ip->i]);
 		if (access(lex[*ip->i], X_OK) == -1)
 		{
 			handle_error(lex[*ip->i], strerror(errno));
@@ -117,9 +116,6 @@ t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 	while (lex[i])
 	{
 		new = get_cmd(&lex[i], env_lst);
-/*		if (new->args && new->args[0][0] && new->args[0][1]
-			&& new->args[0][0] == '.' && new->args[0][1] == '/')
-			put_exex2path(new);*/
 		if (new && res)
 			cmdlst_addback(res, new);
 		else if (new)
@@ -160,7 +156,8 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 		return (NULL);
 	}
 	res = get_list(lex, res, env_lst);
-	del_quotes(res->args);
+	if (res)
+		del_quotes(res->args);
 	free_all(lex, dbl_len(lex));
 	return (res);
 }
