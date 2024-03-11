@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 19:16:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:10:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
+	printf("get_cmd in parser res->args[0]: %s, res->args[1]: %s\n", res->args[0], res->args[1]);
 	if (test == -1)
 	{
 		free_all(res->args, dbl_len(res->args));

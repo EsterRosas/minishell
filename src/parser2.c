@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 19:23:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:07:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	parse_executable(char **lex, t_iptrs *ip, t_cmd *s)
 	(*ip->i)++;
 	return (0);
 }
+
 static char	*dots2path(char *ar)
 {
 	char	*s;
@@ -62,21 +63,22 @@ static char	*dots2path(char *ar)
 
 	len = 0;
 	i = ft_strlen(ar) - 1;
-	res = ar;
+	res = NULL;
 	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
 	if (!s)
 		return (NULL);
 	getcwd(s, MAXPATHLEN);
 	len = ft_strlen(s);
 	if (i == 0 && ar[0] == '.')
-		res = s;
+		res = ft_strdup(s);
 	else if (i == 1 && ar[0] == '.' && ar[1] == '.')
 	{
 		while (len >= 0 && s[len] != '/')
 			len--;
 		res = ft_substr(s, 0, len);
-		free(s);
+//		printf("000 parser2 dots2path res: %s\ns: %s\n", res, s);
 	}
+	free(s);
 	free(ar);
 	return (res);
 }
@@ -114,7 +116,9 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else
 		s->args = add_arg(s->args, lex, ip, env);
-	if (dbl_len(s->args) > 1 && ft_strcmp(s->args[0], "cd") == 0)
+	if (!is_inenvlst("PWD", env) && dbl_len(s->args) > 1
+		&& ft_strcmp(s->args[0], "cd") == 0)
 		s->args[1] = upd_if_cddots(s->args[1]);
+	printf("END parser2 s->args[1]: %s\n", s->args[1]);
 	return (0);
 }
