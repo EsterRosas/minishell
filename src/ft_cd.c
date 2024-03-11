@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 21:04:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:11:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	upd_pwds(t_envv *env)
 	t_envv	*aux;
 	char	*oldpwd_current;
 
+	oldpwd_current = malloc(sizeof(char) * (MAXPATHLEN + 1));
 	aux = env;
 	if (is_inenvlst("PWD", env))
 	{
@@ -51,6 +52,8 @@ void	upd_pwds(t_envv *env)
 			getcwd(aux->val, MAXPATHLEN);
 		}
 	}
+	else
+		getcwd(oldpwd_current, MAXPATHLEN); //added this in case PWD is unset
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
 }

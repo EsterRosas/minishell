@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 21:10:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:22:56 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 		return (-1);
 	if (!s->args && s->outfile == 1 && s->infile == 0)
 		return (-1);
+	if (!is_inenvlst("PWD", env) && dbl_len(s->args) > 1
+		&& ft_strcmp(s->args[0], "cd") == 0 && s->args[1][0] == '.')
+	{
+		if (ft_strlen(s->args[1]) == 1)
+			s->args[1] = dot2path(s->args[1]);
+		else if (ft_strlen(s->args[1]) == 2 && s->args[1][1] == '.')
+			s->args[1] = dots2path(s->args[1]);
+	}
 	return (0);
 }
 
@@ -70,7 +78,6 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
-	printf("get_cmd in parser res->args[0]: %s, res->args[1]: %s\n", res->args[0], res->args[1]);
 	if (test == -1)
 	{
 		free_all(res->args, dbl_len(res->args));

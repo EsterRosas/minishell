@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:07:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 19:23:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:13:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void	free_cmdlist(t_cmd *head)
 	while (current)
 	{
 		nextnode = current->next;
-//		free_all(current->args, dbl_len(current->args));
-		printf("current->args[1]: %s\n", current->args[1]);
-		free(current->args[1]);
-		printf("has freed current->args[1]\n");
+		free_all(current->args, dbl_len(current->args));
 		if (current->full_path)
 			free(current->full_path);
 		free(current);

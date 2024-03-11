@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 21:07:16 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:21:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,42 +54,58 @@ static int	parse_executable(char **lex, t_iptrs *ip, t_cmd *s)
 	return (0);
 }
 
-static char	*dots2path(char *ar)
+char	*dots2path(char *ar)
 {
-	char	*s;
-	int		i;
 	char	*res;
 	int		len;
+	int		j;
+	char	*s;
 
 	len = 0;
-	i = ft_strlen(ar) - 1;
 	res = NULL;
+	j = -1;
 	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
 	if (!s)
 		return (NULL);
 	getcwd(s, MAXPATHLEN);
 	len = ft_strlen(s);
-	if (i == 0 && ar[0] == '.')
-		res = ft_strdup(s);
-	else if (i == 1 && ar[0] == '.' && ar[1] == '.')
-	{
-		while (len >= 0 && s[len] != '/')
-			len--;
-		res = ft_substr(s, 0, len);
-//		printf("000 parser2 dots2path res: %s\ns: %s\n", res, s);
-	}
+	while (len >= 0 && s[len] != '/')
+		len--;
+	res = malloc(sizeof(char) * len);
+	if (!res)
+		return (NULL);
+	while (++j < len)
+		res[j] = s[j];
+	res[j] = '\0';
 	free(s);
 	free(ar);
 	return (res);
 }
 
-static char	*upd_if_cddots(char	*ar)
+char	*dot2path(char *ar)
 {
-	if (ft_strlen(ar) > 2 || ar[0] != '.' || (ft_strlen(ar) == 2
-		&& ar[1] != '.'))
-		return (ar);
-	else
-		return (dots2path(ar));
+	char	*res;
+	int		len;
+	int		j;
+	char	*s;
+
+	len = 0;
+	res = NULL;
+	j = -1;
+	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	if (!s)
+		return (NULL);
+	getcwd(s, MAXPATHLEN);
+	len = ft_strlen(s);
+	res = malloc(sizeof(char) * len + 1);
+	if (!res)
+		return (NULL);
+	while (s[++j])
+		res[j] = s[j];
+	res[j] = '\0';
+	free(s);
+	free(ar);
+	return (res);
 }
 
 int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
@@ -116,9 +132,5 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 	}
 	else
 		s->args = add_arg(s->args, lex, ip, env);
-	if (!is_inenvlst("PWD", env) && dbl_len(s->args) > 1
-		&& ft_strcmp(s->args[0], "cd") == 0)
-		s->args[1] = upd_if_cddots(s->args[1]);
-	printf("END parser2 s->args[1]: %s\n", s->args[1]);
 	return (0);
 }
