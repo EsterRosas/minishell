@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 21:33:11 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:40:19 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_exit(int print, char **args)
 	/*if (args)
 		printf("dbl_len(args): %i\n", dbl_len(args));*/
 	n = 0;
-	if (args && args[1])
+	if (args && args[1] && !has_nonum(args[1]))
 		args[1] = del_spaces(args[1]);
 	if (!args || dbl_len(args) == 1)
 	{
@@ -130,6 +130,6 @@ int	ft_exit(int print, char **args)
 		//printf("exit\n");
 	}
 	restore_terminal_settings();
-	printf("END g_exst: %i\n", g_exst);
+//	printf("END g_exst: %i\n", g_exst);
 	exit (g_exst);
 }
