@@ -6,11 +6,21 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 17:48:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:50:00 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*path2cmd(char *arg)
+{
+	int		i;
+
+	i = ft_strlen(arg) - 1;
+	while (i >= 0 && arg[i] != '/')
+		i--;
+	return (ft_substr(arg, i + 1, ft_strlen(arg) - 1));
+}
 
 int	is_inpath(char *s, t_envv *env)
 {
@@ -48,30 +58,28 @@ int	is_lastfile(char **lex, int i, char c)
  */
 int	assign_infile(char **lex, int i, t_cmd *s)
 {
-	int	fd;
+	int		fd;
+	char	buffer[2];
 
-	if (ft_strlen(lex[i - 1]) == 1) //&& is_lastfile(lex, i, lex[i - 1][0]))
+	if (ft_strlen(lex[i - 1]) == 1)
 	{
-		/*if (access(lex[i], R_OK) == -1)
+		fd = open(lex[i], O_RDONLY);
+		if (fd == -1)
 		{
 			handle_error(lex[i], strerror(errno));
 			return (-1);
 		}
 		else
-		{*/
-			fd = open(lex[i], O_RDONLY);
-			if (fd == -1)
-			{
-				handle_error(lex[i], strerror(errno));
-				return (-1);
-			}
-			else
-				s->infile = fd;
-	//	}
+			s->infile = fd;
 		return (0);
 	}
 	else if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '<')
+	{
 		s->infile = process_hdoc(lex[i], is_lastfile(lex, i, '<'));
+		read(s->infile, buffer, 2);
+		if (buffer[0] == '\n' && buffer[1] == '\0')
+			s->infile = 0;
+	}
 	return (0);
 }
 
@@ -84,18 +92,11 @@ int	assign_infile(char **lex, int i, t_cmd *s)
  */
 int	assign_outfile(char **lex, int i, t_cmd *s)
 {
-//	int		fd;
 	bool	append;
 
 	append = false;
 	if (ft_strlen(lex[i - 1]) == 2 && lex[i - 1][1] == '>')
 		append = true;
-/*	if (!is_lastfile(lex, i, lex[i - 1][0]) && append == false)
-	{
-		fd = open(lex[i], O_WRONLY | O_TRUNC);
-		if (fd > 1)
-			close (fd);
-	}*/
 	if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
@@ -107,5 +108,7 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 		handle_error(lex[i], strerror(errno));
 		return (-1);
 	}
+	if (i > 1 && lex[i - 2][0] == '<')
+		s->outfile = 1;
 	return (0);
 }

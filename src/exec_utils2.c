@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 17:22:10 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/05 17:50:39 by damendez         ###   ########.fr       */
+/*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
+/*   Updated: 2024/03/12 18:26:54 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-// int is_directory(char *path)
-// {
-
-// }
 
 int executable_path(char *path)
 {

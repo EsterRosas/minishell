@@ -6,72 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 20:48:29 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:21:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	**get_ptharr(t_envv *env_lst)
-{
-	char	**ptharr;
-
-	ptharr = NULL;
-	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
-		env_lst = env_lst->next;
-	if (env_lst && ft_strcmp(env_lst->nm, "PATH") == 0)
-		ptharr = ft_split(env_lst->val, ':');
-	return (ptharr);
-}
-
-void	cmdlst_addback(t_cmd *cmdlst, t_cmd *new)
-{
-	if (cmdlst == 0)
-		cmdlst = new;
-	else
-	{
-		if (!cmdlst)
-			return ;
-		while (cmdlst->next)
-			cmdlst = cmdlst->next;
-	}
-	cmdlst->next = new;
-}
-
-void	free_cmdlist(t_cmd *head)
-{
-	t_cmd	*current;
-	t_cmd	*nextnode;
-
-	current = head;
-	while (current)
-	{
-		nextnode = current->next;
-		free_all(current->args, dbl_len(current->args));
-		if (current->full_path)
-			free(current->full_path);
-		free(current);
-		current = nextnode;
-	}
-}
-
-void	free_envlist(t_envv *head)
-{
-	t_envv	*current;
-	t_envv	*nextnode;
-
-	current = head;
-	while (current)
-	{
-		nextnode = current->next;
-		if (current->nm)
-			free(current->nm);
-		if (current->val)
-			free(current->val);
-		free(current);
-		current = nextnode;
-	}
-}
 
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 {
@@ -98,4 +37,100 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg)
 	}
 	free_all(path_vls, dbl_len(path_vls));
 	return (path);
+}
+
+static int	parse_executable(char **lex, t_iptrs *ip, t_cmd *s)
+{
+	if (access(lex[*ip->i], X_OK) == -1)
+	{
+		handle_error(lex[*ip->i], strerror(errno));
+		(*ip->i)++;
+		g_exst = 127;
+		return (-1);
+	}
+	else
+		s->full_path = ft_strdup(lex[*ip->i]);
+	(*ip->i)++;
+	return (0);
+}
+
+char	*dots2path(char *ar)
+{
+	char	*res;
+	int		len;
+	int		j;
+	char	*s;
+
+	len = 0;
+	res = NULL;
+	j = -1;
+	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	if (!s)
+		return (NULL);
+	getcwd(s, MAXPATHLEN);
+	len = ft_strlen(s);
+	while (len >= 0 && s[len] != '/')
+		len--;
+	res = malloc(sizeof(char) * len);
+	if (!res)
+		return (NULL);
+	while (++j < len)
+		res[j] = s[j];
+	res[j] = '\0';
+	free(s);
+	free(ar);
+	return (res);
+}
+
+char	*dot2path(char *ar)
+{
+	char	*res;
+	int		len;
+	int		j;
+	char	*s;
+
+	len = 0;
+	res = NULL;
+	j = -1;
+	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	if (!s)
+		return (NULL);
+	getcwd(s, MAXPATHLEN);
+	len = ft_strlen(s);
+	res = malloc(sizeof(char) * len + 1);
+	if (!res)
+		return (NULL);
+	while (s[++j])
+		res[j] = s[j];
+	res[j] = '\0';
+	free(s);
+	free(ar);
+	return (res);
+}
+
+int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
+{
+	if (lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
+	{
+		(*ip->i)++;
+		return (0);
+	}
+	else if ((lex[*ip->i][0] == '<' && assign_infile(lex, *ip->i + 1, s) == -1)
+		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
+	{
+		g_exst = 1;
+		return (-1);
+	}
+	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>')
+		|| lex[*ip->i][0] == '>')
+		*ip->i += 2;
+	else if (dbl_len(s->args) == 0 && lex[*ip->i][0] == '.'
+		&& lex[*ip->i][1] == '/')
+	{
+		if (parse_executable(lex, ip, s) == -1)
+			return (-1);
+	}
+	else
+		s->args = add_arg(s->args, lex, ip, env);
+	return (0);
 }

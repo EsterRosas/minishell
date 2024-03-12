@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 16:36:26 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:07:01 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	upd_oldpwd(t_envv *env, char *current)
 {
-	t_envv *aux;
+	t_envv	*aux;
 
 	aux = env;
 	while (ft_strcmp(aux->nm, "OLDPWD") != 0)
@@ -28,13 +28,15 @@ static void	upd_oldpwd(t_envv *env, char *current)
 		else
 			aux->val = NULL;
 	}
+	free(current);
 }
 
-static void	upd_pwds(t_envv *env)
+void	upd_pwds(t_envv *env)
 {
 	t_envv	*aux;
-	char *oldpwd_current;
+	char	*oldpwd_current;
 
+	oldpwd_current = malloc(sizeof(char) * (MAXPATHLEN + 1));
 	aux = env;
 	if (is_inenvlst("PWD", env))
 	{
@@ -42,7 +44,7 @@ static void	upd_pwds(t_envv *env)
 			aux = aux->next;
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
-			oldpwd_current = aux->val;
+			oldpwd_current = ft_strdup(aux->val);
 			free(aux->val);
 			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
 			if (!aux->val)
@@ -50,6 +52,8 @@ static void	upd_pwds(t_envv *env)
 			getcwd(aux->val, MAXPATHLEN);
 		}
 	}
+	else
+		getcwd(oldpwd_current, MAXPATHLEN); //added this in case PWD is unset
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
 }
@@ -76,19 +80,33 @@ static int	cd_only(t_envv *env)
 	return (0);
 }
 
-int	with_args(char *current, t_cmd *cmd, t_envv *env)
+static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
-	if (cmd->args[1][0] == '\0')
+	char	*old;
+
+	old = get_oenv("OLDPWD", env);
+	if (ft_strcmp("-", cmd->args[1]) == 0 && (!old || old[0] == '\0'))
+	{
+		handle_error("cd", "OLDPWD not set");
+		return (1);
+	}
+	else if (cmd->args[1][0] == '\0')
 		return (0);
-	if (chdir(cmd->args[1]) == -1)
+	else if (ft_strcmp(cmd->args[1], "-") == 0)
+	{
+		if (chdir(old) == -1)
+		{
+			handle_error_opt("cd", old, strerror(errno));
+			return (1);
+		}
+	}
+	else if (chdir(cmd->args[1]) == -1)
 	{
 		handle_error_opt("cd", cmd->args[1], strerror(errno));
 		return (1);
 	}
-	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		upd_pwds(env);
-	else
-		chdir(current);
+	upd_pwds(env);
+	free(current);
 	return (0);
 }
 
@@ -108,8 +126,10 @@ int	ft_cd(t_cmd *cmd, t_envv *env)
 			return (1);
 		}
 	}
-	else if (cmd->args[1])
-		return (with_args(current, cmd, env));
-	free(current);
+	else if (cmd->args[1] && with_args(current, cmd, env) == 1)
+	{
+		free(current);
+		return (1);
+	}
 	return (0);
 }

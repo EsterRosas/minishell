@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:36:50 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/05 20:07:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:59:26 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	is_inenvlst(char *s, t_envv *env)
 	return (0);
 }
 
-static void	empty_val(t_envv *node)
+static void	assign_empty_val(t_envv *node)
 {
 	node->val = malloc(sizeof(char));
 	if (!node->val)
@@ -84,7 +84,7 @@ static void	empty_val(t_envv *node)
 int	add_new_node(char *evar, t_envv *env)
 {
 	t_envv	*node;
-	int		pos;
+	size_t	pos;
 
 	pos = 0;
 	node = malloc(sizeof(t_envv));
@@ -97,9 +97,10 @@ int	add_new_node(char *evar, t_envv *env)
 			node->nm = ft_substr(evar, 0, pos - 1);
 		else
 			node->nm = ft_substr(evar, 0, pos);
-		node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-		if (!node->val)
-			empty_val(node);
+		if (pos == ft_strlen(evar) - 1)
+			assign_empty_val(node);
+		else
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
 	}
 	else
 		only_name(node, evar);

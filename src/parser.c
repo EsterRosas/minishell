@@ -6,46 +6,13 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 17:52:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:54:15 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
-{
-	int		i;
-	int		j;
-
-	i = dbl_len(args);
-	j = -1;
-	while (lex[lex_pos] && !is_sep(lex[lex_pos][0]))
-	{
-		if (i == 0 && lex[lex_pos][0] == '/' && access(lex[lex_pos], F_OK) == 0
-			&& is_inpath(lex[lex_pos], env))
-			args[i] = path2cmd(lex[lex_pos]);
-		else
-		{
-			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
-			if (!args[i])
-				return (NULL);
-			while (lex[lex_pos][++j])
-				args[i][j] = lex[lex_pos][j];
-			args[i][j] = '\0';
-		}
-		i++;
-		lex_pos++;
-		j = -1;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
-/* * If there's an error in some input or output file returns -1 so the node can
- * be skipped in the list. Same if no item is added in the args, which means
- * no command has been input by the user.
- */
-int	fill_node(t_cmd *s, char **lex, t_envv *env)
+static int	get_node(t_cmd *s, char **lex, t_envv *env)
 {
 	int		i;
 	int		len;
@@ -62,49 +29,68 @@ int	fill_node(t_cmd *s, char **lex, t_envv *env)
 	{
 		if (stop_case_cat(s, lex[i]))
 			break ;
-		else if ((lex[i][0] == '<' && assign_infile(lex, i + 1, s) == -1) ||
-			(lex[i][0] == '>' && assign_outfile(lex, i + 1, s) == -1))
+		else if (upd_node(s, lex, env, iptrs) == -1)
 		{
-			g_exst = 1;
+			free(iptrs);
 			return (-1);
 		}
-		else if (lex[i][0] == '<' || lex[i][0] == '>')
-			i += 2;
-		else
-		{
-			s->args = add_arg(s->args, lex, iptrs, env);
-			free(iptrs);
-		}
 	}
-	if (!s->args[0])
+	free(iptrs);
+	return (0);
+}
+
+/* * If there's an error in some input or output file returns -1 so the node can
+ * be skipped in the list. Same if no item is added in the args, which means
+ * no command has been input by the user.
+ */
+static int	fill_node(t_cmd *s, char **lex, t_envv *env)
+{
+	s->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+	if (!s->args)
 		return (-1);
+	s->args[0] = NULL;
+	if (get_node(s, lex, env) == -1)
+		return (-1);
+	if (!s->args && s->outfile == 1 && s->infile == 0)
+		return (-1);
+	if (!is_inenvlst("PWD", env) && dbl_len(s->args) > 1
+		&& ft_strcmp(s->args[0], "cd") == 0 && s->args[1][0] == '.')
+	{
+		if (ft_strlen(s->args[1]) == 1)
+			s->args[1] = dot2path(s->args[1]);
+		else if (ft_strlen(s->args[1]) == 2 && s->args[1][1] == '.')
+			s->args[1] = dots2path(s->args[1]);
+	}
 	return (0);
 }
 
 t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
+	int		test;
 
+	test = 0;
 	res = malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
-	res->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
-	if (!res->args)
-		return (NULL);
-	res->args[0] = NULL;
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
-	if (fill_node(res, lex, env_lst) == -1)
+	test = fill_node(res, lex, env_lst);
+	if (test == -1)
+	{
+		free_all(res->args, dbl_len(res->args));
+		free(res);
 		return (NULL);
-	else if (!is_builtin(res->args[0]) && res->args[0][0] != '/'
-		&& ft_strcmp(res->args[0], "") != 0)
+	}
+	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
+		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
 
-t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
+static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 {
 	int		i;
 	t_cmd	*new;
@@ -147,13 +133,14 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	if (check_syntax(lex))
+	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
 		return (NULL);
 	}
 	res = get_list(lex, res, env_lst);
-	del_quotes(res->args);
+	if (res)
+		del_quotes(res->args);
 	free_all(lex, dbl_len(lex));
 	return (res);
 }
