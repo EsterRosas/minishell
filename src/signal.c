@@ -34,8 +34,8 @@ static void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("SIGINT in child received\n");
-		write(1, "\n", 1);
+	//	printf("SIGINT in child received\n");
+	//	write(1, "\n", 1);
 		g_exst = 130;
 		exit (130);
 	}
