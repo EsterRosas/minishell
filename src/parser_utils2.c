@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 18:04:41 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 21:08:05 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:46:00 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env)
 	args = fill_args(args, lex, *iptrs->i, env);
 	*iptrs->i = *iptrs->i + dbl_len(args) - *iptrs->len;
 	*iptrs->len = dbl_len(args);
-//	printf("args[0]: %s, args[1]: %s\n", args[0], args[1]);
 	return (args);
 }
 

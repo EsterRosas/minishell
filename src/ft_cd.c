@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 22:11:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:07:01 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 		handle_error("cd", "OLDPWD not set");
 		return (1);
 	}
+	else if (cmd->args[1][0] == '\0')
+		return (0);
 	else if (ft_strcmp(cmd->args[1], "-") == 0)
 	{
 		if (chdir(old) == -1)

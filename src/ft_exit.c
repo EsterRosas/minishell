@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 17:32:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:46:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	ft_exit(int print, char **args)
 {
 	int	n;
 
-	printf("dbl_len(args): %i\n", dbl_len(args));
+/*	if (args)
+		printf("dbl_len(args): %i\n", dbl_len(args));*/
 	n = 0;
 	if (!args || dbl_len(args) == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 18:53:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:26:57 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void	handle_redirs(t_cmd *cmd, t_pipe *p)
 
 void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 {
-	if (cmd->args[0] && is_builtin(cmd->args[0]))
-		ft_exbuiltin(prompt, cmd);
+	if (is_builtin(cmd->args[0]))
+	{
+		g_exst = ft_exbuiltin(prompt, cmd);
+		exit(g_exst);
+	}
 	else
 		exec_cmd(prompt, cmd);
 	exit(EXIT_FAILURE);
@@ -80,8 +83,6 @@ void	ft_exec(t_prompt *prompt)
 	else if (p.num_cmds == 1 && prompt->cmd->args[0]
 		&& is_builtin(prompt->cmd->args[0]))
 		g_exst = ft_exbuiltin(prompt, prompt->cmd);
-/*	else if (!prompt->cmd->next)
-		g_exst = onecmd_nobuilt(prompt);*/
 	else
 		g_exst = handle_cmds(prompt, &p);
 	handle_stdio(&p, "RESTORE");
