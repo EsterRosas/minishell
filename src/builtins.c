@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 18:51:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:56:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
-		if (dbl_len(cmd->args) == 1)
-			ft_exit(1);
+		if (dbl_len(cmd->args) == 1)  ///revisar aquesta part suposo que com esta ara ft_exit cal passar args i ja esta i adaptar la ft_exit segons aixo
+			g_exst = ft_exit(1, cmd->args);
 		else
-			ft_exit(0);
+			g_exst = ft_exit(0, cmd->args);
 	}
 	else
 		select_builtin(prompt);
