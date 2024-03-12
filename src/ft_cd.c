@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:11:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:36:26 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static int	cd_only(t_envv *env)
 
 int	with_args(char *current, t_cmd *cmd, t_envv *env)
 {
+	if (cmd->args[1][0] == '\0')
+		return (0);
 	if (chdir(cmd->args[1]) == -1)
 	{
 		handle_error_opt("cd", cmd->args[1], strerror(errno));
