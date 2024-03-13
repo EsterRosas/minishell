@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 14:06:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:36:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	path_unset(t_envv *env, char *s)
 	aux = env;
 	while (aux)
 	{
-		if (ft_strcmp(env->nm, "PATH") == 0)
+		if (ft_strcmp(aux->nm, "PATH") == 0)
 			return (0);
 		aux = aux->next;
 	}
