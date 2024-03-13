@@ -73,7 +73,7 @@ int	some_doll_outq(char *p)
 int	has_var(char *s)
 {
 //	printf("enters has var\n");
-	if (!ft_strchr(s, '$'))
+	if (!ft_strchr(s, '$') || ft_strcmp(s, "$echo") == 0)
 		return (0);
 	else if (!ft_strchr(s, SQUOTE) && aft_dol_varchr(s))
 		return (1);
