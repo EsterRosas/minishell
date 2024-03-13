@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 21:40:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:25:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	custom_atoi(char *s)
 	sign = 1;
 	if (ft_strlen(s) > 20 || s[0] == '\0' || has_nonum(s)
 		|| (ft_strlen(s) == 19 && ft_strncmp("9223372036854775807", s, 20) < 0)
-		|| (ft_strlen(s) == 20 && ft_strncmp("-9223372036854775807", s, 21) < 0))
+		|| (ft_strlen(s) == 20 && ft_strncmp("-9223372036854775808", s, 21) < 0))
 	{
 		write(2, "exit\n", 5);
 		handle_error_opt("exit", s, "numeric argument required");
@@ -73,6 +73,8 @@ static char	*del_spaces(char *s)
 		|| s[j] == '\v' || s[j] == '\f'))
 		j--;
 	j++;
+	while (s[i] && s[i + 1] && s[i] == '0' && s[i + 1] == '0')
+		i++;
 	res = ft_substr(s, i, j - i);
 	free(s);
 	return (res);
@@ -104,8 +106,6 @@ int	ft_exit(int print, char **args)
 {
 	int	n;
 
-	/*if (args)
-		printf("dbl_len(args): %i\n", dbl_len(args));*/
 	n = 0;
 	if (args && args[1] && !has_nonum(args[1]))
 		args[1] = del_spaces(args[1]);
@@ -125,9 +125,7 @@ int	ft_exit(int print, char **args)
 	{
 		n = custom_atoi(args[1]);
 		g_exst = (unsigned char)n;
-//		printf("MIDDLE g_exst: %i\n", g_exst);
-		write(2, "exit\n", 5);
-		//printf("exit\n");
+		printf("exit\n");
 	}
 	restore_terminal_settings();
 //	printf("END g_exst: %i\n", g_exst);
