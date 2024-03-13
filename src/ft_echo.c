@@ -78,7 +78,7 @@ int	ft_echo(t_cmd *cmd)
 	
 	i = 1;
 	opt = 0;
-	if (dbl_len(cmd->args) == 1 && cmd->infile == 0)
+	if (dbl_len(cmd->args) == 1)/* && cmd->infile == 0*/
 	{
 		if (cmd->args[0][0] != '$')
 			printf("\n");
