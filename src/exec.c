@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 12:25:48 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:58:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 		pid = make_fork();
 		if (pid == 0)
 			return (handle_cmd(prompt, aux, p));
-		else
-			ign_signals();
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		update_pipes(p);
 		last_child = pid;
 		aux = aux->next;
