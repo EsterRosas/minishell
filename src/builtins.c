@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 18:15:40 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:06:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,20 @@ int	path_unset(t_envv *env, char *s)
 		return (0);
 }
 
-void	select_builtin(t_prompt *prompt)
+void	select_builtin(t_prompt *prompt, t_cmd *cmd)
 {
-	if (is_pwd(prompt->cmd->args[0]))
+	if (is_pwd(cmd->args[0]))
 		g_exst = ft_pwd();
-	else if (is_echo(prompt->cmd->args[0]))
-		g_exst = ft_echo(prompt->cmd);
-	else if (is_env(prompt->cmd->args[0]))
+	else if (is_echo(cmd->args[0]))
+		g_exst = ft_echo(cmd);
+	else if (is_env(cmd->args[0]))
 		g_exst = ft_env(prompt->envp);
-	else if (is_cd(prompt->cmd->args[0]))
-		g_exst = ft_cd(prompt->cmd, prompt->envp);
-	else if (ft_strcmp(prompt->cmd->args[0], "unset") == 0)
-		g_exst = ft_unset(prompt->cmd, prompt->envp);
-	else if (ft_strcmp(prompt->cmd->args[0], "export") == 0)
-		g_exst = ft_export(prompt->cmd->args, prompt->envp);
+	else if (is_cd(cmd->args[0]))
+		g_exst = ft_cd(cmd, prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		g_exst = ft_unset(cmd, prompt->envp);
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		g_exst = ft_export(cmd->args, prompt->envp);
 }
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
@@ -85,12 +85,12 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
-		if (dbl_len(cmd->args) == 1)  ///revisar aquesta part suposo que com esta ara ft_exit cal passar args i ja esta i adaptar la ft_exit segons aixo
-			g_exst = ft_exit(1, cmd->args);
+		if (dbl_len(cmd->args) == 1)  //potser ja no calen els dos casos
+			g_exst = ft_exit(1, cmd);
 		else
-			g_exst = ft_exit(0, cmd->args);
+			g_exst = ft_exit(0, cmd);
 	}
 	else
-		select_builtin(prompt);
+		select_builtin(prompt, cmd);
 	return (g_exst);
 }

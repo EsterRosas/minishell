@@ -6,11 +6,25 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 17:32:06 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:06:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static int	has_nonum(char *s)
+{
+	size_t	i;
+	i = 0;
+
+	while (s[i] && (s[i] < '0' || s[i] > '9'))
+		i++;
+	if (ft_strlen(s) == 2 && s[0] == '-' && s[1] == '-')
+		return (0);
+	else if (i == ft_strlen(s))
+		return (1);
+	return (0);
+}
 
 static int	custom_atoi(char *s)
 {
@@ -21,11 +35,11 @@ static int	custom_atoi(char *s)
 	num = 0;
 	i = 0;
 	sign = 1;
-	if (ft_strlen(s) > 20
+	if (ft_strlen(s) > 20 || s[0] == '\0' || has_nonum(s)
 		|| (ft_strlen(s) == 19 && ft_strncmp("9223372036854775807", s, 20) < 0)
-		|| (ft_strlen(s) == 20 && ft_strncmp("-9223372036854775807", s, 21) < 0))
+		|| (ft_strlen(s) == 20 && ft_strncmp("-9223372036854775808", s, 21) < 0))
 	{
-		printf("exit\n");
+		write(2, "exit\n", 5);
 		handle_error_opt("exit", s, "numeric argument required");
 		exit (255);
 	}
@@ -35,10 +49,35 @@ static int	custom_atoi(char *s)
 			sign = -1;
 		i++;
 	}
-	i = -1;
-	while (s[++i] >= '0' && s[i] <= '9')
+	while (s[i] >= '0' && s[i] <= '9')
+	{
 		num = num * 10 + s[i] - '0';
+		i++;
+	}
 	return (num * sign);
+}
+
+static char	*del_spaces(char *s)
+{
+	char *res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = ft_strlen(s) - 1;
+	res = NULL;
+	while (s[i] && (s[i] == ' ' || s[i] == '\r' || s[i] == '\t' || s[i] == '\n'
+		|| s[i] == '\v' || s[i] == '\f'))
+		i++;
+	while (s[j] && (s[j] == ' ' || s[j] == '\r' || s[j] == '\t' || s[j] == '\n'
+		|| s[j] == '\v' || s[j] == '\f'))
+		j--;
+	j++;
+	while (s[i] && s[i + 1] && s[i] == '0' && s[i + 1] == '0')
+		i++;
+	res = ft_substr(s, i, j - i);
+	free(s);
+	return (res);
 }
 
 static int	check_num(char *s)
@@ -48,11 +87,13 @@ static int	check_num(char *s)
 	i = 0;
 	if (s[i] && (s[i] == '+' || s[i] == '-'))
 		i++;
+	if (ft_strlen(s) == 2 && s[0] == '-' && s[1] == '-')
+		return (1);
 	while (s[i])
 	{
 		if (s[i] < '0' || s[i] > '9')
 		{
-			printf("exit\n");
+			write(2, "exit\n", 5);
 			handle_error_opt("exit", s, "numeric argument required");
 			exit (255);
 		}
@@ -61,29 +102,32 @@ static int	check_num(char *s)
 	return (1);
 }
 
-int	ft_exit(int print, char **args)
+int	ft_exit(int print, t_cmd *cmd)
 {
 	int	n;
 
-	printf("dbl_len(args): %i\n", dbl_len(args));
 	n = 0;
-	if (!args || dbl_len(args) == 1)
+	if (cmd && cmd->args && cmd->args[1] && !has_nonum(cmd->args[1]))
+		cmd->args[1] = del_spaces(cmd->args[1]);
+	if (!cmd || !cmd->args || dbl_len(cmd->args) == 1)
 	{
 		if (print == 1)
 			printf("exit\n");
 		g_exst = 0;
 	}
-	else if (check_num(args[1]) && args[2])
+	else if (check_num(cmd->args[1]) && cmd->args[2])
 	{
+		write(2, "exit\n", 5);
 		handle_error("exit", "too many arguments");
 		return (1);
 	}
-	else
+	else if (!cmd->next)
 	{
-		n = custom_atoi(args[1]);
+		n = custom_atoi(cmd->args[1]);
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
 	restore_terminal_settings();
+//	printf("END g_exst: %i\n", g_exst);
 	exit (g_exst);
 }
