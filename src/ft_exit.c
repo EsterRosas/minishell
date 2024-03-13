@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 12:25:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:50:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,28 @@ static int	check_num(char *s)
 	return (1);
 }
 
-int	ft_exit(int print, char **args)
+int	ft_exit(int print, t_cmd *cmd)
 {
 	int	n;
 
 	n = 0;
-	if (args && args[1] && !has_nonum(args[1]))
-		args[1] = del_spaces(args[1]);
-	if (!args || dbl_len(args) == 1)
+	if (cmd && cmd->args && cmd->args[1] && !has_nonum(cmd->args[1]))
+		cmd->args[1] = del_spaces(cmd->args[1]);
+	if (!cmd || !cmd->args || dbl_len(cmd->args) == 1)
 	{
 		if (print == 1)
 			printf("exit\n");
 		g_exst = 0;
 	}
-	else if (check_num(args[1]) && args[2])
+	else if (check_num(cmd->args[1]) && cmd->args[2])
 	{
 		write(2, "exit\n", 5);
 		handle_error("exit", "too many arguments");
 		return (1);
 	}
-	else
+	else if (!cmd->next)
 	{
-		n = custom_atoi(args[1]);
+		n = custom_atoi(cmd->args[1]);
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
