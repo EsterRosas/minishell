@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/12 18:23:50 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:38:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void    check_cmd(t_cmd *cmd);
 
 /*		exec_utils2.c			*/
 int     executable_path(char *path);
+void	ign_signals(void);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);

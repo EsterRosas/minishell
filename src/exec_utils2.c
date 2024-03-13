@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/12 18:26:54 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:38:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,10 @@ int executable_path(char *path)
     if (access(path, X_OK) == -1)
         return (1);
     return (0);
+}
+
+void	ign_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

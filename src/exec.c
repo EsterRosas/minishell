@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 18:26:57 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:40:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
 	restore_terminal_settings();
+	ft_signal(0);
 	if (cmd->args[0])
 		handle_redirs(cmd, p);
 	if (p->i > 0)
@@ -63,6 +64,8 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 		pid = make_fork();
 		if (pid == 0)
 			return (handle_cmd(prompt, aux, p));
+		else
+			ign_signals();
 		update_pipes(p);
 		last_child = pid;
 		aux = aux->next;

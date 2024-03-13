@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/28 17:03:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:34:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ static void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-	//	printf("SIGINT in child received\n");
-	//	write(1, "\n", 1);
+		write(1, "\n", 1);
 		g_exst = 130;
 		exit (130);
 	}
 	else if (sig == SIGQUIT)
 	{
-		write(1, "Quit: 3\n", 10);
+		write(2, "Quit: 3\n", 8);
 		g_exst = 131;
 		exit (131);
 	}
@@ -52,7 +51,7 @@ static void	heredoc_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 		g_exst = 1;
 		exit (1);
 	}
