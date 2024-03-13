@@ -132,8 +132,9 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	char	**lex;
 
 	res = NULL;
-	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
-	printf("get_cmdlst parser.c lex[0]: %s, lex[1]: %s\n", lex[0], lex[1]);
+//	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
+//	printf("get_cmdlst parser.c lex[0]: %s, lex[1]: %s\n", lex[0], lex[1]);
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));

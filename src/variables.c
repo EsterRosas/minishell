@@ -65,7 +65,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		i++;
 	vname = var_name(s, i + 1);
 	vval = get_oenv(vname, o_envp);
-	printf("vval: %s\n", vval);
+//	printf("vval: %s\n", vval);
 	res = malloc(ft_strlen(s) - ft_strlen(vname) + ft_strlen(vval));
 	if (!res)
 		return (NULL);
@@ -100,7 +100,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 		else
 		{
 			val[j] = rpl_dlr(dlr[i], o_envp);
-			printf("val[%i]: %s\n", j, val[j]);
+	//		printf("val[%i]: %s\n", j, val[j]);
 			j++;
 		}
 		i++;
@@ -117,12 +117,12 @@ char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
 
-	printf("enters repl_var\n");
+//	printf("enters repl_var\n");
 	if (!need_var(s))
 		return (s);
 	else
 	{
-		printf("enters ELSE in rel_var\n");
+//		printf("enters ELSE in rel_var\n");
 		res = malloc (sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
