@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 14:46:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:24:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
 	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (stop_case_cat(s, lex[i]))
+	/*	if (stop_case_cat(s, lex[i]))
 			break ;
-		else if (upd_node(s, lex, env, iptrs) == -1)
+		else*/ if (upd_node(s, lex, env, iptrs) == -1)
 		{
 			free(iptrs);
 			return (-1);

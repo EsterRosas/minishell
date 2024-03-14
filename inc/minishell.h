@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/14 14:26:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:42:53 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
 char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
+char	**get_nms_arr(char *s, int ct);
+int		count_vars(char	*s);
 
 /*		lexer_utils			*/
 int		check_syntax(char **lex);

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 13:46:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:59:25 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ char	*get_oenv(char *s, t_envv *o_envp)
 int	some_doll_outq(char *p)
 {
 	int	i;
+//	printf("some doll outq p: %s\n", p);
 
 	i = 0;
 	while (p[i])
 	{
-//		printf("000 p[%i]: %c\n", i, p[i]);
 		if (p[i] == '$')
 			return (1);
 		else if (p[i] == SQUOTE)
@@ -74,7 +74,7 @@ int	some_doll_outq(char *p)
 int	has_var(char *s)
 {
 /*	if (some_doll_outq(s))
-		printf("has_var print (some_doll_outq YES), s: %s\n", s);*/
+		printf("has_var (some_doll_outq YES), s: %s\n", s);*/
 	if (!ft_strchr(s, '$') || ft_strcmp(s, "$echo") == 0)
 		return (0);
 	else if (!ft_strchr(s, SQUOTE) && aft_dol_varchr(s))
