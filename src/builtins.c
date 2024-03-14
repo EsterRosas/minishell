@@ -78,6 +78,8 @@ void	select_builtin(t_prompt *prompt, t_cmd *cmd)
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
+	if (!is_echo(cmd->args[0]))
+		del_quotes(cmd->args, 1);
 	if (path_unset(prompt->envp, cmd->args[0]))
 	{
 		handle_error(cmd->args[0], "No such file or directory");

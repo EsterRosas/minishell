@@ -109,7 +109,7 @@ void	free_envlist(t_envv *head);
 t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
-void	del_quotes(char **s);
+void	del_quotes(char **s, int i);
 int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
@@ -123,6 +123,8 @@ void	put_exex2path(t_cmd *cmd);
 int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
 char	*dots2path(char *ar);
 char	*dot2path(char *ar);
+char	*rm_quotes(char *s, int n);
+int		ct_quotes(char *p);
 
 /*		signals					*/
 void	handle_sigint(int sig);

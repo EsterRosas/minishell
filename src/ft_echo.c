@@ -61,6 +61,7 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 		{
 			if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$')
 				cmd->args[i] = del_leaddol(cmd->args[i]);
+			del_quotes(cmd->args, 1);
 			ft_putstr_fd(cmd->args[i], cmd->outfile);
 			if (i < dbl_len(cmd->args) - 1)
 				ft_putstr_fd(" ", cmd->outfile);

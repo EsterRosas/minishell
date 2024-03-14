@@ -28,7 +28,10 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 		exit(g_exst);
 	}
 	else
+	{
+		del_quotes(cmd->args, 1);
 		exec_cmd(prompt, cmd);
+	}
 	exit(EXIT_FAILURE);
 }
 
