@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 14:36:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:32:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,11 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
-		if (dbl_len(cmd->args) == 1)  //potser ja no calen els dos casos
+		g_exst = ft_exit(cmd);
+		/*if (dbl_len(cmd->args) == 1) //potser ja no calen els dos casos
 			g_exst = ft_exit(1, cmd);
 		else
-			g_exst = ft_exit(0, cmd);
+			g_exst = ft_exit(0, cmd);*/
 	}
 	else
 		select_builtin(prompt, cmd);

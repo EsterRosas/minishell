@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:52:06 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/10 18:46:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:23:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	del_quotes(char **s, int n)
 		if (ft_strchr(s[i], SQUOTE) || ft_strchr(s[i], DQUOTE))
 		{
 			if ((n == 0 && i > 0 && (s[i - 1][ft_strlen(s[i - 1]) - 1] == '<'
-			|| s[i - 1][ft_strlen(s[i - 1]) - 1] == '>')) || n == 1)
+					|| s[i - 1][ft_strlen(s[i - 1]) - 1] == '>')) || n == 1)
 			{
 				ct = ct_quotes(s[i]);
-			 	s[i] = rm_quotes(s[i], ct);
-		    }
+				s[i] = rm_quotes(s[i], ct);
+			}
 		}
 		i++;
 	}
