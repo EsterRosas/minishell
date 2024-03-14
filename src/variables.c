@@ -94,13 +94,15 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 			val[j] = malloc (sizeof(char) * (ft_strlen(dlr[i]) + 1));
 			if (!val[j])
 				return (NULL);
-			ft_strlcpy(val[j++], dlr[i], ft_strlen(dlr[i]) + 1);
+			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);
+			printf("IF val[%i]: %s\n", j - 1, val[j - 1]);
 		}
 		else
 		{
 			val[j] = rpl_dlr(dlr[i], o_envp);
-			j++;
+			printf("ELSE val[%i]: %s\n", j, val[j]);
 		}
+		j++;
 		i++;
 	}
 	val[j] = NULL;
@@ -123,6 +125,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);
+		printf("variables.c repl_var - res[1]: %s\n", res[1]);
 		if (need_var(res))
 			res = repl_var(res, o_envp);
 		free_all(s, dbl_len(s));

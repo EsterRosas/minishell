@@ -60,6 +60,7 @@ int	some_doll_outq(char *p)
 	i = 0;
 	while (p[i])
 	{
+//		printf("000 p[%i]: %c\n", i, p[i]);
 		if (p[i] == '$')
 			return (1);
 		else if (p[i] == SQUOTE)
@@ -72,6 +73,8 @@ int	some_doll_outq(char *p)
 
 int	has_var(char *s)
 {
+/*	if (some_doll_outq(s))
+		printf("has_var print (some_doll_outq YES), s: %s\n", s);*/
 	if (!ft_strchr(s, '$') || ft_strcmp(s, "$echo") == 0)
 		return (0);
 	else if (!ft_strchr(s, SQUOTE) && aft_dol_varchr(s))
