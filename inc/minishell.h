@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int		is_echo(char *s);
 int		is_pwd(char *s);
 int		is_inenvlst(char *s, t_envv *env);
 int		id_notvalid(char *s);
-//int		is_subshell(char *s);
 
 /*      errors.c            */
 void	handle_error(char *cmd, char *message);
@@ -141,11 +140,11 @@ void	exec_cmd(t_prompt *prompt, t_cmd *cmd);
 int		cmdlistsize(t_cmd *cmd);
 int		wait_children(pid_t last_child, int n);
 pid_t	make_fork(void);
-void    check_cmd(t_cmd *cmd);
 
 /*		exec_utils2.c			*/
-int     executable_path(char *path);
-void	ign_signals(void);
+int		ft_chdir(char *s);
+void	check_cmd(t_cmd *cmd);
+int		has_nonum(char *s);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);

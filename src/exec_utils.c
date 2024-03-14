@@ -6,41 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 13:44:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:14:09 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	check_cmd(t_cmd *cmd)
-{
-	if (cmd->full_path == NULL)
-	{
-		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)
-		{
-			handle_error(cmd->args[0], "is a directory");
-			exit (126);
-		}
-		else if (cmd->args[0][0] == '/')
-		{
-			handle_error(cmd->args[0], "No such file or directory");
-			exit (127);
-		}
-		else
-		{
-			if (ft_strcmp(cmd->args[0], "$\?") == 0)
-				handle_error(ft_itoa(g_exst), "command not found");
-			else
-				handle_error(cmd->args[0], "command not found");
-			exit (127);
-		}
-	}
-	else if (executable_path(cmd->full_path) == 1)
-	{
-		handle_error(cmd->args[0], "Permission denied");
-		exit(126);
-	}
-}
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {

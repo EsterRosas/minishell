@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_echo(char *s)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (ft_strlen(s) != 4 && ft_strlen(s) != 5)
 		return (0);

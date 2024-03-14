@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	upd_pwds(t_envv *env)
 		}
 	}
 	else
-		getcwd(oldpwd_current, MAXPATHLEN); //added this in case PWD is unset
+		getcwd(oldpwd_current, MAXPATHLEN);
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
 }
@@ -100,11 +100,13 @@ static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 			return (1);
 		}
 	}
-	else if (chdir(cmd->args[1]) == -1)
+	else if (ft_chdir(cmd->args[1]) == -1)
+		return (1);
+/*	else if (chdir(cmd->args[1]) == -1)
 	{
 		handle_error_opt("cd", cmd->args[1], strerror(errno));
 		return (1);
-	}
+	}*/
 	upd_pwds(env);
 	free(current);
 	return (0);
