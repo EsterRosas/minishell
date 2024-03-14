@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 18:13:25 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 int	is_echo(char *s)
 {
-	if (ft_strlen(s) != 4)
+	int i;
+	
+	i = 0;
+	if (ft_strlen(s) != 4 && ft_strlen(s) != 5)
 		return (0);
-	else if (s[0] != 'e' && s[0] != 'E')
+	else if (ft_strlen(s) == 5 && s[0] == '$')
+		i++;
+	if (s[i] != 'e' && s[i] != 'E')
 		return (0);
-	else if (s[1] != 'c' && s[1] != 'C')
+	else if (s[i + 1] != 'c' && s[i + 1] != 'C')
 		return (0);
-	else if (s[2] != 'h' && s[2] != 'H')
+	else if (s[i + 2] != 'h' && s[i + 2] != 'H')
 		return (0);
-	else if (s[3] != 'o' && s[3] != 'O')
+	else if (s[i + 3] != 'o' && s[i + 3] != 'O')
 		return (0);
 	return (1);
 }

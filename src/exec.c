@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 16:02:21 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	ft_execcmd(t_prompt *prompt, t_cmd *cmd)
 		exit(g_exst);
 	}
 	else
+	{
+		del_quotes(cmd->args, 1);
 		exec_cmd(prompt, cmd);
+	}
 	exit(EXIT_FAILURE);
 }
 

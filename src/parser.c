@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 17:54:15 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,17 +130,27 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
 	t_cmd	*res;
 	char	**lex;
+	t_cmd	*aux;
 
 	res = NULL;
-	lex = repl_var(cmdexpand(cmdsubsplit(cmdtrim(line))), env_lst);
+	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
 		return (NULL);
 	}
+	if (lex)
+		del_quotes(lex, 0);
 	res = get_list(lex, res, env_lst);
-	if (res)
-		del_quotes(res->args);
+	aux = res;
+	while (aux)
+	{
+		if (aux->args && aux->args[0])
+		{
+			aux->args[0] = rm_quotes(aux->args[0], ct_quotes(aux->args[0]));
+			aux = aux->next;
+		}
+	}
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

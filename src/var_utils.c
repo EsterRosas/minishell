@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/23 20:35:18 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:30:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	some_doll_outq(char *p)
 
 int	has_var(char *s)
 {
-	if (!ft_strchr(s, '$'))
+//	printf("enters has var\n");
+	if (!ft_strchr(s, '$') || ft_strcmp(s, "$echo") == 0)
 		return (0);
 	else if (!ft_strchr(s, SQUOTE) && aft_dol_varchr(s))
 		return (1);

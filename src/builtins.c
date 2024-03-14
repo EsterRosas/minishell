@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 14:06:31 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	path_unset(t_envv *env, char *s)
 	aux = env;
 	while (aux)
 	{
-		if (ft_strcmp(env->nm, "PATH") == 0)
+		if (ft_strcmp(aux->nm, "PATH") == 0)
 			return (0);
 		aux = aux->next;
 	}
@@ -78,18 +78,15 @@ void	select_builtin(t_prompt *prompt, t_cmd *cmd)
 
 int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 {
+	if (!is_echo(cmd->args[0]))
+		del_quotes(cmd->args, 1);
 	if (path_unset(prompt->envp, cmd->args[0]))
 	{
 		handle_error(cmd->args[0], "No such file or directory");
 		g_exst = 127;
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-	{
-		if (dbl_len(cmd->args) == 1)  //potser ja no calen els dos casos
-			g_exst = ft_exit(1, cmd);
-		else
-			g_exst = ft_exit(0, cmd);
-	}
+		g_exst = ft_exit(cmd);
 	else
 		select_builtin(prompt, cmd);
 	return (g_exst);

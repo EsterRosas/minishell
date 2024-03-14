@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/13 16:03:59 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
-int		ft_exit(int st, t_cmd *cmd);
+int		ft_exit(t_cmd *cmd);
 int		is_env(char *s);
 int		is_cd(char *s);
 int		is_echo(char *s);
@@ -109,7 +109,7 @@ void	free_envlist(t_envv *head);
 t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
-void	del_quotes(char **s);
+void	del_quotes(char **s, int i);
 int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
@@ -123,6 +123,8 @@ void	put_exex2path(t_cmd *cmd);
 int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
 char	*dots2path(char *ar);
 char	*dot2path(char *ar);
+char	*rm_quotes(char *s, int n);
+int		ct_quotes(char *p);
 
 /*		signals					*/
 void	handle_sigint(int sig);
@@ -143,6 +145,7 @@ void    check_cmd(t_cmd *cmd);
 
 /*		exec_utils2.c			*/
 int     executable_path(char *path);
+void	ign_signals(void);
 
 /*		pipe_utils.c			*/
 void	make_pipe(int pipefd[2]);

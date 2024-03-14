@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:28:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:19:18 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	*init_virg(char *s)
+/*static char	*init_virg(char *s)
 {
 	char	*one;
 	char	*two;
@@ -89,13 +89,13 @@ int	need_expand(char **s)
 			i++;
 	}
 	return (0);
-}
+}*/
 
 /* Converts the splitted ** into a new one replacing all ~ instances with $HOME
  * but only if they are not between quotes. NOTE: BASH only converts ~ to $HOME
  * when it's alone in the "string" or has "/" after it to include subfolders
  */
-char	**cmdexpand(char **s)
+/*char	**cmdexpand(char **s)
 {
 	char	**res;
 
@@ -112,4 +112,4 @@ char	**cmdexpand(char **s)
 		free_all(s, dbl_len(s));
 		return (res);
 	}
-}
+}*/

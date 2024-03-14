@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ecabanas <ecabanas@student.42barcel>       +#+  +:+       +#+         #
+#    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by ecabanas          #+#    #+#              #
-#    Updated: 2024/03/12 18:15:53 by damendez         ###   ########.fr        #
+#    Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
