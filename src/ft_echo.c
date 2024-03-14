@@ -50,6 +50,9 @@ static int	is_nopt(char *s)
 
 static void	echo_print(t_cmd *cmd, int opt, int i)
 {
+	int	aux;
+
+	aux = i;
 	while (cmd->args[i])
 	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
@@ -57,11 +60,16 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 			free(cmd->args[i]);
 			cmd->args[i] = ft_itoa(g_exst);
 		}
+		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$')
+			cmd->args[i] = del_leaddol(cmd->args[i]);
+		i++;
+	}
+	del_quotes(cmd->args, 1);
+	i = aux;
+	while (cmd->args[i])
+	{
 		if (!is_nopt(cmd->args[i]) || i > 1)
 		{
-			if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$')
-				cmd->args[i] = del_leaddol(cmd->args[i]);
-			del_quotes(cmd->args, 1);
 			ft_putstr_fd(cmd->args[i], cmd->outfile);
 			if (i < dbl_len(cmd->args) - 1)
 				ft_putstr_fd(" ", cmd->outfile);
