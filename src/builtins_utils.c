@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:00:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 15:18:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:47:26 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_echo(char *s)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (ft_strlen(s) != 4 && ft_strlen(s) != 5)
 		return (0);

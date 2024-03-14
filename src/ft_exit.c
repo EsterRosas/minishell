@@ -6,24 +6,23 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 13:36:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:28:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	has_nonum(char *s)
+static void	check_scope(char *s)
 {
-	size_t	i;
-	i = 0;
-
-	while (s[i] && (s[i] < '0' || s[i] > '9'))
-		i++;
-	if (ft_strlen(s) == 2 && s[0] == '-' && s[1] == '-')
-		return (0);
-	else if (i == ft_strlen(s))
-		return (1);
-	return (0);
+	if (ft_strlen(s) > 20 || s[0] == '\0' || has_nonum(s)
+		|| (ft_strlen(s) == 19 && ft_strncmp("9223372036854775807", s, 20) < 0)
+		|| (ft_strlen(s) == 20
+			&& ft_strncmp("-9223372036854775808", s, 21) < 0))
+	{
+		write(2, "exit\n", 5);
+		handle_error_opt("exit", s, "numeric argument required");
+		exit (255);
+	}
 }
 
 static int	custom_atoi(char *s)
@@ -35,14 +34,7 @@ static int	custom_atoi(char *s)
 	num = 0;
 	i = 0;
 	sign = 1;
-	if (ft_strlen(s) > 20 || s[0] == '\0' || has_nonum(s)
-		|| (ft_strlen(s) == 19 && ft_strncmp("9223372036854775807", s, 20) < 0)
-		|| (ft_strlen(s) == 20 && ft_strncmp("-9223372036854775808", s, 21) < 0))
-	{
-		write(2, "exit\n", 5);
-		handle_error_opt("exit", s, "numeric argument required");
-		exit (255);
-	}
+	check_scope(s);
 	if (s[i] == '+' || s[i] == '-')
 	{
 		if (s[i] == '-')
@@ -59,7 +51,7 @@ static int	custom_atoi(char *s)
 
 static char	*del_spaces(char *s)
 {
-	char *res;
+	char	*res;
 	int		i;
 	int		j;
 
@@ -67,10 +59,10 @@ static char	*del_spaces(char *s)
 	j = ft_strlen(s) - 1;
 	res = NULL;
 	while (s[i] && (s[i] == ' ' || s[i] == '\r' || s[i] == '\t' || s[i] == '\n'
-		|| s[i] == '\v' || s[i] == '\f'))
+			|| s[i] == '\v' || s[i] == '\f'))
 		i++;
 	while (s[j] && (s[j] == ' ' || s[j] == '\r' || s[j] == '\t' || s[j] == '\n'
-		|| s[j] == '\v' || s[j] == '\f'))
+			|| s[j] == '\v' || s[j] == '\f'))
 		j--;
 	j++;
 	while (s[i] && s[i + 1] && s[i] == '0' && s[i + 1] == '0')

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 15:15:45 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:34:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,22 @@ static int	is_nopt(char *s)
 	return (1);
 }
 
+static void	echo_args(t_cmd *cmd, int opt, int i)
+{
+	while (cmd->args[i])
+	{
+		if (!is_nopt(cmd->args[i]) || i > 1)
+		{
+			ft_putstr_fd(cmd->args[i], cmd->outfile);
+			if (i < dbl_len(cmd->args) - 1)
+				ft_putstr_fd(" ", cmd->outfile);
+			else if (!opt)
+				ft_putstr_fd("\n", cmd->outfile);
+		}
+		i++;
+	}
+}
+
 static void	echo_print(t_cmd *cmd, int opt, int i)
 {
 	int	aux;
@@ -65,7 +81,8 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 		i++;
 	}
 	del_quotes(cmd->args, 1);
-	i = aux;
+	echo_args(cmd, opt, aux);
+/*	i = aux;
 	while (cmd->args[i])
 	{
 		if (!is_nopt(cmd->args[i]) || i > 1)
@@ -77,17 +94,17 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 				ft_putstr_fd("\n", cmd->outfile);
 		}
 		i++;
-	}
+	}*/
 }
 
 int	ft_echo(t_cmd *cmd)
 {
 	int		i;
 	int		opt;
-	
+
 	i = 1;
 	opt = 0;
-	if (dbl_len(cmd->args) == 1)/* && cmd->infile == 0*/
+	if (dbl_len(cmd->args) == 1)
 	{
 		if (cmd->args[0][0] != '$')
 			printf("\n");
