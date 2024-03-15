@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,13 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 			free(cmd->args[i]);
 			cmd->args[i] = ft_itoa(g_exst);
 		}
-		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$')
+		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
+			&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
 			cmd->args[i] = del_leaddol(cmd->args[i]);
 		i++;
 	}
 	del_quotes(cmd->args, 1);
 	echo_args(cmd, opt, aux);
-/*	i = aux;
-	while (cmd->args[i])
-	{
-		if (!is_nopt(cmd->args[i]) || i > 1)
-		{
-			ft_putstr_fd(cmd->args[i], cmd->outfile);
-			if (i < dbl_len(cmd->args) - 1)
-				ft_putstr_fd(" ", cmd->outfile);
-			else if (!opt)
-				ft_putstr_fd("\n", cmd->outfile);
-		}
-		i++;
-	}*/
 }
 
 int	ft_echo(t_cmd *cmd)

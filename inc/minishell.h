@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ char	**cmdexpand(char **s);
 int		need_var(char **s);
 int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
-char	*var_name(char	*p, int aft_dl);
+//char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
+char	**get_nms_arr(char *s, int ct);
+int		count_vars(char	*s);
+char	**get_vals_arr(char **nms, int ct, t_envv *env);
 
 /*		lexer_utils			*/
 int		check_syntax(char **lex);
@@ -75,6 +78,7 @@ int		ft_edit_envlist(char **args, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
+void	assign_empty_val(char *val);
 int		ft_exit(t_cmd *cmd);
 int		is_env(char *s);
 int		is_cd(char *s);

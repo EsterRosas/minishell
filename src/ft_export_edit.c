@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 21:37:19 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	ft_edit_envlist(char **args, t_envv *env)
 		if (id_notvalid(args[i]) == 1)
 		{
 			g_exst = 1;
+			break ;
 		}
 		else if (!is_inenvlst(args[i], env))
 		{

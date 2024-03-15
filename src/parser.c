@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
 	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (stop_case_cat(s, lex[i]))
+	/*	if (stop_case_cat(s, lex[i]))
 			break ;
-		else if (upd_node(s, lex, env, iptrs) == -1)
+		else*/ if (upd_node(s, lex, env, iptrs) == -1)
 		{
 			free(iptrs);
 			return (-1);
@@ -134,6 +134,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
+	if (!lex)
+	{
+		g_exst = 0;
+		return (NULL);
+	}
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
