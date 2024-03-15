@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 13:39:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:25:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ char	**get_vals_arr(char **nms, int ct, t_envv *env)
 		return (NULL);
 	while (nms[i])
 	{
-		res[i] = get_oenv(nms[i], env);
+		if (is_inenvlst(nms[i], env))
+			res[i] = get_oenv(nms[i], env);
+		else
+			res[i] = ft_strdup("");;
 		i++;
 	}
 	res[i] = NULL;
