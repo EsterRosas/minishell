@@ -67,9 +67,11 @@ int	count_sp(char *s, char **nms, char **vals)
 
 void	paste_quoted(char *s, int *i, char *res, int *j)
 {
+//	printf("enters paste quoted, s[%i]: %c, j: %i\n", *i, s[*i], *j);
 	res[*j] = s[*i];
 	(*j)++;
 	(*i)++;
+//	printf("enters paste quoted, i: %i, j: %i\n", *i, *j);
 	while (s[*i] && s[*i] != SQUOTE)
 	{
 		res[*j] = s[*i];
@@ -98,21 +100,25 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	v = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] != SQUOTE && s[i] != '$')
-		{
-			res[j] = s[i];
-			j++;
-			s++;
-		}
-		if (!s[i])
-			break ;
-		else if (s[i] == SQUOTE)
-			paste_quoted(s, &i, res, &j);
-		else if (s[i + 1]) // variable name to be replaced found i = dollar position
+//		printf("s[%i]: %c\n", i, s[i]);
+		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
 		{
 			res = ft_strjoin(res, vals[v]);
+//			printf("before upd indexs i: %i, j: %i, v: %i\n", i, j, v);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
+//			printf("after upd indexs i: %i, j: %i, v: %i\n", i, j, v);
+		}
+		else if (s[i] == SQUOTE)
+			paste_quoted(s, &i, res, &j);
+		else
+		{
+			while (s[i] && s[i] != SQUOTE && s[i] != '$')
+			{
+				res[j] = s[i];
+				j++;
+				i++;
+			}
 		}
 	}
 	res[j] = '\0';
@@ -137,7 +143,8 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
 	free_all(nms, dbl_len(nms));
-	free_all(vals, dbl_len(vals));
+	free(s);
+//	free_all(vals, dbl_len(vals));
 	return (res);
 }
 
@@ -178,7 +185,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
-		res = malloc (sizeof(char *) * (dbl_len(s) + 1));
+		res = (char **)malloc(sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);
