@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 15:31:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:46:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
-/*	int i = 0;
-	while (lex[i])
+	if (!lex)
 	{
-		printf("lex[%i]: %s\n", i, lex[i]);
-		i++;
-	}*/
+		g_exst = 0;
+		return (NULL);
+	}
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
@@ -147,7 +146,6 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	}
 	if (lex)
 		del_quotes(lex, 0);
-//	printf("AFTER del_quotes in parser lex[1]: %s\n", lex[1]);
 	res = get_list(lex, res, env_lst);
 	aux = res;
 	while (aux)

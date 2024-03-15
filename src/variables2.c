@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 15:31:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:11:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,29 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	aux = NULL;
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) 
+		if (s[i] == '$' && s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_')) 
 		{
+	//		printf("000 do collage IF START, s[%i]: %c\n", i, s[i]);
+	//		printf("res: %s_EOL, vals[%i]: %s\n", res, v, vals[v]);
 			aux = ft_strdup(res);
+	//		printf("aux: %s\n", aux);
 			free(res);
 			res = ft_strjoin(aux, vals[v]);
+	//		printf("after join\n");
 			free(aux);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
+	//		printf("111 do collage IF END, s[%i]: %c\n", i, s[i]);
 		}
 		else if (s[i] == SQUOTE)
+		{
+	//		printf("222 do collage ELSE IF start, s[%i]: %c\n", i, s[i]);
 			paste_quoted(s, &i, res, &j);
+	//		printf("333 do collage ELSE IF end, s[%i]: %c\n", i, s[i]);
+		}
 		else
 		{
+	//		printf("444 do collage ELSE start, s[%i]: %c\n", i, s[i]);
 			res[j] = s[i];
 	//		printf("res[%i]: %c\n", j, res[j]);
 				j++;
@@ -125,6 +135,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 				j++;
 				i++;
 			}
+	//		printf("555 do collage ELSE end, s[%i]: %c\n", i, s[i]);
 		}
 	}
 //	printf("END do collage res: %s\n", res);
@@ -144,6 +155,11 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	n = count_vars(s);
 	nms = get_nms_arr(s, n);
 	vals = get_vals_arr(nms, n, o_envp);
+	if (!vals)
+	{
+		free_all(nms, dbl_len(nms));
+		return (NULL);
+	}
 	sp = count_sp(s, nms, vals); 
 	res = (char *)malloc(sizeof(char) * sp + 1);
 	if (!res)
@@ -152,6 +168,12 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	free_all(nms, dbl_len(nms));
 	free_all(vals, dbl_len(vals));
 	return (res);
+}
+
+static void sum_ij(int *i, int *j)
+{
+	(*i)++;
+	(*j)++;
 }
 
 char	**nametoval(char **dlr, char **val, t_envv *o_envp)
@@ -171,11 +193,13 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);
 		}
 		else
-		{
 			val[j] = rpl_dlr(dlr[i], o_envp);
-		}
-		j++;
-		i++;
+		sum_ij(&i, &j);
+	}
+	if (!val[0])
+	{
+		free_all(val, dbl_len(val));
+		return (NULL);
 	}
 	val[j] = NULL;
 	return (val);
@@ -197,8 +221,6 @@ char	**repl_var(char **s, t_envv *o_envp)
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);
-/*		if (need_var(res))
-			res = repl_var(res, o_envp);*/
 		free_all(s, dbl_len(s));
 		return (res);
 	}
