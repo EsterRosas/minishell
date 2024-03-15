@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 14:26:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:31:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 		else
 		{
 			res[j] = s[i];
+	//		printf("res[%i]: %c\n", j, res[j]);
 				j++;
 				i++;
 			while (s[i] && s[i] != SQUOTE && s[i] != '$')
@@ -138,7 +139,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	char	**vals;
 	int		sp;
 	char	*res;
-
+	
 	sp = 0;
 	n = count_vars(s);
 	nms = get_nms_arr(s, n);
@@ -170,7 +171,9 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);
 		}
 		else
+		{
 			val[j] = rpl_dlr(dlr[i], o_envp);
+		}
 		j++;
 		i++;
 	}
