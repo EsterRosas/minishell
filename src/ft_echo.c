@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 14:34:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:34:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 			free(cmd->args[i]);
 			cmd->args[i] = ft_itoa(g_exst);
 		}
-		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$')
+		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
+			&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
 			cmd->args[i] = del_leaddol(cmd->args[i]);
 		i++;
 	}

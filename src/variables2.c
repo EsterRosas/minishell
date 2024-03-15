@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 21:11:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:53:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,23 @@ void	upd_indexes(int *i, int *j, char *nm, char	*val)
 
 char	*do_collage(char *res, char *s, char **nms, char **vals)
 {
-	int	i;
-	int	j;
-	int v;
+	int		i;
+	int		j;
+	int 	v;
+	char	*aux;
 
 	i = 0;
 	j = 0;
 	v = 0;
+	aux = NULL;
 	while (s[i])
 	{
 //		printf("s[%i]: %c\n", i, s[i]);
 		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
 		{
-			res = ft_strjoin(res, vals[v]);
+			aux = ft_strdup(res);
+			res = ft_strjoin(aux, vals[v]);
+			free(aux);
 //			printf("before upd indexs i: %i, j: %i, v: %i\n", i, j, v);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
@@ -113,6 +117,10 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 			paste_quoted(s, &i, res, &j);
 		else
 		{
+			printf("enters ELSE\n");
+			res[j] = s[i];
+				j++;
+				i++;
 			while (s[i] && s[i] != SQUOTE && s[i] != '$')
 			{
 				res[j] = s[i];
@@ -121,6 +129,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 			}
 		}
 	}
+//	printf("END do collage res: %s\n", res);
 	res[j] = '\0';
 	return (res);
 }
@@ -143,8 +152,8 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
 	free_all(nms, dbl_len(nms));
-	free(s);
-//	free_all(vals, dbl_len(vals));
+//	free(vals);
+	free_all(vals, dbl_len(vals));
 	return (res);
 }
 
@@ -185,6 +194,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
+//		printf("ELSE repl_var variables2.c\n");
 		res = (char **)malloc(sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
