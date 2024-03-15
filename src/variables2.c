@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 12:53:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:38:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,14 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	aux = NULL;
 	while (s[i])
 	{
-//		printf("s[%i]: %c\n", i, s[i]);
-		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
+		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) 
 		{
 			aux = ft_strdup(res);
+			free(res);
 			res = ft_strjoin(aux, vals[v]);
 			free(aux);
-//			printf("before upd indexs i: %i, j: %i, v: %i\n", i, j, v);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
-//			printf("after upd indexs i: %i, j: %i, v: %i\n", i, j, v);
 		}
 		else if (s[i] == SQUOTE)
 			paste_quoted(s, &i, res, &j);
@@ -152,7 +150,6 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
 	free_all(nms, dbl_len(nms));
-//	free(vals);
 	free_all(vals, dbl_len(vals));
 	return (res);
 }

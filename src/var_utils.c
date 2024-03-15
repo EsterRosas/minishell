@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 17:59:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:11:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_oenv(char *s, t_envv *o_envp)
 	if (aux == NULL || aux->val == NULL)
 		res = &c;
 	else
-		res = aux->val;
+		res = ft_strdup(aux->val);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 12:34:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:36:11 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 		i++;
 	}
 	del_quotes(cmd->args, 1);
+//	printf("echo print, cmd->args[1]: %s\n", cmd->args[1]);
 	echo_args(cmd, opt, aux);
 /*	i = aux;
 	while (cmd->args[i])

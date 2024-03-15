@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 21:18:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:39:32 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ char	**get_nms_arr(char *s, int ct)
 			break ;
 		else if (s[i] == SQUOTE)
 			upd_i(s, &i);
-		else if (s[i + 1]) // variable name to be replaced found i = dollar position
+		else if (s[i + 1])
 		{
 			res[j] = var_name(s, i + 1);
 			i = i + ft_strlen(res[j]) + 1;
 			j++;
 		}
+		else
+			i++;
 	}
 	res[j] = NULL;
 	return (res);
