@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 21:24:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:42:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,9 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	t_cmd	*aux;
 
 	res = NULL;
+	printf("line: %s\n", line);
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
-//	printf("lex[1]: %s\n", lex[1]);
+	printf("lex[1]: %s\n", lex[1]);
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 13:11:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:47:04 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	aft_dol_varchr(char *s)
 		i++;
 	if (s[i] && s[i] == '$')
 		i++;
-	if (s[i] && (s[i] == '_' || ft_isalnum(s[i])))
+	if (s[i] && (s[i] == '_' || ft_isalpha(s[i])))
 		return (1);
 	return (0);
 }

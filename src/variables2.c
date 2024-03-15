@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 13:38:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:43:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
-//		printf("ELSE repl_var variables2.c\n");
+		printf("ELSE repl_var variables2.c\n");
 		res = (char **)malloc(sizeof(char *) * (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
