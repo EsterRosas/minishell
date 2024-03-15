@@ -134,6 +134,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 
 	res = NULL;
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
+//	printf("lex[1]: %s\n", lex[1]);
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
@@ -141,6 +142,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	}
 	if (lex)
 		del_quotes(lex, 0);
+//	printf("AFTER del_quotes in parser lex[1]: %s\n", lex[1]);
 	res = get_list(lex, res, env_lst);
 	aux = res;
 	while (aux)

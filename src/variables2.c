@@ -12,17 +12,6 @@
 
 #include "../inc/minishell.h"
 
-char	*var_name(char *p, int aft_dl)
-{
-	int		i;
-	char	*res;
-
-	i = aft_dl;
-	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
-		i++;
-	res = ft_substr(p, aft_dl, i - aft_dl);
-	return (res);
-}
 
 /*char	*feed_res(char *s, t_repl *res, int i, t_envv *env) // NEED TO CHANGE HEADER!!
 {
@@ -50,42 +39,106 @@ char	*var_name(char *p, int aft_dl)
 	return (res);
 }*/
 
+int	count_sp(char *s, char **nms, char **vals)
+{
+	int	sp;
+	int	nms_sp;
+	int	vals_sp;
+	int i;
+
+	i = 0;
+	sp = 0;
+	nms_sp = 0;
+	vals_sp = 0;
+	while (nms[i])
+	{
+		nms_sp = nms_sp + ft_strlen(nms[i]);
+		i++;
+	}
+	i = 0;
+	while (vals[i])
+	{
+		vals_sp = vals_sp + ft_strlen(vals[i]);
+		i++;
+	}
+	sp = ft_strlen(s) - nms_sp + vals_sp;
+	return (sp);
+}
+
+void	paste_quoted(char *s, int *i, char *res, int *j)
+{
+	res[*j] = s[*i];
+	(*j)++;
+	(*i)++;
+	while (s[*i] && s[*i] != SQUOTE)
+	{
+		res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
+	}
+	res[*j] = s[*i];
+	(*j)++;
+	(*i)++;
+}
+
+void	upd_indexes(int *i, int *j, char *nm, char	*val)
+{
+	*i = *i + ft_strlen(nm) + 1;
+	*j = *j + ft_strlen(val);
+}
+
+char	*do_collage(char *res, char *s, char **nms, char **vals)
+{
+	int	i;
+	int	j;
+	int v;
+
+	i = 0;
+	j = 0;
+	v = 0;
+	while (s[i])
+	{
+		while (s[i] && s[i] != SQUOTE && s[i] != '$')
+		{
+			res[j] = s[i];
+			j++;
+			s++;
+		}
+		if (!s[i])
+			break ;
+		else if (s[i] == SQUOTE)
+			paste_quoted(s, &i, res, &j);
+		else if (s[i + 1]) // variable name to be replaced found i = dollar position
+		{
+			res = ft_strjoin(res, vals[v]);
+			upd_indexes(&i, &j, nms[v], vals[v]);
+			v++;
+		}
+	}
+	res[j] = '\0';
+	return (res);
+}
+
 char	*rpl_dlr(char *s, t_envv *o_envp)
 {
 	int		n;
 	char	**nms;
-	int	i = 0;
+	char	**vals;
+	int		sp;
+	char	*res;
 
-	(void)o_envp;
+	sp = 0;
 	n = count_vars(s);
-	printf("n: %i\n", n);
 	nms = get_nms_arr(s, n);
-	while (nms[i])
-	{
-		printf("nms[%i]: %s\n", i, nms[i]);	
-		i++;
-	}
-/*	if (!res)
+	vals = get_vals_arr(nms, n, o_envp);
+	sp = count_sp(s, nms, vals); 
+	res = (char *)malloc(sizeof(char) * sp + 1);
+	if (!res)
 		return (NULL);
-	res->i = 0;
-	res->s = NULL;
-	while (s[i])
-	{
-		while (s[i] && s[i] != SQUOTE && s[i] != '$')
-			i++;
-		if (!s[i])
-			break ;
-		else if (s[i] && s[i] == SQUOTE)
-		{
-			i++;
-			while (s[i] && s[i] != SQUOTE)
-				i++;
-			i++; // check
-		}
-		else  // variable name to be replaced found i = dollar position
-			res->s = feed_res(s, res, i, o_envp);
-	}*/
-	return (nms[0]);
+	res = do_collage(res, s, nms, vals);
+	free_all(nms, dbl_len(nms));
+	free_all(vals, dbl_len(vals));
+	return (res);
 }
 
 char	**nametoval(char **dlr, char **val, t_envv *o_envp)
@@ -99,7 +152,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 	{
 		if (!has_var(dlr[i]))
 		{
-			val[j] = malloc (sizeof(char) * (ft_strlen(dlr[i]) + 1));
+			val[j] = malloc(sizeof(char) * (ft_strlen(dlr[i]) + 1));
 			if (!val[j])
 				return (NULL);
 			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);

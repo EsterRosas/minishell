@@ -52,10 +52,11 @@ char	**cmdexpand(char **s);
 int		need_var(char **s);
 int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
-char	*var_name(char	*p, int aft_dl);
+//char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
 char	**get_nms_arr(char *s, int ct);
 int		count_vars(char	*s);
+char	**get_vals_arr(char **nms, int ct, t_envv *env);
 
 /*		lexer_utils			*/
 int		check_syntax(char **lex);

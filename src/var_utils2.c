@@ -12,6 +12,52 @@
 
 #include "../inc/minishell.h"
 
+static char	*var_name(char *p, int aft_dl)
+{
+	int		i;
+	char	*res;
+
+	i = aft_dl;
+	while (p[i] && ((ft_isalnum(p[i]) || p[i] == '_')))
+		i++;
+	res = ft_substr(p, aft_dl, i - aft_dl);
+	return (res);
+}
+
+char	**get_vals_arr(char **nms, int ct, t_envv *env)
+{
+	char	**res;
+	int		i;
+
+	i = 0;
+	res = (char **)malloc(sizeof(char *) * ct + 1);
+	if (!res)
+		return (NULL);
+	while (nms[i])
+	{
+		res[i] = get_oenv(nms[i], env);
+		i++;
+	}
+	res[i] = NULL;
+	return (res);
+}
+
+static char	**assign_mem(char **res, int ct)
+{
+	res = (char **)malloc(sizeof(char *) * ct + 1);
+	if (!res)
+		return (NULL);
+	return (res);
+}
+
+static void	upd_i(char *s, int	*i)
+{
+	(*i)++;
+	while (s[*i] && s[*i] != SQUOTE)
+		(*i)++;
+	(*i)++;
+}
+
 char	**get_nms_arr(char *s, int ct)
 {
 	int		i;
@@ -20,9 +66,8 @@ char	**get_nms_arr(char *s, int ct)
 
 	j = 0;
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * ct + 1);
-	if (!res)
-		return (NULL);
+	res = NULL;
+	res = assign_mem(res, ct);
 	while (s[i])
 	{
 		while (s[i] && s[i] != SQUOTE && s[i] != '$')
@@ -30,23 +75,15 @@ char	**get_nms_arr(char *s, int ct)
 		if (!s[i])
 			break ;
 		else if (s[i] == SQUOTE)
-		{
-			i++;
-			while (s[i] && s[i] != SQUOTE)
-				i++;
-			i++;
-		}
+			upd_i(s, &i);
 		else if (s[i + 1]) // variable name to be replaced found i = dollar position
 		{
 			res[j] = var_name(s, i + 1);
-			i = i + ft_strlen(res[j]);
-			i++;
+			i = i + ft_strlen(res[j]) + 1;
 			j++;
-		}	
+		}
 	}
-	printf("BEFORE  res[0]: %s, res[1]: %s, j: %i\n", res[0], res[1], j);
 	res[j] = NULL;
-	printf("AFTER res[0]: %s, res[1]: %s\n", res[0], res[1]);
 	return (res);
 }
 
