@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:11:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:00:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,19 @@ void	upd_indexes(int *i, int *j, char *nm, char	*val)
 	*j = *j + ft_strlen(val);
 }
 
+void	just_copy(char *s, char *res, int *i, int *j)
+{
+	res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
+	while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
+	{
+		res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
+	}
+}
+
 char	*do_collage(char *res, char *s, char **nms, char **vals)
 {
 	int		i;
@@ -99,46 +112,22 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	i = 0;
 	j = 0;
 	v = 0;
-	aux = NULL;
 	while (s[i])
 	{
 		if (s[i] == '$' && s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_')) 
 		{
-	//		printf("000 do collage IF START, s[%i]: %c\n", i, s[i]);
-	//		printf("res: %s_EOL, vals[%i]: %s\n", res, v, vals[v]);
 			aux = ft_strdup(res);
-	//		printf("aux: %s\n", aux);
 			free(res);
 			res = ft_strjoin(aux, vals[v]);
-	//		printf("after join\n");
 			free(aux);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
-	//		printf("111 do collage IF END, s[%i]: %c\n", i, s[i]);
 		}
 		else if (s[i] == SQUOTE)
-		{
-	//		printf("222 do collage ELSE IF start, s[%i]: %c\n", i, s[i]);
 			paste_quoted(s, &i, res, &j);
-	//		printf("333 do collage ELSE IF end, s[%i]: %c\n", i, s[i]);
-		}
 		else
-		{
-	//		printf("444 do collage ELSE start, s[%i]: %c\n", i, s[i]);
-			res[j] = s[i];
-	//		printf("res[%i]: %c\n", j, res[j]);
-				j++;
-				i++;
-			while (s[i] && s[i] != SQUOTE && s[i] != '$')
-			{
-				res[j] = s[i];
-				j++;
-				i++;
-			}
-	//		printf("555 do collage ELSE end, s[%i]: %c\n", i, s[i]);
-		}
+			just_copy(s, res, &i, &j);
 	}
-//	printf("END do collage res: %s\n", res);
 	res[j] = '\0';
 	return (res);
 }
