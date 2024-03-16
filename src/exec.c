@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 14:36:32 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:15:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 		aux = aux->next;
 	}
 	g_exst = wait_children(last_child, cmdlistsize(prompt->cmd));
+	ft_signal(1);
 	disable_ctrl_chars();
 	return (g_exst);
 }

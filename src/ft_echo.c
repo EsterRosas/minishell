@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 18:05:05 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:05:08 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_nopt(char *s)
 	return (1);
 }
 
-static void	echo_args(t_cmd *cmd, int opt, int i)
+static void	echo_print(t_cmd *cmd, int opt, int i)
 {
 	while (cmd->args[i])
 	{
@@ -46,9 +46,9 @@ static void	echo_args(t_cmd *cmd, int opt, int i)
 	}
 }
 
-static void	echo_print(t_cmd *cmd, int opt, int i)
+/*static void	echo_print(t_cmd *cmd, int opt, int i)
 {
-/*	int	aux;
+	int	aux;
 
 	aux = i;
 	while (cmd->args[i])
@@ -68,9 +68,9 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 			cmd->args[i] = ft_itoa(g_exst);
 		}
 		i++;
-	}*/
+	}
 	echo_args(cmd, opt, i);
-}
+}*/
 
 int	ft_echo(t_cmd *cmd)
 {
@@ -81,7 +81,7 @@ int	ft_echo(t_cmd *cmd)
 	opt = 0;
 	if (dbl_len(cmd->args) == 1)
 	{
-		if (cmd->args[0][0] != '$')
+		if (cmd->args[0][0] != '$' && cmd->infile != 0)
 			printf("\n");
 		return (0);
 	}

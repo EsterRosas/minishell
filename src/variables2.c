@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:56:49 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:26:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	count_sp(char *s, char **nms, char **vals)
 		nms_sp = nms_sp + ft_strlen(nms[i]);
 		i++;
 	}
+	i = 0;
 	while (vals[i])
 	{
 		vals_sp = vals_sp + ft_strlen(vals[i]);
@@ -135,6 +136,23 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	return (res);
 }
 
+int		all_vals_empty(char **vals)
+{
+	int	vals_sp;
+	int i;
+
+	i = 0;
+	vals_sp = 0;
+	while (vals[i])
+	{
+		vals_sp = vals_sp + ft_strlen(vals[i]);
+		i++;
+	}
+	if (vals_sp == 0)
+		return (1);
+	return (0);
+}
+
 char	*rpl_dlr(char *s, t_envv *o_envp)
 {
 	int		n;
@@ -148,11 +166,11 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	n = count_vars(s);
 	nms = get_nms_arr(s, n);
 	vals = get_vals_arr(nms, n, o_envp);
-/*	if (!vals)
+	if (all_vals_empty(vals))
 	{
 		free_all(nms, dbl_len(nms));
 		return (NULL);
-	}*/
+	}
 	sp = count_sp(s, nms, vals); 
 //	printf("sp: %i\n", sp);
 	res = (char *)malloc(sizeof(char) * sp + 1);
