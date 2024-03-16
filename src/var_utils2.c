@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:24:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:03:13 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	**get_vals_arr(char **nms, int ct, t_envv *env)
 	{
 		if (is_inenvlst(nms[i], env))
 			res[i] = get_oenv(nms[i], env);
+		else if (ft_strcmp(nms[i], "?") == 0)
+			res[i] = ft_itoa(g_exst);
 		else
 			res[i] = ft_strdup("");
 		i++;
@@ -83,7 +85,10 @@ char	**get_nms_arr(char *s, int ct)
 			upd_i(s, &i);
 		else if (s[i + 1])
 		{
-			res[j] = var_name(s, i + 1);
+			if (s[i + 1] == '?')
+				res[j] = ft_strdup("?");
+			else
+				res[j] = var_name(s, i + 1);
 			i = i + ft_strlen(res[j]) + 1;
 			j++;
 		}
@@ -114,7 +119,8 @@ int	count_vars(char	*s)
 				i++;
 			i++;
 		}
-		else if (s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
+		else if (s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
+			|| s[i + 1] == '?')) // variable name to be replaced found i = dollar position
 		{
 			res++;
 			i++;

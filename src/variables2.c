@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:31:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:56:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) 
+		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1])
+			|| s[i + 1] == '_' || s[i + 1] == '?'))
 		{
 			aux = ft_strdup(res);
 			free(res);

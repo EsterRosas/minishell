@@ -18,7 +18,7 @@ char	*del_leaddol(char *s)
 	return (res);
 }
 
-t_cmd	*args_exst(t_cmd *cmd)
+/*t_cmd	*args_exst(t_cmd *cmd)
 {
 	t_cmd	*aux;
 	int		i;
@@ -42,7 +42,7 @@ t_cmd	*args_exst(t_cmd *cmd)
 		aux = aux->next;
 	}
 	return (cmd);
-}
+}*/
 
 t_cmd	*args_leaddol_quotes(t_cmd *cmd)
 {
