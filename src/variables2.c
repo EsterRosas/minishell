@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 15:26:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:31:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,28 @@
 	return (res);
 }*/
 
+int	dollars2del(char *p)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (p[i])
+	{
+		if (p[i] == '$')
+		{
+			n++;
+			i++;
+		}
+		else if (p[i] == SQUOTE)
+			i = next_quote(p, i, SQUOTE);
+		else
+			i++;
+	}
+	return (n);
+}
+
 int	count_sp(char *s, char **nms, char **vals)
 {
 	int	sp;
@@ -52,17 +74,22 @@ int	count_sp(char *s, char **nms, char **vals)
 	vals_sp = 0;
 	while (nms[i])
 	{
+		printf("ft_strlen(nms[i]): %zu, nms[%i]: %s\n", ft_strlen(nms[i]), i, nms[i]);
 		nms_sp = nms_sp + ft_strlen(nms[i]);
 		i++;
 	}
+	printf("nms_sp: %i\n", nms_sp);
 	i = 0;
 	while (vals[i])
 	{
+		printf("ft_strlen(vals[i]): %zu, vals[%i]: %s\n", ft_strlen(vals[i]), i, vals[i]);
 		vals_sp = vals_sp + ft_strlen(vals[i]);
 		i++;
 	}
-//	printf("count sp\n");
-	sp = ft_strlen(s) - nms_sp + vals_sp;
+	printf("vals_sp: %i\n", vals_sp);
+	printf("len de s: %zu\n", ft_strlen(s));
+	printf("dollars2del(s): %i\n", dollars2del(s));
+	sp = ft_strlen(s) + vals_sp - nms_sp - dollars2del(s);
 	return (sp);
 }
 
@@ -92,6 +119,7 @@ void	upd_indexes(int *i, int *j, char *nm, char	*val)
 
 void	just_copy(char *s, char *res, int *i, int *j)
 {
+//	printf("enters just copy, s[%i]: %c, j: %i\n", *i, s[*i], *j);
 	res[*j] = s[*i];
 		(*j)++;
 		(*i)++;
@@ -117,6 +145,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 
 	while (s[i])
 	{
+		printf("WHILE first IF do collage res: %s\n", res);
 		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1])
 			|| s[i + 1] == '_' || s[i + 1] == '?'))
 		{
@@ -172,7 +201,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (NULL);
 	}
 	sp = count_sp(s, nms, vals); 
-//	printf("sp: %i\n", sp);
+	printf("sp: %i\n", sp);
 	res = (char *)malloc(sizeof(char) * sp + 1);
 	if (!res)
 		return (NULL);

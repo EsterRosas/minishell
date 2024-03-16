@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/15 14:20:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:48:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	handle_error(char *cmd, char *message);
 void	handle_error_opt(char *cmd, char *option, char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
 void	only_msg_err(char *message);
+void	handle_error_syn(char *message, char *str);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
