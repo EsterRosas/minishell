@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 17:22:04 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:17:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	**get_vals_arr(char **nms, int ct, t_envv *env)
 	int		i;
 
 	i = 0;
-	if (!nms[1] && !is_inenvlst(nms[0], env))
-		return (NULL);
+/*	if (!nms[1] && !is_inenvlst(nms[0], env))
+		return (NULL);*/
 	res = (char **)malloc(sizeof(char *) * ct + 1);
 	if (!res)
 		return (NULL);

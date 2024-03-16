@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 21:00:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:17:14 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	count_sp(char *s, char **nms, char **vals)
 		nms_sp = nms_sp + ft_strlen(nms[i]);
 		i++;
 	}
-	i = 0;
 	while (vals[i])
 	{
 		vals_sp = vals_sp + ft_strlen(vals[i]);
 		i++;
 	}
+//	printf("count sp\n");
 	sp = ft_strlen(s) - nms_sp + vals_sp;
 	return (sp);
 }
@@ -112,6 +112,8 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	i = 0;
 	j = 0;
 	v = 0;
+//	printf("do collage s[%i]: %c\n", i, s[i]);
+
 	while (s[i])
 	{
 		if (s[i] == '$' && s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_')) 
@@ -139,17 +141,19 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	char	**vals;
 	int		sp;
 	char	*res;
-	
+//	printf("variables2.c rpl_dlr s: %s\n", s);
+
 	sp = 0;
 	n = count_vars(s);
 	nms = get_nms_arr(s, n);
 	vals = get_vals_arr(nms, n, o_envp);
-	if (!vals)
+/*	if (!vals)
 	{
 		free_all(nms, dbl_len(nms));
 		return (NULL);
-	}
+	}*/
 	sp = count_sp(s, nms, vals); 
+//	printf("sp: %i\n", sp);
 	res = (char *)malloc(sizeof(char) * sp + 1);
 	if (!res)
 		return (NULL);
@@ -201,6 +205,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
+//	printf("variables2 repl var need_var(s): %i, s[1]: %s\n", need_var(s), s[1]);
 
 	if (!need_var(s))
 		return (s);
