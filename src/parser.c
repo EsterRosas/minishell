@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 19:00:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:56:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
-	if (test == -1)
+	if ((test == -1) || (path_unset_nobuilt(res, env_lst) == 1))
 	{
 		free_all(res->args, dbl_len(res->args));
 		free(res);

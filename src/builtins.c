@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 13:49:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:10:05 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,13 @@ int	path_unset(t_envv *env, char *s)
 	}
 	if (is_echo(s) && ft_strcmp(s, "echo") != 0)
 		return (1);
-	else //cal afegir casos
-		return (0);
+	if (is_echo(s) && ft_strcmp(s, "pwd") != 0)
+		return (1);
+	if (is_echo(s) && ft_strcmp(s, "cd") != 0)
+		return (1);
+	if (is_echo(s) && ft_strcmp(s, "env") != 0)
+		return (1);
+	return (1);
 }
 
 void	select_builtin(t_prompt *prompt, t_cmd *cmd)

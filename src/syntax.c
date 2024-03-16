@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:47:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 18:56:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:10:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,29 @@ int	check_syntax(char **lex)
 		only_msg_err("syntax error near unexpected token `|'");
 		g_exst = 258;
 		return (1);
+	}
+	return (0);
+}
+
+int	path_unset_nobuilt(t_cmd *cmd, t_envv *env)
+{
+	t_cmd	*aux;
+
+	if (!path_unset(env, ""))
+		return (0);
+	else if (cmd)
+	{
+		aux = cmd;
+		while (aux)
+		{
+			if (aux->args && aux->args[0] && !is_builtin(aux->args[0]))
+			{
+				handle_error(aux->args[0], "No such file or directory");
+				g_exst = 127;
+				return (1);
+			}
+			aux = aux->next;
+		}
 	}
 	return (0);
 }
