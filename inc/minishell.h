@@ -128,6 +128,8 @@ char	*dots2path(char *ar);
 char	*dot2path(char *ar);
 char	*rm_quotes(char *s, int n);
 int		ct_quotes(char *p);
+t_cmd	*args_leaddol_quotes(t_cmd *cmd);
+t_cmd	*args_exst(t_cmd *cmd);
 
 /*		signals					*/
 void	handle_sigint(int sig);

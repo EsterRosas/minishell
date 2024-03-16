@@ -130,7 +130,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
 	t_cmd	*res;
 	char	**lex;
-	t_cmd	*aux;
+//	t_cmd	*aux;
 
 	res = NULL;
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
@@ -147,7 +147,18 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	if (lex)
 		del_quotes(lex, 0);
 	res = get_list(lex, res, env_lst);
-	aux = res;
+	res = args_leaddol_quotes(res);
+	res = args_exst(res);
+
+	/*	if (ft_strcmp(cmd->args[i], "$?") == 0)
+				{	
+					free(cmd->args[i]);
+					cmd->args[i] = ft_itoa(g_exst);
+				}
+				i++;
+	
+	
+		aux = res;
 	while (aux)
 	{
 		if (aux->args && aux->args[0])
@@ -155,7 +166,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 			aux->args[0] = rm_quotes(aux->args[0], ct_quotes(aux->args[0]));
 			aux = aux->next;
 		}
-	}
+	}*/
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

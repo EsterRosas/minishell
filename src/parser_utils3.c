@@ -72,3 +72,5 @@ void	free_envlist(t_envv *head)
 		current = nextnode;
 	}
 }
+
+
