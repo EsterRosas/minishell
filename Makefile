@@ -6,7 +6,7 @@
 #    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/16 20:47:46 by damendez         ###   ########.fr        #
+#    Updated: 2024/03/16 21:28:14 by damendez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_FILES	=		builtins.c		ft_export.c		parser2.c		syntax.c	\
 					exec_utils.c		lexer_delquotes.c	pipe_utils.c		variables.c	\
 					exec_utils2.c		lexer_utils.c		prompt.c		variables2.c	\
 					ft_cd.c			list2array.c		signal.c	parser_utils4.c\
-					ft_echo.c		main.c			subsplit.c	\
+					ft_echo.c		main.c			subsplit.c		var_utils3.c\
 					ft_exit.c		parser.c		subsplit_utils.c
 					
 OBJ_DIR		=		obj/
@@ -37,7 +37,6 @@ DEP_FILES	=		$(SRC_FILES:.c=.d)
 DEPS		=		$(addprefix $(OBJ_DIR), $(DEP_FILES))
 
 
-#LIBFT		=		-L ./lib/libft -lft
 LIBFT		=		lib/libft/libft.a
 #LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
 #IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
