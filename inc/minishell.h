@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/16 20:53:22 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 21:12:55 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +139,11 @@ char	*rm_quotes(char *s, int n);
 int		ct_quotes(char *p);
 t_cmd	*args_leaddol_quotes(t_cmd *cmd);
 t_cmd	*args_exst(t_cmd *cmd);
+void	sum_ij(int *i, int *j);
+int		dollars2del(char *p);
+int		count_sp(char *s, char **nms, char **vals);
+char	*do_collage(char *res, char *s, char **nms, char **vals);
+int		count_sp(char *s, char **nms, char **vals);
 
 /*		signals					*/
 void	handle_sigint(int sig);

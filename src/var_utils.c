@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:58:41 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:34:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	aft_dol_varchr(char *s)
 		i++;
 	if (s[i] && s[i] == '$')
 		i++;
-	if (s[i] && (s[i] == '_' || ft_isalnum(s[i]) || s[i] == '?'))//ft_isalpha(s[i])))
+	if (s[i] && (s[i] == '_' || ft_isalnum(s[i]) || s[i] == '?'))
 		return (1);
 	return (0);
 }
@@ -56,7 +56,6 @@ char	*get_oenv(char *s, t_envv *o_envp)
 int	some_doll_outq(char *p)
 {
 	int	i;
-//	printf("some doll outq p: %s\n", p);
 
 	i = 0;
 	while (p[i])
@@ -73,8 +72,6 @@ int	some_doll_outq(char *p)
 
 int	has_var(char *s)
 {
-/*	if (some_doll_outq(s))
-		printf("has_var (some_doll_outq YES), s: %s\n", s);*/
 	if (!ft_strchr(s, '$') || ft_strcmp(s, "$echo") == 0)
 		return (0);
 	else if (!ft_strchr(s, SQUOTE) && aft_dol_varchr(s))

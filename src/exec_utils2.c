@@ -6,18 +6,11 @@
 /*   By: damendez <damendez@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/14 14:26:11 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:25:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*int	executable_path(char *path)
-{
-	if (access(path, X_OK) == -1)
-		return (1);
-	return (0);
-}*/
 
 void	check_executable(t_cmd *cmd)
 {
@@ -53,11 +46,6 @@ void	check_cmd(t_cmd *cmd)
 	}
 	else
 		check_executable(cmd);
-	/*else if (executable_path(cmd->full_path) == 1)
-	{
-		handle_error(cmd->args[0], "Permission denied");
-		exit(126);
-	}*/
 }
 
 int	ft_chdir(char *s)

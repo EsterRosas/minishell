@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:47:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:10:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:33:49 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	even_quotes(char *p, char c)
 	{
 		if (p[i] && p[i] == c)
 			num++;
-		i++;	
+		i++;
 	}
 	if (num == 1 || num % 2 != 0)
 		return (1);

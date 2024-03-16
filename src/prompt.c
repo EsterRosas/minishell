@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/16 20:53:22 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 21:21:02 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +64,6 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		return (NULL);
 	}
 	prompt->envp = o_envp;
-	/*t_cmd		*aux;
-	int	i = 0;
-	int j = 0;
-	aux = prompt->cmd;
-	while (aux)
-	{
-		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
-prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
-		while (aux->args[i])
-		{
-			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
-			i++;
-		}
-		i = 0;
-		aux = aux->next;
-		j++;
-	}*/
 	return (prompt);
 }
 
@@ -98,7 +85,7 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-			if (prompt) //&& check_prompt(prompt) == 0
+			if (prompt)
 			{
 				ft_exec(prompt);
 				free_cmdlist(prompt->cmd);

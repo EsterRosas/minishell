@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/14 14:50:50 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 20:28:06 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +106,6 @@ static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 	}
 	else if (ft_chdir(cmd->args[1]) == -1)
 		return (1);
-/*	else if (chdir(cmd->args[1]) == -1)
-	{
-		handle_error_opt("cd", cmd->args[1], strerror(errno));
-		return (1);
-	}*/
 	upd_pwds(env);
 	free(current);
 	return (0);
