@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 19:56:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:20:34 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
 	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
-	/*	if (stop_case_cat(s, lex[i]))
-			break ;
-		else*/ if (upd_node(s, lex, env, iptrs) == -1)
+		if (upd_node(s, lex, env, iptrs) == -1)
 		{
 			free(iptrs);
 			return (-1);
@@ -130,7 +128,6 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
 	t_cmd	*res;
 	char	**lex;
-//	t_cmd	*aux;
 
 	res = NULL;
 	lex = cmdsubsplit(cmdtrim(line));
@@ -147,11 +144,8 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	lex = repl_var(lex, env_lst);
 	if (lex)
 		del_quotes(lex, 0);
-//	printf("lex[1]: %s\n", lex[1]);
 	res = get_list(lex, res, env_lst);
 	res = args_leaddol_quotes(res);
-//	res = args_exst(res);
-//	printf("parser.c res->args[1]: %s\n", res->args[1]);
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

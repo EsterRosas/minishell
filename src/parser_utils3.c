@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:07:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/11 22:13:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:29:56 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,3 @@ void	free_envlist(t_envv *head)
 		current = nextnode;
 	}
 }
-
-
