@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:17:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:24:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	count_vars(char	*s)
 				i++;
 			i++;
 		}
-		else if (s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
+		else if (s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')) // variable name to be replaced found i = dollar position
 		{
 			res++;
 			i++;

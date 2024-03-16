@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 12:17:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:46:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 //	printf("lex[1]: %s\n", lex[1]);
 	res = get_list(lex, res, env_lst);
 	res = args_leaddol_quotes(res);
-	res = args_exst(res);
-
+//	res = args_exst(res);
+//	printf("parser.c res->args[1]: %s\n", res->args[1]);
 	/*	if (ft_strcmp(cmd->args[i], "$?") == 0)
 				{	
 					free(cmd->args[i]);

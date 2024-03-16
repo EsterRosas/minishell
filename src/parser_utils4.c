@@ -57,13 +57,14 @@ t_cmd	*args_leaddol_quotes(t_cmd *cmd)
 		{
 			while (cmd->args[i])
 			{
-			//	printf("cmd->args[%i]: %s\n", i, cmd->args[i]);
+		//		printf("before cmd->args[%i]: %s\n", i, cmd->args[i]);
 				if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
 					&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
 					cmd->args[i] = del_leaddol(cmd->args[i]);
 				i++;
 			}
 			del_quotes(aux->args, 1);
+		//	printf("after del_quotes cmd->args[1]: %s\n", cmd->args[1]);
 		}
 		aux = aux->next;
 	}
