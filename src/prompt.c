@@ -6,29 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 21:21:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 22:13:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	upd_shlvl(t_envv *env)
-{
-	t_envv	*aux;
-	char	*tmp;
-
-	aux = env;
-	while (aux && ft_strcmp("SHLVL", aux->nm) != 0)
-		aux = aux->next;
-	if (ft_strcmp("SHLVL", aux->nm) == 0)
-	{
-		tmp = ft_itoa(ft_atoi(aux->val) + 1);
-		free(aux->val);
-		aux->val = ft_strdup(tmp);
-		free(tmp);
-	}
-	return (0);
-}
 
 int	only_sp(char *s)
 {

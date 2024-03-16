@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/16 21:12:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:53:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		g_exst;
 
 /*      prompt.c        	*/
 void	loop_prompt(t_envv *o_envp);
-int		upd_shlvl(t_envv *env);
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);

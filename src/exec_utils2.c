@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/16 20:25:38 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 22:09:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_executable(t_cmd *cmd)
 }
 
 void	check_cmd(t_cmd *cmd)
-{
+{	
 	if (cmd->full_path == NULL)
 	{
 		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:08:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:53:37 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_envv	*cp_envp(char **envp)
 		add_node(envp[i], env_lst);
 		i++;
 	}
-	upd_shlvl(env_lst);
 	return (env_lst);
 }
 
