@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/14 14:18:38 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 19:46:33 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +102,7 @@ void	loop_prompt(t_envv *o_envp)
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
-			if (prompt)
+			if (prompt) //&& check_prompt(prompt) == 0
 			{
 				ft_exec(prompt);
 				free_cmdlist(prompt->cmd);

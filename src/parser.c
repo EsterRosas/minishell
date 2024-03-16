@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/16 17:52:44 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 19:56:59 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +82,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
-	if (test == -1)
+	if ((test == -1) || (path_unset_nobuilt(res, env_lst) == 1))
 	{
 		free_all(res->args, dbl_len(res->args));
 		free(res);
@@ -133,7 +137,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 //	t_cmd	*aux;
 
 	res = NULL;
-	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
+	lex = cmdsubsplit(cmdtrim(line));
 	if (!lex)
 	{
 		g_exst = 0;
@@ -144,6 +148,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 		free_all(lex, dbl_len(lex));
 		return (NULL);
 	}
+	lex = repl_var(lex, env_lst);
 	if (lex)
 		del_quotes(lex, 0);
 //	printf("lex[1]: %s\n", lex[1]);
@@ -151,23 +156,6 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	res = args_leaddol_quotes(res);
 //	res = args_exst(res);
 //	printf("parser.c res->args[1]: %s\n", res->args[1]);
-	/*	if (ft_strcmp(cmd->args[i], "$?") == 0)
-				{	
-					free(cmd->args[i]);
-					cmd->args[i] = ft_itoa(g_exst);
-				}
-				i++;
-	
-	
-		aux = res;
-	while (aux)
-	{
-		if (aux->args && aux->args[0])
-		{
-			aux->args[0] = rm_quotes(aux->args[0], ct_quotes(aux->args[0]));
-			aux = aux->next;
-		}
-	}*/
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

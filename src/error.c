@@ -6,11 +6,20 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:05:42 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/06 18:14:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:47:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	handle_error_syn(char *message, char *str)
+{
+	write(2, "minishell: ", 11);
+	write(2, message, ft_strlen(message));
+	write(2, " ", 2);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+}
 
 void	only_msg_err(char *message)
 {

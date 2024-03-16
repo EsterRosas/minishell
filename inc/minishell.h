@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/16 19:57:17 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +63,6 @@ int		count_vars(char	*s);
 char	**get_vals_arr(char **nms, int ct, t_envv *env);
 
 /*		lexer_utils			*/
-int		check_syntax(char **lex);
 int		is_sep(char c);
 char	*first_spl(char *tr);
 char	*last_spl(char *tr, int l);
@@ -86,12 +89,18 @@ int		is_echo(char *s);
 int		is_pwd(char *s);
 int		is_inenvlst(char *s, t_envv *env);
 int		id_notvalid(char *s);
+int		path_unset(t_envv *env, char *s);
+
+/*		syntax				*/
+int		path_unset_nobuilt(t_cmd *cmd, t_envv *env);
+int		check_syntax(char **lex);
 
 /*      errors.c            */
 void	handle_error(char *cmd, char *message);
 void	handle_error_opt(char *cmd, char *option, char *message);
 void	ft_exporterror(char *cmd, char *s, char *msg);
 void	only_msg_err(char *message);
+void	handle_error_syn(char *message, char *str);
 
 /*		utils.c				*/
 int		dbl_len(char **s);
