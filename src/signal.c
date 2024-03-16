@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/13 12:25:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:06:08 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	heredoc_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+	//	printf("SIGINT heredoc handler\n");
 		write(2, "\n", 1);
 		g_exst = 1;
 		exit (1);

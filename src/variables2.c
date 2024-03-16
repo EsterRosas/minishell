@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:11:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:26:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	count_sp(char *s, char **nms, char **vals)
 		vals_sp = vals_sp + ft_strlen(vals[i]);
 		i++;
 	}
+//	printf("count sp\n");
 	sp = ft_strlen(s) - nms_sp + vals_sp;
 	return (sp);
 }
@@ -89,6 +90,19 @@ void	upd_indexes(int *i, int *j, char *nm, char	*val)
 	*j = *j + ft_strlen(val);
 }
 
+void	just_copy(char *s, char *res, int *i, int *j)
+{
+	res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
+	while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
+	{
+		res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
+	}
+}
+
 char	*do_collage(char *res, char *s, char **nms, char **vals)
 {
 	int		i;
@@ -99,48 +113,44 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	i = 0;
 	j = 0;
 	v = 0;
-	aux = NULL;
+//	printf("do collage s[%i]: %c\n", i, s[i]);
+
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_')) 
+		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1])
+			|| s[i + 1] == '_' || s[i + 1] == '?'))
 		{
-	//		printf("000 do collage IF START, s[%i]: %c\n", i, s[i]);
-	//		printf("res: %s_EOL, vals[%i]: %s\n", res, v, vals[v]);
 			aux = ft_strdup(res);
-	//		printf("aux: %s\n", aux);
 			free(res);
 			res = ft_strjoin(aux, vals[v]);
-	//		printf("after join\n");
 			free(aux);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
-	//		printf("111 do collage IF END, s[%i]: %c\n", i, s[i]);
 		}
 		else if (s[i] == SQUOTE)
-		{
-	//		printf("222 do collage ELSE IF start, s[%i]: %c\n", i, s[i]);
 			paste_quoted(s, &i, res, &j);
-	//		printf("333 do collage ELSE IF end, s[%i]: %c\n", i, s[i]);
-		}
 		else
-		{
-	//		printf("444 do collage ELSE start, s[%i]: %c\n", i, s[i]);
-			res[j] = s[i];
-	//		printf("res[%i]: %c\n", j, res[j]);
-				j++;
-				i++;
-			while (s[i] && s[i] != SQUOTE && s[i] != '$')
-			{
-				res[j] = s[i];
-				j++;
-				i++;
-			}
-	//		printf("555 do collage ELSE end, s[%i]: %c\n", i, s[i]);
-		}
+			just_copy(s, res, &i, &j);
 	}
-//	printf("END do collage res: %s\n", res);
 	res[j] = '\0';
 	return (res);
+}
+
+int		all_vals_empty(char **vals)
+{
+	int	vals_sp;
+	int i;
+
+	i = 0;
+	vals_sp = 0;
+	while (vals[i])
+	{
+		vals_sp = vals_sp + ft_strlen(vals[i]);
+		i++;
+	}
+	if (vals_sp == 0)
+		return (1);
+	return (0);
 }
 
 char	*rpl_dlr(char *s, t_envv *o_envp)
@@ -150,17 +160,19 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	char	**vals;
 	int		sp;
 	char	*res;
-	
+//	printf("variables2.c rpl_dlr s: %s\n", s);
+
 	sp = 0;
 	n = count_vars(s);
 	nms = get_nms_arr(s, n);
 	vals = get_vals_arr(nms, n, o_envp);
-	if (!vals)
+	if (all_vals_empty(vals))
 	{
 		free_all(nms, dbl_len(nms));
 		return (NULL);
 	}
 	sp = count_sp(s, nms, vals); 
+//	printf("sp: %i\n", sp);
 	res = (char *)malloc(sizeof(char) * sp + 1);
 	if (!res)
 		return (NULL);
@@ -212,6 +224,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 char	**repl_var(char **s, t_envv *o_envp)
 {
 	char	**res;
+//	printf("variables2 repl var need_var(s): %i, s[1]: %s\n", need_var(s), s[1]);
 
 	if (!need_var(s))
 		return (s);

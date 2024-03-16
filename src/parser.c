@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:52:44 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 {
 	t_cmd	*res;
 	char	**lex;
-	t_cmd	*aux;
+//	t_cmd	*aux;
 
 	res = NULL;
 	lex = repl_var((cmdsubsplit(cmdtrim(line))), env_lst);
@@ -146,8 +146,20 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	}
 	if (lex)
 		del_quotes(lex, 0);
+//	printf("lex[1]: %s\n", lex[1]);
 	res = get_list(lex, res, env_lst);
-	aux = res;
+	res = args_leaddol_quotes(res);
+//	res = args_exst(res);
+//	printf("parser.c res->args[1]: %s\n", res->args[1]);
+	/*	if (ft_strcmp(cmd->args[i], "$?") == 0)
+				{	
+					free(cmd->args[i]);
+					cmd->args[i] = ft_itoa(g_exst);
+				}
+				i++;
+	
+	
+		aux = res;
 	while (aux)
 	{
 		if (aux->args && aux->args[0])
@@ -155,7 +167,7 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 			aux->args[0] = rm_quotes(aux->args[0], ct_quotes(aux->args[0]));
 			aux = aux->next;
 		}
-	}
+	}*/
 	free_all(lex, dbl_len(lex));
 	return (res);
 }

@@ -6,29 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:52:44 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static char	*del_leaddol(char *s)
-{
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = -1;
-	res = malloc(sizeof(char) * ft_strlen(s));
-	if (!res)
-		return (NULL);
-	while (s[++i])
-		res[++j] = s[i];
-	res[j] = '\0';
-	free(s);
-	return (res);
-}
 
 static int	is_nopt(char *s)
 {
@@ -48,7 +30,7 @@ static int	is_nopt(char *s)
 	return (1);
 }
 
-static void	echo_args(t_cmd *cmd, int opt, int i)
+static void	echo_print(t_cmd *cmd, int opt, int i)
 {
 	while (cmd->args[i])
 	{
@@ -64,26 +46,31 @@ static void	echo_args(t_cmd *cmd, int opt, int i)
 	}
 }
 
-static void	echo_print(t_cmd *cmd, int opt, int i)
+/*static void	echo_print(t_cmd *cmd, int opt, int i)
 {
 	int	aux;
 
 	aux = i;
 	while (cmd->args[i])
 	{
+		if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
+			&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
+			cmd->args[i] = del_leaddol(cmd->args[i]);
+		i++;
+	}
+	del_quotes(cmd->args, 1);*/
+//	i = aux;
+/*	while (cmd->args[i])
+	{
 		if (ft_strcmp(cmd->args[i], "$?") == 0)
 		{
 			free(cmd->args[i]);
 			cmd->args[i] = ft_itoa(g_exst);
 		}
-		else if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
-			&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
-			cmd->args[i] = del_leaddol(cmd->args[i]);
 		i++;
 	}
-	del_quotes(cmd->args, 1);
-	echo_args(cmd, opt, aux);
-}
+	echo_args(cmd, opt, i);
+}*/
 
 int	ft_echo(t_cmd *cmd)
 {
@@ -94,7 +81,7 @@ int	ft_echo(t_cmd *cmd)
 	opt = 0;
 	if (dbl_len(cmd->args) == 1)
 	{
-		if (cmd->args[0][0] != '$')
+		if (cmd->args[0][0] != '$' && cmd->infile != 0)
 			printf("\n");
 		return (0);
 	}

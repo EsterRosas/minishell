@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/10 19:43:39 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:45:15 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ static void	get_input(char *delim, int *fd)
 	ft_signal(2);
 	input = readline("> ");
 	if (!input)
+	{
+//		printf("no input heredoc\n");
 		exit (0);
+	}
 	res = read_input(input, delim, eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
