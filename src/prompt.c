@@ -6,11 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/17 01:21:58 by erosas-c         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/17 17:24:45 by erosas-c         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +39,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(lex, o_envp);
-<<<<<<< HEAD
-	if (!prompt->cmd)
-=======
 	if (!prompt->cmd || (!prompt->cmd->args[0] && prompt->cmd->hdoc == 1))
->>>>>>> master
 	{
 		free (prompt);
 		return (NULL);

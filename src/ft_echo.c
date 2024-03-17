@@ -6,11 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/17 02:08:17 by erosas-c         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/17 17:13:43 by erosas-c         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +60,9 @@ int	ft_echo(t_cmd *cmd)
 	opt = 0;
 	if (dbl_len(cmd->args) == 1)
 	{
-<<<<<<< HEAD
-		if (cmd->args[0][0] != '$' && (cmd->infile == 0 || !cmd->hdoc))
-=======
 		if (cmd->args[0][0] != '$' && (cmd->infile == 0 || !cmd->hdoc)
 			&& cmd->outfile == 1)
 		{
->>>>>>> master
 			printf("\n");
 			return (0);
 		}
