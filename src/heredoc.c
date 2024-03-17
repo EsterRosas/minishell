@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 17:03:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:30:29 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static char	*read_input(char *input, char *delim, char *eol)
 		if (!input)
 		{
 			free(aux);
+			if (rl_eof_found)
+				exit(42);
 			exit (0);
 		}
 		aux = feed_hdoc(aux, input, eol);
@@ -101,7 +103,11 @@ static void	get_input(char *delim, int *fd)
 	ft_signal(2);
 	input = readline("> ");
 	if (!input)
+	{
+		if(rl_eof_found)
+			printf("%s%s%s", "\033[A", "\033[2K", "> ");
 		exit (0);
+	}
 	res = read_input(input, delim, eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
