@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/12 20:06:45 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:53:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ char	*fill_var(t_envv *env_lst)
 	res = malloc(sizeof(char) * ft_strlen(env_lst->nm) + l + 2);
 	if (!res)
 		return (NULL);
-	while (++i < ft_strlen(env_lst->nm))
+	while (env_lst->nm[++i])
 		res[i] = env_lst->nm[i];
 	if (env_lst->val)
 	{
 		res[i++] = '=';
-		while (++j < ft_strlen(env_lst->val))
+		while (env_lst->val[++j])
 			res[i + j] = env_lst->val[j];
 	}
 	else
@@ -63,18 +63,24 @@ char	**env_lst2arr(t_envv *env_lst)
 	int		len;
 	char	**res;
 	int		i;
+	t_envv	*aux;
 
 	i = 0;
+	aux = env_lst;
 	len = lstsize(env_lst);
 	res = malloc(sizeof(char *) * len + 1);
 	if (!res)
 		return (NULL);
-	while (i < len)
+	while (aux)
 	{
-		res[i] = fill_var(env_lst);
-		i++;
-		env_lst = env_lst->next;
+		res[i] = fill_var(aux);
+		if (res[i])
+			i++;
+		aux = aux->next;
 	}
 	res[i] = NULL;
+/*	i = -1;
+	while (res[i++])
+		printf("res[%i]: %s\n", i, res[i]);*/
 	return (res);
 }

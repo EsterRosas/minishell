@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/17 12:45:09 by damendez         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/17 16:12:59 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +142,9 @@ int		dollars2del(char *p);
 int		count_sp(char *s, char **nms, char **vals);
 char	*do_collage(char *res, char *s, char **nms, char **vals);
 int		count_sp(char *s, char **nms, char **vals);
+char	*just_del_names(char *s, char **nms, char **vals);
+char	*ft_assign_mem(char *res, int ct);
+void	redo_path(t_cmd *cmd, t_envv *env);
 
 /*		signals					*/
 void	handle_sigint(int sig);

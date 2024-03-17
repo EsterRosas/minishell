@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/17 02:08:17 by erosas-c         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/17 17:13:43 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +36,22 @@ static int	is_nopt(char *s)
 
 static void	echo_print(t_cmd *cmd, int opt, int i)
 {
-	while (cmd->args[i])
+	if (!cmd->args[i] && opt == 0 && cmd->outfile != 1)
+		ft_putstr_fd("\n", cmd->outfile);
+	else
 	{
-		if (!is_nopt(cmd->args[i]) || i > 1)
+		while (cmd->args[i])
 		{
-			ft_putstr_fd(cmd->args[i], cmd->outfile);
-			if (i < dbl_len(cmd->args) - 1)
-				ft_putstr_fd(" ", cmd->outfile);
-			else if (!opt)
-				ft_putstr_fd("\n", cmd->outfile);
+			if (!is_nopt(cmd->args[i]) || i > 1)
+			{
+				ft_putstr_fd(cmd->args[i], cmd->outfile);
+				if (i < dbl_len(cmd->args) - 1)
+					ft_putstr_fd(" ", cmd->outfile);
+				else if (!opt)
+					ft_putstr_fd("\n", cmd->outfile);
+			}
+			i++;
 		}
-		i++;
 	}
 }
 
@@ -55,9 +64,16 @@ int	ft_echo(t_cmd *cmd)
 	opt = 0;
 	if (dbl_len(cmd->args) == 1)
 	{
+<<<<<<< HEAD
 		if (cmd->args[0][0] != '$' && (cmd->infile == 0 || !cmd->hdoc))
+=======
+		if (cmd->args[0][0] != '$' && (cmd->infile == 0 || !cmd->hdoc)
+			&& cmd->outfile == 1)
+		{
+>>>>>>> master
 			printf("\n");
-		return (0);
+			return (0);
+		}
 	}
 	else if (cmd->args[i] && is_nopt(cmd->args[i]))
 	{

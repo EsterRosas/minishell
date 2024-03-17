@@ -6,7 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:30:19 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/17 01:52:34 by erosas-c         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/17 16:53:30 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +57,42 @@ t_cmd	*args_leaddol_quotes(t_cmd *cmd)
 		aux = aux->next;
 	}
 	return (cmd);
+}
+
+int	path_unset_nobuilt(t_cmd *cmd, t_envv *env)
+{
+	t_cmd	*aux;
+
+	if (!path_unset(env, ""))
+		return (0);
+	else if (cmd)
+	{
+		aux = cmd;
+		while (aux)
+		{
+			if (aux->args && aux->args[0] && !is_builtin(aux->args[0]))
+			{
+				handle_error(aux->args[0], "No such file or directory");
+				g_exst = 127;
+				return (1);
+			}
+			aux = aux->next;
+		}
+	}
+	return (0);
+}
+
+void	redo_path(t_cmd *cmd, t_envv *env)
+{
+	t_cmd	*aux;
+
+	aux = cmd;
+	while (aux)
+	{
+		if (!aux->full_path && aux->args && aux->args[0]
+			&& aux->args[0][0] != '/' && !is_builtin(aux->args[0])
+			&& ft_strcmp(aux->args[0], "") != 0)
+			aux->full_path = fill_path(aux->full_path, env, aux->args[0]);
+		aux = aux->next;
+	}
 }

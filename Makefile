@@ -6,7 +6,11 @@
 #    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/03/17 12:53:32 by damendez         ###   ########.fr        #
+=======
+#    Updated: 2024/03/17 12:43:08 by erosas-c         ###   ########.fr        #
+>>>>>>> master
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +22,16 @@ USERNAME	:=		$(shell whoami)
 SRC_DIR		=		src/
 
 INC_DIR		=		inc
-SRC_FILES	=		builtins.c		ft_export.c		parser2.c		syntax.c	\
-					builtins_utils.c	ft_export_edit.c	parser_rmquotes.c	trim.c	\
-					ctrl_chars.c		ft_export_utils.c	parser_utils.c		utils.c	\
-					error.c			ft_unset.c		parser_utils2.c		var_utils.c	\
-					exec.c			heredoc.c		parser_utils3.c		var_utils2.c	\
-					exec_utils.c		lexer_delquotes.c	pipe_utils.c		variables.c	\
-					exec_utils2.c		lexer_utils.c		prompt.c		variables2.c	\
-					ft_cd.c			list2array.c		signal.c	parser_utils4.c\
-					ft_echo.c		main.c			subsplit.c		var_utils3.c\
-					ft_exit.c		parser.c		subsplit_utils.c
+SRC_FILES	=		builtins.c		    ft_export.c			parser2.c			syntax.c		\
+					builtins_utils.c	ft_export_edit.c	parser_rmquotes.c	trim.c			\
+					ctrl_chars.c		ft_export_utils.c	parser_utils.c		utils.c			\
+					error.c			    ft_unset.c			parser_utils2.c		var_utils.c		\
+					exec.c			    heredoc.c	 		parser_utils3.c		var_utils2.c 	\
+					exec_utils.c		lexer_delquotes.c	pipe_utils.c		variables.c		\
+					exec_utils2.c		lexer_utils.c		prompt.c			variables2.c	\
+					ft_cd.c			    list2array.c		signal.c			parser_utils4.c	\
+					ft_echo.c		    main.c				subsplit.c			var_utils3.c	\
+					ft_exit.c		    parser.c			subsplit_utils.c	var_utils4.c
 					
 OBJ_DIR		=		obj/
 OBJ_FILES	=		$(SRC_FILES:.c=.o)

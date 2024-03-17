@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/17 01:12:01 by erosas-c         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/17 16:20:16 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +56,13 @@ int	path_unset(t_envv *env, char *s)
 		return (0);
 	else if (ft_strcmp(s, "cd") == 0 || ft_strcmp(s, "env") == 0)
 		return (0);
+<<<<<<< HEAD
+=======
+	else if (ft_strcmp(s, "export") == 0 || ft_strcmp(s, "unset") == 0)
+		return (0);
+	else if (ft_strcmp(s, "exit") == 0)
+		return (0);
+>>>>>>> master
 	else
 	{
 		while (aux)

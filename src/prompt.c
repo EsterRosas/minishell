@@ -6,7 +6,11 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/17 01:21:58 by erosas-c         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/17 17:24:45 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +28,6 @@ int	only_sp(char *s)
 	return (0);
 }
 
-/* I thought if non-existing command (args[0]) it would get execve and launch
- * the error >> BUT IT DOESN'T behave this way. We'll have to code this
- * IF !is_builtin(args[0]) && full_ path = NULL
- */
 t_prompt	*ft_parse(char *line, t_envv *o_envp)
 {
 	t_prompt	*prompt;
@@ -43,20 +43,42 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(lex, o_envp);
+<<<<<<< HEAD
 	if (!prompt->cmd)
+=======
+	if (!prompt->cmd || (!prompt->cmd->args[0] && prompt->cmd->hdoc == 1))
+>>>>>>> master
 	{
 		free (prompt);
 		return (NULL);
 	}
 	prompt->envp = o_envp;
+
+	
+/*	t_cmd		*aux;
+	int	i = 0;
+	int j = 0;
+	aux = prompt->cmd;
+	while (aux)
+	{
+		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
+prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
+		while (aux->args[i])
+		{
+			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
+			i++;
+		}
+		i = 0;
+		aux = aux->next;
+		j++;
+	}*/
+
 	return (prompt);
 }
 
 /* Starts the prompt to the user and reads the input (line).
  * IF !line it's because the user pressed Ctrl+D
- * ELSE IF: if the user presses Enter or only spaces + Enter, the program does
- * not process the line and shows minishell~ again to the user in a new line.
- */
+  */
 void	loop_prompt(t_envv *o_envp)
 {
 	char		*line;
