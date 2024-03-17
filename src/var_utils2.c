@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:50:14 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:38:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ void	assign_str(char *s, char **res, int *i, int *j)
 	if (s[(*i) + 1] == '?')
 		res[*j] = ft_strdup("?");
 	else
-	{
 		res[*j] = var_name(s, (*i) + 1);
-		*i = *i + ft_strlen(res[*j]) + 1;
-		(*j)++;
-	}
+	*i = *i + ft_strlen(res[*j]) + 1;
+	(*j)++;
 }
 
 char	**get_nms_arr(char *s, int ct)

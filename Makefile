@@ -6,7 +6,7 @@
 #    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/16 21:28:14 by damendez         ###   ########.fr        #
+#    Updated: 2024/03/16 22:25:43 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,6 @@ DEPS		=		$(addprefix $(OBJ_DIR), $(DEP_FILES))
 
 
 LIBFT		=		lib/libft/libft.a
-#LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
-#IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
 LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
 IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 

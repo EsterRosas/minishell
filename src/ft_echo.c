@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 17:52:44 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:08:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,6 @@ static void	echo_print(t_cmd *cmd, int opt, int i)
 	}
 }
 
-/*static void	echo_print(t_cmd *cmd, int opt, int i)
-{
-	int	aux;
-
-	aux = i;
-	while (cmd->args[i])
-	{
-		if (ft_strlen(cmd->args[i]) > 1 && cmd->args[i][0] == '$'
-			&& (cmd->args[i][1] == SQUOTE || cmd->args[i][1] == DQUOTE))
-			cmd->args[i] = del_leaddol(cmd->args[i]);
-		i++;
-	}
-	del_quotes(cmd->args, 1);*/
-//	i = aux;
-/*	while (cmd->args[i])
-	{
-		if (ft_strcmp(cmd->args[i], "$?") == 0)
-		{
-			free(cmd->args[i]);
-			cmd->args[i] = ft_itoa(g_exst);
-		}
-		i++;
-	}
-	echo_args(cmd, opt, i);
-}*/
-
 int	ft_echo(t_cmd *cmd)
 {
 	int		i;
@@ -81,7 +55,7 @@ int	ft_echo(t_cmd *cmd)
 	opt = 0;
 	if (dbl_len(cmd->args) == 1)
 	{
-		if (cmd->args[0][0] != '$' && cmd->infile != 0)
+		if (cmd->args[0][0] != '$' && (cmd->infile == 0 || !cmd->hdoc))
 			printf("\n");
 		return (0);
 	}

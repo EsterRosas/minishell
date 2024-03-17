@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/15 19:17:23 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:14:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_envv	*ft_sortlist(t_envv	*env)
 	}
 	return (aux);
 }
- 
+
 void	only_export(t_envv *env)
 {
 	t_envv	*sorted;
@@ -108,12 +108,24 @@ void	only_export(t_envv *env)
 
 int	ft_export(char **args, t_envv *env)
 {
+	int	i;
+
+	i = 1;
 	if (dbl_len(args) == 1)
 	{
 		only_export(env);
 		g_exst = 0;
 	}
 	else
-		g_exst = ft_edit_envlist(args, env);
+	{
+		while (args[i])
+		{
+			if (id_notvalid(args[i]) == 1)
+				g_exst = 1;
+			else
+				g_exst = ft_edit_envlist(args[i], env);
+			i++;
+		}
+	}
 	return (g_exst);
 }
