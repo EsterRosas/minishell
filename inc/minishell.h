@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/16 21:53:42 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:39:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_env(t_envv *env);
 int		ft_unset(t_cmd *cmd, t_envv *env);
 int		ft_cd(t_cmd *cmd, t_envv *env);
 int		ft_export(char **args, t_envv *env);
-int		ft_edit_envlist(char **args, t_envv *env);
+int		ft_edit_envlist(char *arg, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
@@ -113,7 +113,7 @@ int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
-t_cmd	*get_cmdlst(char *line, t_envv *env_lst);
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s, int i);
@@ -121,7 +121,6 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
-int		stop_case_cat(t_cmd *s, char *l);
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
 int		is_inpath(char *s, t_envv *env);

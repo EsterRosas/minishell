@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 19:21:38 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:14:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,15 @@ static int	edit_node(char *s, t_envv *env)
  * First, if some arg (variable) name starts with a char not "-" and not
  * alphanum, it printd the corresponding error
  */
-int	ft_edit_envlist(char **args, t_envv *env)
+int	ft_edit_envlist(char *arg, t_envv *env)
 {
-	int	i;
-
-	i = 0;
 	g_exst = 0;
-	while (args[++i])
+	if (!is_inenvlst(arg, env))
 	{
-		if (id_notvalid(args[i]) == 1)
-		{
-			g_exst = 1;
-			break ;
-		}
-		else if (!is_inenvlst(args[i], env))
-		{
-			if (add_new_node(args[i], env) == 1)
-				g_exst = 1;
-		}
-		else if (edit_node(args[i], env) == 1)
+		if (add_new_node(arg, env) == 1)
 			g_exst = 1;
 	}
+	else if (edit_node(arg, env) == 1)
+		g_exst = 1;
 	return (g_exst);
 }

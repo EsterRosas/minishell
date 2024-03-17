@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 18:04:41 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/12 17:46:00 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:39:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,6 @@ int	all_args_ropt(char **ar)
 	{
 		if (ar[i][0] != '-')
 			return (0);
-	}
-	return (0);
-}
-
-int	stop_case_cat(t_cmd *s, char *l)
-{
-	if (s->args[0])
-	{
-		if (ft_strcmp(s->args[0], "cat") == 0)
-		{
-			if (s->args[1] && !all_args_ropt(s->args))
-				return (1);
-			else if (s->infile != 0 && l[0] != '-')
-				return (1);
-		}
 	}
 	return (0);
 }

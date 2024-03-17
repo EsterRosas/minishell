@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 22:13:36 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:21:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,18 @@ int	only_sp(char *s)
 t_prompt	*ft_parse(char *line, t_envv *o_envp)
 {
 	t_prompt	*prompt;
+	char		**lex;
 
+	lex = cmdsubsplit(cmdtrim(line));
+	if (!lex)
+	{
+		g_exst = 0;
+		return (NULL);
+	}
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return (NULL);
-	prompt->cmd = get_cmdlst(line, o_envp);
+	prompt->cmd = get_cmdlst(lex, o_envp);
 	if (!prompt->cmd)
 	{
 		free (prompt);

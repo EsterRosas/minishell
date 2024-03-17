@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:20:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:07:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->full_path = NULL;
 	res->infile = STDIN_FILENO;
 	res->outfile = STDOUT_FILENO;
+	res->hdoc = 0;
 	res->next = NULL;
 	test = fill_node(res, lex, env_lst);
 	if ((test == -1) || (path_unset_nobuilt(res, env_lst) == 1))
@@ -124,18 +125,11 @@ static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
  * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
  * quan agafem ruta  d’exec (no builtin) pero path = NULL
  */
-t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
-	char	**lex;
 
 	res = NULL;
-	lex = cmdsubsplit(cmdtrim(line));
-	if (!lex)
-	{
-		g_exst = 0;
-		return (NULL);
-	}
 	if (check_syntax(lex) == 1)
 	{
 		free_all(lex, dbl_len(lex));
@@ -144,6 +138,11 @@ t_cmd	*get_cmdlst(char *line, t_envv *env_lst)
 	lex = repl_var(lex, env_lst);
 	if (lex)
 		del_quotes(lex, 0);
+	if (!lex)
+	{
+		g_exst = 0;
+		return (NULL);
+	}
 	res = get_list(lex, res, env_lst);
 	res = args_leaddol_quotes(res);
 	free_all(lex, dbl_len(lex));

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 21:35:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:06:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cmd
 	char			*full_path;
 	int				infile;
 	int				outfile;
+	int				hdoc;
 	struct s_cmd	*next;
 }		t_cmd;
 
