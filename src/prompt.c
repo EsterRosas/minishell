@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:21:58 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:49:54 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ int	only_sp(char *s)
 	return (0);
 }
 
-/* I thought if non-existing command (args[0]) it would get execve and launch
- * the error >> BUT IT DOESN'T behave this way. We'll have to code this
- * IF !is_builtin(args[0]) && full_ path = NULL
- */
 t_prompt	*ft_parse(char *line, t_envv *o_envp)
 {
 	t_prompt	*prompt;
@@ -54,9 +50,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 
 /* Starts the prompt to the user and reads the input (line).
  * IF !line it's because the user pressed Ctrl+D
- * ELSE IF: if the user presses Enter or only spaces + Enter, the program does
- * not process the line and shows minishell~ again to the user in a new line.
- */
+  */
 void	loop_prompt(t_envv *o_envp)
 {
 	char		*line;

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:30:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:52:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:02:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,27 @@ t_cmd	*args_leaddol_quotes(t_cmd *cmd)
 		aux = aux->next;
 	}
 	return (cmd);
+}
+
+int	path_unset_nobuilt(t_cmd *cmd, t_envv *env)
+{
+	t_cmd	*aux;
+
+	if (!path_unset(env, ""))
+		return (0);
+	else if (cmd)
+	{
+		aux = cmd;
+		while (aux)
+		{
+			if (aux->args && aux->args[0] && !is_builtin(aux->args[0]))
+			{
+				handle_error(aux->args[0], "No such file or directory");
+				g_exst = 127;
+				return (1);
+			}
+			aux = aux->next;
+		}
+	}
+	return (0);
 }

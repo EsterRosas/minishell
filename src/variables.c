@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:00:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:37:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:33:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 	vals = get_vals_arr(nms, n, o_envp);
 	if (all_vals_empty(vals))
 	{
+		res = just_del_names(s, nms, vals);
 		free_all(nms, dbl_len(nms));
-		return (NULL);
+		return (res);
 	}
 	sp = count_sp(s, nms, vals);
 	res = (char *)malloc(sizeof(char) * sp + 1);
@@ -89,13 +90,13 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 	{
 		if (!has_var(dlr[i]))
 		{
-			val[j] = malloc(sizeof(char) * (ft_strlen(dlr[i]) + 1));
-			if (!val[j])
-				return (NULL);
+			val[j] = ft_assign_mem(val[j], ft_strlen(dlr[i]));
 			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);
 		}
 		else
 			val[j] = rpl_dlr(dlr[i], o_envp);
+		if (!val[j])
+			j--;
 		sum_ij(&i, &j);
 	}
 	if (!val[0])

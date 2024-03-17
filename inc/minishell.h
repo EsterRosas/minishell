@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/17 01:39:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:32:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ int		dollars2del(char *p);
 int		count_sp(char *s, char **nms, char **vals);
 char	*do_collage(char *res, char *s, char **nms, char **vals);
 int		count_sp(char *s, char **nms, char **vals);
+char	*just_del_names(char *s, char **nms, char **vals);
+char	*ft_assign_mem(char *res, int ct);
 
 /*		signals					*/
 void	handle_sigint(int sig);
