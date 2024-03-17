@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/17 01:39:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:45:09 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <termios.h>
 # include <sys/param.h>
 # include <sys/stat.h>
-# include "../lib/libft/libft.h"
+# include "../lib/libft/inc/libft.h"
 # include "defines.h"
 
 int		g_exst;
