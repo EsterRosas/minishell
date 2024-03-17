@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 17:03:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:49:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
  * d'executar en un proces a part (child).
  */
-static char	*feed_hdoc(char *res, char	*input, char *eol)
+static char	*feed_hdoc(char *res, char *input, char *eol)
 {
 	char	*aux;
 
@@ -34,7 +34,6 @@ static char	*feed_hdoc(char *res, char	*input, char *eol)
 		res = ft_strjoin(aux, eol);
 		free(aux);
 	}
-	free(eol);
 	return (res);
 }
 
@@ -42,7 +41,7 @@ static char	*feed_hdoc(char *res, char	*input, char *eol)
  * usually), we go getting user input and joining all input received. Each
  * line followed by a "\n" (eol)
  *
- * That's why at the end we take the substring not including last cgar (\n).
+ * That's why at the end we take the substring not including last char (\n).
  */
 static char	*read_input(char *input, char *delim, char *eol)
 {
@@ -56,10 +55,7 @@ static char	*read_input(char *input, char *delim, char *eol)
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (!input)
-		{
-			free(aux);
 			exit (0);
-		}
 		aux = feed_hdoc(aux, input, eol);
 		free(input);
 		input = readline("> ");
@@ -103,6 +99,7 @@ static void	get_input(char *delim, int *fd)
 	if (!input)
 		exit (0);
 	res = read_input(input, delim, eol);
+	free(eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
 	return ;

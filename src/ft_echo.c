@@ -6,11 +6,19 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:51:09 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 17:13:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:14:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void	close_files(t_cmd *cmd)
+{
+	if (cmd->outfile > 2)
+		close (cmd->outfile);
+	if (cmd->infile > 2)
+		close (cmd->infile);
+}
 
 static int	is_nopt(char *s)
 {
@@ -75,7 +83,6 @@ int	ft_echo(t_cmd *cmd)
 	while (cmd->args[i] && is_nopt(cmd->args[i]))
 		i++;
 	echo_print(cmd, opt, i);
-	if (cmd->outfile > 2)
-		close (cmd->outfile);
+	close_files(cmd);
 	return (0);
 }
