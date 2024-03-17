@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 13:57:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:20:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ int	path_unset(t_envv *env, char *s)
 	if (ft_strcmp(s, "echo") == 0 || ft_strcmp(s, "pwd") == 0)
 		return (0);
 	else if (ft_strcmp(s, "cd") == 0 || ft_strcmp(s, "env") == 0)
+		return (0);
+	else if (ft_strcmp(s, "export") == 0 || ft_strcmp(s, "unset") == 0)
+		return (0);
+	else if (ft_strcmp(s, "exit") == 0)
 		return (0);
 	else
 	{

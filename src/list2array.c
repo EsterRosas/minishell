@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 14:47:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:53:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**env_lst2arr(t_envv *env_lst)
 	char	**res;
 	int		i;
 	t_envv	*aux;
-	
+
 	i = 0;
 	aux = env_lst;
 	len = lstsize(env_lst);
@@ -79,8 +79,8 @@ char	**env_lst2arr(t_envv *env_lst)
 		aux = aux->next;
 	}
 	res[i] = NULL;
-	i = -1;
+/*	i = -1;
 	while (res[i++])
-		printf("res[%i]: %s\n", i, res[i]);
+		printf("res[%i]: %s\n", i, res[i]);*/
 	return (res);
 }

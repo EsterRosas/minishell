@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:27:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:03:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	*feed_hdoc(char *res, char	*input, char *eol)
 		free(aux);
 	}
 	free(eol);
-	printf("res: %s\n", res);
 	return (res);
 }
 
