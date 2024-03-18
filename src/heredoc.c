@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 13:27:14 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:51:10 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static char	*feed_hdoc(char *res, char	*input, char *eol)
 		res = ft_strjoin(aux, eol);
 		free(aux);
 	}
-	free(eol);
 	return (res);
 }
 
@@ -107,6 +106,7 @@ static void	get_input(char *delim, int *fd)
 		exit (0);
 	}
 	res = read_input(input, delim, eol);
+	free(eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)
 		printf("minishell: %s\n", strerror(errno));
 	return ;
