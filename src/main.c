@@ -25,7 +25,7 @@ int	add_node(char *evar, t_envv *env_lst)
 	{
 		pos = ft_strchr(evar, '=') - evar;
 		node->nm = ft_substr(evar, 0, pos);
-		if (ft_strcmp(node->nm, "OLDPWD") == 0)
+			if (ft_strcmp(node->nm, "OLDPWD") == 0)
 			node->val = NULL;
 		else
 			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1);  //aqui afegir - pos
