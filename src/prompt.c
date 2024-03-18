@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 13:32:47 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,29 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	if (!prompt->cmd || (!prompt->cmd->args[0] && prompt->cmd->hdoc == 1))
 	{
 		free (prompt);
-		if (prompt->cmd->infile != 0)
-			close (prompt->cmd->infile);
 		return (NULL);
 	}
 	prompt->envp = o_envp;
+
+	
+/*	t_cmd		*aux;
+	int	i = 0;
+	int j = 0;
+	aux = prompt->cmd;
+	while (aux)
+	{
+		printf("%i AUX = PROMPT->CMD promt->cmd->in: %i, prompt->cmd->out: %i, \
+prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
+		while (aux->args[i])
+		{
+			printf("AUX prompt->cmd->args[%i]: %s\n", i, aux->args[i]);
+			i++;
+		}
+		i = 0;
+		aux = aux->next;
+		j++;
+	}*/
+
 	return (prompt);
 }
 

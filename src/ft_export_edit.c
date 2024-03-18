@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 20:34:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:03:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	replace_value(char *s, t_envv *aux, int pos)
 		if (ft_strcmp(aux->nm, nm) == 0)
 		{
 			free(aux->val);
-			aux->val = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			aux->val = ft_substr(s, pos + 1, ft_strlen(s) - pos - 1); //aqui afegit -pos
 			break ;
 		}
 		aux = aux->next;
@@ -43,7 +43,7 @@ static void	join_values(char *s, t_envv *aux, int pos)
 		{
 			tmp = ft_strdup(aux->val);
 			free(aux->val);
-			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - 1);
+			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - pos - 1); //aqui afegit - pos
 			aux->val = ft_strjoin(tmp, tmp2);
 			free(tmp);
 			free(tmp2);

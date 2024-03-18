@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:59:14 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:53:00 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ char	*fill_var(t_envv *env_lst)
 	if (!res)
 		return (NULL);
 	while (env_lst->nm[++i])
-	{
-		if (ft_strcmp(env_lst->nm, "EMPTY") == 0 || ft_strcmp(env_lst->nm, "EMPTY_TOO") == 0)
-			printf("list2array env_lst->nm: %s\n", env_lst->nm);
 		res[i] = env_lst->nm[i];
-	}
 	if (env_lst->val)
 	{
 		res[i++] = '=';
@@ -83,8 +79,8 @@ char	**env_lst2arr(t_envv *env_lst)
 		aux = aux->next;
 	}
 	res[i] = NULL;
-	i = -1;
+/*	i = -1;
 	while (res[i++])
-		printf("res[%i]: %s\n", i, res[i]);
+		printf("res[%i]: %s\n", i, res[i]);*/
 	return (res);
 }

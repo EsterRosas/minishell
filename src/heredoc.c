@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 13:33:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:05:20 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * o altres, surt del heredoc, pero no del minishell, per aixo heredoc s'ha
  * d'executar en un proces a part (child).
  */
-static char	*feed_hdoc(char *res, char *input, char *eol)
+static char	*feed_hdoc(char *res, char	*input, char *eol)
 {
 	char	*aux;
 
@@ -41,7 +41,7 @@ static char	*feed_hdoc(char *res, char *input, char *eol)
  * usually), we go getting user input and joining all input received. Each
  * line followed by a "\n" (eol)
  *
- * That's why at the end we take the substring not including last char (\n).
+ * That's why at the end we take the substring not including last cgar (\n).
  */
 static char	*read_input(char *input, char *delim, char *eol)
 {
@@ -54,11 +54,16 @@ static char	*read_input(char *input, char *delim, char *eol)
 		return (eol);
 	while (ft_strcmp(input, delim) != 0)
 	{
-		if (!input)
-			exit (0);
 		aux = feed_hdoc(aux, input, eol);
 		free(input);
-		input = readline("> ");
+		input = readline("> ");	
+		if (!input)
+		{
+			if(rl_eof_found)
+				printf("%s%s%s", "\033[A", "\033[2K", "> ");
+			free(aux);
+			exit(0);
+		}		
 	}
 	free(input);
 	res = ft_substr(aux, 0, ft_strlen(aux) - 1);
@@ -99,7 +104,9 @@ static void	get_input(char *delim, int *fd)
 	if (!input)
 	{
 		if(rl_eof_found)
+		{
 			printf("%s%s%s", "\033[A", "\033[2K", "> ");
+		}
 		exit (0);
 	}
 	res = read_input(input, delim, eol);

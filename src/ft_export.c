@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 13:34:04 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,14 @@ void	ft_swapnodes(t_envv *aux)
 	else
 		temp->val = NULL;
 	free(aux->nm);
-	if (aux->val)
-		free(aux->val);
+	free(aux->val);
 	aux->nm = ft_strdup(aux->next->nm);
 	if (aux->next-> val)
 		aux->val = ft_strdup(aux->next->val);
 	else
 		aux->val = NULL;
 	free(aux->next->nm);
-	if (aux->next->val)
-		free(aux->next->val);
+	free(aux->next->val);
 	aux->next->nm = ft_strdup(temp->nm);
 	if (temp->val)
 		aux->next->val = ft_strdup(temp->val);
@@ -82,19 +80,12 @@ t_envv	*ft_sortlist(t_envv	*env)
 		while (aux->next)
 		{
 			if (goes_after(aux->nm, aux->next->nm))
-			{
-				if (ft_strcmp(aux->nm, "EMPTY") == 0 || ft_strcmp(aux->nm, "EMPTY_TOO"))
-					printf("BEFORE aux->nm: %s, aux->val: %s, next->nm: %s, next->val: %s\n", aux->nm, aux->val, aux->next->nm, aux->next->val);
 				ft_swapnodes(aux);
-				if (ft_strcmp(aux->nm, "EMPTY") == 0 || ft_strcmp(aux->nm, "EMPTY_TOO"))
-					printf("AFTER aux->nm: %s, aux->val: %s, next->nm: %s, next->val: %s\n", aux->nm, aux->val, aux->next->nm, aux->next->val);
-			}
 			aux = aux->next;
 		}
 		len--;
 		aux = env;
 	}
-	printf("ft_sortlist end\n");
 	return (aux);
 }
 
@@ -104,7 +95,6 @@ void	only_export(t_envv *env)
 	t_envv	*aux;
 
 	sorted = ft_sortlist(env);
-//	printf("after sorting list\n");
 	aux = sorted;
 	while (aux)
 	{

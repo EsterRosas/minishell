@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:36:50 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 13:33:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:06:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	id_notvalid(char *s)
 		ft_exporterror("export", s, "not a valid identifier");
 		return (1);
 	}
-	while (s[++i] && s[i] != '=')
+	while (s[++i] && s[i] != '=' && s[i] != '+')
 	{
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{
@@ -30,11 +30,11 @@ int	id_notvalid(char *s)
 			return (1);
 		}
 	}
-/*	if (s[i] == '+' && (!s[i + 1] || s[i + 1] != '='))
+	if (s[i] == '+' && (!s[i + 1] || s[i + 1] != '='))
 	{
 		ft_exporterror("export", s, "not a valid identifier");
 		return (1);
-	}*/
+	}
 	return (0);
 }
 
@@ -73,19 +73,12 @@ int	is_inenvlst(char *s, t_envv *env)
 	return (0);
 }
 
-void	assign_empty_val(char *val)
-{
-/*	val = malloc(sizeof(char));
-	if (!val)
-		return ;*/
-	val = ft_strdup("");;
-}
-
 int	add_new_node(char *evar, t_envv *env)
 {
 	t_envv	*node;
 	size_t	pos;
 
+//	printf("enters add new node export utils, evar: %s\n", evar);
 	pos = 0;
 	node = malloc(sizeof(t_envv));
 	if (!node)
@@ -93,25 +86,26 @@ int	add_new_node(char *evar, t_envv *env)
 	if (ft_strchr(evar, '='))
 	{
 		pos = ft_strchr(evar, '=') - evar;
-	/*	if (evar[pos - 1] == '+')
+		if (evar[pos - 1] == '+')
 		{
 			node->nm = ft_substr(evar, 0, pos - 1);
-			printf("111 node->nm: %s\n", node->nm);
+//			printf("111 node->nm: %s\n", node->nm);
 		}
 		else
-		{*/
+		{
 			node->nm = ft_substr(evar, 0, pos);
-		//	printf("222 node->nm: %s\n", node->nm);
-		//}
+//			printf("222 node->nm: %s\n", node->nm);
+		}
 		if (pos == ft_strlen(evar) - 1)
 		{
-			assign_empty_val(node->val);
+			//assign_empty_val(node->val);
+			node->val = ft_strdup("");
 			//printf("333 node->nm: %s, node->val: %s\n", node->nm, node->val);
 		}
 		else
 		{
-			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
-			printf("444 node->nm: %s, node->val: %s\n", node->nm, node->val);
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1); //aqui afegit - pos
+	//		printf("444 node->nm: %s, node->val: %s\n", node->nm, node->val);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 21:53:37 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:02:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	add_node(char *evar, t_envv *env_lst)
 		if (ft_strcmp(node->nm, "OLDPWD") == 0)
 			node->val = NULL;
 		else
-			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - 1);
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1);  //aqui afegir - pos
 	}
 	else
 	{
