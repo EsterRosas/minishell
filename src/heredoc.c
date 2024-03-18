@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 20:30:29 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:27:14 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static char	*read_input(char *input, char *delim, char *eol)
 		if (!input)
 		{
 			free(aux);
-			if (rl_eof_found)
-				exit(42);
 			exit (0);
 		}
 		aux = feed_hdoc(aux, input, eol);
