@@ -23,11 +23,14 @@ void	just_copy(char *s, char *res, int *i, int *j)
 	res[*j] = s[*i];
 	(*j)++;
 	(*i)++;
-	while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
+	if (s[*i])
 	{
-		res[*j] = s[*i];
-		(*j)++;
-		(*i)++;
+		while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
+		{	
+			res[*j] = s[*i];
+			(*j)++;
+			(*i)++;
+		}
 	}
 }
 
@@ -71,7 +74,9 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 			free(res);
 			res = ft_strjoin(aux, vals[v]);
 			free(aux);
+			printf("000 BEFORE upd i: %i, s[i]: %c, j: %i, res: %s\n", i, s[i], j, res);
 			upd_indexes(&i, &j, nms[v], vals[v]);
+			printf("111 AFTER  upd i: %i, s[i]: %c, j: %i, res: %s\n", i, s[i], j, res);
 			v++;
 		}
 		else
