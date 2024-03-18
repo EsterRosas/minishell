@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 18:49:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:33:30 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ static void	get_input(char *delim, int *fd)
 	ft_signal(2);
 	input = readline("> ");
 	if (!input)
+	{
+		if(rl_eof_found)
+			printf("%s%s%s", "\033[A", "\033[2K", "> ");
 		exit (0);
+	}
 	res = read_input(input, delim, eol);
 	free(eol);
 	if (write(fd[W_END], res, ft_strlen(res)) == -1)

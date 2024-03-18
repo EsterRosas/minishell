@@ -6,7 +6,7 @@
 #    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/17 12:43:08 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/03/18 13:35:16 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,15 +62,15 @@ $(OBJ_DIR):
 		mkdir $@
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(LIBFT) Makefile
-		$(CC) $(CFLAGS) $(INCLUDE) $(IREADLINE) -g -c $< -o $@
+		$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 
 clean:
 		$(RM) $(OBJS) $(DEPS)
-		make -C lib/libft/ clean
+		@make -C lib/libft/ clean
 	
 
 fclean: clean
-		make -C lib/libft/ fclean
+		@make -C lib/libft/ fclean
 		$(RM) $(NAME)
 		$(RM) $(OBJ_DIR)
 
