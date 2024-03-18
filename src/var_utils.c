@@ -30,24 +30,25 @@ char	*get_oenv(char *s, t_envv *o_envp)
 {
 	char	*res;
 	size_t	n;
-	char	c;
+//	char	c;
 	t_envv	*aux;
 
 	aux = o_envp;
 	n = ft_strlen(s);
-	c = '\0';
+//	c = '\0';
 	while (aux)
 	{
 		if (n > ft_strlen(aux->nm))
 			n = ft_strlen(aux->nm);
 		if (ft_strlen(aux->nm) != ft_strlen(s)
 			|| ft_strncmp(s, aux->nm, n) != 0)
+		/*if (ft_strcmp(s, aux->nm) != 0)*/
 			aux = aux->next;
 		else
 			break ;
 	}
 	if (aux == NULL || aux->val == NULL)
-		res = &c;
+		res = ft_strdup("");
 	else
 		res = ft_strdup(aux->val);
 	return (res);
