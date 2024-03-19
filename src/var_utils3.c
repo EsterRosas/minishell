@@ -64,8 +64,7 @@ int	count_vars(char	*s)
 				i++;
 				while (s[i] && s[i] != SQUOTE)
 					i++;
-				if (s[i])
-					i++;
+				i++;
 			}
 			else if (s[i] && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
 					|| s[i + 1] == '?'))
