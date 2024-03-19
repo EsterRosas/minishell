@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 20:51:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:32:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	**cmdtrim(char *s)
 	if (!s)
 		return (NULL);
 	str_count = ft_str_count(s);
-	res = malloc (sizeof(char *) * (str_count + 1));
+	res = ft_calloc(sizeof(char *), str_count + 1);
 	if (!res)
 		return (NULL);
 	while (n < str_count)

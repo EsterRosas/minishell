@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:36:18 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:37:34 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:59:52 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,34 @@ int	count_vars(char	*s)
 	int	i;
 	int	res;
 
+//	printf("s: %s, ft_strlen(s): %zu\n", s, ft_strlen(s));
 	i = 0;
 	res = 0;
-	while (s[i])
+	if (s[i])
 	{
-		while (s[i] && s[i] != SQUOTE && s[i] != '$')
-			i++;
-		if (s[i] == SQUOTE)
+		while (s[i])
 		{
-			i++;
-			while (s[i] && s[i] != SQUOTE)
+			while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
+				i++;										// O REVISAR TOTA LA FUNCIO
+//			printf("s[%i]: %c\n", i, s[i]);
+			if (s[i] && s[i] == SQUOTE)
+			{
 				i++;
-			i++;
+				while (s[i] && s[i] != SQUOTE)
+					i++;
+				if (s[i])
+					i++;
+			}
+			else if (s[i] && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
+					|| s[i + 1] == '?'))
+			{
+//				printf("s[%i]: %c, s[i + 1]: %c\n", i, s[i], s[i + 1]);
+				sum_ij(&i, &res);
+//				printf("s[%i]: %c, j: %i\n", i, s[i], res);
+			}
+			else
+				i++;
 		}
-		else if (s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
-				|| s[i + 1] == '?'))
-			sum_ij(&i, &res);
-		else
-			i++;
 	}
 	return (res);
 }
@@ -77,7 +87,7 @@ char	**get_vals_arr(char **nms, int ct, t_envv *env)
 	int		i;
 
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * ct + 1);
+	res = ft_calloc(sizeof(char *), ct + 1);
 	if (!res)
 		return (NULL);
 	while (nms[i])

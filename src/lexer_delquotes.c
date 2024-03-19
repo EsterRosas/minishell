@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:37:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/15 18:46:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:31:29 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*copy_noquot(char *s, char *t)
 
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (s[i] && s[i + 1])
 	{
 		if ((s[i] == DQUOTE || s[i] == SQUOTE) && s[i] == s[i + 1])
 			i += 2;
@@ -53,7 +53,7 @@ char	*rm_consec_quotes(char *s, int del)
 {
 	char	*res;
 
-	res = malloc(sizeof(char) * ft_strlen(s) - del + 1);
+	res = ft_calloc(sizeof(char), ft_strlen(s) - del + 1);
 	if (!res)
 		return (NULL);
 	res = copy_noquot(s, res);
@@ -68,7 +68,7 @@ int	dbl_quot2del(char *p)
 
 	res = 0;
 	i = 0;
-	while (p[i])
+	while (p[i] && p[i + 1])
 	{
 		if ((p[i] == DQUOTE || p[i] == SQUOTE) && p[i] == p[i + 1])
 		{
@@ -96,7 +96,7 @@ char	**del_consec_quotes(char **s)
 	char	**res;
 
 	i = 0;
-	res = malloc(sizeof(char *) * dbl_len(s) + 1);
+	res = ft_calloc(sizeof(char *), (dbl_len(s) + 1));
 	if (!res)
 		return (NULL);
 	while (s[i])
@@ -106,7 +106,7 @@ char	**del_consec_quotes(char **s)
 			res[i] = rm_consec_quotes(s[i], char2del);
 		else
 		{
-			res[i] = malloc(sizeof(char) * ft_strlen(s[i]) + 1);
+			res[i] = ft_calloc(sizeof(char), ft_strlen(s[i]) + 1);
 			if (!res[i])
 				return (NULL);
 			ft_strlcpy(res[i], s[i], ft_strlen(s[i]) + 1);

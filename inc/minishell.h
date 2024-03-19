@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:31:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		ft_edit_envlist(char *arg, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
-void	assign_empty_val(char *val);
+//void	assign_empty_val(char *val);
 int		ft_exit(t_cmd *cmd);
 int		is_env(char *s);
 int		is_cd(char *s);
@@ -124,7 +124,7 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
 int		is_inpath(char *s, t_envv *env);
-int		**get_iptrarr(int i, int len);
+//int		**get_iptrarr(int i, int len);
 void	put_exex2path(t_cmd *cmd);
 int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
 char	*dots2path(char *ar);

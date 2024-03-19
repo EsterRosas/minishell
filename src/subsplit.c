@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/01/22 13:15:44 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:09:39 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	**trimtosplit(char **trm, char **spl)
 	{
 		if (!splitable(trm[i]))
 		{
-			spl[j] = malloc (sizeof(char) * (ft_strlen(trm[i]) + 1));
+			spl[j] = ft_calloc (sizeof(char), ft_strlen(trm[i]) + 1);
 			if (!spl[j])
 				return (NULL);
 			ft_strlcpy(spl[j++], trm[i], ft_strlen(trm[i]) + 1);
@@ -102,7 +102,7 @@ char	**cmdsubsplit(char **s)
 		return (s);
 	else
 	{
-		res = malloc (sizeof(char *) * (count_new_ptrs(s) + len) + 1);
+		res = ft_calloc(sizeof(char *), count_new_ptrs(s) + len + 1);
 		if (!res)
 			return (NULL);
 		res = trimtosplit(s, res);

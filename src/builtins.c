@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:34:15 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_pwd(void)
 	char	*s;
 	char	*aux;
 
-	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	s = ft_calloc(sizeof(char), (MAXPATHLEN + 1));
 	if (!s)
 		return (-1);
 	aux = ft_strdup(getcwd(s, MAXPATHLEN));

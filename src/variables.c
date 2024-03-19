@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:00:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:59:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (res);
 	}
 	sp = count_sp(s, nms, vals);
-	res = (char *)malloc(sizeof(char) * sp + 1);
+	res = ft_calloc(sizeof(char), sp + 1);
 	if (!res)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
@@ -120,7 +120,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
-		res = (char **)malloc(sizeof(char *) * (dbl_len(s) + 1));
+		res = ft_calloc(sizeof(char *), (dbl_len(s) + 1));
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);

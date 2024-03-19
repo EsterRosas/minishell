@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:30:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:05:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*del_leaddol(char *s)
 
 	i = 0;
 	j = -1;
-	res = malloc(sizeof(char) * ft_strlen(s));
+	res = ft_calloc(sizeof(char), ft_strlen(s));
 	if (!res)
 		return (NULL);
 	while (s[++i])

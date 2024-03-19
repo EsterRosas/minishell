@@ -6,19 +6,19 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:05:20 by erosas-c          #+#    #+#             */
-/*   Updated: 2023/12/11 21:28:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:37:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	*init_virg(char *s)
+/*static char	*init_virg(char *s)
 {
 	char	*one;
 	char	*two;
 	char	*res;
 
-	one = malloc(sizeof(char) * 6);
+	one = ft_calloc(sizeof(char), 6);
 	if (!one)
 		return (NULL);
 	ft_strlcpy(one, "$HOME", 6);
@@ -37,7 +37,7 @@ static char	*virgtohome(char *spl)
 	len = ft_strlen(spl);
 	if (len == 1)
 	{
-		res = malloc(sizeof(char) * 6);
+		res = ft_calloc(sizeof(char), 6);
 		if (!res)
 			return (NULL);
 		ft_strlcpy(res, "$HOME", 6);
@@ -45,7 +45,7 @@ static char	*virgtohome(char *spl)
 	else
 		res = init_virg(spl);
 	return (res);
-}
+}*/
 
 static char	**spltoexp(char **spl, char **exp)
 {
@@ -58,7 +58,7 @@ static char	**spltoexp(char **spl, char **exp)
 	{
 		if (!expandable(spl[i]))
 		{
-			exp[j] = malloc (sizeof(char) * (ft_strlen(spl[i]) + 1));
+			exp[j] = ft_calloc (sizeof(char), ft_strlen(spl[i]) + 1);
 			if (!exp[j])
 				return (NULL);
 			ft_strlcpy(exp[j++], spl[i], ft_strlen(spl[i]) + 1);
@@ -103,7 +103,7 @@ char	**cmdexpand(char **s)
 		return (s);
 	else
 	{
-		res = malloc (sizeof(char *) * (dbl_len(s) + 1));
+		res = ft_calloc(sizeof(char *), dbl_len(s) + 1);
 		if (!res)
 			return (NULL);
 		res = spltoexp(s, res);

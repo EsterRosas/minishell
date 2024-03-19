@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:52:14 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 16:53:00 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:51:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*fill_var(t_envv *env_lst)
 	j = -1;
 	if (env_lst->val)
 		l = ft_strlen(env_lst->val);
-	res = malloc(sizeof(char) * ft_strlen(env_lst->nm) + l + 2);
+	res = ft_calloc(sizeof(char), ft_strlen(env_lst->nm) + l + 2);
 	if (!res)
 		return (NULL);
 	while (env_lst->nm[++i])
@@ -68,7 +68,7 @@ char	**env_lst2arr(t_envv *env_lst)
 	i = 0;
 	aux = env_lst;
 	len = lstsize(env_lst);
-	res = malloc(sizeof(char *) * len + 1);
+	res = ft_calloc(sizeof(char *), len + 1);
 	if (!res)
 		return (NULL);
 	while (aux)

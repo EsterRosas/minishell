@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:22:51 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 13:32:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:13:34 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_assign_mem(char *res, int ct)
 {
-	res = (char *)malloc(sizeof(char) * ct + 1);
+	res = ft_calloc(sizeof(char), ct + 1);
 	if (!res)
 		return (NULL);
 	return (res);
@@ -40,7 +40,7 @@ char	*just_del_names(char *s, char **nms, char **vals)
 	sp = count_sp(s, nms, vals);
 	if (sp == 0)
 		return (NULL);
-	res = (char *)malloc(sizeof(char) * sp + 1);
+	res = ft_calloc(sizeof(char), sp + 1);
 	if (!res)
 		return (NULL);
 	while (s[i])

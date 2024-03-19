@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:09:48 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:12:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*var_name(char *p, int aft_dl)
 
 static char	**assign_mem(char **res, int ct)
 {
-	res = (char **)malloc(sizeof(char *) * ct + 1);
+	res = ft_calloc(sizeof(char *), ct + 1);
 	if (!res)
 		return (NULL);
 	return (res);

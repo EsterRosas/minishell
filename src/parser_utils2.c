@@ -6,23 +6,23 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 18:04:41 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:39:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:28:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	**get_iptrarr(int i, int len)
+/*int	**get_iptrarr(int i, int len)
 {
 	int	**res;
 
-	res = (int **)malloc(sizeof(int) * 2);
+	res = (int **)ft_calloc(sizeof(int), 2);
 	if (!res[0])
 		return (NULL);
 	res[0] = &i;
 	res[1] = &len;
 	return (res);
-}
+}*/
 
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 {
@@ -38,7 +38,7 @@ char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 			args[i] = path2cmd(lex[lex_pos]);
 		else
 		{
-			args[i] = malloc(sizeof(char) * ft_strlen(lex[lex_pos]) + 1);
+			args[i] = ft_calloc(sizeof(char), ft_strlen(lex[lex_pos]) + 1);
 			if (!args[i])
 				return (NULL);
 			while (lex[lex_pos][++j])
