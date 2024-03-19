@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:32:29 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		g_exst = 0;
 		return (NULL);
 	}
-	prompt = malloc(sizeof(t_prompt));
+	prompt = ft_calloc(sizeof(t_prompt), 1);
 	if (!prompt)
 		return (NULL);
 	prompt->cmd = get_cmdlst(lex, o_envp);
@@ -91,7 +91,8 @@ void	loop_prompt(t_envv *o_envp)
 				free(prompt);
 			}
 		}
-		add_history(line);
+		if (ft_strcmp(line, ""))
+			add_history(line);
 		free(line);
 	}
 	return ;

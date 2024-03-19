@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 20:05:20 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:46:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	get_input(char *delim, int *fd)
 	char		*res;
 	char		*eol;
 
-	eol = malloc(sizeof(char) + 1);
+	eol = ft_calloc(sizeof(char), 2);
 	if (!eol)
 		return ;
 	eol[0] = '\n';

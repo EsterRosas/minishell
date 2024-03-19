@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:52:27 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:34:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:11:31 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,16 @@ char	*get_oenv(char *s, t_envv *o_envp)
 {
 	char	*res;
 	size_t	n;
-//	char	c;
 	t_envv	*aux;
 
 	aux = o_envp;
 	n = ft_strlen(s);
-//	c = '\0';
 	while (aux)
 	{
 		if (n > ft_strlen(aux->nm))
 			n = ft_strlen(aux->nm);
 		if (ft_strlen(aux->nm) != ft_strlen(s)
 			|| ft_strncmp(s, aux->nm, n) != 0)
-		/*if (ft_strcmp(s, aux->nm) != 0)*/
 			aux = aux->next;
 		else
 			break ;

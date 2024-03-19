@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:52:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
 
 	i = 0;
 	len = 0;
-	iptrs = malloc(sizeof(t_iptrs));
+	iptrs = ft_calloc(sizeof(t_iptrs), 1);
 	if (!iptrs)
 		return (0);
 	iptrs->i = &i;
@@ -43,7 +43,7 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
  */
 static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 {
-	s->args = malloc(sizeof(char *) * dbl_len(lex) + 1);
+	s->args = ft_calloc(sizeof(char *), dbl_len(lex) + 1);
 	if (!s->args)
 		return (-1);
 	s->args[0] = NULL;
@@ -68,7 +68,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	int		test;
 
 	test = 0;
-	res = malloc(sizeof(t_cmd));
+	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
 		return (NULL);
 	res->full_path = NULL;

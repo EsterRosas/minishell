@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:40:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_swapnodes(t_envv *aux)
 {
 	t_envv	*temp;
 
-	temp = malloc(sizeof(t_envv));
+	temp = ft_calloc(sizeof(t_envv), 1);
 	if (!temp)
 		return ;
 	temp->nm = ft_strdup(aux->nm);

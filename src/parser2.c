@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 21:46:19 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:00:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ char	*dots2path(char *ar)
 	len = 0;
 	res = NULL;
 	j = -1;
-	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	s = ft_calloc(sizeof(char), (MAXPATHLEN + 1));
 	if (!s)
 		return (NULL);
 	getcwd(s, MAXPATHLEN);
 	len = ft_strlen(s);
 	while (len >= 0 && s[len] != '/')
 		len--;
-	res = malloc(sizeof(char) * len);
+	res = ft_calloc(sizeof(char), len);
 	if (!res)
 		return (NULL);
 	while (++j < len)
@@ -92,12 +92,12 @@ char	*dot2path(char *ar)
 	len = 0;
 	res = NULL;
 	j = -1;
-	s = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	s = ft_calloc(sizeof(char), (MAXPATHLEN + 1));
 	if (!s)
 		return (NULL);
 	getcwd(s, MAXPATHLEN);
 	len = ft_strlen(s);
-	res = malloc(sizeof(char) * len + 1);
+	res = ft_calloc(sizeof(char), len + 1);
 	if (!res)
 		return (NULL);
 	while (s[++j])

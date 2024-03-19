@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:36:50 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 21:06:12 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:41:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	add_new_node(char *evar, t_envv *env)
 
 //	printf("enters add new node export utils, evar: %s\n", evar);
 	pos = 0;
-	node = malloc(sizeof(t_envv));
+	node = ft_calloc(sizeof(t_envv), 1);
 	if (!node)
 		return (1);
 	if (ft_strchr(evar, '='))

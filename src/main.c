@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 21:02:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:51:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	add_node(char *evar, t_envv *env_lst)
 	int		pos;
 
 	pos = 0;
-	node = malloc(sizeof(t_envv));
+	node = ft_calloc(sizeof(t_envv), 1);
 	if (!node)
 		return (1);
 	if (ft_strchr(evar, '='))
@@ -45,7 +45,7 @@ t_envv	*cp_envp(char **envp)
 	t_envv	*env_lst;
 	int		i;
 
-	env_lst = malloc(sizeof(t_envv));
+	env_lst = ft_calloc(sizeof(t_envv), 1);
 	if (!env_lst)
 		return (NULL);
 	i = ft_strchr(envp[0], '=') - envp[0];

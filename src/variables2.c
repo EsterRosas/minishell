@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:05 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:13:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,11 @@ void	just_copy(char *s, char *res, int *i, int *j)
 	res[*j] = s[*i];
 	(*j)++;
 	(*i)++;
-	if (s[*i])
+	while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
 	{
-		while (s[*i] && s[*i] != SQUOTE && s[*i] != '$')
-		{	
-			res[*j] = s[*i];
-			(*j)++;
-			(*i)++;
-		}
+		res[*j] = s[*i];
+		(*j)++;
+		(*i)++;
 	}
 }
 
@@ -74,9 +71,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 			free(res);
 			res = ft_strjoin(aux, vals[v]);
 			free(aux);
-			printf("000 BEFORE upd i: %i, s[i]: %c, j: %i, res: %s\n", i, s[i], j, res);
 			upd_indexes(&i, &j, nms[v], vals[v]);
-			printf("111 AFTER  upd i: %i, s[i]: %c, j: %i, res: %s\n", i, s[i], j, res);
 			v++;
 		}
 		else

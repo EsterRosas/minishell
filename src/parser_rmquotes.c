@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:52:06 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/14 13:23:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:04:20 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*rm_quotes(char *s, int n)
 {
 	char	*res;
 
-	res = malloc(sizeof(char) * ft_strlen(s) - n + 1);
+	res = ft_calloc(sizeof(char), ft_strlen(s) - n + 1);
 	if (!res)
 		return (NULL);
 	res = cp_woquotes(s, res);
