@@ -54,7 +54,13 @@ int	count_vars(char	*s)
 	res = 0;
 	if (s[i])
 	{
+<<<<<<< HEAD
 		while (s[i])
+=======
+		while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
+			i++;										// O REVISAR TOTA LA FUNCIO
+		if (s[i] && s[i] == SQUOTE)
+>>>>>>> master
 		{
 			while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
 				i++;										// O REVISAR TOTA LA FUNCIO
@@ -77,6 +83,14 @@ int	count_vars(char	*s)
 			else
 				i++;
 		}
+<<<<<<< HEAD
+=======
+		else if (s[i] && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
+				|| s[i + 1] == '?'))
+			sum_ij(&i, &res);
+		else if (s[i])
+			i++;
+>>>>>>> master
 	}
 	return (res);
 }
