@@ -6,7 +6,7 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:00:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 19:59:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:51:25 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
-<<<<<<< HEAD
-		res = ft_calloc(sizeof(char *), (dbl_len(s) + 1));
-=======
 		res = ft_calloc(sizeof(char *), dbl_len(s) + 1);
->>>>>>> master
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);
