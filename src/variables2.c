@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 19:13:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:26:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ void	squote_or_fullcpy(char *s, int *i, char *res, int *j)
 			(*j)++;
 			(*i)++;
 		}
-		res[*j] = s[*i];
-		(*j)++;
-		(*i)++;
+		if (res[*j] && s[*i])
+		{
+			res[*j] = s[*i];
+			(*j)++;
+			(*i)++;
+		}
 	}
 	else
 		just_copy(s, res, i, j);
@@ -69,7 +72,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 		{
 			aux = ft_strdup(res);
 			free(res);
-			res = ft_strjoin(aux, vals[v]);
+			res = ft_strjoin(aux, vals[v]); // fer-lo a ma
 			free(aux);
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;

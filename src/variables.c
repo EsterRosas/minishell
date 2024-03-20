@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:00:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 17:30:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:02:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (res);
 	}
 	sp = count_sp(s, nms, vals);
-	res = ft_calloc(sizeof(char), sp + 1);
+	res = ft_calloc(sizeof(char), (sp + 1));
 	if (!res)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
