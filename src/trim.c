@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdtrim.c                                          :+:      :+:    :+:   */
+/*   trim.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:32:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:20:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ static int	upd_jcount(int j, char *s)
 			break ;
 		else if (s[j])
 		{
-			while (s[j] && (s[j] == SQUOTE || s[j] == DQUOTE))
+			if (s[j] && (s[j] == SQUOTE || s[j] == DQUOTE))  // while changed to if
 				j = ft_upd_j(s, j, 1);
 			if (s[j] && s[j] == KSPACE)
 				break ;
-			j++;
+			if (s[j])
+				j++;
 		}
 	}
 	return (j);
@@ -75,7 +76,8 @@ static int	ft_ptr_len(char *p)
 				i = ft_upd_j(p, i, 1);
 			if (p[i] && p[i] == KSPACE)
 				break ;
-			i++;
+			if (p[i])
+				i++;
 		}
 	}
 	return (i);
@@ -112,7 +114,7 @@ char	**cmdtrim(char *s)
 	int		n;
 	char	*p;
 
-	p = NULL;
+//	p = NULL;
 	n = 0;
 	if (!s)
 		return (NULL);

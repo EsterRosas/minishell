@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:51:35 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:55:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	add_node(char *evar, t_envv *env_lst)
 	{
 		pos = ft_strchr(evar, '=') - evar;
 		node->nm = ft_substr(evar, 0, pos);
-			if (ft_strcmp(node->nm, "OLDPWD") == 0)
+		if (ft_strcmp(node->nm, "OLDPWD") == 0)
 			node->val = NULL;
 		else
-			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1);  //aqui afegir - pos
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1);
 	}
 	else
 	{
