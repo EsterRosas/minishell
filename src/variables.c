@@ -89,10 +89,7 @@ char	**nametoval(char **dlr, char **val, t_envv *o_envp)
 	while (dlr[i])
 	{
 		if (!has_var(dlr[i]))
-		{
-			val[j] = ft_assign_mem(val[j], ft_strlen(dlr[i]));
-			ft_strlcpy(val[j], dlr[i], ft_strlen(dlr[i]) + 1);
-		}
+			val[j] = ft_strdup(dlr[i]);
 		else
 			val[j] = rpl_dlr(dlr[i], o_envp);
 		if (!val[j])
@@ -120,7 +117,7 @@ char	**repl_var(char **s, t_envv *o_envp)
 		return (s);
 	else
 	{
-		res = ft_calloc(sizeof(char *), (dbl_len(s) + 1));
+		res = ft_calloc(sizeof(char *), dbl_len(s) + 1);
 		if (!res)
 			return (NULL);
 		res = nametoval(s, res, o_envp);

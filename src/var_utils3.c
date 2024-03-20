@@ -52,30 +52,22 @@ int	count_vars(char	*s)
 //	printf("s: %s, ft_strlen(s): %zu\n", s, ft_strlen(s));
 	i = 0;
 	res = 0;
-	if (s[i])
+	while (s[i])
 	{
-		while (s[i])
+		while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
+			i++;										// O REVISAR TOTA LA FUNCIO
+		if (s[i] && s[i] == SQUOTE)
 		{
-			while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
-				i++;										// O REVISAR TOTA LA FUNCIO
-//			printf("s[%i]: %c\n", i, s[i]);
-			if (s[i] && s[i] == SQUOTE)
-			{
+			i++;
+			while (s[i] && s[i] != SQUOTE)
 				i++;
-				while (s[i] && s[i] != SQUOTE)
-					i++;
-				i++;
-			}
-			else if (s[i] && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
-					|| s[i + 1] == '?'))
-			{
-//				printf("s[%i]: %c, s[i + 1]: %c\n", i, s[i], s[i + 1]);
-				sum_ij(&i, &res);
-//				printf("s[%i]: %c, j: %i\n", i, s[i], res);
-			}
-			else
-				i++;
+			i++;
 		}
+		else if (s[i] && s[i + 1] && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'
+				|| s[i + 1] == '?'))
+			sum_ij(&i, &res);
+		else if (s[i])
+			i++;
 	}
 	return (res);
 }

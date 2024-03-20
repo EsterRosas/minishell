@@ -40,11 +40,12 @@ minishell
 *.x86_64
 *.hex
 
-# Debug files
+# Debug files or folders
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.vscode/
 
 # Kernel Module Compile Results
 *.mod*

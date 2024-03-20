@@ -78,7 +78,6 @@ static int	ft_ptr_len(char *p)
 			i++;
 		}
 	}
-	printf("trim ft_ptr_len i: %i\n", i);
 	return (i);
 }
 
@@ -118,13 +117,11 @@ char	**cmdtrim(char *s)
 	if (!s)
 		return (NULL);
 	str_count = ft_str_count(s);
-	printf("trim.c cmdtrim str_count: %i, s: %s\n", str_count, s);
 	res = ft_calloc(sizeof(char *), str_count + 1);
 	if (!res)
 		return (NULL);
 	while (n < str_count)
 	{
-		printf("n: %i\n", n);
 		p = find_ptr(s, KSPACE);
 		res[n] = ft_substr(p, 0, ft_ptr_len(p));
 		if (res[n] == NULL)
