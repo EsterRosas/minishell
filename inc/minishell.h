@@ -51,7 +51,6 @@ char	**cmdexpand(char **s);
 int		need_var(char **s);
 int		has_var(char *s);
 char	**repl_var(char **s, t_envv *o_envp);
-//char	*var_name(char	*p, int aft_dl);
 char	*get_oenv(char *s, t_envv *o_envp);
 char	**get_nms_arr(char *s, int ct);
 int		count_vars(char	*s);
@@ -76,7 +75,6 @@ int		ft_edit_envlist(char *arg, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
-//void	assign_empty_val(char *val);
 int		ft_exit(t_cmd *cmd);
 int		is_env(char *s);
 int		is_cd(char *s);
@@ -124,7 +122,6 @@ char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
 int		is_inpath(char *s, t_envv *env);
-//int		**get_iptrarr(int i, int len);
 void	put_exex2path(t_cmd *cmd);
 int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
 char	*dots2path(char *ar);
@@ -141,12 +138,14 @@ int		count_sp(char *s, char **nms, char **vals);
 char	*just_del_names(char *s, char **nms, char **vals);
 char	*ft_assign_mem(char *res, int ct);
 void	redo_path(t_cmd *cmd, t_envv *env);
+void	cp_val(char *res, int j, char *val);
 
 /*		signals					*/
 void	handle_sigint(int sig);
 void	disable_ctrl_chars(void);
 void	restore_terminal_settings(void);
 void	ft_signal(int i);
+void	no_line_exit(void);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);

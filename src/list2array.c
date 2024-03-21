@@ -79,8 +79,5 @@ char	**env_lst2arr(t_envv *env_lst)
 		aux = aux->next;
 	}
 	res[i] = NULL;
-/*	i = -1;
-	while (res[i++])
-		printf("res[%i]: %s\n", i, res[i]);*/
 	return (res);
 }

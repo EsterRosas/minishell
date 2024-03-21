@@ -43,7 +43,7 @@ static void	join_values(char *s, t_envv *aux, int pos)
 		{
 			tmp = ft_strdup(aux->val);
 			free(aux->val);
-			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - pos - 1); //aqui afegit - pos
+			tmp2 = ft_substr(s, pos + 1, ft_strlen(s) - pos - 1);
 			aux->val = ft_strjoin(tmp, tmp2);
 			free(tmp);
 			free(tmp2);
