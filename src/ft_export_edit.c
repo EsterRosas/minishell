@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_edit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:32:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/18 21:03:40 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:41:42 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 static void	replace_value(char *s, t_envv *aux, int pos)
 {
 	char	*nm;
+	int		len;
 
+	len = ft_strlen(s);
 	nm = ft_substr(s, 0, pos);
 	while (aux)
 	{
 		if (ft_strcmp(aux->nm, nm) == 0)
 		{
 			free(aux->val);
-			aux->val = ft_substr(s, pos + 1, ft_strlen(s) - pos - 1); //aqui afegit -pos
+			aux->val = ft_substr(s, pos + 1, len - pos - 1);
 			break ;
 		}
 		aux = aux->next;

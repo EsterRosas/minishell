@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:39:32 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 17:15:55 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:36:43 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*void	no_line_exit(void)
-{
-	rl_replace_line("exit", 1);
-	rl_redisplay();
-	printf("\n");
-    //rl_on_new_line();
-	exit(1);
-}*/
 
 static void	parent_handler(int sig)
 {

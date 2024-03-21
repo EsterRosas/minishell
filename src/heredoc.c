@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:46:59 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:45:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ static char	*read_input(char *input, char *delim, char *eol)
 	{
 		aux = feed_hdoc(aux, input, eol);
 		free(input);
-		input = readline("> ");	
+		input = readline("> ");
 		if (!input)
 		{
-			if(rl_eof_found)
+			if (rl_eof_found)
 				printf("%s%s%s", "\033[A", "\033[2K", "> ");
 			free(aux);
 			exit(0);
-		}		
+		}
 	}
 	free(input);
 	res = ft_substr(aux, 0, ft_strlen(aux) - 1);
@@ -103,10 +103,8 @@ static void	get_input(char *delim, int *fd)
 	input = readline("> ");
 	if (!input)
 	{
-		if(rl_eof_found)
-		{
+		if (rl_eof_found)
 			printf("%s%s%s", "\033[A", "\033[2K", "> ");
-		}
 		exit (0);
 	}
 	res = read_input(input, delim, eol);
