@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:00:19 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/20 17:42:24 by damendez         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/20 17:30:35 by erosas-c         ###   ########.fr       */
->>>>>>> 5f9a466cc027e206e343a86c289c894d581c6428
+/*   Updated: 2024/03/20 19:02:38 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +70,7 @@ char	*rpl_dlr(char *s, t_envv *o_envp)
 		return (res);
 	}
 	sp = count_sp(s, nms, vals);
-	res = ft_calloc(sizeof(char), sp + 1);
+	res = ft_calloc(sizeof(char), (sp + 1));
 	if (!res)
 		return (NULL);
 	res = do_collage(res, s, nms, vals);
