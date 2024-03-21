@@ -12,18 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*int	**get_iptrarr(int i, int len)
-{
-	int	**res;
-
-	res = (int **)ft_calloc(sizeof(int), 2);
-	if (!res[0])
-		return (NULL);
-	res[0] = &i;
-	res[1] = &len;
-	return (res);
-}*/
-
 char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 {
 	int		i;

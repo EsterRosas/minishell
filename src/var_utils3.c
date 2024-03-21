@@ -60,13 +60,12 @@ int	count_vars(char	*s)
 	int	i;
 	int	res;
 
-//	printf("s: %s, ft_strlen(s): %zu\n", s, ft_strlen(s));
 	i = 0;
 	res = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] != SQUOTE && s[i] != '$')  //potser puc fer aquest while fora d'aqui
-			i++;										// O REVISAR TOTA LA FUNCIO
+		while (s[i] && s[i] != SQUOTE && s[i] != '$')  
+			i++;										
 		if (s[i] && s[i] == SQUOTE)
 		{
 			i++;

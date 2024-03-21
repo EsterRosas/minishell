@@ -60,7 +60,6 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	int		i;
 	int		j;
 	int		v;
-	//char	*aux;
 
 	i = 0;
 	j = 0;
@@ -71,10 +70,6 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 				|| s[i + 1] == '_' || s[i + 1] == '?'))
 		{
 			cp_val(res, j, vals[v]);
-			/*aux = ft_strdup(res);
-			free(res);
-			res = ft_strjoin(aux, vals[v]);
-			free(aux);*/
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
 		}
