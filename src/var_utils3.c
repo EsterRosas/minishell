@@ -12,6 +12,17 @@
 
 #include "../inc/minishell.h"
 
+void	cp_val(char *res, int j, char *val)
+{
+	int	i;
+
+	i = 0;
+	while (val[i])
+	{
+		res[j + i] = val[i];
+		i++;
+	}
+}
 int	count_sp(char *s, char **nms, char **vals)
 {
 	int	sp;
