@@ -6,7 +6,7 @@
 #    By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/21 17:35:02 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/03/21 18:54:06 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ libft:
 	make -C lib/libft/
 
 $(NAME):	$(OBJ_DIR) $(OBJS)
-		$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT)  -lreadline $(OBJS) -o $@
+		$(CC) $(CFLAGS) $(LREADLINE) -lreadline -L lib/libft/ -lft $(OBJS) -o $@
 
 $(OBJ_DIR):
 		mkdir $@
@@ -63,10 +63,9 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(LIBFT) Makefile
 		$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 
 clean:
-		$(RM) $(OBJS) $(DEPS)
 		@make -C lib/libft/ clean
+		$(RM) $(OBJS) $(DEPS)
 	
-
 fclean: clean
 		@make -C lib/libft/ fclean
 		$(RM) $(NAME)
