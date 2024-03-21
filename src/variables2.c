@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:32:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 19:26:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:23:58 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	squote_or_fullcpy(char *s, int *i, char *res, int *j)
 			(*j)++;
 			(*i)++;
 		}
-		if (res[*j] && s[*i])
+		if (s[*i])
 		{
 			res[*j] = s[*i];
 			(*j)++;

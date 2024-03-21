@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:36:50 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:41:07 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:43:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	add_new_node(char *evar, t_envv *env)
 		if (pos == ft_strlen(evar) - 1)
 			node->val = ft_strdup("");
 		else
-			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1); //aqui afegit - pos
+			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1);
 	}
 	else
 		only_name(node, evar);
