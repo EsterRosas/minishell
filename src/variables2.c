@@ -60,7 +60,7 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 	int		i;
 	int		j;
 	int		v;
-	char	*aux;
+	//char	*aux;
 
 	i = 0;
 	j = 0;
@@ -70,10 +70,11 @@ char	*do_collage(char *res, char *s, char **nms, char **vals)
 		if (s[i] == '$' && s[i + 1] && (ft_isalnum(s[i + 1])
 				|| s[i + 1] == '_' || s[i + 1] == '?'))
 		{
-			aux = ft_strdup(res);
+			cp_val(res, j, vals[v]);
+			/*aux = ft_strdup(res);
 			free(res);
-			res = ft_strjoin(aux, vals[v]); // fer-lo a ma
-			free(aux);
+			res = ft_strjoin(aux, vals[v]);
+			free(aux);*/
 			upd_indexes(&i, &j, nms[v], vals[v]);
 			v++;
 		}

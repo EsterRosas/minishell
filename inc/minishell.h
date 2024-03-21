@@ -141,6 +141,7 @@ int		count_sp(char *s, char **nms, char **vals);
 char	*just_del_names(char *s, char **nms, char **vals);
 char	*ft_assign_mem(char *res, int ct);
 void	redo_path(t_cmd *cmd, t_envv *env);
+void	cp_val(char *res, int j, char *val);
 
 /*		signals					*/
 void	handle_sigint(int sig);
