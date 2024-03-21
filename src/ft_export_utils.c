@@ -78,7 +78,6 @@ int	add_new_node(char *evar, t_envv *env)
 	t_envv	*node;
 	size_t	pos;
 
-//	printf("enters add new node export utils, evar: %s\n", evar);
 	pos = 0;
 	node = ft_calloc(sizeof(t_envv), 1);
 	if (!node)
@@ -86,27 +85,11 @@ int	add_new_node(char *evar, t_envv *env)
 	if (ft_strchr(evar, '='))
 	{
 		pos = ft_strchr(evar, '=') - evar;
-		if (evar[pos - 1] == '+')
-		{
-			node->nm = ft_substr(evar, 0, pos - 1);
-//			printf("111 node->nm: %s\n", node->nm);
-		}
-		else
-		{
-			node->nm = ft_substr(evar, 0, pos);
-//			printf("222 node->nm: %s\n", node->nm);
-		}
+		node->nm = ft_substr(evar, 0, pos);
 		if (pos == ft_strlen(evar) - 1)
-		{
-			//assign_empty_val(node->val);
 			node->val = ft_strdup("");
-			//printf("333 node->nm: %s, node->val: %s\n", node->nm, node->val);
-		}
 		else
-		{
 			node->val = ft_substr(evar, pos + 1, ft_strlen(evar) - pos - 1); //aqui afegit - pos
-	//		printf("444 node->nm: %s, node->val: %s\n", node->nm, node->val);
-		}
 	}
 	else
 		only_name(node, evar);

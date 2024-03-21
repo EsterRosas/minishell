@@ -114,7 +114,6 @@ char	**cmdtrim(char *s)
 	int		n;
 	char	*p;
 
-//	p = NULL;
 	n = 0;
 	if (!s)
 		return (NULL);

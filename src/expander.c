@@ -12,41 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*static char	*init_virg(char *s)
-{
-	char	*one;
-	char	*two;
-	char	*res;
-
-	one = ft_calloc(sizeof(char), 6);
-	if (!one)
-		return (NULL);
-	ft_strlcpy(one, "$HOME", 6);
-	two = ft_substr(s, 1, ft_strlen(s) - 1);
-	res = ft_strjoin(one, two);
-	free(one);
-	free(two);
-	return (res);
-}
-
-static char	*virgtohome(char *spl)
-{
-	size_t	len;
-	char	*res;
-
-	len = ft_strlen(spl);
-	if (len == 1)
-	{
-		res = ft_calloc(sizeof(char), 6);
-		if (!res)
-			return (NULL);
-		ft_strlcpy(res, "$HOME", 6);
-	}
-	else
-		res = init_virg(spl);
-	return (res);
-}*/
-
 static char	**spltoexp(char **spl, char **exp)
 {
 	int		i;

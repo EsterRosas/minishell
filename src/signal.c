@@ -12,6 +12,15 @@
 
 #include "../inc/minishell.h"
 
+/*void	no_line_exit(void)
+{
+	rl_replace_line("exit", 1);
+	rl_redisplay();
+	printf("\n");
+    //rl_on_new_line();
+	exit(1);
+}*/
+
 static void	parent_handler(int sig)
 {
 	if (sig == SIGINT)

@@ -99,13 +99,11 @@ int	ft_exit(t_cmd *cmd)
 	int	n;
 
 	n = 0;
+	g_exst = 0;
 	if (cmd && cmd->args && cmd->args[1] && !has_nonum(cmd->args[1]))
 		cmd->args[1] = del_spaces(cmd->args[1]);
 	if (!cmd || !cmd->args || dbl_len(cmd->args) == 1)
-	{
 		printf("exit\n");
-		g_exst = 0;
-	}
 	else if (check_num(cmd->args[1]) && cmd->args[2])
 	{
 		write(2, "exit\n", 5);
