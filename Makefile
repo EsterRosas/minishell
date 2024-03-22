@@ -3,96 +3,80 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
+#    By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/25 16:55:19 by ecabanas          #+#    #+#              #
-#    Updated: 2024/03/17 12:49:18 by damendez         ###   ########.fr        #
+#    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
+#    Updated: 2024/03/21 18:54:06 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	libft.a
+NAME		=		minishell
+HEADER		=		inc/minishell.h
+USERNAME	:=		$(shell whoami)
 
-INCLUDE		=	inc/
+SRC_DIR		=		src/
 
-SRC_DIR		=	src/
-SRC_FILES	=	ft_bzero.c \
-				ft_abs.c \
-				ft_isalnum.c \
-				ft_isalpha.c \
-				ft_isascii.c \
-				ft_isdigit.c \
-				ft_isprint.c \
-				ft_memchr.c \
-				ft_memcmp.c \
-				ft_memcpy.c \
-				ft_memmove.c \
-				ft_memset.c \
-				ft_strchr.c \
-				ft_strlcat.c \
-				ft_strlcpy.c \
-				ft_strlen.c \
-				ft_strncmp.c \
-				ft_strnstr.c \
-				ft_strrchr.c \
-				ft_tolower.c \
-				ft_toupper.c \
-				ft_atoi.c	\
-				ft_calloc.c \
-				ft_strdup.c \
-				ft_substr.c \
-				ft_strjoin.c \
-				ft_strtrim.c \
-				ft_split.c \
-				ft_itoa.c \
-				ft_strmapi.c \
-				ft_striteri.c \
-				ft_putchar_fd.c \
-				ft_putstr_fd.c \
-				ft_putendl_fd.c \
-				ft_putnbr_fd.c \
-				ft_lstnew.c \
-				ft_lstadd_front.c \
-				ft_lstsize.c \
-				ft_lstlast.c \
-				ft_lstadd_back.c \
-				ft_lstdelone.c \
-				ft_lstclear.c \
-				ft_lstiter.c
-SRCS		=	$(addprefix $(SRC_DIR), $(SRC_FILES))
+INC_DIR		=		inc
+SRC_FILES	=		builtins.c		    ft_export.c			parser2.c			syntax.c		\
+					builtins_utils.c	ft_export_edit.c	parser_rmquotes.c	trim.c			\
+					ctrl_chars.c		ft_export_utils.c	parser_utils.c		utils.c			\
+					error.c			    ft_unset.c			parser_utils2.c		var_utils.c		\
+					exec.c			    heredoc.c	 		parser_utils3.c		var_utils2.c 	\
+					exec_utils.c		lexer_delquotes.c	pipe_utils.c		variables.c		\
+					exec_utils2.c		lexer_utils.c		prompt.c			variables2.c	\
+					ft_cd.c			    list2array.c		signal.c			parser_utils4.c	\
+					ft_echo.c		    main.c				subsplit.c			var_utils3.c	\
+					ft_exit.c		    parser.c			subsplit_utils.c	var_utils4.c
+					
+OBJ_DIR		=		obj/
+OBJ_FILES	=		$(SRC_FILES:.c=.o)
+OBJS		=		$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-OBJ_DIR		=	objs/
-OBJ_FILES	=	$(SRC_FILES:.c=.o)
-OBJS		=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+DEP_FILES	=		$(SRC_FILES:.c=.d)
+DEPS		=		$(addprefix $(OBJ_DIR), $(DEP_FILES))
 
-DEP_FILES	=	$(SRC_FILES:.c=.d)
-DEPS		=	$(addprefix $(OBJ_DIR), $(DEP_FILES))
+LIBFT		=		lib/libft/libft.a
+#LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+#IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
 
-CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -MMD
-RM			=	rm -f
+INCLUDE		=		-I inc/ -I lib/libft/ $(IREADLINE)
 
+CC			=		gcc
+CFLAGS		=		-Wall -Wextra -Werror -MMD #-fsanitize='address'
 
-INC			=	-I inc/
+RM			=		rm -rf
 
-all:		$(NAME)
+######################################################################
 
-$(NAME):	$(OBJ_DIR) $(OBJS)
-			ar rc $@ $(OBJS)
+all: libft $(NAME)
 
-$(OBJ_DIR):	
-			@mkdir $(OBJ_DIR)
+libft:
+	make -C lib/libft/
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
-			$(CC) $(CFLAGS) $(INC) -c $< -o $@
+$(NAME): $(OBJS)
+		$(CC) $(CFLAGS) $(LREADLINE) -lreadline -L lib/libft/ -lft $(OBJS) -o $@
 
-clean:	
-		@$(RM) $(OBJS) $(DEPS)
+$(OBJS): | $(OBJ_DIR)
 
+$(OBJ_DIR):
+		mkdir $@
+
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(LIBFT) Makefile
+		$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
+
+clean:
+		@make -C lib/libft/ clean
+		$(RM) $(OBJS) $(DEPS)
+	
 fclean: clean
-		@$(RM) $(NAME) 
+		@make -C lib/libft/ fclean
+		$(RM) $(NAME)
+		$(RM) $(OBJ_DIR)
 
-re:		fclean all
+re: fclean all
 
 -include $(DEPS)
 
-.PHONY: clean fclean re all
+.PHONY: all libft clean fclean re
