@@ -6,7 +6,7 @@
 #    By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/21 18:54:06 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/03/22 12:25:18 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,10 @@ all: libft $(NAME)
 libft:
 	make -C lib/libft/
 
-$(NAME):	$(OBJ_DIR) $(OBJS)
+$(NAME): $(OBJS)
 		$(CC) $(CFLAGS) $(LREADLINE) -lreadline -L lib/libft/ -lft $(OBJS) -o $@
+
+$(OBJS): | $(OBJ_DIR)
 
 $(OBJ_DIR):
 		mkdir $@
