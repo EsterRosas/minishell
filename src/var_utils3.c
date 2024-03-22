@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:36:18 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 15:51:25 by damendez         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:46:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	cp_val(char *res, int j, char *val)
 		i++;
 	}
 }
+
 int	count_sp(char *s, char **nms, char **vals)
 {
 	int	sp;
@@ -64,8 +65,8 @@ int	count_vars(char	*s)
 	res = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] != SQUOTE && s[i] != '$')  
-			i++;										
+		while (s[i] && s[i] != SQUOTE && s[i] != '$')
+			i++;
 		if (s[i] && s[i] == SQUOTE)
 		{
 			i++;

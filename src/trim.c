@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 17:20:45 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:46:01 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	upd_jcount(int j, char *s)
 			break ;
 		else if (s[j])
 		{
-			if (s[j] && (s[j] == SQUOTE || s[j] == DQUOTE))  // while changed to if
+			if (s[j] && (s[j] == SQUOTE || s[j] == DQUOTE))
 				j = ft_upd_j(s, j, 1);
 			if (s[j] && s[j] == KSPACE)
 				break ;

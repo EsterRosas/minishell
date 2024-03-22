@@ -3,17 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
+#    By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/21 16:19:17 by damendez         ###   ########.fr        #
+#    Updated: 2024/03/22 12:37:14 by damendez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=		minishell
 HEADER		=		inc/minishell.h
 USERNAME	:=		$(shell whoami)
-#OS			:=		$(shell uname)
 
 SRC_DIR		=		src/
 
@@ -36,13 +35,9 @@ OBJS		=		$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 DEP_FILES	=		$(SRC_FILES:.c=.d)
 DEPS		=		$(addprefix $(OBJ_DIR), $(DEP_FILES))
 
-
 LIBFT		=		lib/libft/libft.a
-#LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
-#IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
-LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
-IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
-
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 
 INCLUDE		=		-I inc/ -I lib/libft/ $(IREADLINE)
 
@@ -58,8 +53,10 @@ all: libft $(NAME)
 libft:
 	make -C lib/libft/
 
-$(NAME):	$(OBJ_DIR) $(OBJS)
-		$(CC) $(CFLAGS) $(LREADLINE) $(LIBFT)  -lreadline $(OBJS) -o $@
+$(NAME): $(OBJS)
+		$(CC) $(CFLAGS) $(LREADLINE) -lreadline -L lib/libft/ -lft $(OBJS) -o $@
+
+$(OBJS): | $(OBJ_DIR)
 
 $(OBJ_DIR):
 		mkdir $@
@@ -68,10 +65,9 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(LIBFT) Makefile
 		$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 
 clean:
-		$(RM) $(OBJS) $(DEPS)
 		@make -C lib/libft/ clean
+		$(RM) $(OBJS) $(DEPS)
 	
-
 fclean: clean
 		@make -C lib/libft/ fclean
 		$(RM) $(NAME)
