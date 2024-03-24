@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/24 17:46:23 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 18:08:17 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		ft_edit_envlist(char *arg, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
-int		ft_exit(t_cmd *cmd, t_prompt *prompt);
+int		ft_exit(t_cmd *cmd/*, t_prompt *prompt*/);
 int		is_env(char *s);
 int		is_cd(char *s);
 int		is_echo(char *s);
