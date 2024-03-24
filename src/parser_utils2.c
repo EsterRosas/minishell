@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 18:04:41 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:28:22 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 16:30:12 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env)
 	}
 	if (args[0][0] == '/' && access(args[0], F_OK) == 0
 			&& is_inpath(args[0], env))
-			args[0] = path2cmd(args[0]);
+		args[0] = path2cmd(args[0]);
 	*iptrs->i = *iptrs->i + dbl_len(args) - *iptrs->len;
 	*iptrs->len = dbl_len(args);
 	return (args);

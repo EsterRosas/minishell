@@ -6,7 +6,7 @@
 #    By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/24 13:31:49 by erosas-c         ###   ########.fr        #
+#    Updated: 2024/03/24 16:38:12 by erosas-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_FILES	=		builtins.c		    ft_export.c			parser2.c			syntax.c		\
 					exec_utils2.c		lexer_utils.c		prompt.c			variables2.c	\
 					ft_cd.c			    list2array.c		signal.c			parser_utils4.c	\
 					ft_echo.c		    main.c				subsplit.c			var_utils3.c	\
-					ft_exit.c		    parser.c			subsplit_utils.c	var_utils4.c
+					ft_exit.c		    parser.c			subsplit_utils.c	var_utils4.c	\
+					ft_cd_utils.c
 					
 OBJ_DIR		=		obj/
 OBJ_FILES	=		$(SRC_FILES:.c=.o)
