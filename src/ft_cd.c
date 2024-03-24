@@ -47,21 +47,18 @@ void	upd_pwds(t_envv *env)
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
 			free(oldpwd_current);
-			printf("000 aux->val: %s\n", aux->val);
 			oldpwd_current = ft_strdup(aux->val);
 			free(aux->val);
 			aux->val = ft_calloc(sizeof(char), MAXPATHLEN + 1);
 			if (!aux->val)
 				return ;
 			getcwd(aux->val, MAXPATHLEN);
-			printf("222 aux->val: %s\n", aux->val);
 		}
 	}
 	else
 		getcwd(oldpwd_current, MAXPATHLEN);
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
-	printf("END oldpwd_current: %s\n", oldpwd_current);
 	free(oldpwd_current);
 }
 
@@ -87,7 +84,7 @@ static int	cd_only(t_envv *env)
 	return (0);
 }
 
-static int	with_args(char *current, t_cmd *cmd, t_envv *env)
+static int	with_args(t_cmd *cmd, t_envv *env)
 {
 	char	*old;
 
@@ -95,45 +92,41 @@ static int	with_args(char *current, t_cmd *cmd, t_envv *env)
 	if (ft_strcmp("-", cmd->args[1]) == 0 && (!old || old[0] == '\0'))
 	{
 		handle_error("cd", "OLDPWD not set");
+		free(old);
 		return (1);
 	}
 	else if (cmd->args[1][0] == '\0')
+	{
+		free(old);
 		return (0);
+	}
 	else if (ft_strcmp(cmd->args[1], "-") == 0)
 	{
 		if (chdir(old) == -1)
 		{
+			free(old);
 			handle_error_opt("cd", old, strerror(errno));
 			return (1);
 		}
 	}
 	else if (ft_chdir(cmd->args[1]) == -1)
+	{
+		free(old);
 		return (1);
+	}
+	free(old);
 	upd_pwds(env);
-	free(current);
 	return (0);
 }
 
 int	ft_cd(t_cmd *cmd, t_envv *env)
 {
-	char	*current;
-
-	current = malloc(sizeof(char) * (MAXPATHLEN + 1));
-	if (!current)
-		return (1);
-	getcwd(current, MAXPATHLEN);
 	if (!cmd->args[1] && ft_strcmp(cmd->args[0], "cd") == 0)
 	{
 		if (cd_only(env) == 1)
-		{
-			free(current);
 			return (1);
-		}
 	}
-	else if (cmd->args[1] && with_args(current, cmd, env) == 1)
-	{
-		free(current);
+	else if (cmd->args[1] && with_args(cmd, env) == 1)
 		return (1);
-	}
 	return (0);
 }
