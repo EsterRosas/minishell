@@ -43,7 +43,18 @@ char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env)
 
 char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env)
 {
+	int	ct;
+
+	ct = 0;
 	args = fill_args(args, lex, *iptrs->i, env);
+	if (ft_strchr(args[0], SQUOTE) || ft_strchr(args[0], DQUOTE))
+	{
+		ct = ct_quotes(args[0]);
+		args[0] = rm_quotes(args[0], ct);
+	}
+	if (args[0][0] == '/' && access(args[0], F_OK) == 0
+			&& is_inpath(args[0], env))
+			args[0] = path2cmd(args[0]);
 	*iptrs->i = *iptrs->i + dbl_len(args) - *iptrs->len;
 	*iptrs->len = dbl_len(args);
 	return (args);
