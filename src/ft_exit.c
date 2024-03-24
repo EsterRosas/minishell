@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:12:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:49:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	check_num(char *s)
 	return (1);
 }
 
-int	ft_exit(t_cmd *cmd)
+int	ft_exit(t_cmd *cmd, t_prompt *prompt)
 {
 	int	n;
 
@@ -108,6 +108,8 @@ int	ft_exit(t_cmd *cmd)
 	{
 		write(2, "exit\n", 5);
 		handle_error("exit", "too many arguments");
+		if (prompt)
+			ft_globalfree(prompt);
 		return (1);
 	}
 	else if (!cmd->next)
@@ -116,6 +118,9 @@ int	ft_exit(t_cmd *cmd)
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
+/* 	if (prompt)
+		ft_globalfree(prompt);*/
 	restore_terminal_settings();
+//	system("leaks minishell");  // esborrar al final
 	exit (g_exst);
 }

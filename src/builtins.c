@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:34:15 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 13:03:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = 127;
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		g_exst = ft_exit(cmd);
+		g_exst = ft_exit(cmd, prompt);
 	else
 		select_builtin(prompt, cmd);
 	return (g_exst);

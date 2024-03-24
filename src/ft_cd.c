@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 00:25:45 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:51:21 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	upd_oldpwd(t_envv *env, char *current)
 		else
 			aux->val = NULL;
 	}
-	free(current);
+	//free(current);
 }
 
 void	upd_pwds(t_envv *env)
@@ -36,7 +36,9 @@ void	upd_pwds(t_envv *env)
 	t_envv	*aux;
 	char	*oldpwd_current;
 
-	oldpwd_current = malloc(sizeof(char) * (MAXPATHLEN + 1));
+	oldpwd_current = ft_calloc(sizeof(char), (MAXPATHLEN + 1));
+	if (!oldpwd_current)
+		return ;
 	aux = env;
 	if (is_inenvlst("PWD", env))
 	{
@@ -44,18 +46,23 @@ void	upd_pwds(t_envv *env)
 			aux = aux->next;
 		if (ft_strcmp(aux->nm, "PWD") == 0)
 		{
+			free(oldpwd_current);
+			printf("000 aux->val: %s\n", aux->val);
 			oldpwd_current = ft_strdup(aux->val);
 			free(aux->val);
-			aux->val = malloc(sizeof(char) * (MAXPATHLEN + 1));
+			aux->val = ft_calloc(sizeof(char), MAXPATHLEN + 1);
 			if (!aux->val)
 				return ;
 			getcwd(aux->val, MAXPATHLEN);
+			printf("222 aux->val: %s\n", aux->val);
 		}
 	}
 	else
 		getcwd(oldpwd_current, MAXPATHLEN);
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
+	printf("END oldpwd_current: %s\n", oldpwd_current);
+	free(oldpwd_current);
 }
 
 static int	cd_only(t_envv *env)

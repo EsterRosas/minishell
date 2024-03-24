@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/21 17:36:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:12:36 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	prompt->cmd = get_cmdlst(lex, o_envp);
 	if (!prompt->cmd || (!prompt->cmd->args[0] && prompt->cmd->hdoc == 1))
 	{
-		free (prompt);
+		ft_globalfree(prompt);
 		return (NULL);
 	}
 	prompt->envp = o_envp;
@@ -60,7 +60,7 @@ void	loop_prompt(t_envv *o_envp)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			ft_exit(NULL);
+			ft_exit(NULL, NULL);
 		else if (line[0] != '\0' && !only_sp(line))
 		{
 			prompt = ft_parse(line, o_envp);
