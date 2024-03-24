@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/17 01:12:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:18:06 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ int	ft_exit(t_cmd *cmd)
 		printf("exit\n");
 	}
 	restore_terminal_settings();
+//	system("leaks minishell"); // esborrar al final
 	exit (g_exst);
 }

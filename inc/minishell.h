@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/19 18:31:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:24:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		is_pwd(char *s);
 int		is_inenvlst(char *s, t_envv *env);
 int		id_notvalid(char *s);
 int		path_unset(t_envv *env, char *s);
+char	*upd_auxval(void);
 
 /*		syntax				*/
 int		path_unset_nobuilt(t_cmd *cmd, t_envv *env);
@@ -139,6 +140,7 @@ char	*just_del_names(char *s, char **nms, char **vals);
 char	*ft_assign_mem(char *res, int ct);
 void	redo_path(t_cmd *cmd, t_envv *env);
 void	cp_val(char *res, int j, char *val);
+void	ft_globalfree(t_prompt *prompt);
 
 /*		signals					*/
 void	handle_sigint(int sig);

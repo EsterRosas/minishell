@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:07:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 20:29:56 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:13:33 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	free_cmdlist(t_cmd *head)
 		free_all(current->args, dbl_len(current->args));
 		if (current->full_path)
 			free(current->full_path);
+		if (current->infile > 2)
+			close(current->infile);
+		if (current->outfile > 2)
+			close(current->outfile);
 		free(current);
 		current = nextnode;
 	}
@@ -71,4 +75,11 @@ void	free_envlist(t_envv *head)
 		free(current);
 		current = nextnode;
 	}
+}
+
+void	ft_globalfree(t_prompt *prompt)
+{
+	free_envlist(prompt->envp);
+	free_cmdlist(prompt->cmd);
+	free(prompt);
 }

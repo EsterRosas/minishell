@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:42:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/21 17:46:01 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:20:35 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int	upd_jcount(int j, char *s)
 				j = ft_upd_j(s, j, 1);
 			if (s[j] && s[j] == KSPACE)
 				break ;
-			if (s[j])
-				j++;
 		}
 	}
 	return (j);
