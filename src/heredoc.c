@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/21 17:45:33 by erosas-c         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/22 14:15:47 by erosas-c         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2024/03/24 13:03:54 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +60,7 @@ static char	*read_input(char *input, char *delim, char *eol)
 		if (!input)
 		{
 			if (rl_eof_found)
-<<<<<<< HEAD
-=======
 			{
->>>>>>> master
 				printf("%s%s%s", "\033[A", "\033[2K", "> ");
 				printf("%s\n", ft_substr(aux, 0, ft_strlen(aux) - 1));
 			}
