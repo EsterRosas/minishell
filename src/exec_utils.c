@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:15 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 22:10:13 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 20:22:24 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
+	if (!cmd->args[0])
+		exit(EXIT_SUCCESS);
 	check_cmd(cmd);
 	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
