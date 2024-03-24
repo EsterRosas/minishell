@@ -6,17 +6,17 @@
 /*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/16 22:24:44 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:25:00 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	handle_redirs(t_cmd *cmd, t_pipe *p)
+void	handle_redirs(t_cmd *cmd)
 {
-	if (p->i == 0)
+	if (cmd->infile != 0)
 		dup2(cmd->infile, STDIN_FILENO);
-	if (p->i == p->num_cmds - 1)
+	if (cmd->outfile != 0)
 		dup2(cmd->outfile, STDOUT_FILENO);
 }
 
@@ -39,12 +39,12 @@ static int	handle_cmd(t_prompt *prompt, t_cmd *cmd, t_pipe *p)
 {
 	restore_terminal_settings();
 	ft_signal(0);
-	if (cmd->args[0])
-		handle_redirs(cmd, p);
 	if (p->i > 0)
 		handle_read_end(p->prev_fds);
 	if (p->i < (p->num_cmds - 1))
 		handle_write_end(p->next_fds);
+	if (cmd->args[0])
+		handle_redirs(cmd);
 	if (cmdlistsize(prompt->cmd) == 0 || (!cmd->args[0] && cmd->outfile != 1))
 		exit(EXIT_SUCCESS);
 	ft_execcmd(prompt, cmd);
