@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:00:37 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 20:14:04 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/24 20:52:50 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int	handle_cmds(t_prompt *prompt, t_pipe *p)
 void	ft_exec(t_prompt *prompt)
 {
 	t_pipe	p;
+
 	handle_stdio(&p, "SAVE");
 	p.num_cmds = cmdlistsize(prompt->cmd);
 	if (p.num_cmds == 0)
