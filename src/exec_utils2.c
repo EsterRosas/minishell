@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42barcel>       +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/17 01:12:25 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:35:48 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,26 @@ void	check_executable(t_cmd *cmd)
 	}
 }
 
+static void	cmd_notfound(char *arg)
+{
+	if (ft_strcmp(arg, "$\?") == 0)
+		handle_error(ft_itoa(g_exst), "command not found");
+	else
+		handle_error(arg, "command not found");
+	exit (127);
+}
+
 void	check_cmd(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
 	{
-		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) == 0)
+		if (cmd->args[0][0] == '/' && (access(cmd->args[0], F_OK) == 0
+			|| cmd->args[0][ft_strlen(cmd->args[0]) - 1] == '/'))
 		{
-			handle_error(cmd->args[0], "is a directory");
+			if (access(cmd->args[0], F_OK) == 0)
+				handle_error(cmd->args[0], "is a directory");
+			else
+				handle_error(cmd->args[0], "Not a directory");
 			exit (126);
 		}
 		else if (cmd->args[0][0] == '/')
@@ -36,13 +49,7 @@ void	check_cmd(t_cmd *cmd)
 			exit (127);
 		}
 		else
-		{
-			if (ft_strcmp(cmd->args[0], "$\?") == 0)
-				handle_error(ft_itoa(g_exst), "command not found");
-			else
-				handle_error(cmd->args[0], "command not found");
-			exit (127);
-		}
+			cmd_notfound(cmd->args[0]);
 	}
 	else
 		check_executable(cmd);

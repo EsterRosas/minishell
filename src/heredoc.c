@@ -6,7 +6,11 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/21 17:45:33 by erosas-c         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/22 14:15:47 by erosas-c         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +28,7 @@ static char	*feed_hdoc(char *res, char	*input, char *eol)
 	if (!res)
 	{
 		aux = ft_strdup(input);
-		res = ft_strjoin(input, eol);
+		res = ft_strjoin(aux, eol);
 		free(aux);
 	}
 	else
@@ -60,14 +64,17 @@ static char	*read_input(char *input, char *delim, char *eol)
 		if (!input)
 		{
 			if (rl_eof_found)
+<<<<<<< HEAD
+=======
+			{
+>>>>>>> master
 				printf("%s%s%s", "\033[A", "\033[2K", "> ");
-			free(aux);
+				printf("%s\n", ft_substr(aux, 0, ft_strlen(aux) - 1));
+			}
 			exit(0);
 		}
 	}
-	free(input);
-	res = ft_substr(aux, 0, ft_strlen(aux) - 1);
-	free(aux);
+	res = ft_substr(aux, 0, ft_strlen(aux));
 	return (res);
 }
 
@@ -93,6 +100,7 @@ static void	get_input(char *delim, int *fd)
 	char		*res;
 	char		*eol;
 
+	res = NULL;
 	eol = ft_calloc(sizeof(char), 2);
 	if (!eol)
 		return ;
