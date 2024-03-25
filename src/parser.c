@@ -83,7 +83,7 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 		free(res);
 		return (NULL);
 	}
-	else if (res->args[0] && res->args[0][0] == '/' && access(res->args[0], X_OK) == 0/* && path_unset(env_lst, res->args[0])*/)
+	else if (res->args[0] && res->args[0][0] == '/' && (path_unset(env_lst, res->args[0]) || (!path_unset(env_lst, res->args[0]) && is_inpath(res->args[0], env_lst))))/* && path_unset(env_lst, res->args[0])*/
 		res->full_path = ft_strdup(res->args[0]);
 	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
 		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0 && access(res->args[0], F_OK) != 0)

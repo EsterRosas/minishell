@@ -39,8 +39,14 @@ int	is_inpath(char *s, t_envv *env)
 	while (aux[++i])
 	{
 		if (ft_strcmp(aux[i], folder) == 0)
+		{
+			free(folder);
+			free_all(pth_arr, dbl_len(pth_arr));
 			return (1);
+		}
 	}
+	free(folder);
+	free_all(pth_arr, dbl_len(pth_arr));
 	return (0);
 }
 

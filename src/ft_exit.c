@@ -116,7 +116,7 @@ int	ft_exit(t_cmd *cmd)
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
-//	system("leaks minishell\n"); //esborrar al final
+	system("leaks minishell\n"); //esborrar al final
 	restore_terminal_settings();
 	exit (g_exst);
 }

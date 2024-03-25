@@ -14,10 +14,14 @@
 
 void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 {
+	char	**s;
+
+	s = env_lst2arr(prompt->envp);
 	if (!cmd->args[0])
 		exit(EXIT_SUCCESS);
 	check_cmd(cmd);
-	execve(cmd->full_path, cmd->args, env_lst2arr(prompt->envp));
+	execve(cmd->full_path, cmd->args, s);
+	free_all(s, dbl_len(s));
 	write(2, strerror(errno), ft_strlen(strerror(errno)));
 	exit(EXIT_FAILURE);
 }
