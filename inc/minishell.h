@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/24 19:24:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:10:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,11 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
-char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
-char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
+char	**add_arg(char **args, char **lex, t_iptrs *iptrs/*, t_envv *env*/);
+char	**fill_args(char **args, char **lex, int lex_pos/*, t_envv *env*/);
 int		is_inpath(char *s, t_envv *env);
 void	put_exex2path(t_cmd *cmd);
-int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
+int		upd_node(t_cmd *s, char **lex,/* t_envv *env,*/ t_iptrs *ip);
 char	*dots2path(char *ar);
 char	*dot2path(char *ar);
 char	*rm_quotes(char *s, int n);

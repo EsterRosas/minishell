@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:26:22 by damendez          #+#    #+#             */
-/*   Updated: 2024/03/24 20:17:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:43:27 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	check_executable(t_cmd *cmd)
 
 static void	cmd_notfound(char *arg)
 {
-	if (ft_strcmp(arg, "$\?") == 0)
+	if (access(arg, F_OK) == 0)
+		handle_error(arg, "is a directory");
+	else if (ft_strcmp(arg, "$\?") == 0)
 		handle_error(ft_itoa(g_exst), "command not found");
 	else
 		handle_error(arg, "command not found");

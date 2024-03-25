@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 19:44:03 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:29:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	ft_exit(t_cmd *cmd)
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
+//	system("leaks minishell\n"); //esborrar al final
 	restore_terminal_settings();
 	exit (g_exst);
 }
