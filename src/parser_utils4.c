@@ -92,3 +92,24 @@ void	redo_path(t_cmd *cmd, t_envv *env)
 		aux = aux->next;
 	}
 }
+int		in_savedpath(char *s, char **path)
+{
+	int		i;
+	char	*folder;
+
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && s[i] != '/')
+		i--;
+	folder = ft_substr(s, 0, i);
+	i = -1;
+	while (path[++i])
+	{
+		if (ft_strcmp(path[i], folder) == 0)
+		{
+			free(folder);
+			return (1);
+		}
+	}
+	free(folder);
+	return (0);
+}

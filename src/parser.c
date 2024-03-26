@@ -62,12 +62,12 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 	return (0);
 }
 
-t_cmd	*get_cmd(char **lex, t_envv *env_lst)
+t_cmd	*get_cmd(char **lex, t_envv *env_lst, char **path)
 {
 	t_cmd	*res;
-	int		test;
+//	int		test;
 
-	test = 0;
+//	test = 0;
 	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
 		return (NULL);
@@ -76,22 +76,23 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->hdoc = 0;
 	res->next = NULL;
-	test = fill_node(res, lex, env_lst);
-	if (test == -1/* || (path_unset_nobuilt(res, env_lst) == 1)*/)
+//	test = fill_node(res, lex, env_lst);
+	if (fill_node(res, lex, env_lst) == -1/* || (path_unset_nobuilt(res, env_lst) == 1)*/)
 	{
 		free_all(res->args, dbl_len(res->args));
 		free(res);
 		return (NULL);
 	}
-	else if (res->args[0] && res->args[0][0] == '/' && (path_unset(env_lst, res->args[0]) || (!path_unset(env_lst, res->args[0]) && is_inpath(res->args[0], env_lst))))/* && path_unset(env_lst, res->args[0])*/
+	else if (res->args[0] && res->args[0][0] == '/'
+		&& in_savedpath(res->args[0], path) && access(res->args[0], F_OK) == 0)
 		res->full_path = ft_strdup(res->args[0]);
-	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
+	else if (!res->full_path && res->args[0] && res->args[0][0] != '/' && !path_unset(env_lst, res->args[0])
 		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0 && access(res->args[0], F_OK) != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
 
-static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
+static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst, char **path)
 {
 	int		i;
 	t_cmd	*new;
@@ -99,7 +100,7 @@ static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 	i = 0;
 	while (lex[i])
 	{
-		new = get_cmd(&lex[i], env_lst);
+		new = get_cmd(&lex[i], env_lst, path);
 		if (new && res)
 			cmdlst_addback(res, new);
 		else if (new)
@@ -127,7 +128,7 @@ static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
  * “bash: un: command not found”, per tant haurem de fer que ho imprimeixi
  * quan agafem ruta  d’exec (no builtin) pero path = NULL
  */
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst, char **path)
 {
 	t_cmd	*res;
 
@@ -145,7 +146,7 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 		g_exst = 0;
 		return (NULL);
 	}
-	res = get_list(lex, res, env_lst);
+	res = get_list(lex, res, env_lst, path);
 	res = args_leaddol_quotes(res);
 	if (!path_unset(env_lst, ""))
 		redo_path(res, env_lst);

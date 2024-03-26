@@ -38,18 +38,15 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp, char **path)
 	prompt = ft_calloc(sizeof(t_prompt), 1);
 	if (!prompt)
 		return (NULL);
-	prompt->cmd = get_cmdlst(lex, o_envp);
+	prompt->envp = o_envp;
+	prompt->path = path;
+	prompt->cmd = get_cmdlst(lex, o_envp, prompt->path);
 	if (!prompt->cmd || (cmdlistsize(prompt->cmd) == 1 && !prompt->cmd->args[0]
 			&& prompt->cmd->hdoc == 1))
 	{
 		ft_globalfree(prompt);
 		return (NULL);
 	}
-	prompt->envp = o_envp;
-	prompt->path = path;
-/*	int i = -1;
-	while (prompt->path[++i])
-		printf("prompt->path[%i]: %s\n", i, prompt->path[i]);*/
 	return (prompt);
 }
 

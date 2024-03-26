@@ -112,7 +112,7 @@ int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst, char **path);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s, int i);
@@ -141,6 +141,7 @@ char	*ft_assign_mem(char *res, int ct);
 void	redo_path(t_cmd *cmd, t_envv *env);
 void	cp_val(char *res, int j, char *val);
 void	ft_globalfree(t_prompt *prompt);
+int		in_savedpath(char *s, char **path);
 
 /*		signals					*/
 void	handle_sigint(int sig);

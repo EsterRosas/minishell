@@ -105,9 +105,9 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 	if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
-		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0600);
+		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0666);
 	if (s->outfile == -1 && errno == 2)
-		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
+		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0666);
 	else if (s->outfile == -1)
 	{
 		handle_error(lex[i], strerror(errno));
