@@ -25,20 +25,20 @@ char	*path2cmd(char *arg)
 int	is_inpath(char *s, t_envv *env)
 {
 	char	**pth_arr;
-	char	**aux;
 	int		i;
 	char	*folder;
+	t_envv	*aux;
 
+	aux = env;
 	i = ft_strlen(s) - 1;
 	while (i >= 0 && s[i] != '/')
 		i--;
 	folder = ft_substr(s, 0, i);
-	pth_arr = get_ptharr(env);
-	aux = pth_arr;
+	pth_arr = get_ptharr(aux);
 	i = -1;
-	while (aux[++i])
+	while (pth_arr[++i])
 	{
-		if (ft_strcmp(aux[i], folder) == 0)
+		if (ft_strcmp(pth_arr[i], folder) == 0)
 		{
 			free(folder);
 			free_all(pth_arr, dbl_len(pth_arr));

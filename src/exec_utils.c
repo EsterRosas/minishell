@@ -19,7 +19,7 @@ void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
 	s = env_lst2arr(prompt->envp);
 	if (!cmd->args[0])
 		exit(EXIT_SUCCESS);
-	check_cmd(cmd);
+	check_cmd(cmd, prompt->envp);
 	execve(cmd->full_path, cmd->args, s);
 	free_all(s, dbl_len(s));
 	write(2, strerror(errno), ft_strlen(strerror(errno)));

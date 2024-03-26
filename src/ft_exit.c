@@ -118,7 +118,7 @@ int	ft_exit(t_cmd *cmd, t_prompt *prompt)
 	}
 	if (prompt)
 		free_all(prompt->path, dbl_len(prompt->path));
-	system("leaks minishell\n"); //esborrar al final
+//	system("leaks minishell\n"); //esborrar al final
 	restore_terminal_settings();
 	exit (g_exst);
 }

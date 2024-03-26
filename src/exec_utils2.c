@@ -32,7 +32,7 @@ static void	cmd_notfound(char *arg)
 	exit (127);
 }
 
-void	check_cmd(t_cmd *cmd)
+void	check_cmd(t_cmd *cmd, t_envv *env)
 {
 	if (cmd->full_path == NULL)
 	{
@@ -45,7 +45,7 @@ void	check_cmd(t_cmd *cmd)
 				handle_error(cmd->args[0], "Not a directory");
 			exit (126);
 		}
-		else if (cmd->args[0][0] == '/')
+		else if (cmd->args[0][0] == '/' || path_unset(env, cmd->args[0]))
 		{
 			handle_error(cmd->args[0], "No such file or directory");
 			exit (127);

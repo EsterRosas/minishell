@@ -63,12 +63,14 @@ t_envv	*cp_envp(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_envv		*env_lst;
-	char		**path;
+	t_envv	*env_lst;
+	char	**path;
+	t_envv	*aux;	
 
 	g_exst = 0;
 	env_lst = cp_envp(envp);
-	path = get_ptharr(env_lst);
+	aux = env_lst;
+	path = get_ptharr(aux);
 	(void)argv;
 	(void)argc;
 	disable_ctrl_chars();

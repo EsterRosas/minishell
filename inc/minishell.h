@@ -162,7 +162,7 @@ pid_t	make_fork(void);
 
 /*		exec_utils2.c			*/
 int		ft_chdir(char *s);
-void	check_cmd(t_cmd *cmd);
+void	check_cmd(t_cmd *cmd, t_envv *env);
 int		has_nonum(char *s);
 
 /*		pipe_utils.c			*/

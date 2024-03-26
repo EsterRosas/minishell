@@ -119,7 +119,8 @@ int	upd_node(t_cmd *s, char **lex,/* t_envv *env,*/ t_iptrs *ip)
 		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
 	{
 		g_exst = 1;
-		return (-1);
+		*ip->i += 2;
+		return (0);
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>')
 		|| lex[*ip->i][0] == '>')

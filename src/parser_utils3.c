@@ -12,15 +12,15 @@
 
 #include "../inc/minishell.h"
 
-char	**get_ptharr(t_envv *env_lst)
+char	**get_ptharr(t_envv *aux)
 {
 	char	**ptharr;
 
 	ptharr = NULL;
-	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
-		env_lst = env_lst->next;
-	if (env_lst && ft_strcmp(env_lst->nm, "PATH") == 0)
-		ptharr = ft_split(env_lst->val, ':');
+	while (aux && ft_strcmp(aux->nm, "PATH") != 0)
+		aux = aux->next;
+	if (aux && ft_strcmp(aux->nm, "PATH") == 0)
+		ptharr = ft_split(aux->val, ':');
 	return (ptharr);
 }
 
