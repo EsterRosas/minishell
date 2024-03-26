@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:07:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 14:13:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:30:16 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void	ft_globalfree(t_prompt *prompt)
 {
 	free_envlist(prompt->envp);
 	free_cmdlist(prompt->cmd);
+	free_all(prompt->path, dbl_len(prompt->path));
 	free(prompt);
 }

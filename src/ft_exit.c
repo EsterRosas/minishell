@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:47:25 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/25 19:29:46 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:36:23 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	check_num(char *s)
 	return (1);
 }
 
-int	ft_exit(t_cmd *cmd)
+int	ft_exit(t_cmd *cmd, t_prompt *prompt)
 {
 	int	n;
 
@@ -116,6 +116,8 @@ int	ft_exit(t_cmd *cmd)
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
+	if (prompt)
+		free_all(prompt->path, dbl_len(prompt->path));
 	system("leaks minishell\n"); //esborrar al final
 	restore_terminal_settings();
 	exit (g_exst);

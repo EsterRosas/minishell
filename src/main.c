@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 16:55:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:39:03 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,16 @@ t_envv	*cp_envp(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_envv		*env_lst;
+	char		**path;
 
 	g_exst = 0;
 	env_lst = cp_envp(envp);
+	path = get_ptharr(env_lst);
 	(void)argv;
 	(void)argc;
 	disable_ctrl_chars();
 	ft_signal(1);
-	loop_prompt(env_lst);
+	loop_prompt(env_lst, path);
 	free_env(env_lst);
 	restore_terminal_settings();
 	return (0);

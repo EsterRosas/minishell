@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:56:29 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/25 21:05:09 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:35:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = 127;
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		g_exst = ft_exit(cmd);
+		g_exst = ft_exit(cmd, prompt);
 	else
 		select_builtin(prompt, cmd);
 	return (g_exst);

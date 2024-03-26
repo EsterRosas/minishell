@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/25 21:34:50 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:40:03 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	only_sp(char *s)
 	return (0);
 }
 
-t_prompt	*ft_parse(char *line, t_envv *o_envp)
+t_prompt	*ft_parse(char *line, t_envv *o_envp, char **path)
 {
 	t_prompt	*prompt;
 	char		**lex;
@@ -46,13 +46,17 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 		return (NULL);
 	}
 	prompt->envp = o_envp;
+	prompt->path = path;
+/*	int i = -1;
+	while (prompt->path[++i])
+		printf("prompt->path[%i]: %s\n", i, prompt->path[i]);*/
 	return (prompt);
 }
 
 /* Starts the prompt to the user and reads the input (line).
  * IF !line it's because the user pressed Ctrl+D
   */
-void	loop_prompt(t_envv *o_envp)
+void	loop_prompt(t_envv *o_envp, char **path)
 {
 	char		*line;
 	t_prompt	*prompt;
@@ -61,10 +65,10 @@ void	loop_prompt(t_envv *o_envp)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			ft_exit(NULL);
+			ft_exit(NULL, NULL);
 		else if (line[0] != '\0' && !only_sp(line))
 		{
-			prompt = ft_parse(line, o_envp);
+			prompt = ft_parse(line, o_envp, path);
 			if (prompt)
 			{
 				ft_exec(prompt);
