@@ -66,10 +66,13 @@ static int	cd_only(t_envv *env)
 	aux = env;
 	while (aux && ft_strcmp(aux->nm, "HOME") != 0)
 		aux = aux->next;
-	if (ft_strcmp(aux->nm, "HOME") == 0)
-		home = aux->val;
-	else
+	if (aux == NULL)
+	{
+		handle_error("cd", "HOME not set");
 		return (1);
+	}
+	else if (ft_strcmp(aux->nm, "HOME") == 0)
+		home = aux->val;
 	if (chdir(home) == -1)
 	{
 		handle_error("cd", home);
@@ -82,7 +85,7 @@ static int	cd_only(t_envv *env)
 
 static int	with_args(t_cmd *cmd, t_envv *env)
 {
-	char	*old;
+/*	char	*old;
 
 	old = get_oenv("OLDPWD", env);
 	if (ft_strcmp("-", cmd->args[1]) == 0 && (!old || old[0] == '\0'))
@@ -91,17 +94,17 @@ static int	with_args(t_cmd *cmd, t_envv *env)
 		free(old);
 		return (1);
 	}
-	else if (cmd->args[1][0] == '\0')
+	else*/ if (cmd->args[1][0] == '\0')
 	{
-		free(old);
+	//	free(old);
 		return (0);
 	}
 	else if (ft_chdir(cmd->args[1]) == -1)
 	{
-		free(old);
+	//	free(old);
 		return (1);
 	}
-	free(old);
+	//free(old);
 	upd_pwds(env);
 	return (0);
 }
