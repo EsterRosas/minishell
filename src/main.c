@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:38:52 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/20 16:55:24 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:40:23 by damendez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ t_envv	*cp_envp(char **envp)
 	t_envv	*env_lst;
 	int		i;
 
+	i = 0;
+	if (envp == NULL)
+		return (NULL);
 	env_lst = ft_calloc(sizeof(t_envv), 1);
 	if (!env_lst)
 		return (NULL);

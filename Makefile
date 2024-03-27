@@ -6,7 +6,7 @@
 #    By: damendez <damendez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 17:25:20 by erosas-c          #+#    #+#              #
-#    Updated: 2024/03/24 17:42:34 by damendez         ###   ########.fr        #
+#    Updated: 2024/03/27 18:41:10 by damendez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
 INCLUDE		=		-I inc/ -I lib/libft/ $(IREADLINE)
 
 CC			=		gcc
-CFLAGS		=		-Wall -Wextra -Werror -MMD #-fsanitize='address'
+CFLAGS		=		-Wall -Wextra -Werror -MMD -fsanitize='address'
 
 RM			=		rm -rf
 
