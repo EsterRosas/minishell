@@ -94,10 +94,10 @@ char	**get_vals_arr(char **nms, int ct, t_envv *env)
 		return (NULL);
 	while (nms[i])
 	{
-		if (is_inenvlst(nms[i], env))
-			res[i] = get_oenv(nms[i], env);
-		else if (ft_strcmp(nms[i], "?") == 0)
+		if (ft_strcmp(nms[i], "?") == 0)
 			res[i] = ft_itoa(g_exst);
+		else if (is_inenvlst(nms[i], env))
+			res[i] = get_oenv(nms[i], env);
 		else
 			res[i] = ft_strdup("");
 		i++;

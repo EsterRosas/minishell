@@ -40,11 +40,13 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp, char **path)
 		return (NULL);
 	prompt->envp = o_envp;
 	prompt->path = path;
-	prompt->cmd = get_cmdlst(lex, o_envp, prompt->path);
+	prompt->cmd = get_cmdlst(lex, prompt->envp, prompt->path);
 	if (!prompt->cmd || (cmdlistsize(prompt->cmd) == 1 && !prompt->cmd->args[0]
 			&& prompt->cmd->hdoc == 1))
 	{
-		ft_globalfree(prompt);
+		//free_cmdlist(prompt->cmd);
+		free_all(prompt->path, dbl_len(prompt->path));
+		free(prompt);
 		return (NULL);
 	}
 	/*t_cmd		*aux;

@@ -120,7 +120,7 @@ int	upd_node(t_cmd *s, char **lex,/* t_envv *env,*/ t_iptrs *ip)
 	{
 		g_exst = 1;
 		*ip->i += 2;
-		return (0);
+		return (-1);
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>')
 		|| lex[*ip->i][0] == '>')
