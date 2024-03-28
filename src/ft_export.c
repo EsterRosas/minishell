@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:25:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 18:40:27 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:40:07 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	only_export(t_envv *env)
 	t_envv	*aux;
 
 	sorted = ft_sortlist(env);
-	aux = sorted;
+	aux = sorted->next;
 	while (aux)
 	{
 		printf("declare -x %s", aux->nm);

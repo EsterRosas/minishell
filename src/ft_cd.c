@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:09:35 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 17:40:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:16:59 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static void	upd_oldpwd(t_envv *env, char *current)
 	{
 		if (aux->val)
 			free(aux->val);
-		if (is_inenvlst("PWD", env))
-			aux->val = ft_strdup(current);
-		else
-			aux->val = NULL;
+		aux->val = ft_strdup(current);
 	}
 }
 
@@ -52,7 +49,7 @@ void	upd_pwds(t_envv *env)
 		}
 	}
 	else
-		getcwd(oldpwd_current, MAXPATHLEN);
+		oldpwd_current = ft_strdup("");
 	if (is_inenvlst("OLDPWD", env))
 		upd_oldpwd(env, oldpwd_current);
 	free(oldpwd_current);

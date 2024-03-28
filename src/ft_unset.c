@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:10:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/02/27 19:18:30 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:31:45 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	do_unset(char *str, t_envv *env)
 			return (1);
 		}
 	}
-	if (aux->nm == str)
+	if (ft_strcmp(aux->nm, str) == 0)
 	{
 		env = env->next;
 		free(aux->nm);
