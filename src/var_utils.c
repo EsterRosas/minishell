@@ -29,17 +29,18 @@ int	aft_dol_varchr(char *s)
 char	*get_oenv(char *s, t_envv *o_envp)
 {
 	char	*res;
-	size_t	n;
+//	size_t	n;
 	t_envv	*aux;
 
 	aux = o_envp;
-	n = ft_strlen(s);
+//	n = ft_strlen(s);
 	while (aux)
 	{
-		if (n > ft_strlen(aux->nm))
+		/*if (n > ft_strlen(aux->nm))
 			n = ft_strlen(aux->nm);
 		if (ft_strlen(aux->nm) != ft_strlen(s)
-			|| ft_strncmp(s, aux->nm, n) != 0)
+			|| ft_strncmp(s, aux->nm, n) != 0)*/
+		if (ft_strcmp(s, aux->nm) != 0)
 			aux = aux->next;
 		else
 			break ;

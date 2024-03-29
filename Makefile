@@ -37,10 +37,10 @@ DEP_FILES	=		$(SRC_FILES:.c=.d)
 DEPS		=		$(addprefix $(OBJ_DIR), $(DEP_FILES))
 
 LIBFT		=		lib/libft/libft.a
-LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
-IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
-#LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
-#IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
+#LREADLINE	=		-L /Users/$(USERNAME)/.brew/opt/readline/lib
+#IREADLINE	=		-I /Users/$(USERNAME)/.brew/opt/readline/include
+LREADLINE	=		-L /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/lib
+IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
 
 INCLUDE		=		-I inc/ -I lib/libft/ $(IREADLINE)
 

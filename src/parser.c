@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-static int	get_node(t_cmd *s, char **lex/*, t_envv *env*/)
+static int	get_node(t_cmd *s, char **lex)
 {
 	int		i;
 	int		len;
@@ -27,7 +27,7 @@ static int	get_node(t_cmd *s, char **lex/*, t_envv *env*/)
 	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (upd_node(s, lex,/* env,*/ iptrs) == -1)
+		if (upd_node(s, lex, iptrs) == -1)
 		{
 			free(iptrs);
 			return (-1);
@@ -47,7 +47,7 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 	if (!s->args)
 		return (-1);
 	s->args[0] = NULL;
-	if (get_node(s, lex/*, env*/) == -1)
+	if (get_node(s, lex) == -1)
 		return (-1);
 	if (!s->args && s->outfile == 1 && s->infile == 0)
 		return (-1);
@@ -65,9 +65,7 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 t_cmd	*get_cmd(char **lex, t_envv *env_lst, char **path)
 {
 	t_cmd	*res;
-//	int		test;
-
-//	test = 0;
+(void)path;
 	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
 		return (NULL);
@@ -76,18 +74,17 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst, char **path)
 	res->outfile = STDOUT_FILENO;
 	res->hdoc = 0;
 	res->next = NULL;
-//	test = fill_node(res, lex, env_lst);
-	if (fill_node(res, lex, env_lst) == -1/* || (path_unset_nobuilt(res, env_lst) == 1)*/)
+	if (fill_node(res, lex, env_lst) == -1)
 	{
 		free_all(res->args, dbl_len(res->args));
 		free(res);
 		return (NULL);
 	}
 	else if (res->args[0] && res->args[0][0] == '/'
-		&& in_savedpath(res->args[0], path) && access(res->args[0], F_OK) == 0)
+		/*&& in_savedpath(res->args[0], path)*/ && access(res->args[0], X_OK) == 0) //aqui CANVISPATH
 		res->full_path = ft_strdup(res->args[0]);
 	else if (!res->full_path && res->args[0] && res->args[0][0] != '/' && !path_unset(env_lst, res->args[0])
-		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0/* && access(res->args[0], F_OK) != 0*/)
+		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
@@ -141,6 +138,7 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst, char **path)
 	lex = repl_var(lex, env_lst);
 	if (lex)
 		del_quotes(lex, 0);
+
 	if (!lex)
 	{
 		g_exst = 0;
