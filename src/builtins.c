@@ -94,7 +94,7 @@ int	ft_exbuiltin(t_prompt *prompt, t_cmd *cmd)
 		g_exst = 127;
 	}
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		g_exst = ft_exit(cmd, prompt);
+		g_exst = ft_exit(cmd/*, prompt*/);
 	else
 		select_builtin(prompt, cmd);
 	return (g_exst);

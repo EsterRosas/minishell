@@ -24,7 +24,7 @@ int	only_sp(char *s)
 	return (0);
 }
 
-t_prompt	*ft_parse(char *line, t_envv *o_envp, char **path)
+t_prompt	*ft_parse(char *line, t_envv *o_envp/*, char **path*/)
 {
 	t_prompt	*prompt;
 	char		**lex;
@@ -39,13 +39,13 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp, char **path)
 	if (!prompt)
 		return (NULL);
 	prompt->envp = o_envp;
-	prompt->path = path;
-	prompt->cmd = get_cmdlst(lex, prompt->envp, prompt->path);
+	prompt->path = NULL; // esborrar
+	prompt->cmd = get_cmdlst(lex, prompt->envp/*, prompt->path*/);
 	if (!prompt->cmd || (cmdlistsize(prompt->cmd) == 1 && !prompt->cmd->args[0]
 			&& prompt->cmd->hdoc == 1))
 	{
 		//free_cmdlist(prompt->cmd);
-		free_all(prompt->path, dbl_len(prompt->path));
+	//	free_all(prompt->path, dbl_len(prompt->path));
 		free(prompt);
 		return (NULL);
 	}
@@ -77,15 +77,15 @@ void	loop_prompt(t_envv *o_envp, char **path)
 {
 	char		*line;
 	t_prompt	*prompt;
-
+(void)path;
 	while (1)
 	{
 		line = readline("minishell~ ");
 		if (!line)
-			ft_exit(NULL, NULL);
+			ft_exit(NULL/*, NULL*/);
 		else if (line[0] != '\0' && !only_sp(line))
 		{
-			prompt = ft_parse(line, o_envp, path);
+			prompt = ft_parse(line, o_envp/*, path*/);
 			if (prompt)
 			{
 				ft_exec(prompt);
