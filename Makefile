@@ -45,7 +45,7 @@ IREADLINE	=		-I /Users/$(USERNAME)/.brew/Cellar/readline/8.2.1/include
 INCLUDE		=		-I inc/ -I lib/libft/ $(IREADLINE)
 
 CC			=		gcc
-CFLAGS		=		-Wall -Wextra -Werror -MMD #-fsanitize=address
+CFLAGS		=		-Wall -Wextra -Werror -MMD
 
 RM			=		rm -rf
 

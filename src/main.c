@@ -49,13 +49,9 @@ t_envv	*cp_envp(char **envp)
 	env_lst = ft_calloc(sizeof(t_envv), 1);
 	if (!env_lst)
 		return (NULL);
-	/*i = ft_strchr(envp[0], '=') - envp[0];
-	env_lst->nm = ft_substr(envp[0], 0, i);
-	env_lst->val = ft_substr(envp[0], i + 1, ft_strlen(envp[0]) - 1);*/
 	env_lst->nm = "";
 	env_lst->val = NULL;
 	env_lst->next = NULL;
-	//i = 1;
 	while (i < dbl_len(envp))
 	{
 		add_node(envp[i], env_lst);

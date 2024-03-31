@@ -81,6 +81,6 @@ void	ft_globalfree(t_prompt *prompt)
 {
 	free_envlist(prompt->envp);
 	free_cmdlist(prompt->cmd);
-	free_all(prompt->path, dbl_len(prompt->path));
+	//free_all(prompt->path, dbl_len(prompt->path));
 	free(prompt);
 }
