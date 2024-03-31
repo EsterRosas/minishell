@@ -94,12 +94,11 @@ static int	check_num(char *s)
 	return (1);
 }
 
-int	ft_exit(t_cmd *cmd/*, t_prompt *prompt*/)
+int	ft_exit(t_cmd *cmd)
 {
 	int	n;
 
 	n = 0;
-//	(void)prompt;
 	g_exst = 0;
 	if (cmd && cmd->args && cmd->args[1] && !has_nonum(cmd->args[1]))
 		cmd->args[1] = del_spaces(cmd->args[1]);
@@ -117,9 +116,6 @@ int	ft_exit(t_cmd *cmd/*, t_prompt *prompt*/)
 		g_exst = (unsigned char)n;
 		printf("exit\n");
 	}
-/*	if (prompt)
-		free_all(prompt->path, dbl_len(prompt->path));*/
-//	system("leaks minishell\n"); //esborrar al final
 	restore_terminal_settings();
 	exit (g_exst);
 }

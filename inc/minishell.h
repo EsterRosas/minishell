@@ -32,7 +32,7 @@
 int		g_exst;
 
 /*      prompt.c        	*/
-void	loop_prompt(t_envv *o_envp, char **path);
+void	loop_prompt(t_envv *o_envp);
 
 /*		trim functions		*/
 char	**cmdtrim(char *s);
@@ -75,7 +75,7 @@ int		ft_edit_envlist(char *arg, t_envv *env);
 int		add_node(char *evar, t_envv *env_lst);
 void	only_name(t_envv *node, char *evar);
 int		add_new_node(char *evar, t_envv *env);
-int		ft_exit(t_cmd *cmd/*, t_prompt *prompt*/);
+int		ft_exit(t_cmd *cmd);
 int		is_env(char *s);
 int		is_cd(char *s);
 int		is_echo(char *s);
@@ -112,7 +112,7 @@ int		assign_infile(char **lex, int i, t_cmd *s);
 int		assign_outfile(char **lex, int i, t_cmd *s);
 void	free_cmdlist(t_cmd *head);
 void	free_envlist(t_envv *head);
-t_cmd	*get_cmdlst(char **lex, t_envv *env_lst/*, char **path*/);
+t_cmd	*get_cmdlst(char **lex, t_envv *env_lst);
 t_cmd	*fill_cmdlst(char **lex);
 char	**get_ptharr(t_envv *env_lst);
 void	del_quotes(char **s, int i);
@@ -120,11 +120,11 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
-char	**add_arg(char **args, char **lex, t_iptrs *iptrs/*, t_envv *env*/);
-char	**fill_args(char **args, char **lex, int lex_pos/*, t_envv *env*/);
+char	**add_arg(char **args, char **lex, t_iptrs *iptrs);
+char	**fill_args(char **args, char **lex, int lex_pos);
 int		is_inpath(char *s, t_envv *env);
 void	put_exex2path(t_cmd *cmd);
-int		upd_node(t_cmd *s, char **lex,/* t_envv *env,*/ t_iptrs *ip);
+int		upd_node(t_cmd *s, char **lex, t_iptrs *ip);
 char	*dots2path(char *ar);
 char	*dot2path(char *ar);
 char	*rm_quotes(char *s, int n);
@@ -148,7 +148,6 @@ void	handle_sigint(int sig);
 void	disable_ctrl_chars(void);
 void	restore_terminal_settings(void);
 void	ft_signal(int i);
-void	no_line_exit(void);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);

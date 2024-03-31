@@ -73,11 +73,11 @@ prompt->cmd->fl_p: %s\n", j, aux->infile, aux->outfile, aux->full_path);
 /* Starts the prompt to the user and reads the input (line).
  * IF !line it's because the user pressed Ctrl+D
   */
-void	loop_prompt(t_envv *o_envp, char **path)
+void	loop_prompt(t_envv *o_envp/*, char **path*/)
 {
 	char		*line;
 	t_prompt	*prompt;
-(void)path;
+
 	while (1)
 	{
 		line = readline("minishell~ ");

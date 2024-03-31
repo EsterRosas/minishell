@@ -67,18 +67,14 @@ t_envv	*cp_envp(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_envv	*env_lst;
-	char	**path;
-	t_envv	*aux;
 
 	g_exst = 0;
 	env_lst = cp_envp(envp);
-	aux = env_lst;
-	path = get_ptharr(aux);
 	(void)argv;
 	(void)argc;
 	disable_ctrl_chars();
 	ft_signal(1);
-	loop_prompt(env_lst, path);
+	loop_prompt(env_lst);
 	free_env(env_lst);
 	restore_terminal_settings();
 	return (0);
