@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erosas-c <erosas-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/19 19:00:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:41:28 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*dot2path(char *ar)
 	return (res);
 }
 
-int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
+int	upd_node(t_cmd *s, char **lex, t_iptrs *ip)
 {
 	if (lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] == '>')
 	{
@@ -119,6 +119,7 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 		|| (lex[*ip->i][0] == '>' && assign_outfile(lex, *ip->i + 1, s) == -1))
 	{
 		g_exst = 1;
+		*ip->i += 2;
 		return (-1);
 	}
 	else if ((lex[*ip->i][0] == '<' && lex[*ip->i + 1][0] != '>')
@@ -131,6 +132,6 @@ int	upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip)
 			return (-1);
 	}
 	else
-		s->args = add_arg(s->args, lex, ip, env);
+		s->args = add_arg(s->args, lex, ip);
 	return (0);
 }

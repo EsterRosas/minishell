@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:08:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 19:38:02 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:59:47 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ static char	*read_input(char *input, char *delim, char *eol)
 		if (!input)
 		{
 			if (rl_eof_found)
-			{
 				printf("%s%s%s", "\033[A", "\033[2K", "> ");
-				printf("%s\n", ft_substr(aux, 0, ft_strlen(aux) - 1));
-			}
 			exit(0);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:30:19 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 18:40:52 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:42:40 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,26 @@ void	redo_path(t_cmd *cmd, t_envv *env)
 			aux->full_path = fill_path(aux->full_path, env, aux->args[0]);
 		aux = aux->next;
 	}
+}
+
+int	in_savedpath(char *s, char **path)
+{
+	int		i;
+	char	*folder;
+
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && s[i] != '/')
+		i--;
+	folder = ft_substr(s, 0, i);
+	i = -1;
+	while (path[++i])
+	{
+		if (ft_strcmp(path[i], folder) == 0)
+		{
+			free(folder);
+			return (1);
+		}
+	}
+	free(folder);
+	return (0);
 }

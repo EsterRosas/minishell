@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:31:36 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 17:49:43 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:46 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,16 @@ char	*upd_auxval(void)
 		return (NULL);
 	getcwd(res, MAXPATHLEN);
 	return (res);
+}
+
+int	do_cdonly(t_envv *env, char *oldpwd_current)
+{
+	if (cd_only(env) == 1)
+	{
+		free(oldpwd_current);
+		return (1);
+	}
+	else
+		upd_pwds(env, oldpwd_current);
+	return (0);
 }

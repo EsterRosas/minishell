@@ -48,22 +48,25 @@ static void	exec_child(t_cmd *cmd, char **env)
 
 int	onecmd_nobuilt(t_prompt *prompt)
 {
-	int	id;
-	int	status;
-	int	saved_stdin;
-	int	saved_stdout;
+	int		id;
+	int		status;
+	int		saved_stdin;
+	int		saved_stdout;
+	char	**s;
 
 	status = 0;
+	s = env_lst2arr(prompt->envp);
 	check_cmd(prompt->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	id = make_fork();
 	if (id == 0)
-		exec_child(prompt->cmd, env_lst2arr(prompt->envp));
+		exec_child(prompt->cmd, s);
 	else
 		status = parent_process(id, status);
 	child_signaled(status);
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
+	free_all(s, dbl_len(s));
 	return (g_exst);
 }

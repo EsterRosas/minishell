@@ -6,21 +6,21 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:07:58 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 14:13:33 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:41:51 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**get_ptharr(t_envv *env_lst)
+char	**get_ptharr(t_envv *aux)
 {
 	char	**ptharr;
 
 	ptharr = NULL;
-	while (env_lst && ft_strcmp(env_lst->nm, "PATH") != 0)
-		env_lst = env_lst->next;
-	if (env_lst && ft_strcmp(env_lst->nm, "PATH") == 0)
-		ptharr = ft_split(env_lst->val, ':');
+	while (aux && ft_strcmp(aux->nm, "PATH") != 0)
+		aux = aux->next;
+	if (aux && ft_strcmp(aux->nm, "PATH") == 0)
+		ptharr = ft_split(aux->val, ':');
 	return (ptharr);
 }
 

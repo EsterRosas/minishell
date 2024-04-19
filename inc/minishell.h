@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:45:32 by ecabanas          #+#    #+#             */
-/*   Updated: 2024/03/24 19:24:28 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:45:22 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ int		is_inenvlst(char *s, t_envv *env);
 int		id_notvalid(char *s);
 int		path_unset(t_envv *env, char *s);
 char	*upd_auxval(void);
+int		do_cdonly(t_envv *env, char *oldpwd_current);
+int		cd_only(t_envv *env);
+void	upd_pwds(t_envv *env, char *oldpwd_current);
 
 /*		syntax				*/
 int		path_unset_nobuilt(t_cmd *cmd, t_envv *env);
@@ -120,11 +123,11 @@ int		process_hdoc(char *delim, int last);
 char	*path2cmd(char *arg);
 void	cmdlst_addback(t_cmd *cmdlst, t_cmd *nw);
 char	*fill_path(char *path, t_envv *env_lst, char *first_arg);
-char	**add_arg(char **args, char **lex, t_iptrs *iptrs, t_envv *env);
-char	**fill_args(char **args, char **lex, int lex_pos, t_envv *env);
+char	**add_arg(char **args, char **lex, t_iptrs *iptrs);
+char	**fill_args(char **args, char **lex, int lex_pos);
 int		is_inpath(char *s, t_envv *env);
 void	put_exex2path(t_cmd *cmd);
-int		upd_node(t_cmd *s, char **lex, t_envv *env, t_iptrs *ip);
+int		upd_node(t_cmd *s, char **lex, t_iptrs *ip);
 char	*dots2path(char *ar);
 char	*dot2path(char *ar);
 char	*rm_quotes(char *s, int n);
@@ -141,13 +144,13 @@ char	*ft_assign_mem(char *res, int ct);
 void	redo_path(t_cmd *cmd, t_envv *env);
 void	cp_val(char *res, int j, char *val);
 void	ft_globalfree(t_prompt *prompt);
+int		in_savedpath(char *s, char **path);
 
 /*		signals					*/
 void	handle_sigint(int sig);
 void	disable_ctrl_chars(void);
 void	restore_terminal_settings(void);
 void	ft_signal(int i);
-void	no_line_exit(void);
 
 /*		executor				*/
 void	ft_exec(t_prompt *prompt);
@@ -161,7 +164,7 @@ pid_t	make_fork(void);
 
 /*		exec_utils2.c			*/
 int		ft_chdir(char *s);
-void	check_cmd(t_cmd *cmd);
+void	check_cmd(t_cmd *cmd, t_envv *env);
 int		has_nonum(char *s);
 
 /*		pipe_utils.c			*/

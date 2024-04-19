@@ -6,7 +6,7 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:09:01 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 19:53:51 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:10:57 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ t_prompt	*ft_parse(char *line, t_envv *o_envp)
 	prompt = ft_calloc(sizeof(t_prompt), 1);
 	if (!prompt)
 		return (NULL);
-	prompt->cmd = get_cmdlst(lex, o_envp);
+	prompt->envp = o_envp;
+	prompt->cmd = get_cmdlst(lex, prompt->envp);
 	if (!prompt->cmd || (cmdlistsize(prompt->cmd) == 1 && !prompt->cmd->args[0]
 			&& prompt->cmd->hdoc == 1))
 	{
-		ft_globalfree(prompt);
+		free(prompt);
 		return (NULL);
 	}
-	prompt->envp = o_envp;
 	return (prompt);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damendez <damendez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:05:44 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/22 14:12:26 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:56:41 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,28 @@ char	*path2cmd(char *arg)
 int	is_inpath(char *s, t_envv *env)
 {
 	char	**pth_arr;
-	char	**aux;
 	int		i;
 	char	*folder;
+	t_envv	*aux;
 
+	aux = env;
 	i = ft_strlen(s) - 1;
 	while (i >= 0 && s[i] != '/')
 		i--;
 	folder = ft_substr(s, 0, i);
-	pth_arr = get_ptharr(env);
-	aux = pth_arr;
+	pth_arr = get_ptharr(aux);
 	i = -1;
-	while (aux[++i])
+	while (pth_arr[++i])
 	{
-		if (ft_strcmp(aux[i], folder) == 0)
+		if (ft_strcmp(pth_arr[i], folder) == 0)
+		{
+			free(folder);
+			free_all(pth_arr, dbl_len(pth_arr));
 			return (1);
+		}
 	}
+	free(folder);
+	free_all(pth_arr, dbl_len(pth_arr));
 	return (0);
 }
 
@@ -99,9 +105,9 @@ int	assign_outfile(char **lex, int i, t_cmd *s)
 	if (append == false)
 		s->outfile = open(lex[i], O_WRONLY | O_TRUNC);
 	else
-		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0600);
+		s->outfile = open(lex[i], O_WRONLY | O_APPEND, 0666);
 	if (s->outfile == -1 && errno == 2)
-		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0600);
+		s->outfile = open(lex[i], O_CREAT | O_WRONLY, 0666);
 	else if (s->outfile == -1)
 	{
 		handle_error(lex[i], strerror(errno));

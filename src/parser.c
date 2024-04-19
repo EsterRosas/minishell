@@ -6,13 +6,13 @@
 /*   By: erosas-c <erosas-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 20:32:13 by erosas-c          #+#    #+#             */
-/*   Updated: 2024/03/24 20:45:20 by erosas-c         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:29:44 by erosas-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	get_node(t_cmd *s, char **lex, t_envv *env)
+static int	get_node(t_cmd *s, char **lex)
 {
 	int		i;
 	int		len;
@@ -27,7 +27,7 @@ static int	get_node(t_cmd *s, char **lex, t_envv *env)
 	iptrs->len = &len;
 	while (lex[i] && lex[i][0] != '|')
 	{
-		if (upd_node(s, lex, env, iptrs) == -1)
+		if (upd_node(s, lex, iptrs) == -1)
 		{
 			free(iptrs);
 			return (-1);
@@ -47,7 +47,7 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 	if (!s->args)
 		return (-1);
 	s->args[0] = NULL;
-	if (get_node(s, lex, env) == -1)
+	if (get_node(s, lex) == -1)
 		return (-1);
 	if (!s->args && s->outfile == 1 && s->infile == 0)
 		return (-1);
@@ -65,9 +65,7 @@ static int	fill_node(t_cmd *s, char **lex, t_envv *env)
 t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 {
 	t_cmd	*res;
-	int		test;
 
-	test = 0;
 	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
 		return (NULL);
@@ -76,15 +74,18 @@ t_cmd	*get_cmd(char **lex, t_envv *env_lst)
 	res->outfile = STDOUT_FILENO;
 	res->hdoc = 0;
 	res->next = NULL;
-	test = fill_node(res, lex, env_lst);
-	if ((test == -1) || (path_unset_nobuilt(res, env_lst) == 1))
+	if (fill_node(res, lex, env_lst) == -1)
 	{
 		free_all(res->args, dbl_len(res->args));
 		free(res);
 		return (NULL);
 	}
+	else if (res->args[0] && res->args[0][0] == '/'
+		&& access(res->args[0], X_OK) == 0)
+		res->full_path = ft_strdup(res->args[0]);
 	else if (!res->full_path && res->args[0] && res->args[0][0] != '/'
-		&& !is_builtin(res->args[0]) && ft_strcmp(res->args[0], "") != 0)
+		&& !path_unset(env_lst, res->args[0]) && !is_builtin(res->args[0])
+		&& ft_strcmp(res->args[0], "") != 0)
 		res->full_path = fill_path(res->full_path, env_lst, res->args[0]);
 	return (res);
 }
@@ -98,7 +99,13 @@ static t_cmd	*get_list(char **lex, t_cmd *res, t_envv *env_lst)
 	while (lex[i])
 	{
 		new = get_cmd(&lex[i], env_lst);
-		if (new && res)
+		if (new && !new->args[0] && new->hdoc == 1)
+		{
+			close(new->infile);
+			free_all(new->args, dbl_len(new->args));
+			free(new);
+		}
+		else if (new && res)
 			cmdlst_addback(res, new);
 		else if (new)
 			res = new;
@@ -145,7 +152,8 @@ t_cmd	*get_cmdlst(char **lex, t_envv *env_lst)
 	}
 	res = get_list(lex, res, env_lst);
 	res = args_leaddol_quotes(res);
-	redo_path(res, env_lst);
+	if (!path_unset(env_lst, ""))
+		redo_path(res, env_lst);
 	free_all(lex, dbl_len(lex));
 	return (res);
 }
