@@ -1,4 +1,4 @@
-# 42minishell
+# minishell
 This project is about developing a simplified version of the bash shell.
 
 ## Sections
